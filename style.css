@@ -1,0 +1,27 @@
+.bubble {
+  font-family: arial;
+  font-size: 10pt;
+}
+
+table, tr, td {
+  font-family: verdana;
+  font-size: 9pt;
+}
+
+hr {
+  border:1;
+}
+
+h3 {
+  font-family: arial;
+}
+
+a:visited {
+  text-decoration: none;
+  color: green;
+}
+
+a:hover {
+  background: white;
+  font-weight: bold;
+}

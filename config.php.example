@@ -1,0 +1,69 @@
+<?php
+################################################################################################
+#                                        GENERAL CONFIGS                                       #
+################################################################################################
+// set these two lines - they are very important
+// in linux run `updatedb` and `locate nagios.cfg` and `locate status.dat` to find these files
+// they are usually placed in /usr/local/nagios/etc/nagios.cfg and /usr/local/nagios/var/status.dat
+$nagios_cfg_file = "/usr/local/nagios/etc/nagios.cfg";
+$nagios_status_dat_file = "/usr/local/nagios/var/status.dat";
+
+// hostgroup filter - only show hosts from this hotgroup
+// leave empty for not filtering
+$nagMapR_filter_hostgroup  = '';
+
+// Use this only to generate extra information for support - this will add a lot of information into the rendered index file
+$nagMapR_debug = 0;
+
+################################################################################################
+#                                       MAP PREFERENCES                                        #
+################################################################################################
+// Set to the centre of your map (lat,long)
+$nagMapR_map_centre = '-4.74050, -45.045529';
+
+// Default zoom level of the map
+$nagMapR_map_zoom = 7.6;
+
+// Which google maps type to use?
+// ROADMAP
+// SATELLITE
+// HYBRID
+// TERRAIN
+$nagMapR_map_type = 'ROADMAP';
+
+################################################################################################
+#                                    NAGMAP REBORN FEATURES                                    #
+################################################################################################
+// Sets the translation file name.
+// See the folder 'langs' for available translations.
+// You can create your own translation by copying and renaming one of the files and making the necessary changes.
+$nagMapRlang = 'en-EN';
+
+// Show last occurrences (ChangesBar)? 
+// 1 = YES.
+// 0 = NO.
+$nagMapR_ChangesBar = 1;
+
+// Percentage size occupied by the ChangesBar on the screen. Use just numbers.
+$changesBarSize = 15;
+
+// Font size in pixels used in ChangesBar. Use just numbers.
+$fontSize = 15;
+
+// Defines the date format used in the ChangesBar.
+// 1 = DD/MM/YYYY
+// 2 = MM/DD/YYYY
+// 3 = YYYY/MM/DD
+$dateFormat = 1;
+
+// Play alert when a server's status changes to down? (To change the alert sound, simply replace the file 'Beep.mp3' in the NagMap Reborn folder)
+// 1 = YES.
+// 0 = NO.
+$playSound = 1;
+
+################################################################################################
+#                                     SECURITY INFORMATION                                     #
+################################################################################################
+// Security key to protect data from external requests (use only letters and numbers)
+$nagMapR_key = "4T4whvqi9wthrvGXhzas21JTrCpUcSd5Nc6PWct6QOQuGKtRp2";
+?>
