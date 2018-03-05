@@ -62,9 +62,9 @@ foreach ($data as $host) {
 }
 unset($data);
 
-if ($nagMapR_filter_hostgroup) {
+if ($nagMapR_FilterHostgroup) {
   foreach ($hosts as $host) {
-    if (!in_array($nagMapR_filter_hostgroup, $hosts[$host["host_name"]]['hostgroups'])) {
+    if (!in_array($nagMapR_FilterHostgroup, $hosts[$host["host_name"]]['hostgroups'])) {
       unset($hosts[$host["host_name"]]);
     }
   }
@@ -80,7 +80,7 @@ foreach ($hosts as $h) {
     $data[$h["host_name"]]['status_human'] = $s[$h["nagios_host_name"]]['status_human'];
     $data[$h["host_name"]]['status_style'] = $s[$h["nagios_host_name"]]['status_style'];
   } else {
-    if ($nagMapR_debug) { 
+    if ($nagMapR_Debug) { 
       echo('// '.$ignoredHosts.$h['host_name'].":".$h['latlng'].":".$s[$h["nagios_host_name"]]['status_human'].":\n");
     }
   }
@@ -99,7 +99,7 @@ foreach($data as $h) {
 $ii = 0;
 // put markers and bubbles onto a map
 foreach ($data as $h) {
-  if ($nagMapR_debug) {
+  if ($nagMapR_Debug) {
     echo('<!--'.$positionHosts.$h['host_name'].":".$h['latlng'].":".$h['status'].":".$h['status_human']."-->\n");
   }
     // position the host on the map

@@ -1,11 +1,10 @@
 <?php
-
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $key = $_GET['key'];
 
 include('config.php');
-include("langs/$nagMapRlang.php");
+include("langs/$nagMapR_Lang.php");
 
 if($key == $nagMapR_key){
 	if (!file_exists($nagios_status_dat_file)) {

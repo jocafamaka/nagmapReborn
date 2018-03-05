@@ -1,16 +1,60 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.1';
+$nagMapR_version = '1.0';
 include('config.php');
 
-if(file_exists("langs/$nagMapRlang.php"))
-  include("langs/$nagMapRlang.php");
+// Check if the translation file informed exist.
+if(file_exists("langs/$nagMapR_Lang.php"))
+  include("langs/$nagMapR_Lang.php");
 else
-  die("$nagMapRlang.php does not exist in the languages folder! Please set the proper \$nagMapRlang variable in NagMap Reborn config file!");
+  die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
+
+// Validation of configuration variables.
+if(!is_string($nagios_cfg_file)) 
+  die("\$nagios_cfg_file $var_cfg_error");
+
+if(!is_string($nagios_status_dat_file)) 
+  die("\$nagios_status_dat_file $var_cfg_error");
+
+if(!is_string($nagMapR_FilterHostgroup)) 
+  die("\$nagMapR_FilterHostgroup $var_cfg_error");
+
+if(!is_string($nagMapR_MapCentre)) 
+  die("\$nagMapR_MapCentre $var_cfg_error");
+
+if(!is_string($nagMapR_MapType)) 
+  die("\$nagMapR_MapType $var_cfg_error");
+
+if(!is_string($nagMapR_key)) 
+  die("\$nagMapR_key $var_cfg_error");
+
+if(!( is_float($nagMapR_Debug) || is_int($nagMapR_Debug) ))
+  die("\$nagMapR_Debug $var_cfg_error");
+
+if(!( is_float($nagMapR_MapZoom) || is_int($nagMapR_MapZoom) ))
+  die("\$nagMapR_MapZoom $var_cfg_error");
+
+if(!( is_float($nagMapR_ChangesBar) || is_int($nagMapR_ChangesBar) ))
+  die("\$nagMapR_ChangesBar $var_cfg_error");
+
+if(!( is_float($nagMapR_ChangesBarSize) || is_int($nagMapR_ChangesBarSize) ))
+  die("\$nagMapR_ChangesBarSize $var_cfg_error");
+
+if(!( is_float($nagMapR_FontSize) || is_int($nagMapR_FontSize) ))
+  die("\$nagMapR_FontSize $var_cfg_error");
+
+if(!( is_float($nagMapR_DateFormat) || is_int($nagMapR_DateFormat) ))
+  die("\$nagMapR_DateFormat $var_cfg_error");
+
+if(!( is_float($nagMapR_PlaySound) || is_int($nagMapR_PlaySound) ))
+  die("\$nagMapR_PlaySound $var_cfg_error");
+
+if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
+  die("\$nagMapR_TimeUpdate $var_cfg_error");
+
 
 include('marker.php');
-
 
 if ($javascript == "") {
   echo $no_data_error;
@@ -39,16 +83,16 @@ if ($javascript == "") {
 
     //Define the source of the audio file.
     <?php
-    if($playSound ==1)
+    if($nagMapR_PlaySound ==1)
       echo ("var audio = new Audio('Beep.mp3');")
     ?>
 
     //static code from index.pnp
     function initialize() {
       var myOptions = {
-        zoom: <?php echo ("$nagMapR_map_zoom"); ?>,
-        center: new google.maps.LatLng(<?php echo $nagMapR_map_centre ?>),
-        mapTypeId: google.maps.MapTypeId.<?php echo $nagMapR_map_type ?>,
+        zoom: <?php echo ("$nagMapR_MapZoom"); ?>,
+        center: new google.maps.LatLng(<?php echo $nagMapR_MapCentre ?>),
+        mapTypeId: google.maps.MapTypeId.<?php echo $nagMapR_MapType ?>,
         zoomControl: false,
         mapTypeControl: false,
         scaleControl: false,
@@ -72,8 +116,8 @@ echo $javascript;
   </head>
   <body style="margin:0px; padding:0px;" onload="initialize()">';
   if ($nagMapR_ChangesBar == '1') {
-    echo '<div id="map_canvas" style="width:100%; height:'.(100-$changesBarSize).'%; float: left"></div>';
-    echo '<div id="changesbar" style="border-color:black;  border-top:2px; padding-left: 1px; background: black; height:'.$changesBarSize.'%; overflow:auto;"></div>';
+    echo '<div id="map_canvas" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';
+    echo '<div id="changesbar" style="border-color:black;  border-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;"></div>';
   } else {
     echo '<div id="map_canvas" style="width:100%; height:100%; float: left"></div>';
   }
@@ -110,11 +154,11 @@ echo $javascript;
 
     <?php // Use the chosen format
 
-    if($dateFormat == 1){
+    if($nagMapR_DateFormat == 1){
       echo ("return(date = str_day + '/' + str_month + '/' + year"); 
-    } elseif ($dateFormat == 2) {
+    } elseif ($nagMapR_DateFormat == 2) {
       echo ("return(date = str_month + '/' + str_day + '/' + year");
-    }elseif ($dateFormat == 3) {
+    }elseif ($nagMapR_DateFormat == 3) {
       echo ("return(date = year + '/' + str_month + '/' + str_day");
     }
 
@@ -128,9 +172,9 @@ echo $javascript;
 
     if(status == 0){
       if(hostStatus[host].status == 1)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000 ;margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $up; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000 ;margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $up; ?>\"</div>");
       if(hostStatus[host].status == 2)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $up; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $up; ?>\"</div>");
       hostStatus[host].status = status;
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
@@ -150,9 +194,9 @@ echo $javascript;
     }else if (status == 1) {
 
       if(hostStatus[host].status == 0)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $warning; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $warning; ?>\"</div>");
       if(hostStatus[host].status == 2)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $warning; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $warning; ?>\"</div>");
       hostStatus[host].status = status;
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
@@ -172,9 +216,9 @@ echo $javascript;
     } else if (status == 2) {
 
       if(hostStatus[host].status == 0)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $down; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $down; ?>\"</div>");
       if(hostStatus[host].status == 1)
-        var newUp = ("<div style=\"font-size: <?php echo $fontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $down; ?>\"</div>");
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:10px; width:100%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $down; ?>\"</div>");
       hostStatus[host].status = status;
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
@@ -186,7 +230,7 @@ echo $javascript;
       MARK[host].setIcon('http://www.google.com/mapfiles/marker.png');
       MARK[host].setAnimation(google.maps.Animation.BOUNCE);
       <?php
-      if($playSound ==1)
+      if($nagMapR_PlaySound ==1)
         echo ("audio.play();")
       ?>
       setTimeout(function () {MARK[host].setAnimation(null);}, 15000);
@@ -222,7 +266,7 @@ echo $javascript;
 
         }
       };
-    }, 7000);
+    }, <?php echo $nagMapR_TimeUpdate; ?>000);
 
   </script>
 

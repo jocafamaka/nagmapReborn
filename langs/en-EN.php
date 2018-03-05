@@ -1,6 +1,8 @@
 <?php 	// File that defines language variables.
 
 	//Errors:
+	$var_cfg_error = ("has not been properly configured, check the NagMap Reborn configuration file and make the necessary corrections!");
+
 	$file_not_find_error = ("does not exist! Please set the variable in NagMap Reborn config file!\n");
 
 	$in_definition_error =("Starting a new in_definition before closing the previous one! That is not cool.");
@@ -11,12 +13,12 @@
 
 	$no_data_error = ("There is no data to display. You either did not set NagMap Reborn properly or there is a software bug.<br>Please contact joao_carlos.r@hotmail.com assistance.");
 
-	//Debug info. 
+	//Debug info:
 	$ignoredHosts = ("Ignoring the following host: ");
 
 	$positionHosts = ("Positioning host: ");
 
-	//Bubble info.
+	//Bubble info:
 	$alias = ("Alias");
 
 	$hostG = ("Hostgroups");
@@ -27,7 +29,7 @@
 
 	$hostP = ("Parents");
 
-	//ChangesBar warnings
+	//ChangesBar warnings:
 	$up = ("UP");
 
 	$down = ("DOWN");

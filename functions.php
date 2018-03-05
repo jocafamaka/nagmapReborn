@@ -2,7 +2,7 @@
 
 function filter_raw_data($raw_data) {
   include('config.php');
-  include("langs/$nagMapRlang.php");
+  include("langs/$nagMapR_Lang.php");
 
   $i=0;
   foreach ($raw_data as $file) {
@@ -65,7 +65,7 @@ function safe_name($in) {
 
 function nagMapR_status() {
   include('config.php');
-  include("langs/$nagMapRlang.php");
+  include("langs/$nagMapR_Lang.php");
 
   if (!file_exists($nagios_status_dat_file)) {
     die("</script>$nagios_status_dat_file $file_not_find_error");
@@ -134,7 +134,7 @@ function nagMapR_status() {
 // It reads nagios config file and parses out all directions for configuration directories or files
 function get_config_files() {
   include('config.php');
-  include("langs/$nagMapRlang.php");
+  include("langs/$nagMapR_Lang.php");
 
   if (!file_exists($nagios_cfg_file)){
     die("$nagios_cfg_file $file_not_find_error");
