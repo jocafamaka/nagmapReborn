@@ -1,4 +1,16 @@
 <?php
+/*
+ * ##################################################################
+ * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
+ * ##################################################################
+ *
+ * KEEP THE PATTERN
+ *
+ * Original Credits: Marcel Hecko (https://github.com/hecko) in 16 Oct 2014
+ * Some changes: João Ribeiro (https://github.com/jocafamaka) in 04 March 2018
+ *
+ */
+ 
 include("functions.php");
 // pre-define variables so the E_NOTICES do not show in webserver logs
 $javascript = "";

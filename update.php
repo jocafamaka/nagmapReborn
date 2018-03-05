@@ -1,4 +1,14 @@
 <?php
+/*
+ * ##################################################################
+ * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
+ * ##################################################################
+ *
+ * KEEP THE PATTERN
+ *
+ * Original Credits: João Ribeiro (https://github.com/jocafamaka) in 04 March 2018
+ *
+ */
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $key = $_GET['key'];
@@ -15,11 +25,11 @@ if($key == $nagMapR_key){
 	$data = Array();
 	while (!feof($fp)) {
 		$line = trim(fgets($fp));
-//ignore all commented lines - hop to the next itteration
+		//ignore all commented lines - hop to the next itteration
 		if (empty($line) OR preg_match("/^;/", $line) OR preg_match("/^#/", $line)) {
 			continue;
 		}
-//if end of definition, skip to next itteration
+		//if end of definition, skip to next itteration
 		if (preg_match("/}/",$line)) {
 			$type = "0";
 			unset($host);
@@ -34,14 +44,14 @@ if($key == $nagMapR_key){
 		if(!preg_match("/}/",$line) && ($type == "hoststatus" | $type == "servicestatus")) {
 			$line = trim($line);
 			$pieces = explode("=", $line, 2);
-//do not bother with invalid data
+			//do not bother with invalid data
 			if (count($pieces)<2) { continue; };
 			$option = trim($pieces[0]);
 			$value = trim($pieces[1]);
 			if (($option == "host_name")) {
 				$host = $value;
 			}
-//get the worst service state for the host from all of its services
+			//get the worst service state for the host from all of its services
 			if (!isset($data[$host]['servicestatus']['current_state'])) {
 				$data[$host]['servicestatus']['current_state'] = "0";
 			}

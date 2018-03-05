@@ -1,4 +1,15 @@
 <?php
+/*
+ * ##################################################################
+ * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
+ * ##################################################################
+ *
+ * KEEP THE PATTERN
+ *
+ * Original Credits: Marcel Hecko (https://github.com/hecko) in 16 Oct 2014
+ * Some changes: João Ribeiro (https://github.com/jocafamaka) in 04 March 2018
+ *
+ */
 
 function filter_raw_data($raw_data) {
   include('config.php');

@@ -1,4 +1,16 @@
 <?php
+/*
+ * ##################################################################
+ * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
+ * ##################################################################
+ *
+ * KEEP THE PATTERN
+ *
+ * Original Credits: Marcel Hecko (https://github.com/hecko) in 16 Oct 2014
+ * Some changes: João Ribeiro (https://github.com/jocafamaka) in 04 March 2018
+ *
+ */
+ 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
 $nagMapR_version = '1.0';
