@@ -15,6 +15,18 @@ After long working days, some changes were made to the functions and logic used 
 * New system of last occurrences (ChangesBar).
 * New system of sound warning.
 
+## NagMap Reborn page:
+
+!["NagMap Reborn Page"](https://i.imgur.com/fKEOj9x.png "NagMap Reborn Page")
+
+### Contribution
+Contribution are always **welcome and recommended**! Here is how:
+
+- Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
+- Clone to your machine ```git clone https://github.com/YOUR_USERNAME/AdminLTE.git```
+- Make your changes
+- Create a pull request
+
 Terms of use (this is required as the app uses Google Maps API):
 ================================================================
 * By using this Maps API Implementation, your are agreeing to be bound by Google's Terms of Use
@@ -23,4 +35,4 @@ Terms of use (this is required as the app uses Google Maps API):
 
 Remaining credits
 =====
-This application was originally developed by Marcel Hecko (https://github.com/hecko).
+This application was originally developed by [Marcel Hecko](https://github.com/hecko).
