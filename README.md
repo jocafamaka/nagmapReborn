@@ -30,8 +30,8 @@ Contribution are always **welcome and recommended**! Here is how:
 Terms of use (this is required as the app uses Google Maps API):
 ================================================================
 * By using this Maps API Implementation, your are agreeing to be bound by Google's Terms of Use
-* This app uses the Maps API(s) - Google privacy policy: [See here](http://www.google.com/privacy.html).
-* Google Maps usage quotas: [See here](https://developers.google.com/maps/documentation/javascript/usage).
+* This app uses the Maps API(s) - [See here](http://www.google.com/privacy.html) Google privacy policy.
+* [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
 
 Remaining credits
 =====
