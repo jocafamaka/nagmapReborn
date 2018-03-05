@@ -17,7 +17,7 @@ After long working days, some changes were made to the functions and logic used 
 
 ## NagMap Reborn page:
 
-!["NagMap Reborn Page"](https://i.imgur.com/fKEOj9x.png "NagMap Reborn Page")
+!["NagMap Reborn Page"](https://i.imgur.com/qVe9nCt.png "NagMap Reborn Page")
 
 ### Contribution
 Contribution are always **welcome and recommended**! Here is how:
