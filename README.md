@@ -8,7 +8,7 @@ NagMap Reborn uses Google Maps API v3
 
 New Features
 ============
-After long working days, some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
+After many days of work, some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
 
 * Updating hosts status without refresh on page.
 * Now the application supports multiple languages.
