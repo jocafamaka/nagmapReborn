@@ -64,6 +64,11 @@ $nagMapR_DateFormat = 1;
 // 0 = NO.
 $nagMapR_PlaySound = 1;
 
+// Show lines between hosts and their parents.
+// 1 = YES.
+// 0 = NO.
+$nagMapR_Lines = 1;
+
 // Time in seconds, to update the hosts status. Use just numbers.
 $nagMapR_TimeUpdate = 10;
 
