@@ -48,7 +48,7 @@ function filter_raw_data($raw_data) {
           $pieces = explode(" ", $line, 2);
           //get rid of meaningless splits
           if (count($pieces)<2) {
-            die($one_column_error1.$line.$one_column_error1);
+            die($one_column_error1.$line.$one_column_error2);
           };
           $option = trim($pieces[0]);
           $value = trim($pieces[1]);
