@@ -20,10 +20,10 @@ $nagMapR_Debug = 0;
 #                                         MAP PREFERENCES                                          #
 ####################################################################################################
 // Set to the centre of your map (lat,long)
-$nagMapR_MapCentre = '-4.74050, -45.045529';
+$nagMapR_MapCentre = '-4.018935, -52.607260';
 
 // Default zoom level of the map
-$nagMapR_MapZoom = 7.6;
+$nagMapR_MapZoom = 6.2;
 
 // Which google maps type to use?
 // ROADMAP
