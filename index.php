@@ -54,7 +54,7 @@ if(!is_int($nagMapR_ChangesBar))
   die("\$nagMapR_ChangesBar $var_cfg_error");
 
 if(!is_int($nagMapR_Lines))
-  die("\$nagMapR_ChangesBar $var_cfg_error");
+  die("\$nagMapR_Lines $var_cfg_error");
 
 if(!( is_float($nagMapR_ChangesBarSize) || is_int($nagMapR_ChangesBarSize) ))
   die("\$nagMapR_ChangesBarSize $var_cfg_error");
@@ -194,7 +194,7 @@ echo $javascript;
       <?php
     if($nagMapR_Lines == 1)
       echo ('
-    if(typeof hostStatus[host].parents == undefined){
+    if(typeof hostStatus[host].parents != undefined){
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
         for (var ii = LINES.length - 1; ii >= 0; ii--) {
@@ -223,7 +223,7 @@ echo $javascript;
     <?php
     if($nagMapR_Lines == 1)
       echo ('
-    if(typeof hostStatus[host].parents == undefined){
+    if(typeof hostStatus[host].parents != undefined){
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
         for (var ii = LINES.length - 1; ii >= 0; ii--) {
@@ -252,7 +252,7 @@ echo $javascript;
     <?php
     if($nagMapR_Lines == 1)
       echo ('
-    if(typeof hostStatus[host].parents == undefined){
+    if(typeof hostStatus[host].parents != undefined){
       for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
         for (var ii = LINES.length - 1; ii >= 0; ii--) {
