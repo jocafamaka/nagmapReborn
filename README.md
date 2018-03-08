@@ -21,7 +21,7 @@ After many days of work, some changes were made to the functions and logic used 
 * Zoom level.
 * Language.*
 * Last occurrences view (ChangesBar).
-  * Changesar size on screen.
+  * ChangesBar size on screen.
   * Font size.
   * Used date format.
 * Use system of sound warning.
