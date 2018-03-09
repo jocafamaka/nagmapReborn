@@ -39,7 +39,7 @@ $nagMapR_MapType = 'ROADMAP';
 // See the folder 'langs' for available translations.
 // You can create your own translation by copying and renaming one of the files and making the
 // necessary changes.
-$nagMapR_Lang = 'en-EN';
+$nagMapR_Lang = 'en-US';
 
 // Show last occurrences (ChangesBar)? 
 // 1 = YES.
