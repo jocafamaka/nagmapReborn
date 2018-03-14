@@ -29,7 +29,7 @@ Some changes were made to the functions and logic used in the original project a
 ## Compatible with
 * Nagios.
 * Icinga.
-* Centreon (In tests).
+* Centreon **(In tests)**.
 
 It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
@@ -49,7 +49,7 @@ Contribution are always **welcome and recommended**! Here is how:
 - Make your changes
 - Create a pull request
 
-Terms of use (this is required as the app uses Google Maps API):
+Terms of use (Google Maps API)
 ================================================================
 * By using this Maps API Implementation, your are agreeing to be bound by Google's Terms of Use.
 * This app uses the Maps API(s) - [See here](http://www.google.com/privacy.html) Google privacy policy.
