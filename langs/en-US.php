@@ -19,7 +19,7 @@ $in_definition_error =("Starting a new in_definition before closing the previous
 
 $one_column_error1 = ("In-hose config file line (");
 
-$one_column_error2 = (") which contains only one column. This is not right!");
+$one_column_error2 = (") which contains only one column. This is not right! File and line:");
 
 $no_data_error = ("There is no data to display. You either did not set NagMap Reborn properly or there is a software bug.<br>Please contact joao_carlos.r@hotmail.com assistance.");
 

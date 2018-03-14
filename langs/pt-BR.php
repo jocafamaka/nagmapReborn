@@ -19,7 +19,7 @@ $in_definition_error = ("Começar um novo \"in_definition\" sem finalizar o ante
 
 $one_column_error1 = ("Linha do arquivo de configuração (");
 
-$one_column_error2 = (") que contém somente uma coluna, não está correta!");
+$one_column_error2 = (") que contém somente uma coluna, não está correta! Arquivo e linha: ");
 
 $no_data_error = ("Não existem dados a serem exibidos, ou você não definiu as configurações corretamente ou esse é um bug do sistema.<br>Por favor entre em contato através do e-mail joao_carlos.r@hotmail.com para obter assistência.");
 

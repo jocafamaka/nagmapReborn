@@ -23,7 +23,7 @@ foreach ($files as $file) {
   $raw_data[$file] = file($file);
 }
 
-$data = filter_raw_data($raw_data);
+$data = filter_raw_data($raw_data, $files);
 
 // hosts definition - we are only interested in hostname, parents and notes with position information
 foreach ($data as $host) {

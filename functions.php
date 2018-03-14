@@ -11,11 +11,11 @@
  *
  */
 
-function filter_raw_data($raw_data) {
+function filter_raw_data($raw_data, $filesName) {
   include('config.php');
   include("langs/$nagMapR_Lang.php");
 
-  $i=0;
+  $i=0; $fileNum=0; $lineNum=1;
   foreach ($raw_data as $file) {
     foreach ($file as $line) {
       //remove blank spaces
@@ -48,14 +48,17 @@ function filter_raw_data($raw_data) {
           $pieces = explode(" ", $line, 2);
           //get rid of meaningless splits
           if (count($pieces)<2) {
-            die($one_column_error1.$line.$one_column_error2);
+            die($one_column_error1.$line.$one_column_error2.$filesName[$fileNum]." (".$lineNum.")");
           };
           $option = trim($pieces[0]);
           $value = trim($pieces[1]);
           $data[$i][$option] = $value;
         }
       }
+      $lineNum++;
     }
+    $lineNum=1;
+    $fileNum++;
   }
   return($data);
 }
@@ -161,7 +164,7 @@ function get_config_files() {
       $file = explode('=',$line,2);
       $file[1] = trim($file[1]);
       $files[] = $file[1];
-      //echo "// including Nagios config file ".$file[1].", config reference $line\n";
+      //echo "\n\n// including Nagios config file ".$file[1].", config reference $line\n";
       unset($file);
     } elseif (preg_match("/^cfg_dir/i",$line)) {
       $dir = explode('=',$line,2);
@@ -169,7 +172,7 @@ function get_config_files() {
       read_recursive_dir($files, $dir[1]);
     }
   }
-  //echo "// end of reading config file $nagios_cfg_file\n\n";
+  //echo "\n\n// end of reading config file $nagios_cfg_file\n\n";
   $file_list = array_unique($files);
   return $file_list;
 }
@@ -180,7 +183,7 @@ function read_recursive_dir(&$files, $dir){
   foreach ($dir_recursive as $file => $object) {
     if(preg_match("/.cfg$/i",$file)) {
       $files[] = $file;
-      //echo "// including Nagios config file ".$file.", config reference ".$line."\n";
+      //echo "\n\n// including Nagios config file ".$file.", config reference ".$line."\n";
     } elseif (is_link($file) || (is_dir($file) && !preg_match("/\.$/i",$file)) ) {
       read_recursive_dir($files, $file);
     }
