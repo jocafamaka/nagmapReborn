@@ -2,13 +2,16 @@ NagMap Reborn Introduction
 =====
 NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images. It also aims to give administrator basic information on devices to do further investigation of their status, such as links to MRTG and Smokeping pages of respected devices."
 
-If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn. 
+## Compatible with
+* Nagios.
+* Icinga.
+* Centreon (In tests).
 
-NagMap Reborn uses Google Maps API v3
+It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
 New Features
 ============
-After many days of work, some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
+Some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
 
 * Updating hosts status without refresh on page.
 * Now the application supports multiple languages.
@@ -52,6 +55,9 @@ Terms of use (this is required as the app uses Google Maps API):
 * This app uses the Maps API(s) - [See here](http://www.google.com/privacy.html) Google privacy policy.
 * [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
 
-Remaining credits
-=====
+Others
+======
+If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn. 
+
+### Remaining credits
 This application was originally developed by [Marcel Hecko](https://github.com/hecko).
