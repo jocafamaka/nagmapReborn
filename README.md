@@ -2,13 +2,6 @@ NagMap Reborn Introduction
 =====
 NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images. It also aims to give administrator basic information on devices to do further investigation of their status, such as links to MRTG and Smokeping pages of respected devices."
 
-## Compatible with
-* Nagios.
-* Icinga.
-* Centreon (In tests).
-
-It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
-
 New Features
 ============
 Some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
@@ -32,6 +25,13 @@ Some changes were made to the functions and logic used in the original project a
 * Time to update hosts status.
 
 *Currently only available: English and Portuguese. (Translation contribuition are welcome)
+
+## Compatible with
+* Nagios.
+* Icinga.
+* Centreon (In tests).
+
+It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
 ## NagMap Reborn page
 
