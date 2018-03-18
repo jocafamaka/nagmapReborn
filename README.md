@@ -35,11 +35,11 @@ It is possible to integrate with other systems that have the structure similar t
 
 ## NagMap Reborn page
 
-!["NagMap Reborn Page"](https://i.imgur.com/0ro0NOE.png "NagMap Reborn Page")
+!["NagMap Reborn Page"](https://i.imgur.com/ETuH5vb.png "NagMap Reborn Page")
 
 ### Preview of animations:
 
-![Demo CountPages alpha](https://i.imgur.com/FMbGvhs.gif)
+![Demo CountPages alpha](https://i.imgur.com/sqwB6d8.gif)
 
 ### Contribution
 Contribution are always **welcome and recommended**! Here is how:

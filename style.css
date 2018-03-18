@@ -2,6 +2,10 @@
   font-family: arial;
   font-size: 10pt;
 }
+body{
+  background-color: white;
+  text-decoration-color: white;
+}
 
 table, tr, td {
   font-family: verdana;
@@ -24,4 +28,8 @@ a:visited {
 a:hover {
   background: white;
   font-weight: bold;
+}
+
+.news {
+  transition: opacity 500ms linear, height 350ms linear;
 }

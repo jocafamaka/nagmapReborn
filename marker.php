@@ -10,7 +10,7 @@
  * Some changes: João Ribeiro (https://github.com/jocafamaka) in 06 March 2018
  *
  */
- 
+
 include("functions.php");
 // pre-define variables so the E_NOTICES do not show in webserver logs
 $javascript = "";
@@ -89,9 +89,6 @@ foreach ($hosts as $h) {
   if ((isset($h["latlng"])) AND (isset($h["host_name"])) AND (isset($s[$h["nagios_host_name"]]['status']))) {
     $data[$h["host_name"]] = $h;
     $data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
-    $data[$h["host_name"]]['status_human'] = $s[$h["nagios_host_name"]]['status_human'];
-    $data[$h["host_name"]]['status_style'] = $s[$h["nagios_host_name"]]['status_style'];
-  } else {
     if ($nagMapR_Debug) { 
       echo('// '.$ignoredHosts.$h['host_name'].":".$h['latlng'].":".$s[$h["nagios_host_name"]]['status_human'].":\n");
     }
@@ -112,7 +109,7 @@ $ii = 0;
 // put markers and bubbles onto a map
 foreach ($data as $h) {
   if ($nagMapR_Debug) {
-    echo('<!--'.$positionHosts.$h['host_name'].":".$h['latlng'].":".$h['status'].":".$h['status_human']."-->\n");
+    echo('<!--'.$positionHosts.$h['host_name'].":".$h['latlng'].":".$h['status']."-->\n");
   }
     // position the host on the map
   $javascript .= ("window.".$h["host_name"]."_pos = new google.maps.LatLng(".$h["latlng"].");\n");
@@ -122,7 +119,7 @@ foreach ($data as $h) {
   if ($h['status'] == 0) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: 'icons/marker_green.png',".
+      "\n  icon: iconGreen,".
       "\n  map: map,".
       "\n  zIndex: 2,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
@@ -131,7 +128,7 @@ foreach ($data as $h) {
   } elseif ($h['status'] == 1) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: 'icons/marker_yellow.png',".
+      "\n  icon: iconYellow,".
       "\n  map: map,".
       "\n  zIndex: 3,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
@@ -140,7 +137,7 @@ foreach ($data as $h) {
   } elseif ($h['status'] == 2) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: 'icons/marker.png',".
+      "\n  icon: iconRed,".
       "\n  map: map,".
       "\n  zIndex: 4,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
@@ -176,34 +173,35 @@ foreach ($data as $h) {
   $ii++;
 };
 
-$ii = 0;
-
+if($nagMapR_Lines == 1){
+  $ii = 0;
 // create (multiple) parent connection links between nodes/markers
-$javascript .= "// generating links between hosts\n";
-foreach ($data as $h) {
+  $javascript .= "// generating links between hosts\n";
+  foreach ($data as $h) {
   // if we do not have any parents, just create an empty array
-  if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
-    continue;
-  }
-  foreach ($h["parents"] as $parent) {
-    if (isset($data[$parent]["latlng"])) {
+    if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
+      continue;
+    }
+    foreach ($h["parents"] as $parent) {
+      if (isset($data[$parent]["latlng"])) {
       // default colors for links
-      $stroke_color = "#59BB48";
+        $stroke_color = "#007f00";
       // links in warning state
-      if ($h['status'] == 1) { $stroke_color ='#ffff00'; }
+        if ($h['status'] == 1) { $stroke_color ='#ffff00'; }
       // links in problem state
-      if ($h['status'] == 2) { $stroke_color ='#ff0000'; }
-      $javascript .= "\n";
+        if ($h['status'] == 2) { $stroke_color ='#c92a2a'; }
+        $javascript .= "\n";
 
-      $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
+        $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
 
-      $javascript .= ('LINES['.$ii.'].line = new google.maps.Polyline({'."\n".
-        ' path: ['.$h["host_name"].'_pos,'.$parent.'_pos],'."\n".
-        "  strokeColor: \"$stroke_color\",\n".
-        "  strokeOpacity: 0.9,\n".
-        "  strokeWeight: 2});\n");
-      $javascript .= ('LINES['.$ii."].line.setMap(map);\n\n");
-      $ii++;
+        $javascript .= ('LINES['.$ii.'].line = new google.maps.Polyline({'."\n".
+          ' path: ['.$h["host_name"].'_pos,'.$parent.'_pos],'."\n".
+          "  strokeColor: \"$stroke_color\",\n".
+          "  strokeOpacity: 0.8,\n".
+          "  strokeWeight: 1.5});\n");
+        $javascript .= ('LINES['.$ii."].line.setMap(map);\n\n");
+        $ii++;
+      }
     }
   }
 }

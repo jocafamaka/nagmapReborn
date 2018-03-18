@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.0';
+$nagMapR_version = '1.0.1';
 include('config.php');
 
 // Check if the translation file informed exist.
@@ -79,7 +79,7 @@ if ($javascript == "") {
 ?>
 <html>
 <head>
-  <link rel="shortcut icon" href="icons/favicon.ico" />
+  <link rel="shortcut icon" href="icons/NagFavIcon.ico" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel=StyleSheet href="style.css" type="text/css" media=screen>
@@ -101,6 +101,27 @@ if ($javascript == "") {
     if($nagMapR_PlaySound ==1)
       echo ("var audio = new Audio('Beep.mp3');")
     ?>
+
+    var iconRed = {
+      url: 'icons/Marker_Red.png',
+      size: new google.maps.Size(28, 42),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(12, 39)
+    };
+
+    var iconGreen = {
+      url: 'icons/Marker_Green.png',
+      size: new google.maps.Size(28, 42),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(13, 39)
+    };
+
+    var iconYellow = {
+      url: 'icons/Marker_Yellow.png',
+      size: new google.maps.Size(28, 42),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(12, 39)
+    };
 
     //static code from index.pnp
     function initialize() {
@@ -192,92 +213,97 @@ echo $javascript;
         var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $up; ?>\"</div>");
       hostStatus[host].status = status;
       <?php
-    if($nagMapR_Lines == 1)
-      echo ('
-    if(typeof hostStatus[host].parents != undefined){
-      for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
+      if($nagMapR_Lines == 1)
+        echo ('
+          if(typeof hostStatus[host].parents != undefined){
+            for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
-        for (var ii = LINES.length - 1; ii >= 0; ii--) {
-          if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
-            LINES[ii].line.setOptions({strokeColor: "#59BB48"});
-        }          
+              for (var ii = LINES.length - 1; ii >= 0; ii--) {
+                if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
+                  LINES[ii].line.setOptions({strokeColor: "#59BB48"});
+              }          
+            }
+          }
+          ');
+      ?>
+      MARK[host].setIcon(iconGreen);
+      MARK[host].setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function () {MARK[host].setAnimation(null);}, 500);
+      MARK[host].setZIndex(2);
+      <?php
+      if($nagMapR_ChangesBar == 1){
+        echo ('newDivs = newUp.concat(newDivs);');
       }
-    }
-    ');
-    ?>
-    MARK[host].setIcon('http://www.google.com/mapfiles/marker_green.png');
-    MARK[host].setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function () {MARK[host].setAnimation(null);}, 500);
-    MARK[host].setZIndex(2);
-    <?php
-    if($nagMapR_ChangesBar == 1)
-      echo ('document.getElementById("changesbar").innerHTML = newUp + document.getElementById("changesbar").innerHTML;');
-    ?>
-  }else if (status == 1) {
+      ?>
+    }else if (status == 1) {
 
-    if(hostStatus[host].status == 0)
-      var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $warning; ?>\"</div>");
-    if(hostStatus[host].status == 2)
-      var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $warning; ?>\"</div>");
-    hostStatus[host].status = status;
-    <?php
-    if($nagMapR_Lines == 1)
-      echo ('
-    if(typeof hostStatus[host].parents != undefined){
-      for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
+      if(hostStatus[host].status == 0)
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $warning; ?>\"</div>");
+      if(hostStatus[host].status == 2)
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $down; ?>\" -> \"<?php echo $warning; ?>\"</div>");
+      hostStatus[host].status = status;
+      <?php
+      if($nagMapR_Lines == 1)
+        echo ('
+          if(typeof hostStatus[host].parents != undefined){
+            for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
-        for (var ii = LINES.length - 1; ii >= 0; ii--) {
-          if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
-            LINES[ii].line.setOptions({strokeColor: "#ffff00"});
-        }          
+              for (var ii = LINES.length - 1; ii >= 0; ii--) {
+                if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
+                  LINES[ii].line.setOptions({strokeColor: "#ffff00"});
+              }          
+            }
+          }
+          ');
+      ?>
+      MARK[host].setIcon(iconYellow);
+      MARK[host].setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function () {MARK[host].setAnimation(null);}, 500);
+      MARK[host].setZIndex(3);
+      <?php
+      if($nagMapR_ChangesBar == 1){
+        echo ('newDivs = newUp.concat(newDivs);');
       }
-    }
-    ');
-    ?>
-    MARK[host].setIcon('http://www.google.com/mapfiles/marker_yellow.png');
-    MARK[host].setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function () {MARK[host].setAnimation(null);}, 500);
-    MARK[host].setZIndex(3);
-    <?php
-    if($nagMapR_ChangesBar == 1)
-      echo ('document.getElementById("changesbar").innerHTML = newUp + document.getElementById("changesbar").innerHTML;');
-    ?>
-  } else if (status == 2) {
+      ?>
+    } else if (status == 2) {
 
-    if(hostStatus[host].status == 0)
-      var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $down; ?>\"</div>");
-    if(hostStatus[host].status == 1)
-      var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $down; ?>\"</div>");
-    hostStatus[host].status = status;
-    <?php
-    if($nagMapR_Lines == 1)
-      echo ('
-    if(typeof hostStatus[host].parents != undefined){
-      for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
+      if(hostStatus[host].status == 0)
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $up; ?>\" -> \"<?php echo $down; ?>\"</div>");
+      if(hostStatus[host].status == 1)
+        var newUp = ("<div style=\"font-size: <?php echo $nagMapR_FontSize; ?>px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#b30606; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"<?php echo $warning; ?>\" -> \"<?php echo $down; ?>\"</div>");
+      hostStatus[host].status = status;
+      <?php
+      if($nagMapR_Lines == 1)
+        echo ('
+          if(typeof hostStatus[host].parents != undefined){
+            for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
         //console.log("ArrayHost: " + hostStatus[host].host_name + " | LinesHost:" + LINES[host-1].host + " | ArrayParent: " + hostStatus[host].parents[i] + " | LinesParent: " + LINES[host-1].parent);
-        for (var ii = LINES.length - 1; ii >= 0; ii--) {
-          if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
-            LINES[ii].line.setOptions({strokeColor: "#ff0000"});
-        }          
+              for (var ii = LINES.length - 1; ii >= 0; ii--) {
+                if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
+                  LINES[ii].line.setOptions({strokeColor: "#ff0000"});
+              }          
+            }
+          }
+          ');
+      ?>
+      MARK[host].setIcon(iconRed);
+      MARK[host].setAnimation(google.maps.Animation.BOUNCE);
+      <?php
+      if($nagMapR_PlaySound ==1)
+        echo ("audio.play();")
+      ?>
+      setTimeout(function () {MARK[host].setAnimation(null);}, 15000);
+      MARK[host].setZIndex(4);
+      <?php
+      if($nagMapR_ChangesBar == 1){
+        echo ('newDivs = newUp.concat(newDivs);');
       }
+      ?>
     }
-    ');
-    ?>
-    MARK[host].setIcon('http://www.google.com/mapfiles/marker.png');
-    MARK[host].setAnimation(google.maps.Animation.BOUNCE);
-    <?php
-    if($nagMapR_PlaySound ==1)
-      echo ("audio.play();")
-    ?>
-    setTimeout(function () {MARK[host].setAnimation(null);}, 15000);
-    MARK[host].setZIndex(4);
-    <?php
-    if($nagMapR_ChangesBar == 1)
-      echo ('document.getElementById("changesbar").innerHTML = newUp + document.getElementById("changesbar").innerHTML;');
-    ?>
+
   }
 
-}
+  var newDivs = "";
 
   setInterval(function(){ // Request the arrau with the update status of each host.
 
@@ -292,14 +318,32 @@ echo $javascript;
     ajax.onreadystatechange = function(){
 
       if(ajax.readyState == 4 && ajax.status == 200) {
-        arrayHosts = JSON.parse(ajax.responseText);
+        arrayHosts = JSON.parse(ajax.responseText);   
+
+        newDivs = ""; 
+
+        var qntChange = 0;   
 
         for (var i = 0; i < hostStatus.length; i++) {
-          if(hostStatus[i].status != arrayHosts[hostStatus[i].nagios_host_name].status) //Call the update function if the last status is different from the current status.
-            updateStatus(i, arrayHosts[hostStatus[i].nagios_host_name].status);
+          if(hostStatus[i].status != arrayHosts[hostStatus[i].nagios_host_name].status){ //Call the update function if the last status is different from the current status.
+            qntChange++;
+            updateStatus(i, arrayHosts[hostStatus[i].nagios_host_name].status, newDivs);
+          }
             //console.log("array1 = NAME: " + hostStatus[i].nagios_host_name +" STATUS: " + hostStatus[i].status + " | array2 = " + arrayHosts[hostStatus[i].nagios_host_name].status + "    - " + i);
           }
 
+          <?php
+          if($nagMapR_ChangesBar == 1)
+          echo ("if(qntChange > 0){\n");
+            echo ("var n = now();\n");
+            echo ('document.getElementById("changesbar").innerHTML = "<div class=\'news\' id=\'news-" + n + "\' style=\'opacity:0; height: 0;\'>" + newDivs + "</div>" + document.getElementById("changesbar").innerHTML;'."\n");
+            echo ("setTimeout(function(){\n");
+             echo ('document.getElementById("news-" + n).style.height = ('. $nagMapR_FontSize .' + 3) * qntChange;'."\n");
+              echo ('document.getElementById("news-" + n).style.marginBottom = qntChange * 1;'."\n");
+              echo ('document.getElementById("news-" + n).style.opacity = "1";'."\n");
+            echo('}, 500);'."\n");
+          echo "}\n";
+          ?>
         }
       };
     }, <?php echo $nagMapR_TimeUpdate; ?>000);
