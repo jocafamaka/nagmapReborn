@@ -103,21 +103,21 @@ if ($javascript == "") {
     ?>
 
     var iconRed = {
-      url: 'icons/Marker_Red.png',
+      url: 'icons/MarkerRed.png',
       size: new google.maps.Size(28, 42),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(12, 39)
     };
 
     var iconGreen = {
-      url: 'icons/Marker_Green.png',
+      url: 'icons/MarkerGreen.png',
       size: new google.maps.Size(28, 42),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(13, 39)
     };
 
     var iconYellow = {
-      url: 'icons/Marker_Yellow.png',
+      url: 'icons/MarkerYellow.png',
       size: new google.maps.Size(28, 42),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(12, 39)
