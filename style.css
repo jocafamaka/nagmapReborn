@@ -18,7 +18,6 @@ h3 {
 
 a:visited {
   text-decoration: none;
-  color: green;
 }
 
 a:hover {
@@ -27,5 +26,5 @@ a:hover {
 }
 
 .news {
-  transition: opacity 500ms linear, height 350ms linear;
+  transition: opacity 500ms linear, max-height 450ms linear;
 }

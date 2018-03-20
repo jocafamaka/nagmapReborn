@@ -23,6 +23,7 @@ Some changes were made to the functions and logic used in the original project a
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
+* Icons style. <sup>(NEW)</sup>
 
 *Currently only available: English and Portuguese. (Translation contribuition are welcome)
 

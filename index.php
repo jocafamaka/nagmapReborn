@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.0.1';
+$nagMapR_version = '1.0.2';
 include('config.php');
 
 // Check if the translation file informed exist.
@@ -68,6 +68,8 @@ if(!( is_float($nagMapR_MapZoom) || is_int($nagMapR_MapZoom) ))
 if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
   die("\$nagMapR_TimeUpdate $var_cfg_error");
 
+if($nagMapR_IconStyle > 2 || $nagMapR_IconStyle < 0)
+  die("\$nagMapR_IconStyle $var_cfg_error");
 
 include('marker.php');
 
@@ -102,26 +104,68 @@ if ($javascript == "") {
       echo ("var audio = new Audio('Beep.mp3');")
     ?>
 
-    var iconRed = {
-      url: 'icons/MarkerRed.png',
-      size: new google.maps.Size(28, 42),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(12, 39)
-    };
+    //Define icons style.
+    switch(<?php echo $nagMapR_IconStyle; ?>){
+      case 0:
+      var iconRed = {
+        url: 'icons/MarkerRedStyle0.png',
+        size: new google.maps.Size(20, 34),
+        anchor: new google.maps.Point(10, 33)
+      };
 
-    var iconGreen = {
-      url: 'icons/MarkerGreen.png',
-      size: new google.maps.Size(28, 42),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(13, 39)
-    };
+      var iconGreen = {
+        url: 'icons/MarkerGreenStyle0.png',
+        size: new google.maps.Size(20, 34),
+        anchor: new google.maps.Point(10, 33)
+      };
 
-    var iconYellow = {
-      url: 'icons/MarkerYellow.png',
-      size: new google.maps.Size(28, 42),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(12, 39)
-    };
+      var iconYellow = {
+        url: 'icons/MarkerYellowStyle0.png',
+        size: new google.maps.Size(20, 34),
+        anchor: new google.maps.Point(10, 33)
+      };
+      break;
+
+      case 1:
+      var iconRed = {
+        url: 'icons/MarkerRedStyle1.png',
+        size: new google.maps.Size(28, 42),
+        anchor: new google.maps.Point(12, 39)
+      };
+
+      var iconGreen = {
+        url: 'icons/MarkerGreenStyle1.png',
+        size: new google.maps.Size(28, 42),
+        anchor: new google.maps.Point(13, 39)
+      };
+
+      var iconYellow = {
+        url: 'icons/MarkerYellowStyle1.png',
+        size: new google.maps.Size(28, 42),
+        anchor: new google.maps.Point(12, 39)
+      };
+      break;
+
+      case 2:
+      var iconRed = {
+        url: 'icons/MarkerRedStyle2.png',
+        size: new google.maps.Size(29, 44),
+        anchor: new google.maps.Point(14, 43)
+      };
+
+      var iconGreen = {
+        url: 'icons/MarkerGreenStyle2.png',
+        size: new google.maps.Size(29, 44),
+        anchor: new google.maps.Point(13, 42)
+      };
+
+      var iconYellow = {
+        url: 'icons/MarkerYellowStyle2.png',
+        size: new google.maps.Size(29, 42),
+        anchor: new google.maps.Point(13, 41)
+      };
+      break;
+    }
 
     //static code from index.pnp
     function initialize() {
@@ -333,16 +377,16 @@ echo $javascript;
           }
 
           <?php
-          if($nagMapR_ChangesBar == 1)
-          echo ("if(qntChange > 0){\n");
+          if($nagMapR_ChangesBar == 1){
+            echo ("if(qntChange > 0){\n");
             echo ("var n = now();\n");
-            echo ('document.getElementById("changesbar").innerHTML = "<div class=\'news\' id=\'news-" + n + "\' style=\'opacity:0; height: 0;\'>" + newDivs + "</div>" + document.getElementById("changesbar").innerHTML;'."\n");
+            echo ('document.getElementById("changesbar").innerHTML = "<div class=\'news\' id=\'news-" + n + "\' style=\'opacity:0; max-height: 0px;\'>" + newDivs + "</div>" + document.getElementById("changesbar").innerHTML;'."\n");
             echo ("setTimeout(function(){\n");
-             echo ('document.getElementById("news-" + n).style.height = ('. $nagMapR_FontSize .' + 3) * qntChange;'."\n");
-              echo ('document.getElementById("news-" + n).style.marginBottom = qntChange * 1;'."\n");
-              echo ('document.getElementById("news-" + n).style.opacity = "1";'."\n");
-            echo('}, 500);'."\n");
-          echo "}\n";
+            echo ('document.getElementById("news-" + n).style.maxHeight = "290px";'."\n");
+            echo ('document.getElementById("news-" + n).style.opacity = "1";'."\n");
+            echo('}, 80);'."\n");
+            echo "}\n";
+          }
           ?>
         }
       };

@@ -84,11 +84,20 @@ if ($nagMapR_FilterHostgroup) {
 
 // get host statuses
 $s = nagMapR_status();
+
+$ii = 0;
 // remove hosts we are not able to render and combine those we are able to render with their statuses 
 foreach ($hosts as $h) {
   if ((isset($h["latlng"])) AND (isset($h["host_name"])) AND (isset($s[$h["nagios_host_name"]]['status']))) {
     $data[$h["host_name"]] = $h;
     $data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
+
+    $jsData[$ii]['host_name'] = $h['host_name'];
+    $jsData[$ii]['nagios_host_name'] = $h['nagios_host_name'];
+    $jsData[$ii]['alias'] = $h['alias'];
+    $jsData[$ii]['parents'] = $h['parents'];
+    $jsData[$ii]['status'] = $s[$h["nagios_host_name"]]['status'];
+    $ii++;
     if ($nagMapR_Debug) { 
       echo('// '.$ignoredHosts.$h['host_name'].":".$h['latlng'].":".$s[$h["nagios_host_name"]]['status_human'].":\n");
     }
@@ -96,13 +105,6 @@ foreach ($hosts as $h) {
 }
 unset($hosts);
 unset($s);
-
-$ii = 0;
-
-foreach($data as $h) {
-  $jsData[$ii] = $h;
-  $ii++;
-}
 
 //$javascript .= ("var MARK = [".($ii - 1)."];\n");
 $ii = 0;
