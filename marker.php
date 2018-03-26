@@ -95,7 +95,8 @@ foreach ($hosts as $h) {
     $jsData[$ii]['host_name'] = $h['host_name'];
     $jsData[$ii]['nagios_host_name'] = $h['nagios_host_name'];
     $jsData[$ii]['alias'] = $h['alias'];
-    $jsData[$ii]['parents'] = $h['parents'];
+    if(is_array($h["parents"]))
+      $jsData[$ii]['parents'] = $h['parents'];
     $jsData[$ii]['status'] = $s[$h["nagios_host_name"]]['status'];
     $ii++;
     if ($nagMapR_Debug) { 

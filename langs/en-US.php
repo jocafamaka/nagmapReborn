@@ -45,4 +45,12 @@ $up = ("UP");
 $down = ("DOWN");
 
 $warning = ("WARNING");
+
+$and = ("and");
+
+$waiting = ("Waiting");
+
+$timePrefix = ('');
+
+$timeSuffix = (' ago.');
 ?>

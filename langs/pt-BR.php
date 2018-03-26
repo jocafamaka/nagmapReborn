@@ -46,4 +46,11 @@ $down = ("DOWN");
 
 $warning = ("EM ALERTA");
 
+$and = ("e");
+
+$waiting = ("Aguardando");
+
+$timePrefix = ('Há ');
+
+$timeSuffix = ('');
 ?>

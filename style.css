@@ -26,5 +26,5 @@ a:hover {
 }
 
 .news {
-  transition: opacity 500ms linear, max-height 450ms linear;
+  transition: opacity 500ms linear, max-height 500ms linear;
 }

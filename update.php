@@ -51,6 +51,20 @@ if($key == $nagMapR_key){
 			if (($option == "host_name")) {
 				$host = $value;
 			}
+			if($nagMapR_ChangesBarMode == 2){
+				if (($option == "last_state_change")) {
+
+					$pastTime = time() - $value;
+					$hours = floor($pastTime / 3600);
+					$minutes = intval(($pastTime / 60) % 60);
+
+					if($hours == 0)
+						$hStatus[$host]['last_state_change'] = ($minutes. " min");
+					else{						
+						$hStatus[$host]['last_state_change'] = ($hours. " h ". $and ." " .$minutes. " min");
+					}
+				}
+			}
 			//get the worst service state for the host from all of its services
 			if (!isset($data[$host]['servicestatus']['current_state'])) {
 				$data[$host]['servicestatus']['current_state'] = "0";
@@ -64,7 +78,6 @@ if($key == $nagMapR_key){
 
 				} elseif (($data[$host]['hoststatus']['current_state'] == 1)) {
 					$hStatus[$host]['status'] = 2;
-
 				} 
 				else 
 				{
