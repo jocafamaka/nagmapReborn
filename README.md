@@ -20,10 +20,11 @@ Some changes were made to the functions and logic used in the original project a
   * ChangesBar size on screen.
   * Font size.
   * Used date format.
+  * ChangesBar mode. <sup>(NEW)</sup>
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
-* Icons style. <sup>(NEW)</sup>
+* Icons style. 
 
 *Currently only available: English and Portuguese. (Translation contribuition are welcome)
 
