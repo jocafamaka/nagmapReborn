@@ -12,6 +12,12 @@ hr {
   border:1;
 }
 
+.div_fixa {
+  position:fixed;
+  top: 10px;
+  right: 10px;
+}
+
 h3 {
   font-family: arial;
 }
@@ -27,4 +33,44 @@ a:hover {
 
 .news {
   transition: opacity 500ms linear, max-height 500ms linear;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #2d862d;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

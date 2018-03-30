@@ -11,6 +11,7 @@ Some changes were made to the functions and logic used in the original project a
 * New system of last occurrences (ChangesBar).
 * New system of sound warning.
 * Almost total control of page characteristics.
+* Powerful debug page.<sup>(NEW)</sup>
 
 ### What you can control:
 * Map center.
@@ -20,7 +21,7 @@ Some changes were made to the functions and logic used in the original project a
   * ChangesBar size on screen.
   * Font size.
   * Used date format.
-  * ChangesBar mode. <sup>(NEW)</sup>
+  * ChangesBar mode.
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
@@ -31,7 +32,7 @@ Some changes were made to the functions and logic used in the original project a
 ## Compatible with
 * Nagios.
 * Icinga.
-* Centreon **(In tests)**.
+* Centreon.
 
 It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
@@ -60,6 +61,19 @@ Terms of use (Google Maps API)
 Others
 ======
 If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn. 
+
+### About Debug Page
+The Debug page contains information that helps identify possible bugs in the application.
+
+It is possible to know the hosts that were ignored and the reason, you can also see information about all hosts present in the Status file.
+
+Through it, it is possible to obtain support in an easier way, in the footer of the page there is a control button of the updates of the information, as well as a button to download the information that is being displayed, when requesting support send this file in attachment to facilitate to solve problems.
+
+
+You can access the Debug page through the link:
+http://localhost/nagmapReborn/debugInfo **
+
+**Make adjustments to the link if necessary.
 
 ### Remaining credits
 This application was originally developed by [Marcel Hecko](https://github.com/hecko).

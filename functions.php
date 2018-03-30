@@ -48,7 +48,7 @@ function filter_raw_data($raw_data, $filesName) {
           $pieces = explode(" ", $line, 2);
           //get rid of meaningless splits
           if (count($pieces)<2) {
-            die($one_column_error1.$line.$one_column_error2.$filesName[$fileNum]." (".$lineNum.")");
+            continue;
           };
           $option = trim($pieces[0]);
           $value = trim($pieces[1]);
@@ -125,18 +125,12 @@ function nagMapR_status() {
         }
         if (($data[$host]['hoststatus']['current_state'] == 0) && ($data[$host]['servicestatus']['current_state'] == 0)) {
           $data[$host]['status'] = 0;
-          $data[$host]['status_human'] = 'OK';
-          $data[$host]['status_style'] = 'ok';
         } elseif (($data[$host]['hoststatus']['current_state'] == 1)) {
           $data[$host]['status'] = 2;
-          $data[$host]['status_human'] = 'CRITICAL / DOWN';
-          $data[$host]['status_style'] = 'critical';
         } 
         else 
         {
-          $data[$host]['status'] = 1;
-          $data[$host]['status_human'] = 'WARNING / UNREACHABLE';
-          $data[$host]['status_style'] = 'warning';          
+          $data[$host]['status'] = 1;         
         }
       } 
     }

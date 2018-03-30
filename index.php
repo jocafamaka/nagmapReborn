@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.1.0';
+$nagMapR_version = '1.2.1';
 include('config.php');
 
 // Check if the translation file informed exist.
@@ -199,6 +199,9 @@ echo $javascript;
   </script>
   </head>
   <body style="margin:0px; padding:0px; overflow:hidden;" onload="initialize()">';
+  if ($nagMapR_Debug == 1){
+    echo ('<div id="div_fixa" class="div_fixa" style="z-index:2000;"><a href="debugInfo/index.php"><button class="button" style="vertical-align:middle"><span>Debug page</span></button></a></div>');
+  }
   if ($nagMapR_ChangesBar == 1) {
     echo '<div id="map_canvas" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';
     echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
