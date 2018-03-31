@@ -266,6 +266,19 @@ if($key == $nagMapR_key){
 				
 				$hStatus[$host]['servStatus_LHS'] = ($value);
 			}
+			if(isset($hStatus[$host]['servStatus_CS']) and isset($hStatus[$host]['hostStatus_CS']))
+			{
+				if (($hStatus[$host]['hostStatus_CS'] == 0) && ($hStatus[$host]['servStatus_CS'] == 0)) {
+					$hStatus[$host]['status'] = 0;
+
+				} elseif (($hStatus[$host]['hostStatus_CS'] == 1)) {
+					$hStatus[$host]['status'] = 2;
+				} 
+				else 
+				{
+					$hStatus[$host]['status'] = 1;         
+				}
+			}
 		}
 	}
 	echo json_encode($hStatus);

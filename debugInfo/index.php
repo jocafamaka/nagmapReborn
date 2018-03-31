@@ -74,11 +74,11 @@ foreach ($hosts as $h) {
     $ignored[$ii]['alias'] = $h['alias'];
 
     if(!isset($h["latlng"]))
-      $reason .= "(No LatLng)";
+      $reason .= "(It has no definition of LatLng in the settings)";
     if(!isset($h["host_name"]))
-      $reason .= " (No HostName)";
+      $reason .= " (Do not have a HostName)";
     if(!isset($s[$h["nagios_host_name"]]['status']))
-      $reason .= " (No Status)";
+      $reason .= " (It does not exist in the Status file)";
     $ignored[$ii]['reason'] = $reason;
     $reason = "";
     $ii++;
@@ -137,10 +137,10 @@ unset($s);
     </footer>
   </div>
 
-  <div id="div_fixa" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" id="control"></div>
+  <div id="div_fixa" title="Stop/Start information update" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" id="control"></div>
 
   <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-    <img class="navbar-brand" src="img/logoMini.svg" alt=""></img>
+    <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="Go to NagMap Reborn page on GitHub" class="navbar-brand" src="img/logoMini.svg" alt=""></img></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -148,12 +148,12 @@ unset($s);
 
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link">Status: <span id="status">Starting, wait.</span></a>
+          <a title="Current application status" class="nav-link">Status: <span id="status">Starting, wait.</span></a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <button class="btn btn-success navbar-btn" onclick="saveTextAsFile();">Download</button>
+          <button id="btnDownload" title="Download data" class="btn btn-success navbar-btn disabled" onclick="saveTextAsFile();">Download</button>
         </li>
       </ul>
     </div>
@@ -179,107 +179,119 @@ unset($s);
       divIgnored += "<tr><td>"+ ignoredHosts[i].hostname +"</td><td>"+ ignoredHosts[i].alias +"</td><td>"+ ignoredHosts[i].reason +"</td></tr>";
     }
 
-    divIgnored += "</tbody></table><br><hr><br><h2>Status file info (dynamic)</h2>";
+    divIgnored += "</tbody></table><br><h2>Status file info (dynamic)</h2>";
 
     document.getElementById('tableh').innerHTML = divIgnored;
 
     function saveTextAsFile() {
-      var textToWrite = document.getElementById("allInfo").innerHTML;
-      var textFileAsBlob = new Blob([textToWrite], {
-        type: 'text/plain'
-      });
+      if(down){
+        var textToWrite = document.getElementById("allInfo").innerHTML;
+        var textFileAsBlob = new Blob([textToWrite], {
+          type: 'text/plain'
+        });
 
-      var downloadLink = document.createElement("a");
-      downloadLink.download = "DebugInfo";
-      downloadLink.innerHTML = "Download File";
-      if (window.webkitURL != null) {
-    // Chrome allows the link to be clicked
-    // without actually adding it to the DOM.
-    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-  } else {
-    // Firefox requires the link to be added to the DOM
-    // before it can be clicked.
-    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-    downloadLink.onclick = destroyClickedElement;
-    downloadLink.style.display = "none";
-    document.body.appendChild(downloadLink);
-  }
+        var downloadLink = document.createElement("a");
+        downloadLink.download = "DebugInfo";
+        downloadLink.innerHTML = "Download File";
+        if (window.URL != null) {
 
-  downloadLink.click();
-}
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        } else {
 
-function destroyClickedElement(event) {
-  document.body.removeChild(event.target);
-}
-
-
-var play = false;
-var update = true;
-
-function changeImg(){
-  var div = document.getElementById('control');
-  if(play == true) {
-    document.getElementById('status').innerHTML = 'Waiting.';
-    div.src = 'img/pause.svg';
-    play = false;
-    update = true;
-  }
-  else {
-    div.src = 'img/play.svg';
-    document.getElementById('status').innerHTML = 'Stopped.';
-    play = true;
-    update = false;
-  }
-}
-
-function load(){
-  document.getElementById('status').innerHTML = 'Updating.';
-  document.getElementById('control').src = 'img/loading.svg';
-  setTimeout(function(){ 
-    if(update){
-      document.getElementById('control').src = 'img/pause.svg';
-      document.getElementById('status').innerHTML = 'Waiting.';
-    }
-  }, 2500);
-};
-
-var newDivs = "";
-
-setInterval(function(){
-  if(update){
-
-    load();
-
-    var ajax = new XMLHttpRequest();
-
-    var arrayHosts;
-
-    ajax.open('POST', 'debugInfo.php?key=<?php echo $nagMapR_key ?>', true);
-
-    ajax.send();
-
-    ajax.onreadystatechange = function(){
-
-      if(ajax.readyState == 4 && ajax.status == 200) {
-        arrayInfo = JSON.parse(ajax.responseText);
-
-        var hosts = [];
-
-        newDivs = "";
-
-        for(var i in arrayInfo){
-          newDivs = newDivs.concat("<div class=\"card mb-4 box-shadow\"><div class=\"card-header\"><h4 class=\"my-0 font-weight-normal\">" + i + "</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td>Last time up</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td>Last time down</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td>Last time unreachable</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td>Last time ok</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td>Last time warning</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td>Last time unknown</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td>Last time critical</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+          downloadLink.onclick = destroyClickedElement;
+          downloadLink.style.display = "none";
+          document.body.appendChild(downloadLink);
         }
-        if(document.getElementById('wait') != null){
-          document.getElementById('wait').style.display = 'none';
-          document.getElementById('tableh').style.display = 'block';
-        }
-        document.getElementById('InContainer').innerHTML = newDivs;
+
+        downloadLink.click();
       }
+    }
+
+    function destroyClickedElement(event) {
+      document.body.removeChild(event.target);
+    }
+
+
+    var play = false;
+    var update = true;
+    var down = false;
+
+    function changeImg(){
+      var div = document.getElementById('control');
+      if(play == true) {
+        document.getElementById('status').innerHTML = 'Waiting.';
+        div.src = 'img/pause.svg';
+        play = false;
+        update = true;
+      }
+      else {
+        div.src = 'img/play.svg';
+        document.getElementById('status').innerHTML = 'Stopped.';
+        play = true;
+        update = false;
+      }
+    }
+
+    function load(){
+      document.getElementById('status').innerHTML = 'Updating.';
+      document.getElementById('control').src = 'img/loading.svg';
+      document.getElementById('btnDownload').classList.add('disabled');
+      down = false;
+      setTimeout(function(){ 
+        if(update){
+          document.getElementById('control').src = 'img/pause.svg';
+          document.getElementById('status').innerHTML = 'Waiting.';
+        }
+        document.getElementById('btnDownload').classList.remove('disabled');
+        down = true;
+      }, 2500);
     };
-  }
-}, 10000);
-</script>
-<br>
+
+    var newDivs = "";
+
+    setInterval(function(){
+      if(update){
+
+        load();
+
+        var ajax = new XMLHttpRequest();
+
+        var arrayHosts;
+
+        ajax.open('POST', 'debugInfo.php?key=<?php echo $nagMapR_key ?>', true);
+
+        ajax.send();
+
+        ajax.onreadystatechange = function(){
+
+          if(ajax.readyState == 4 && ajax.status == 200) {
+            arrayInfo = JSON.parse(ajax.responseText);
+
+            var hosts = [];
+
+            newDivs = "";
+
+            for(var i in arrayInfo){
+              if(arrayInfo[i].status == 0)
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-success\"><div title=\"Host "+ i +" is up\" class=\"card-header\" style=\"background-color: #159415;");
+              if(arrayInfo[i].status == 1)
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"Host "+ i +" is in warning\" class=\"card-header\" style=\"background-color: #c5d200;");
+              if(arrayInfo[i].status == 2)
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-danger\"><div title=\"Host "+ i +" is down\" class=\"card-header\" style=\"background-color: #b30606;");
+
+              newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + "</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td>Last time up</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td>Last time down</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td>Last time unreachable</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td>Last time ok</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td>Last time warning</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td>Last time unknown</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td>Last time critical</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
+            }
+            if(document.getElementById('wait') != null){
+              document.getElementById('wait').style.display = 'none';
+              document.getElementById('tableh').style.display = 'block';
+            }
+            document.getElementById('InContainer').innerHTML = newDivs;
+          }
+        };
+      }
+    }, 10000);
+  </script>
+  <br>
 </body>
 </html>
