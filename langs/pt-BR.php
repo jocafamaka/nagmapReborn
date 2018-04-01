@@ -53,4 +53,99 @@ $waiting = ("Aguardando");
 $timePrefix = ('Há ');
 
 $timeSuffix = ('');
+
+//Debug page
+$debugTitle = ("Info. de depuração");
+
+$debugInfo = ("Essa página contém informações importantes que podem ajudar em caso de bug. Entre essas informações estão os hosts ignorados com o motivo, além de informações adicionais sobre cada um dos hosts presentes no aquivo de Status.");
+
+$updating = ("Atualizando");
+
+$mainPage = ("Página principal");
+
+$project = ("Projeto no GitHub");
+
+$btop = ("Voltar ao topo");
+
+$starting = ("Iniciando, aguarde.");
+
+$stopped = ("Parado");
+
+$downData = ("Baixar dados");
+
+$ignHosts = ("Hosts ignorados (estático)");
+
+$statusFile = ("Informações do arquivo de status (dinâmico)");
+
+$hostName = ("Nome do host");
+
+$reasons = ("Motivo(s)");
+
+$cs = ("Estado atual");
+
+$lhs = ("Último pior estado");
+
+$lsc = ("Última mudança de estado");
+
+$lhsc = ("Última mudança de pior estado");
+
+$ltup = ("Última vez up");
+
+$ltd = ("Última vez down");
+
+$ltun = ("Última vez inacessível");
+
+$lto = ("Última vez ok");
+
+$ltw = ("Última vez em alerta");
+
+$ltunk = ("Última vez estado descohecido");
+
+$ltc = ("Última vez estato crítico");
+
+$isUp = ("está up");
+
+$isDown = ("está down");
+
+$inWar = ("está em alerta");
+
+$controlInfo = ("Para/Continua a atualização das informações");
+
+$appStatus = ("Status atual da aplicação");
+
+$noLatLng = ("Não possue LatLng no arquivo de definição");
+
+$noHostN = ("Não possue HostName");
+
+$noStatus = ("Não existe no arquivo de Status");
+
+$help = ("Ajuda");
+
+$close = ("Fechar");
+
+$debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!<br><br>
+
+As caractéristicas da páginas são essas:<br><br>
+
+1 - Hosts que foram ignorados.<br>
+     - Exibe todos os hosts ignorados.<br>
+     - Informa o nome do host.<br>
+     - O alias do host.<br>
+     - O motivos ou motivos daquele host ter sido ignorado.<br>
+     - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
+
+2 - Informações importantes sobre cada host existente no arquivo de Status.<br>
+     - A cor do Card indica qual o status do host em questão.<br>
+     - Mostra informações sobre stats interno.<br>
+     - Exibe os valores de tempo para varios parametros.<br>
+     - Exibe o tempo em formato Epoch e o tempo em horas e minutos.<br><br>
+
+3 - No rodapé da página existe o controlador de atualização das informações da página.<br>
+     - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.<br>
+     - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.<br>
+     - O botão de download fica desabilitado durante as atualizações de informações da página.<br><br>
+
+Sempre que for solicitar suporte acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
+
+Você pode obter suporte me contatando através do e-mail: joao_carlos.r@hotmail.com');
 ?>

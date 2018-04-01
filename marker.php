@@ -173,9 +173,17 @@ foreach ($data as $h) {
   .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
   .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'
   .'<tr><td>'.$hostP.'</td><td>:</td><td> '.join('<br>' , $h["parents"]).'</td></tr>'
-  .'</table>'
-  .'<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
-  .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>';
+  .'</table>';
+  
+  if($nagMapR_IsNagios == 1){
+    $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
+    .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
+    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
+  }
+  else{
+    $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
+    
+  }
 
   $javascript .= ("window.".$h["host_name"]."_mark_infowindow = new google.maps.InfoWindow({ content: '$info'})\n");
 

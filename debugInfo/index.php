@@ -4,6 +4,13 @@ error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECO
 include('../config.php');
 include("../functions.php");
 
+if(file_exists("../langs/$nagMapR_Lang.php"))
+  include("../langs/$nagMapR_Lang.php");
+else
+  die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
+
+$version = 'v1.0.2';
+
 
 $files = get_config_files();
 
@@ -74,11 +81,11 @@ foreach ($hosts as $h) {
     $ignored[$ii]['alias'] = $h['alias'];
 
     if(!isset($h["latlng"]))
-      $reason .= "(It has no definition of LatLng in the settings)";
+      $reason .= "($noLatLng)";
     if(!isset($h["host_name"]))
-      $reason .= " (Do not have a HostName)";
+      $reason .= " ($noHostN)";
     if(!isset($s[$h["nagios_host_name"]]['status']))
-      $reason .= " (It does not exist in the Status file)";
+      $reason .= " ($noStatus)";
     $ignored[$ii]['reason'] = $reason;
     $reason = "";
     $ii++;
@@ -97,7 +104,7 @@ unset($s);
   <meta name="author" content="">
   <link rel="icon" href="../icons/NagFavIcon.ico">
 
-  <title>NagMap Reborn Debug Inormation</title>
+  <title>NagMap Reborn <?php echo ($debugTitle." ".$version); ?></title>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -106,8 +113,25 @@ unset($s);
 
 <body>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-6">Debug Info (v1.0.0)</h1>
-    <p class="lead">This page contains important information that can help in case of bugs. Among this informations are the hosts ignored with the reason, and additional information about each of the hosts present in the status file.</p>
+    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" alt="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
+    <p class="lead"><?php echo ($debugInfo); ?></p>
+  </div>
+
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><?php echo ($debugTitle. " (" .$version); ?>)</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <?php echo ($debugHelp); ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo ($close); ?></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="container" id="allInfo">
@@ -115,7 +139,9 @@ unset($s);
     <div id="wait"><div class="loader"></div></div>
     <div id="InContainer" class="card-deck mb-3 text-center">
     </div>
+  </div>
 
+  <div class="container">
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
         <div class="col-12 col-md">
@@ -124,23 +150,23 @@ unset($s);
         <div class="col-9 col-md">
           <h5>LINKS</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="../index.php">Main page</a></li>
-            <li><a class="text-muted" href="https://www.github.com/jocafamaka/nagmapReborn/">Project on GitHub</a></li>
+            <li><a class="text-muted" href="../index.php"><?php echo ($mainPage); ?></a></li>
+            <li><a class="text-muted" href="https://www.github.com/jocafamaka/nagmapReborn/"><?php echo ($project); ?></a></li>
           </ul>
         </div>
         <div class="col-9 col-md">
           <p class="float-right">
-            <a href="#">Back to top</a>
+            <a href="#"><?php echo ($btop); ?></a>
           </p>
         </div>
       </div>
     </footer>
   </div>
 
-  <div id="div_fixa" title="Stop/Start information update" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" id="control"></div>
+  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" id="control"></div>
 
   <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-    <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="Go to NagMap Reborn page on GitHub" class="navbar-brand" src="img/logoMini.svg" alt=""></img></a>
+    <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="<?php echo ($project); ?>" class="navbar-brand" src="img/logoMini.svg" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -148,12 +174,12 @@ unset($s);
 
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a title="Current application status" class="nav-link">Status: <span id="status">Starting, wait.</span></a>
+          <a title="<?php echo ($appStatus); ?>" class="nav-link">Status: <span id="status"><?php echo ($starting); ?></span></a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <button id="btnDownload" title="Download data" class="btn btn-success navbar-btn disabled" onclick="saveTextAsFile();">Download</button>
+          <button id="btnDownload" title="<?php echo ($downData); ?>" class="btn btn-success navbar-btn disabled" onclick="saveTextAsFile();">Download</button>
         </li>
       </ul>
     </div>
@@ -173,18 +199,18 @@ unset($s);
 
     var ignoredHosts = <?php echo json_encode($ignored); ?>;
 
-    var divIgnored = "<h2>Ignored hosts (static)</h2><table class=\"table table-bordered\"><thead><tr><th>Host Name</th><th>Alias</th><th>Reason(s)</th></tr></thead><tbody>";
+    var divIgnored = "<h2><?php echo ($ignHosts); ?></h2><table class=\"table table-bordered\"><thead><tr><th><?php echo ($hostName); ?></th><th><?php echo ($alias); ?></th><th><?php echo ($reasons); ?></th></tr></thead><tbody>";
 
     for (var i = 0 ; i < ignoredHosts.length ; i++) {
       divIgnored += "<tr><td>"+ ignoredHosts[i].hostname +"</td><td>"+ ignoredHosts[i].alias +"</td><td>"+ ignoredHosts[i].reason +"</td></tr>";
     }
 
-    divIgnored += "</tbody></table><br><h2>Status file info (dynamic)</h2>";
+    divIgnored += "</tbody></table><br><h2><?php echo ($statusFile); ?></h2>";
 
     document.getElementById('tableh').innerHTML = divIgnored;
 
     function saveTextAsFile() {
-      if(down){
+      if(download){
         var textToWrite = document.getElementById("allInfo").innerHTML;
         var textFileAsBlob = new Blob([textToWrite], {
           type: 'text/plain'
@@ -215,36 +241,36 @@ unset($s);
 
     var play = false;
     var update = true;
-    var down = false;
+    var download = false;
 
     function changeImg(){
       var div = document.getElementById('control');
       if(play == true) {
-        document.getElementById('status').innerHTML = 'Waiting.';
+        document.getElementById('status').innerHTML = '<?php echo ($waiting); ?>.';
         div.src = 'img/pause.svg';
         play = false;
         update = true;
       }
       else {
         div.src = 'img/play.svg';
-        document.getElementById('status').innerHTML = 'Stopped.';
+        document.getElementById('status').innerHTML = '<?php echo ($stopped); ?>.';
         play = true;
         update = false;
       }
     }
 
     function load(){
-      document.getElementById('status').innerHTML = 'Updating.';
+      document.getElementById('status').innerHTML = '<?php echo ($updating); ?>.';
       document.getElementById('control').src = 'img/loading.svg';
       document.getElementById('btnDownload').classList.add('disabled');
-      down = false;
+      download = false;
       setTimeout(function(){ 
         if(update){
           document.getElementById('control').src = 'img/pause.svg';
-          document.getElementById('status').innerHTML = 'Waiting.';
+          document.getElementById('status').innerHTML = '<?php echo ($waiting); ?>.';
         }
         document.getElementById('btnDownload').classList.remove('disabled');
-        down = true;
+        download = true;
       }, 2500);
     };
 
@@ -274,13 +300,13 @@ unset($s);
 
             for(var i in arrayInfo){
               if(arrayInfo[i].status == 0)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-success\"><div title=\"Host "+ i +" is up\" class=\"card-header\" style=\"background-color: #159415;");
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-success\"><div title=\"" + i +" <?php echo ($isUp); ?>\" class=\"card-header\" style=\"background-color: #159415;");
               if(arrayInfo[i].status == 1)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"Host "+ i +" is in warning\" class=\"card-header\" style=\"background-color: #c5d200;");
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"" + i +" <?php echo ($inWar); ?>\" class=\"card-header\" style=\"background-color: #c5d200;");
               if(arrayInfo[i].status == 2)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-danger\"><div title=\"Host "+ i +" is down\" class=\"card-header\" style=\"background-color: #b30606;");
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-danger\"><div title=\"" + i +" <?php echo ($isDown); ?>\" class=\"card-header\" style=\"background-color: #b30606;");
 
-              newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + "</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td>Last time up</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td>Last time down</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td>Last time unreachable</td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table><tr><td>Current state</td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td>Last hard state</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td>Last state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td>Last hard state change</td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td>Last time ok</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td>Last time warning</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td>Last time unknown</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td>Last time critical</td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
+              newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + "</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
             }
             if(document.getElementById('wait') != null){
               document.getElementById('wait').style.display = 'none';

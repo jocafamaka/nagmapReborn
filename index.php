@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.2.1';
+$nagMapR_version = '1.2.2';
 include('config.php');
 
 // Check if the translation file informed exist.

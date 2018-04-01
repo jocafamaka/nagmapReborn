@@ -16,6 +16,11 @@ $nagMapR_FilterHostgroup  = '';
 // into the rendered index file
 $nagMapR_Debug = 0;
 
+//Define if the monitoring system is nagios, if it does not hide some specific information.
+// 1 = YES, the monitoring system is Nagios.
+// 0 = NO, the monitoring system is not Nagios.
+$nagMapR_IsNagios = 1;
+
 ####################################################################################################
 #                                         MAP PREFERENCES                                          #
 ####################################################################################################
