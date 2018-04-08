@@ -93,6 +93,7 @@ foreach ($hosts as $h) {
     $data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
 
     $jsData[$ii]['host_name'] = $h['host_name'];
+    $jsData[$ii]['time'] = $s[$h["nagios_host_name"]]['time'];
     $jsData[$ii]['nagios_host_name'] = $h['nagios_host_name'];
     $jsData[$ii]['alias'] = $h['alias'];
     if(is_array($h["parents"]))
@@ -116,7 +117,6 @@ foreach ($hosts as $h) {
 unset($hosts);
 unset($s);
 
-//$javascript .= ("var MARK = [".($ii - 1)."];\n");
 $ii = 0;
 // put markers and bubbles onto a map
 foreach ($data as $h) {
@@ -136,8 +136,8 @@ foreach ($data as $h) {
       "\n  zIndex: 2,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
-    // if host is in state WARNING
-  } elseif ($h['status'] == 1) {
+    // if host is in state UP but in WARNING or CRITICAL
+  } elseif ($h['status'] == 1 || $h['status'] == 2) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
       "\n  icon: iconYellow,".
@@ -145,8 +145,8 @@ foreach ($data as $h) {
       "\n  zIndex: 3,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
-    // if host is in state CRITICAL / UNREACHABLE
-  } elseif ($h['status'] == 2) {
+    // if host is in state DOWN
+  } elseif ($h['status'] == 3) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
       "\n  icon: iconRed,".
@@ -154,12 +154,11 @@ foreach ($data as $h) {
       "\n  zIndex: 4,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
-    // if host is in state UNKNOWN
   } else {
-    // if host is in any other (unknown to nagMapR) state
+    // if host is in state UNKNOWN
     $javascript .= ("window.MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: 'icons/marker_grey.png',".
+      "\n  icon: iconGrey,".
       "\n  map: map,".
       "\n  zIndex: 6,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
@@ -178,7 +177,7 @@ foreach ($data as $h) {
   if($nagMapR_IsNagios == 1){
     $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
     .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
-    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
+    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
   }
   else{
     $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
@@ -205,11 +204,16 @@ if($nagMapR_Lines == 1){
     foreach ($h["parents"] as $parent) {
       if (isset($data[$parent]["latlng"])) {
       // default colors for links
-        $stroke_color = "#007f00";
+        if ($h['status'] == 0)
+          $stroke_color = "#007f00";
       // links in warning state
-        if ($h['status'] == 1) { $stroke_color ='#ffff00'; }
+        elseif ($h['status'] == 1 || $h['status'] == 2) 
+          $stroke_color ='#ffff00';
       // links in problem state
-        if ($h['status'] == 2) { $stroke_color ='#c92a2a'; }
+        elseif ($h['status'] == 3)
+          $stroke_color ='#c92a2a';
+        else
+          $stroke_color ='#A9ABAE';
         $javascript .= "\n";
 
         $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");

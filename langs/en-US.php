@@ -39,12 +39,20 @@ $other = ("Other");
 
 $hostP = ("Parents");
 
+$newVersion = ("New version available");
+
+$newVersionText = ("The version of NagMap Reborn that you are currently using is not updated.<br><br>Download the new version to have access to news and improvements.<br><br>Find the new version on GitHub:<br><br>");
+
 //ChangesBar warnings:
 $up = ("UP");
 
 $down = ("DOWN");
 
 $warning = ("WARNING");
+
+$unknown = ("UNKNOWN");
+
+$critical = ("CRITICAL");
 
 $and = ("and");
 
@@ -121,7 +129,7 @@ $noStatus = ("It does not exist in the Status file");
 
 $help = ("Help");
 
-$close = ("Fechar");
+$close = ("Close");
 
 $debugHelp = ('This page contains helpful information when requesting support!<br><br>
 

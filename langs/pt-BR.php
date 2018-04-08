@@ -29,7 +29,7 @@ $ignoredHosts = ("Esse host foi ignorado: ");
 $positionHosts = ("Posição do host: ");
 
 //Bolhas de informação:
-$alias = ("Apelido");
+$alias = ("Aliás");
 
 $hostG = ("Grupo de hosts");
 
@@ -39,12 +39,20 @@ $other = ("Outros");
 
 $hostP = ("Parentes");
 
+$newVersion = ("Nova versão disponível");
+
+$newVersionText = ("A versão do NagMap Reborn que você está usando atualmente não está atualizada!<br><br>Faça o download da nova versão para ter acesso as novidades e melhorias.<br><br>Encontre a nova versão no GitHub:<br><br>");
+
 //Alertas ChangesBar:
 $up = ("UP");
 
 $down = ("DOWN");
 
 $warning = ("EM ALERTA");
+
+$unknown = ("DESCONHECIDO");
+
+$critical = ("CRÍTICO");
 
 $and = ("e");
 
@@ -130,7 +138,7 @@ As caractéristicas da páginas são essas:<br><br>
 1 - Hosts que foram ignorados.<br>
      - Exibe todos os hosts ignorados.<br>
      - Informa o nome do host.<br>
-     - O alias do host.<br>
+     - O aliás do host.<br>
      - O motivos ou motivos daquele host ter sido ignorado.<br>
      - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
 

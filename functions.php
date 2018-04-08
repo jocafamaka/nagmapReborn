@@ -115,27 +115,54 @@ function nagMapR_status() {
       if (($option == "host_name")) {
         $host = $value;
       }
-      //get the worst service state for the host from all of its services
-      if (!isset($data[$host]['servicestatus']['current_state'])) {
-        $data[$host]['servicestatus']['current_state'] = "0";
+      if (($option == "current_state") && ($type == "servicestatus")) {
+
+        $data[$host]['servStatus_CS'] = ($value);
       }
-      if ($option == "current_state") {
-        if ($value >= $data[$host][$type][$option]) {
-          $data[$host][$type][$option] = $value;
-        }
-        if (($data[$host]['hoststatus']['current_state'] == 0) && ($data[$host]['servicestatus']['current_state'] == 0)) {
+      if (($option == "current_state") && ($type == "hoststatus")) {
+
+        $data[$host]['hostStatus_CS'] = ($value);
+      }
+
+      if( (isset($data[$host]['servStatus_CS'])) && (isset($data[$host]['hostStatus_CS'])) ) {
+
+        if (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 0)) {
           $data[$host]['status'] = 0;
-        } elseif (($data[$host]['hoststatus']['current_state'] == 1)) {
-          $data[$host]['status'] = 2;
-        } 
-        else 
-        {
-          $data[$host]['status'] = 1;         
+
+        } elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 1)) {
+          $data[$host]['status'] = 1;
+
+        } elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 2)) {
+          $data[$host]['status'] = 2;    
+
+        } elseif ($data[$host]['hostStatus_CS'] == 1)  {
+          $data[$host]['status'] = 3;
         }
-      } 
+        else{
+          $data[$host]['status'] = 4;
+        }
+      }
+
+      if($nagMapR_ChangesBarMode == 2) {
+
+        if (($option == "last_time_up") && ($type == "hoststatus")) {          
+          $dataTime[$host]['time_LTU'] = $value;
+        }
+        if (($option == "last_state_change") && ($type == "servicestatus")) {
+          $dataTime[$host]['time_LSC'] = $value;
+        }
+      }
     }
   }
-  return $data;
+
+  foreach ($data as $key => $value) {
+    if($data[$key]['status'] == 3)
+      $data[$key]['time'] = $dataTime[$key]['time_LTU'];
+    else
+      $data[$key]['time'] = $dataTime[$key]['time_LSC'];
+  }
+
+  return ($data);
 }
 
 // This is a function listing all files with Nagios configuration files into an array

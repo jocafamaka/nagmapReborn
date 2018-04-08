@@ -9,7 +9,7 @@ if(file_exists("../langs/$nagMapR_Lang.php"))
 else
   die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
 
-$version = 'v1.0.2';
+$version = 'v1.1.3';
 
 
 $files = get_config_files();
@@ -113,7 +113,7 @@ unset($s);
 
 <body>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" alt="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
+    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
     <p class="lead"><?php echo ($debugInfo); ?></p>
   </div>
 
@@ -304,9 +304,20 @@ unset($s);
               if(arrayInfo[i].status == 1)
                 newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"" + i +" <?php echo ($inWar); ?>\" class=\"card-header\" style=\"background-color: #c5d200;");
               if(arrayInfo[i].status == 2)
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"" + i +" <?php echo ($inWar); ?>\" class=\"card-header\" style=\"background-color: #c5d200;");
+              if(arrayInfo[i].status == 3)
                 newDivs = newDivs.concat("<div class=\"card mb-4 border-danger\"><div title=\"" + i +" <?php echo ($isDown); ?>\" class=\"card-header\" style=\"background-color: #b30606;");
+              if(arrayInfo[i].status == 4)
+                newDivs = newDivs.concat("<div class=\"card mb-4 border-secondary\"><div title=\"" + i +" <?php echo ($inWar); ?>\" class=\"card-header\" style=\"background-color: #6c757d;");
 
-              newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + "</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
+              if(arrayInfo[i].status == 1)
+                newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + " (<?php echo ($warning); ?>)");
+              else if(arrayInfo[i].status == 2)
+                newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i + " (<?php echo ($critical); ?>)");
+              else
+                newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i);
+
+               newDivs = newDivs.concat("</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
             }
             if(document.getElementById('wait') != null){
               document.getElementById('wait').style.display = 'none';
@@ -316,7 +327,7 @@ unset($s);
           }
         };
       }
-    }, 10000);
+    }, <?php echo $nagMapR_TimeUpdate; ?>000);
   </script>
   <br>
 </body>
