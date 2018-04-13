@@ -171,20 +171,7 @@ if ($javascript == "") {
       anchor: new google.maps.Point(14, 42)
     };
 
-    //static code from index.php
-    function initialize() {
-      var myOptions = {
-        zoom: <?php echo ("$nagMapR_MapZoom"); ?>,
-        center: new google.maps.LatLng(<?php echo $nagMapR_MapCentre ?>),
-        mapTypeId: google.maps.MapTypeId.<?php echo $nagMapR_MapType ?>,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false
-      };
-      window.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+    <?php require "mapStyle.js"; ?>
 
 // generating dynamic code from here
 // if the page ends here, there is something seriously wrong, please contact maco@blava.net for help
