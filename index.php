@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.3.3';
+$nagMapR_version = '1.3.4';
 $nagMapR_CurrVersion = file_get_contents('https://pastebin.com/raw/HGUTiEtE'); //Get current version;
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
