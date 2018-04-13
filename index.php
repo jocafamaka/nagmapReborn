@@ -120,14 +120,14 @@ if ($javascript == "") {
 
         var hostStatusPre = '. json_encode($jsData) .';
 
-        var min;
+        var max;
 
         for (var ii = 1 ; ii < hostStatusPre.length ; ii++) {
           for (var i = 1 ; i < hostStatusPre.length ; i++) {
-            if (hostStatusPre[i].time > hostStatusPre[i-1].time){
-              min = hostStatusPre[i-1];
+            if (hostStatusPre[i].time < hostStatusPre[i-1].time){
+              max = hostStatusPre[i-1];
               hostStatusPre[i-1] = hostStatusPre[i];
-              hostStatusPre[i] = min;
+              hostStatusPre[i] = max;
             }
           }
         }
