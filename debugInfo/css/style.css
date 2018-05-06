@@ -11,6 +11,10 @@ html {
   max-width: 1280px;
 }
 
+#info{
+  cursor: pointer;
+}
+
 .pricing-header {
   max-width: 800px;
 }

@@ -12,7 +12,7 @@ in maps search bar.
 
 To draw connections, hosts need to have 'parents' field set up in Nagios / Icinga.
 
-Apache / Nagmap setup
+Apache / Nagmap Reborn setup
 =====================
 Your webserver (e.g. Apache) needs to have PHP support enabled!
 Please make sure your PHP is version 5.2.0 and above :) (see phpinfo() php function)
@@ -20,14 +20,12 @@ Please make sure your PHP is version 5.2.0 and above :) (see phpinfo() php funct
 On some distributions you might need to install mbstring for PHP - like Fedora / RedHat:
 yum install php-mbstring
 
-1) copy the nagmap directory into your Apache web folder
+1) copy the Nagmap Reborn directory into your Apache web folder
    (/var/www/ on Debian/Ubuntu, or /var/www/html/ on RedHat/CentOS)
 
 2) copy config.php.example into config.php and edit this file (config.php) to fit your needs
 
-3) Open the website of nagmap installation (e.g. open Firefox - point to http://www.youwebserver.org/nagmap )
-
-When not working as expected, send the source code of the website (Ctrl-U in Firefox) to maco@blava.net for support :) 
+3) Open the website of Nagmap Reborn installation (e.g. open Firefox - point to YOURIP/nagmapReborn )
 
 Support
 =======

@@ -11,7 +11,7 @@
  */
 
 //Errors:
-$var_cfg_error = ("has not been properly configured, check the NagMap Reborn configuration file and make the necessary corrections!");
+$var_cfg_error = ("has not been properly configured, check the NagMap Reborn configuration file and make the necessary corrections! Defined value: ");
 
 $file_not_find_error = ("does not exist! Please set the variable in NagMap Reborn config file!\n");
 
@@ -27,6 +27,14 @@ $no_data_error = ("There is no data to display. You either did not set NagMap Re
 $ignoredHosts = ("Ignoring the following host: ");
 
 $positionHosts = ("Positioning host: ");
+
+$message = ("Message:");
+
+$lineNum = ("Line number:");
+
+$error = ("Error");
+
+$at = ("At:");
 
 //Bubble info:
 $alias = ("Alias");
@@ -116,6 +124,10 @@ $isUp = ("is up");
 $isDown = ("is down");
 
 $inWar = ("is in warning");
+
+$incrit = ("is critical");
+
+$isunk = ("unknown");
 
 $controlInfo = ("Stop/Start information update");
 

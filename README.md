@@ -11,10 +11,11 @@ Some changes were made to the functions and logic used in the original project a
 * New system of last occurrences (ChangesBar).
 * New system of sound warning.
 * Almost total control of page characteristics.
-* Powerful debug page.<sup>(NEW)</sup>
+* Powerful debug page.
 
 ### What you can control:
 * Map center.
+* Custom map style. <sup>(NEW)</sup>
 * Zoom level.
 * Language.*
 * Last occurrences view (ChangesBar).
@@ -38,11 +39,15 @@ It is possible to integrate with other systems that have the structure similar t
 
 ## NagMap Reborn page
 
-!["NagMap Reborn Page"](https://i.imgur.com/ETuH5vb.png "NagMap Reborn Page")
+!["NagMap Reborn Page"](https://i.imgur.com/4rg98IC.png "NagMap Reborn Page")
+
+<sup>Using the Custom Dark Style</sup>
 
 ### Preview of animations:
 
-![Demo CountPages alpha](https://i.imgur.com/sqwB6d8.gif)
+![Demo CountPages alpha](https://i.imgur.com/hLzJ6T6.gif "NagMap Reborn Animation")
+
+<sup>Using the Custom Dark Style</sup>
 
 ### Contribution
 Contribution are always **welcome and recommended**! Here is how:

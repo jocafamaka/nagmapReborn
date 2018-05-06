@@ -11,7 +11,7 @@
  */
 
 //ERROS:
-$var_cfg_error = ("não foi corretamente configurada, verifique o arquivo de configuração do NagMap Reborn e faça as correções necessárias!");
+$var_cfg_error = ("não foi corretamente configurada, verifique o arquivo de configuração do NagMap Reborn e faça as correções necessárias! Valor definido: ");
 
 $file_not_find_error = ("não foi encontrado! Por favor defina corretamente a variável no arquivo de configuração do NagMap Reborn!");
 
@@ -27,6 +27,14 @@ $no_data_error = ("Não existem dados a serem exibidos, ou você não definiu as
 $ignoredHosts = ("Esse host foi ignorado: ");
 
 $positionHosts = ("Posição do host: ");
+
+$message = ("Mensagem:");
+
+$lineNum = ("Número da linha:");
+
+$error = ("Erro");
+
+$at = ("As:");
 
 //Bolhas de informação:
 $alias = ("Aliás");
@@ -117,13 +125,17 @@ $isDown = ("está down");
 
 $inWar = ("está em alerta");
 
+$incrit = ("está crítico");
+
+$isunk = ("desconhecido");
+
 $controlInfo = ("Para/Continua a atualização das informações");
 
 $appStatus = ("Status atual da aplicação");
 
-$noLatLng = ("Não possue LatLng no arquivo de definição");
+$noLatLng = ("Não possui LatLng no arquivo de definição");
 
-$noHostN = ("Não possue HostName");
+$noHostN = ("Não possui HostName");
 
 $noStatus = ("Não existe no arquivo de Status");
 

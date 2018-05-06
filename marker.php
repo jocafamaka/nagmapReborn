@@ -136,13 +136,22 @@ foreach ($data as $h) {
       "\n  zIndex: 2,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
-    // if host is in state UP but in WARNING or CRITICAL
-  } elseif ($h['status'] == 1 || $h['status'] == 2) {
+    // if host is in state UP but in WARNING
+  } elseif ($h['status'] == 1) {
     $javascript .= ("MARK.push(new google.maps.Marker({".
       "\n  position: ".$h["host_name"]."_pos,".
       "\n  icon: iconYellow,".
       "\n  map: map,".
       "\n  zIndex: 3,".
+      "\n  title: \"".$h["nagios_host_name"]."\"".
+      "}));"."\n\n");
+    // if host is in state UP but CRITICAL
+  }elseif ($h['status'] == 2) {
+    $javascript .= ("MARK.push(new google.maps.Marker({".
+      "\n  position: ".$h["host_name"]."_pos,".
+      "\n  icon: iconOrange,".
+      "\n  map: map,".
+      "\n  zIndex: 4,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
     // if host is in state DOWN
@@ -151,7 +160,7 @@ foreach ($data as $h) {
       "\n  position: ".$h["host_name"]."_pos,".
       "\n  icon: iconRed,".
       "\n  map: map,".
-      "\n  zIndex: 4,".
+      "\n  zIndex: 5,".
       "\n  title: \"".$h["nagios_host_name"]."\"".
       "}));"."\n\n");
   } else {
@@ -207,8 +216,11 @@ if($nagMapR_Lines == 1){
         if ($h['status'] == 0)
           $stroke_color = "#007f00";
       // links in warning state
-        elseif ($h['status'] == 1 || $h['status'] == 2) 
+        elseif ($h['status'] == 1) 
           $stroke_color ='#ffff00';
+        // links in critical state
+        elseif ($h['status'] == 2) 
+          $stroke_color ='#d25700';
       // links in problem state
         elseif ($h['status'] == 3)
           $stroke_color ='#c92a2a';
