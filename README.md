@@ -67,6 +67,11 @@ Others
 ======
 If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn. 
 
+### About private API Key
+Since June 11, 2018, the use of the API private key has been mandatory even in local networks, so a specific field has been added for this purpose inside the configuration file.
+
+[See here](https://developers.google.com/maps/documentation/javascript/get-api-key) how to get an API private key.
+
 ### About Debug Page
 The Debug page contains information that helps identify possible bugs in the application.
 

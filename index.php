@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.4.0';
+$nagMapR_version = '1.4.1';
 $nagMapR_CurrVersion = file_get_contents('https://pastebin.com/raw/HGUTiEtE'); //Get current version;
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
   $nagMapR_CurrVersion = $nagMapR_version;
@@ -31,6 +31,9 @@ if(!is_string($nagios_cfg_file))
 
 if(!is_string($nagios_status_dat_file)) 
   die("\$nagios_status_dat_file $var_cfg_error ($nagios_status_dat_file)");
+
+if(!is_string($nagMapR_Mapkey) || empty($nagMapR_Mapkey)) 
+  die("\$nagMapR_Mapkey $var_cfg_error ($nagMapR_Mapkey)");
 
 if(!is_string($nagMapR_FilterHostgroup)) 
   die("\$nagMapR_FilterHostgroup $var_cfg_error ($nagMapR_FilterHostgroup)");
@@ -99,7 +102,7 @@ if ($javascript == "") {
   <link rel=StyleSheet href="style.css" type="text/css" media=screen>
   <link href="toastr/toastr.css" rel="stylesheet"/>
   <title>NagMap Reborn <?php echo $nagMapR_version ?></title>
-  <script src="http://maps.google.com/maps/api/js" type="text/javascript"></script>
+  <script src="http://maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
 
   <div id="myModal" class="modal">
     <div class="modal-content" id="modalContent">

@@ -37,6 +37,11 @@ $nagMapR_MapZoom = 6.2;
 // TERRAIN
 $nagMapR_MapType = 'ROADMAP';
 
+
+//Enter your private API key here
+//See here how to get an API private key: (https://developers.google.com/maps/documentation/javascript/get-api-key)
+$nagMapR_Mapkey = '';
+
 ####################################################################################################
 #                                      NAGMAP REBORN FEATURES                                      #
 ####################################################################################################
