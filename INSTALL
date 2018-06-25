@@ -1,32 +1,38 @@
-Nagios Configuration
-====================
+# Installation
+
+## Nagios Configuration
+
 The 'notes' field for host definition in Nagios needs to match the following example:
   latlng: 66.174082,-13.119136
 
-If you are editing Nagios configuration files by hand this is how the FULL notes line should look like:
+If you are editing Nagios configuration files by hand this is how the FULL notes
+line should look like:
   notes       latlng: 66.174082,-13.119136
 
-You can get the precise coordinates from Google Maps (http://maps.google.com) - right click on 
-the spot where your device is located and select option "What's here?". The coordinates will be set 
-in maps search bar. 
+You can get the precise coordinates from [Google Maps](http://maps.google.com)
+Right click on the spot where your device is located and select option "What's here?".
+The coordinates will be set in maps search bar.
 
 To draw connections, hosts need to have 'parents' field set up in Nagios / Icinga.
 
-Apache / Nagmap Reborn setup
-=====================
+## Apache / Nagmap Reborn setup
+
 Your webserver (e.g. Apache) needs to have PHP support enabled!
 Please make sure your PHP is version 5.2.0 and above :) (see phpinfo() php function)
 
-On some distributions you might need to install mbstring for PHP - like Fedora / RedHat:
+On some distributions you might need to install mbstring for PHP - like Fedora/RedHat:
 yum install php-mbstring
 
 1) copy the Nagmap Reborn directory into your Apache web folder
    (/var/www/ on Debian/Ubuntu, or /var/www/html/ on RedHat/CentOS)
 
-2) copy config.php.example into config.php and edit this file (config.php) to fit your needs
+2) copy config.php.example into config.php and edit this file (config.php)
+   to fit your needs
 
-3) Open the website of Nagmap Reborn installation (e.g. open Firefox - point to YOURIP/nagmapReborn )
+3) Open the website of Nagmap Reborn installation
+   (e.g. open Firefox - point to YOURIP/nagmapReborn)
 
-Support
-=======
-joao_carlos.r@hotmail.com - Please do not hesitate to send an email! I will eventualy respond to everyone!
+## Support
+
+joao_carlos.r@hotmail.com - Please do not hesitate to send an email!
+I will eventualy respond to everyone!
