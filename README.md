@@ -4,7 +4,7 @@ NagMap Reborn is an initiative to improve the original project NagMap which acco
 
 New Features
 ============
-Some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the fofllowing improvementes:
+Some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the following improvementes:
 
 * Updating hosts status without refresh on page.
 * Now the application supports multiple languages.
@@ -17,7 +17,8 @@ Some changes were made to the functions and logic used in the original project a
 * Map center.
 * Custom map style. <sup>(NEW)</sup>
 * Zoom level.
-* Language.*
+* Language.
+  * Currently only available: English and Portuguese. (Translation contributions are welcome)
 * Last occurrences view (ChangesBar).
   * ChangesBar size on screen.
   * Font size.
@@ -26,9 +27,8 @@ Some changes were made to the functions and logic used in the original project a
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
-* Icons style. 
+* Icons style.
 
-*Currently only available: English and Portuguese. (Translation contribuition are welcome)
 
 ## Compatible with
 * Nagios.
@@ -65,7 +65,7 @@ Terms of use (Google Maps API)
 
 Others
 ======
-If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn. 
+If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn.
 
 ### About private API Key
 Since June 11, 2018, the use of the API private key has been mandatory even in local networks, so a specific field has been added for this purpose inside the configuration file.
@@ -77,13 +77,13 @@ The Debug page contains information that helps identify possible bugs in the app
 
 It is possible to know the hosts that were ignored and the reason, you can also see information about all hosts present in the Status file.
 
-Through it, it is possible to obtain support in an easier way, in the footer of the page there is a control button of the updates of the information, as well as a button to download the information that is being displayed, when requesting support send this file in attachment to facilitate to solve problems.
+Though it is also possible to obtain support in an easier way - in the footer of the page there is a control button for the information about updates, as well as a button to download the information that is being displayed. When requesting support send this file in attachment to facilitate to solve problems.
 
 
 You can access the Debug page through the link:
-http://localhost/nagmapReborn/debugInfo **
+http://localhost/nagmapReborn/debugInfo <sup>1</sup>
 
-**Make adjustments to the link if necessary.
+1: Make adjustments to the link if necessary.
 
 ### Remaining credits
 This application was originally developed by [Marcel Hecko](https://github.com/hecko).
