@@ -102,7 +102,7 @@ if ($javascript == "") {
   <link rel=StyleSheet href="style.css" type="text/css" media=screen>
   <link href="toastr/toastr.css" rel="stylesheet"/>
   <title>NagMap Reborn <?php echo $nagMapR_version ?></title>
-  <script src="http://maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
+  <script src="https://maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
 
   <div id="myModal" class="modal">
     <div class="modal-content" id="modalContent">
