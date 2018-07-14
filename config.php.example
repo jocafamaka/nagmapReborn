@@ -14,6 +14,8 @@ $nagMapR_FilterHostgroup  = '';
 
 // Use this only to generate extra information for support - this will add a lot of information
 // into the rendered index file
+// 1 = YES.
+// 0 = NO.
 $nagMapR_Debug = 0;
 
 //Define if the monitoring system is nagios, if it does not hide some specific information.
@@ -36,7 +38,6 @@ $nagMapR_MapZoom = 6.2;
 // HYBRID
 // TERRAIN
 $nagMapR_MapType = 'ROADMAP';
-
 
 //Enter your private API key here
 //See here how to get an API private key: (https://developers.google.com/maps/documentation/javascript/get-api-key)
@@ -66,13 +67,13 @@ $nagMapR_ChangesBar = 1;
 
 // Select ChangesBar mode
 // 1 = History mode. (Displays all occurrences sequentially with date and time)
-// 2 = Alert mode. (Shows only hosts who are DOWN and in WARNING, with the past time)
+// 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
 $nagMapR_ChangesBarMode = 2;
 
-// Percentage size occupied by the ChangesBar on the screen. Use just numbers.
+// Percentage size occupied by the ChangesBar on the screen. (use only numbers)
 $nagMapR_ChangesBarSize = 15;
 
-// Font size in pixels used in ChangesBar. Use just numbers.
+// Font size in pixels used in ChangesBar. (use only numbers)
 $nagMapR_FontSize = 15;
 
 // Defines the date format used in the ChangesBar.
@@ -98,7 +99,7 @@ $nagMapR_IconStyle = 1;
 // 0 = NO.
 $nagMapR_Lines = 1;
 
-// Time in seconds, to update the hosts status. Use just numbers.
+// Time in seconds, to update the hosts status. (use only numbers)
 $nagMapR_TimeUpdate = 10;
 
 ####################################################################################################
