@@ -24,8 +24,6 @@ $one_column_error2 = (") which contains only one column. This is not right! File
 $no_data_error = ("There is no data to display. You either did not set NagMap Reborn properly or there is a software bug.<br>Please contact joao_carlos.r@hotmail.com assistance.");
 
 //Debug info:
-$ignoredHosts = ("Ignoring the following host: ");
-
 $positionHosts = ("Positioning host: ");
 
 $message = ("Message:");

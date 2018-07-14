@@ -1,6 +1,6 @@
 # NagMap Reborn Introduction
 
-NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images. It also aims to give administrator basic information on devices to do further investigation of their status, such as links to MRTG and Smokeping pages of respected devices."
+NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images. It also aims to give administrator basic information on devices to do further investigation of their status..."
 
 ## New Features
 
@@ -16,7 +16,7 @@ Some changes were made to the functions and logic used in the original project a
 ## What you can control
 
 * Map center.
-* Custom map style. <sup>(NEW)</sup>
+* Custom map style.
 * Zoom level.
 * Language.
   * Currently only available: English and Portuguese. (Translation contributions are welcome)
@@ -65,28 +65,11 @@ Contribution are always **welcome and recommended**! Here is how:
 * This app uses the Maps API(s) - [See here](http://www.google.com/privacy.html) Google privacy policy.
 * [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
 
-## Others
+## Support
 
-If you experience any problems deploying NagMap Reborn please send an email to joao_carlos.r@hotmail.com - I will do my best to assist you or to add new features into NagMap Reborn.
+If you experience any problems deploying NagMap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
 
-## About private API Key
-
-Since June 11, 2018, the use of the API private key has been mandatory even in local networks, so a specific field has been added for this purpose inside the configuration file.
-
-[See here](https://developers.google.com/maps/documentation/javascript/get-api-key) how to get an API private key.
-
-## About Debug Page
-
-The Debug page contains information that helps identify possible bugs in the application.
-
-It is possible to know the hosts that were ignored and the reason, you can also see information about all hosts present in the Status file.
-
-Though it is also possible to obtain support in an easier way - in the footer of the page there is a control button for the information about updates, as well as a button to download the information that is being displayed. When requesting support send this file in attachment to facilitate to solve problems.
-
-You can access the Debug page through the link:
-[http://localhost/nagmapReborn/debugInfo](http://localhost/nagmapReborn/debugInfo)<sup>1</sup>
-
-1: Make adjustments to the link if necessary.
+You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of NagMap Reborn.
 
 ## Remaining credits
 

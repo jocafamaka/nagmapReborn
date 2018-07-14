@@ -113,7 +113,7 @@ unset($s);
 
 <body>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" id="info" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
+    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" class="cursor_pointer" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
     <p class="lead"><?php echo ($debugInfo); ?></p>
   </div>
 
@@ -163,7 +163,7 @@ unset($s);
     </footer>
   </div>
 
-  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" id="control"></div>
+  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" class="cursor_pointer" id="control"></div>
 
   <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
     <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="<?php echo ($project); ?>" class="navbar-brand" src="img/logoMini.svg" alt=""></a>

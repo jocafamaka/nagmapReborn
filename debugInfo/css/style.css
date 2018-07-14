@@ -11,7 +11,7 @@ html {
   max-width: 1280px;
 }
 
-#info{
+.cursor_pointer{
   cursor: pointer;
 }
 

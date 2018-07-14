@@ -101,18 +101,6 @@ foreach ($hosts as $h) {
     $jsData[$ii]['status'] = $s[$h["nagios_host_name"]]['status'];
     $ii++;
   }
-  else {
-    if ($nagMapR_Debug) { 
-      echo('// '.$ignoredHosts.$h['host_name'].":".$h['latlng'].":".$s[$h["nagios_host_name"]]['status_human']." - Reason:");
-      if(!isset($h["latlng"]))
-        echo(" (LatLng)");
-      if(!isset($h["host_name"]))
-        echo(" (HostName)");
-      if(!isset($s[$h["nagios_host_name"]]['status']))
-        echo(" (Status)");
-      echo("<br>");
-    }
-  }
 }
 unset($hosts);
 unset($s);

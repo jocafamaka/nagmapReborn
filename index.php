@@ -13,7 +13,7 @@
 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
-$nagMapR_version = '1.4.1';
+$nagMapR_version = '1.4.2';
 $nagMapR_CurrVersion = file_get_contents('https://pastebin.com/raw/HGUTiEtE'); //Get current version;
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
   $nagMapR_CurrVersion = $nagMapR_version;
@@ -236,7 +236,7 @@ echo $javascript;
   </head>
   <body style="margin:0px; padding:0px; overflow:hidden;" onload="initialize()">';
   if ($nagMapR_Debug == 1){
-    echo ('<div id="div_fixa" class="div_fixa" style="z-index:2000;"><a href="debugInfo/index.php"><button class="button" style="vertical-align:middle"><span>Debug page</span></button></a></div>');
+    echo ('<a href="debugInfo/index.php"><div href="debugInfo/index.php" id="div_fixa" class="div_fixa" style="z-index:2000;"><button class="button" style="vertical-align:middle"><span>Debug page</span></button></div></a>');
   }
   if ($nagMapR_ChangesBar == 1) {
     echo '<div id="map_canvas" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';

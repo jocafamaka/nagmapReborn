@@ -24,8 +24,6 @@ $one_column_error2 = (") que contém somente uma coluna, não está correta! Arq
 $no_data_error = ("Não existem dados a serem exibidos, ou você não definiu as configurações corretamente ou esse é um bug do sistema.<br>Por favor entre em contato através do e-mail joao_carlos.r@hotmail.com para obter assistência.");
 
 //Informações do debug:
-$ignoredHosts = ("Esse host foi ignorado: ");
-
 $positionHosts = ("Posição do host: ");
 
 $message = ("Mensagem:");
