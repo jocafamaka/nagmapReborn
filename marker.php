@@ -108,9 +108,6 @@ unset($s);
 $ii = 0;
 // put markers and bubbles onto a map
 foreach ($data as $h) {
-  if ($nagMapR_Debug) {
-    echo('<!--'.$positionHosts.$h['host_name'].":".$h['latlng'].":".$h['status']."-->\n");
-  }
     // position the host on the map
   $javascript .= ("window.".$h["host_name"]."_pos = new google.maps.LatLng(".$h["latlng"].");\n");
 
