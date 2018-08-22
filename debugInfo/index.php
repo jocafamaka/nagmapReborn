@@ -9,7 +9,7 @@ if(file_exists("../langs/$nagMapR_Lang.php"))
 else
   die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
 
-$version = 'v1.2.3';
+$version = 'v1.3.0';
 
 
 $files = get_config_files();
@@ -102,18 +102,18 @@ unset($s);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../icons/NagFavIcon.ico">
+  <link rel="icon" href="../resources/img/NagFavIcon.ico">
 
   <title>NagMap Reborn <?php echo ($debugTitle." ".$version); ?></title>
 
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="css/style.css" rel="stylesheet">
+  <link href="resources/css/style.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="img/iconQuestion.svg" class="cursor_pointer" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
+    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="resources/img/iconQuestion.svg" class="cursor_pointer" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
     <p class="lead"><?php echo ($debugInfo); ?></p>
   </div>
 
@@ -145,7 +145,7 @@ unset($s);
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
         <div class="col-12 col-md">
-          <img class="mb-2" src="img/logo.svg" alt="">
+          <img class="mb-2" src="resources/img/logo.svg" alt="">
         </div>
         <div class="col-9 col-md">
           <h5>LINKS</h5>
@@ -163,10 +163,10 @@ unset($s);
     </footer>
   </div>
 
-  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="img/loading.svg" alt="" class="cursor_pointer" id="control"></div>
+  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="resources/img/loading.svg" alt="" class="cursor_pointer" id="control"></div>
 
   <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-    <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="<?php echo ($project); ?>" class="navbar-brand" src="img/logoMini.svg" alt=""></a>
+    <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="<?php echo ($project); ?>" class="navbar-brand" src="resources/img/logoMini.svg" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -186,10 +186,10 @@ unset($s);
   </nav>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/holder.min.js"></script>
+  <script>window.jQuery || document.write('<script src="resources/js/jquery-slim.min.js"><\/script>')</script>
+  <script src="resources/js/popper.min.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
+  <script src="resources/js/holder.min.js"></script>
   <script>
     Holder.addTheme('thumb', {
       bg: '#55595c',
@@ -247,12 +247,12 @@ unset($s);
       var div = document.getElementById('control');
       if(play == true) {
         document.getElementById('status').innerHTML = '<?php echo ($waiting); ?>.';
-        div.src = 'img/pause.svg';
+        div.src = 'resources/img/pause.svg';
         play = false;
         update = true;
       }
       else {
-        div.src = 'img/play.svg';
+        div.src = 'resources/img/play.svg';
         document.getElementById('status').innerHTML = '<?php echo ($stopped); ?>.';
         play = true;
         update = false;
@@ -261,12 +261,12 @@ unset($s);
 
     function load(){
       document.getElementById('status').innerHTML = '<?php echo ($updating); ?>.';
-      document.getElementById('control').src = 'img/loading.svg';
+      document.getElementById('control').src = 'resources/img/loading.svg';
       document.getElementById('btnDownload').classList.add('disabled');
       download = false;
       setTimeout(function(){ 
         if(update){
-          document.getElementById('control').src = 'img/pause.svg';
+          document.getElementById('control').src = 'resources/img/pause.svg';
           document.getElementById('status').innerHTML = '<?php echo ($waiting); ?>.';
         }
         document.getElementById('btnDownload').classList.remove('disabled');
@@ -300,30 +300,46 @@ unset($s);
 
             for(var i in arrayInfo){
               if(arrayInfo[i].status == 0)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-success\"><div title=\"" + i +" <?php echo ($isUp); ?>\" class=\"card-header\" style=\"background-color: #159415;");
-              if(arrayInfo[i].status == 1)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-warning\"><div title=\"" + i +" <?php echo ($inWar); ?>\" class=\"card-header\" style=\"background-color: #c5d200;");
-              if(arrayInfo[i].status == 2)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-orange\"><div title=\"" + i +" <?php echo ($inCrit); ?>\" class=\"card-header\" style=\"background-color: #ff8d00;");
+                newDivs = newDivs.concat("<div class=\"card card-father mb-4 border-success\"><div title=\"<?php echo ($tHost); ?>" + i +" <?php echo ($isUp); ?>\" class=\"card-header title\" style=\"background-color: #159415;\">");
               if(arrayInfo[i].status == 3)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-danger\"><div title=\"" + i +" <?php echo ($isDown); ?>\" class=\"card-header\" style=\"background-color: #b30606;");
+                newDivs = newDivs.concat("<div class=\"card card-father mb-4 border-danger\"><div title=\"<?php echo ($tHost); ?>" + i +" <?php echo ($isDown); ?>\" class=\"card-header title\" style=\"background-color: #b30606;\">");
               if(arrayInfo[i].status == 4)
-                newDivs = newDivs.concat("<div class=\"card mb-4 border-secondary\"><div title=\"" + i +" <?php echo ($isunk); ?>\" class=\"card-header\" style=\"background-color: #6c757d;");
+                newDivs = newDivs.concat("<div class=\"card card-father mb-4 border-secondary\"><div title=\"<?php echo ($tHost); ?>" + i +" <?php echo ($isunk); ?>\" class=\"card-header title\" style=\"background-color: #6c757d;\">");
 
-               newDivs = newDivs.concat("color: white; text-shadow:2px 2px 4px #000000 ;\"><h4 class=\"my-0 font-weight-bold\">" + i);
+              newDivs = newDivs.concat("<h4 class=\"my-0 font-weight-bold\">" + i + "</h4></div><div class=\"card-body\"><div class=\"card-deck mb-3 text-center\">");
 
-               newDivs = newDivs.concat("</h4></div><div class=\"card-body\"><ul class=\"list-unstyled mt-3 mb-4\"><h1><small class=\"text-muted\">HostStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LHSC +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i].hostStatus_LTUNR +"</td></tr></table><h1><small class=\"text-muted\">ServiceStatus</small></h1><table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i].servStatus_LTC +"</td></tr></table></ul></div></div>");
+              newDivs = newDivs.concat("<table class=\"table table-hover\"><thead><tr><th colspan =\"3\"><h1><small class=\"text-muted\">Host status</small></h1></th></tr></thead><tbody><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LHS +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTUNR +"</td></tr></tbody><thead><tr><th colspan =\"3\"><h1><small class=\"text-muted\">Services status</small></h1></th></tr></thead></table>");
+
+            for(var serv in arrayInfo[i].services){
+              if(serv != "HostStatus"){
+                if(arrayInfo[i]['services'][serv].servStatus_CS == 0)
+                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-success\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isUp); ?>\" class=\"card-header title\" style=\"background-color: #159415;\">");
+                if(arrayInfo[i]['services'][serv].servStatus_CS == 1)
+                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-warning\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inWar); ?>\" class=\"card-header title\" style=\"background-color: #c5d200;\">");
+                if(arrayInfo[i]['services'][serv].servStatus_CS == 2)
+                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-orange\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inCrit); ?>\" class=\"card-header title\" style=\"background-color: #ff8d00;\">");
+                if(arrayInfo[i]['services'][serv].servStatus_CS != 0 && arrayInfo[i]['services'][serv].servStatus_CS != 1 && arrayInfo[i]['services'][serv].servStatus_CS != 2)
+                newDivs = newDivs.concat("<div class=\"card inside mb-4 border-secondary\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isunk); ?>\" class=\"card-header title\" style=\"background-color: #6c757d;\">");
+
+                newDivs = newDivs.concat("<h4 class=\"my-0 font-weight-bold\">" + serv + "</h4></div><div class=\"card-body\">");
+
+
+                newDivs = newDivs.concat("<table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTC +"</td></tr></table></div></div>");
+              }
             }
-            if(document.getElementById('wait') != null){
-              document.getElementById('wait').style.display = 'none';
-              document.getElementById('tableh').style.display = 'block';
-            }
-            document.getElementById('InContainer').innerHTML = newDivs;
-          }
-        };
+          newDivs = newDivs.concat("</div></div></div>");
+        }
+
+        if(document.getElementById('wait') != null){
+          document.getElementById('wait').style.display = 'none';
+          document.getElementById('tableh').style.display = 'block';
+        }
+        document.getElementById('InContainer').innerHTML = newDivs;
       }
-    }, <?php echo $nagMapR_TimeUpdate; ?>000);
-  </script>
-  <br>
+    };
+  }
+}, <?php echo $nagMapR_TimeUpdate; ?>000);
+</script>
+<br>
 </body>
 </html>

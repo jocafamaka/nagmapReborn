@@ -33,6 +33,7 @@ if($key == $nagMapR_key){
 		if (preg_match("/}/",$line)) {
 			$type = "0";
 			unset($host);
+			unset($service);
 			continue;
 		}
 		if (preg_match("/^hoststatus {/", $line)) {
@@ -51,6 +52,19 @@ if($key == $nagMapR_key){
 			if (($option == "host_name")) {
 				$host = $value;
 			}
+			if (($option == "service_description")) {
+				$service = $value;
+				if($nagMapR_FilterService != ''){
+
+					$servicesFilter = explode(';', $nagMapR_FilterService);
+
+					foreach ($servicesFilter as $serviceFilter) {
+						if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false){
+							$service .= $primary;
+						}
+					}
+				}
+			}
 			if (($option == "last_state_change") && ($type == "hoststatus")) {
 
 				if($value > 0){
@@ -64,9 +78,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['hostStatus_LSC'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LSC'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['hostStatus_LSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_hard_state_change") && ($type == "hoststatus")) {
@@ -82,9 +96,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['hostStatus_LHSC'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LHSC'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['hostStatus_LHSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LHSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_up") && ($type == "hoststatus")) {
@@ -100,9 +114,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['hostStatus_LTU'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTU'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['hostStatus_LTU'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTU'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_down") && ($type == "hoststatus")) {
@@ -118,9 +132,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['hostStatus_LTD'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTD'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['hostStatus_LTD'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTD'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_unreachable") && ($type == "hoststatus")) {
@@ -136,18 +150,18 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['hostStatus_LTUNR'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTUNR'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['hostStatus_LTUNR'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services']['HostStatus']['hostStatus_LTUNR'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "current_state") && ($type == "hoststatus")) {
 				
-				$hStatus[$host]['hostStatus_CS'] = ($value);
+				$hStatus[$host]['services']['HostStatus']['hostStatus_CS'] = ($value);
 			}
 			if (($option == "last_hard_state") && ($type == "hoststatus")) {
 				
-				$hStatus[$host]['hostStatus_LHS'] = ($value);
+				$hStatus[$host]['services']['HostStatus']['hostStatus_LHS'] = ($value);
 			}
 			####################################################################################################
 			if (($option == "last_state_change") && ($type == "servicestatus")) {
@@ -163,9 +177,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LSC'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LSC'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_hard_state_change") && ($type == "servicestatus")) {
@@ -181,9 +195,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LHSC'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LHSC'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LHSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LHSC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_ok") && ($type == "servicestatus")) {
@@ -199,9 +213,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LTO'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTO'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LTO'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTO'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_warning") && ($type == "servicestatus")) {
@@ -217,9 +231,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LTW'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTW'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LTW'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTW'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_unknown") && ($type == "servicestatus")) {
@@ -235,9 +249,9 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LTUNK'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTUNK'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LTUNK'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTUNK'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "last_time_critical") && ($type == "servicestatus")) {
@@ -253,31 +267,25 @@ if($key == $nagMapR_key){
 				}
 
 				if($hours == 0)
-					$hStatus[$host]['servStatus_LTC'] = ("(". $value .") → " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTC'] = ("(". $value .") → " .$minutes. " min");
 				else{						
-					$hStatus[$host]['servStatus_LTC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
+					$hStatus[$host]['services'][$service]['servStatus_LTC'] = ("(". $value .") → " .$hours. " h ". $and ." " .$minutes. " min");
 				}
 			}
 			if (($option == "current_state") && ($type == "servicestatus")) {
 				
-				$hStatus[$host]['servStatus_CS'] = ($value);
+				$hStatus[$host]['services'][$service]['servStatus_CS'] = ($value);
 			}
 			if (($option == "last_hard_state") && ($type == "servicestatus")) {
 				
-				$hStatus[$host]['servStatus_LHS'] = ($value);
+				$hStatus[$host]['services'][$service]['servStatus_LHS'] = ($value);
 			}
-			if(isset($hStatus[$host]['servStatus_CS']) and isset($hStatus[$host]['hostStatus_CS']))
+			if(isset($hStatus[$host]['services']['HostStatus']['hostStatus_CS']))
 			{
-				if (($hStatus[$host]['hostStatus_CS'] == 0) && ($hStatus[$host]['servStatus_CS'] == 0)) {
+				if (($hStatus[$host]['services']['HostStatus']['hostStatus_CS'] == 0) ) {
 					$hStatus[$host]['status'] = 0;
 
-				} elseif (($hStatus[$host]['hostStatus_CS'] == 0) && ($hStatus[$host]['servStatus_CS'] == 1)) {
-					$hStatus[$host]['status'] = 1;
-
-				} elseif (($hStatus[$host]['hostStatus_CS'] == 0) && ($hStatus[$host]['servStatus_CS'] == 2)) {
-					$hStatus[$host]['status'] = 2;    
-
-				} elseif ($hStatus[$host]['hostStatus_CS'] == 1)  {
+				} elseif ($hStatus[$host]['services']['HostStatus']['hostStatus_CS'] == 1)  {
 					$hStatus[$host]['status'] = 3;
 				}
 				else{

@@ -23,9 +23,11 @@ $one_column_error2 = (") which contains only one column. This is not right! File
 
 $no_data_error = ("There is no data to display. You either did not set NagMap Reborn properly or there is a software bug.<br>Please contact joao_carlos.r@hotmail.com assistance.");
 
-//Debug info:
-$positionHosts = ("Positioning host: ");
+$reported = (" reported.");
 
+$errorFound = ("An error was automatically reported.");
+
+//Debug info:
 $message = ("Message:");
 
 $lineNum = ("Line number:");
@@ -47,7 +49,7 @@ $hostP = ("Parents");
 
 $newVersion = ("New version available");
 
-$newVersionText = ("The version of NagMap Reborn that you are currently using is not updated.<br><br>Download the new version to have access to news and improvements.<br><br>Find the new version on GitHub:<br><br>");
+$newVersionText = ("The currently used version of NagMap Reborn is outdated!<br><br>Download the new version to have access to news and improvements.<br><br>Get the new version on GitHub:<br><br>");
 
 //ChangesBar warnings:
 $up = ("UP");
@@ -95,6 +97,10 @@ $hostName = ("Host name");
 
 $reasons = ("Reason(s)");
 
+$tServ = ("The service ");
+
+$tHost = ("The host ");
+
 $cs = ("Current state");
 
 $lhs = ("Last hard state");
@@ -125,7 +131,7 @@ $inWar = ("is in warning");
 
 $incrit = ("is critical");
 
-$isunk = ("unknown");
+$isunk = ("has an unknown status");
 
 $controlInfo = ("Stop/Start information update");
 
@@ -141,29 +147,32 @@ $help = ("Help");
 
 $close = ("Close");
 
+$primary = (" (Primary)");
+
 $debugHelp = ('This page contains helpful information when requesting support!<br><br>
 
 The characteristics of the pages are these:<br><br>
 
-1 - Hosts that were ignored.<br>
+<strong>1 - Hosts that were ignored.</strong><br>
      - Displays all the ignored hosts.<br>
      - Informs the host name.<br>
      - The host alias.<br>
      - The reasons or motives of that host have been ignored.<br>
      - The reasons can be very useful to define if it was a configuration error or application bug.<br><br>
 
-2 - Important information about each host in the Status file.<br>
-     - The color of the Card indicates the status of the host in question.<br>
-     - Shows information about internal stats.<br>
+<strong>2 - Important information about each host in the Status file.</strong><br>
+     - The color of the Card indicates the status of the host or service in question.<br>
+     - Shows information about internal status.<br>
+         - Green: ok; Yellow: warning; Orange: critical; Gray: unknown.<br>
      - Displays the time values for several parameters.<br>
      - Displays the time in Epoch format and the time in hours and minutes.<br><br>
 
-3 - In the footer of the page there is the controller to update the page information.<br>
+<strong>3 - In the footer of the page there is the controller to update the page information.</strong><br>
      - It is possible to stop the update at any time, useful for capturing quick events.<br>
      - There is also a download button that downloads a file with the information on the page right now.<br>
      - The download button is disabled during page information updates.<br>
+<br>
+<strong>Whenever requesting support</strong> access the debug page download the file and attach in your request, this procedure can and will make troubleshooting easier.<br><br>
 
-Whenever requesting support access the debug page download the file and attach in your request, this procedure can and will make troubleshooting easier.<br><br>
-
-You can get support by contacting me via e-mail: joao_carlos.r@hotmail.com');
+You can get support by contacting me via e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
 ?>

@@ -171,10 +171,10 @@ foreach ($data as $h) {
   if($nagMapR_IsNagios == 1){
     $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
     .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
-    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
+    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
   }
   else{
-    $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="icons/logoMiniBlack.svg" alt=""></a><center>';
+    $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
     
   }
 

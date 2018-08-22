@@ -33,6 +33,7 @@ if($key == $nagMapR_key){
 		if (preg_match("/}/",$line)) {
 			$type = "0";
 			unset($host);
+			unset($service);
 			continue;
 		}
 		if (preg_match("/^hoststatus {/", $line)) {
@@ -51,84 +52,107 @@ if($key == $nagMapR_key){
 			if (($option == "host_name")) {
 				$host = $value;
 			}
+			if (($option == "service_description")) {
+				$service = $value;
+			}
+
 			if (($option == "current_state") && ($type == "servicestatus")) {
-				
-				$data[$host]['servStatus_CS'] = ($value);
-			}
-			if (($option == "current_state") && ($type == "hoststatus")) {
-				
-				$data[$host]['hostStatus_CS'] = ($value);
-			}
 
-			if( (isset($data[$host]['servStatus_CS'])) && (isset($data[$host]['hostStatus_CS'])) ) {
+        		$serviceBackup[$host] = ($value);   //Used if it is not included in the filters.
 
-				if (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 0)) {
-					$hStatus[$host]['status'] = 0;
+        		if($nagMapR_FilterService != ''){
 
-				} elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 1)) {
-					$hStatus[$host]['status'] = 1;
+        			$servicesFilter = explode(';', $nagMapR_FilterService);
 
-				} elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 2)) {
-					$hStatus[$host]['status'] = 2;    
+        			foreach ($servicesFilter as $serviceFilter) {
+        				if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false){
+        					$data[$host]['servStatus_CS'] = ($value);
+        				}
+        			}
+        		}
+        		else{
+        			$data[$host]['servStatus_CS'] = ($value);
+        		}
+        	}
+        	if (($option == "current_state") && ($type == "hoststatus")) {
 
-				} elseif ($data[$host]['hostStatus_CS'] == 1)  {
-					$hStatus[$host]['status'] = 3;
-				}
-				else{
-					$hStatus[$host]['status'] = 4;
-				}
-			}
+        		$data[$host]['hostStatus_CS'] = ($value);
+        	}
 
-			if($nagMapR_ChangesBarMode == 2) {
+        	if($nagMapR_ChangesBarMode == 2) {
 
-				if (($option == "last_time_up") && ($type == "hoststatus")) {
+        		if (($option == "last_time_up") && ($type == "hoststatus")) {
 
-					if($value > 0){
-						$pastTime = time() - $value;
-						$hours = floor($pastTime / 3600);
-						$minutes = intval(($pastTime / 60) % 60);
-					}
-					else{
-						$hours = 0;
-						$minutes = 0;
-					}
+        			if($value > 0){
+        				$pastTime = time() - $value;
+        				$hours = floor($pastTime / 3600);
+        				$minutes = intval(($pastTime / 60) % 60);
+        			}
+        			else{
+        				$hours = 0;
+        				$minutes = 0;
+        			}
 
-					if($hours == 0)
-						$data[$host]['time_LTU'] = ( $minutes. " min");
-					else{						
-						$data[$host]['time_LTU'] = ( $hours. " h ". $and ." " .$minutes. " min");
-					}
-				}
-				if (($option == "last_state_change") && ($type == "servicestatus")) {
+        			if($hours == 0)
+        				$data[$host]['time_LTU'] = ( $minutes. " min");
+        			else{						
+        				$data[$host]['time_LTU'] = ( $hours. " h ". $and ." " .$minutes. " min");
+        			}
+        		}
+        		if (($option == "last_state_change") && ($type == "servicestatus")) {
 
-					if($value > 0){
-						$pastTime = time() - $value;
-						$hours = floor($pastTime / 3600);
-						$minutes = intval(($pastTime / 60) % 60);
-					}
-					else{
-						$hours = 0;
-						$minutes = 0;
-					}
+        			if($value > 0){
+        				$pastTime = time() - $value;
+        				$hours = floor($pastTime / 3600);
+        				$minutes = intval(($pastTime / 60) % 60);
+        			}
+        			else{
+        				$hours = 0;
+        				$minutes = 0;
+        			}
 
-					if($hours == 0)
-						$data[$host]['time_LSC'] = ( $minutes. " min");
-					else{						
-						$data[$host]['time_LSC'] = ( $hours. " h ". $and ." " .$minutes. " min");
-					}
-				}
-			}
-		}
-	}
+        			if($hours == 0)
+        				$data[$host]['time_LSC'] = ( $minutes. " min");
+        			else{						
+        				$data[$host]['time_LSC'] = ( $hours. " h ". $and ." " .$minutes. " min");
+        			}
+        		}
+        	}
+        }
+    }
 
-	foreach ($hStatus as $key => $value) {
-		if($hStatus[$key]['status'] == 3)
-			$hStatus[$key]['time'] = $data[$key]['time_LTU'];
-		else
-			$hStatus[$key]['time'] = $data[$key]['time_LSC'];
-	}
+    foreach ($data as $key => $value) {
+    	if( !isset($data[$key]['servStatus_CS']) ){
+    		$data[$key]['servStatus_CS'] = $serviceBackup[$key];
+    	}
 
-	echo json_encode($hStatus);
+    	if (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 0)) {
+    		$hStatus[$key]['status'] = 0;
+
+    	} elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 1)) {
+    		$hStatus[$key]['status'] = 1;
+
+    	} elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 2)) {
+    		$hStatus[$key]['status'] = 2;    
+
+    	} elseif ($data[$key]['hostStatus_CS'] == 1)  {
+    		$hStatus[$key]['status'] = 3;
+    	}
+    	else{
+    		$hStatus[$key]['status'] = 4;
+    	}
+    }
+
+    unset($serviceBackup);
+
+    foreach ($hStatus as $key => $value) {
+    	if($hStatus[$key]['status'] == 3)
+    		$hStatus[$key]['time'] = $data[$key]['time_LTU'];
+    	else
+    		$hStatus[$key]['time'] = $data[$key]['time_LSC'];
+    }
+
+    echo json_encode($hStatus);
 }
 
 

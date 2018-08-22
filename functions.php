@@ -98,6 +98,7 @@ function nagMapR_status() {
     if (preg_match("/}/",$line)) {
       $type = "0";
       unset($host);
+      unset($service);
       continue;
     }
     if (preg_match("/^hoststatus {/", $line)) {
@@ -116,32 +117,31 @@ function nagMapR_status() {
       if (($option == "host_name")) {
         $host = $value;
       }
+      if (($option == "service_description")) {
+        $service = $value;
+      }
+
       if (($option == "current_state") && ($type == "servicestatus")) {
 
-        $data[$host]['servStatus_CS'] = ($value);
+        $serviceBackup[$host] = ($value);   //Used if it is not included in the filters.
+
+        if($nagMapR_FilterService != ''){
+
+          $servicesFilter = explode(';', $nagMapR_FilterService);
+
+          foreach ($servicesFilter as $serviceFilter) {
+            if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false){
+              $data[$host]['servStatus_CS'] = ($value);
+            }
+          }
+        }
+        else{
+          $data[$host]['servStatus_CS'] = ($value);
+        }
       }
       if (($option == "current_state") && ($type == "hoststatus")) {
 
         $data[$host]['hostStatus_CS'] = ($value);
-      }
-
-      if( (isset($data[$host]['servStatus_CS'])) && (isset($data[$host]['hostStatus_CS'])) ) {
-
-        if (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 0)) {
-          $data[$host]['status'] = 0;
-
-        } elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 1)) {
-          $data[$host]['status'] = 1;
-
-        } elseif (($data[$host]['hostStatus_CS'] == 0) && ($data[$host]['servStatus_CS'] == 2)) {
-          $data[$host]['status'] = 2;    
-
-        } elseif ($data[$host]['hostStatus_CS'] == 1)  {
-          $data[$host]['status'] = 3;
-        }
-        else{
-          $data[$host]['status'] = 4;
-        }
       }
 
       if($nagMapR_ChangesBarMode == 2) {
@@ -155,6 +155,30 @@ function nagMapR_status() {
       }
     }
   }
+
+  foreach ($data as $key => $value) {
+    if( !isset($data[$key]['servStatus_CS']) ){
+      $data[$key]['servStatus_CS'] = $serviceBackup[$key];
+    }
+
+    if (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 0)) {
+      $data[$key]['status'] = 0;
+
+    } elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 1)) {
+      $data[$key]['status'] = 1;
+
+    } elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 2)) {
+      $data[$key]['status'] = 2;    
+
+    } elseif ($data[$key]['hostStatus_CS'] == 1)  {
+      $data[$key]['status'] = 3;
+    }
+    else{
+      $data[$key]['status'] = 4;
+    }
+  }
+
+  unset($serviceBackup);
 
   foreach ($data as $key => $value) {
     if($data[$key]['status'] == 3)

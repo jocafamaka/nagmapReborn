@@ -8,17 +8,13 @@
 $nagios_cfg_file = "/usr/local/nagios/etc/nagios.cfg";
 $nagios_status_dat_file = "/usr/local/nagios/var/status.dat";
 
-// Hostgroup filter - only show hosts from this hotgroup
-// Leave empty for not filtering
-$nagMapR_FilterHostgroup  = '';
-
-// Use this only to generate extra information for support - this will add a lot of information
-// into the rendered index file
+// Use Debug?
+// Use this only to generate extra information for support.
 // 1 = YES.
 // 0 = NO.
 $nagMapR_Debug = 0;
 
-//Define if the monitoring system is nagios, if it does not hide some specific information.
+// Define if the monitoring system is nagios, if it does not hide some specific information.
 // 1 = YES, the monitoring system is Nagios.
 // 0 = NO, the monitoring system is not Nagios.
 $nagMapR_IsNagios = 1;
@@ -39,8 +35,8 @@ $nagMapR_MapZoom = 6.2;
 // TERRAIN
 $nagMapR_MapType = 'ROADMAP';
 
-//Enter your private API key here
-//See here how to get an API private key: (https://developers.google.com/maps/documentation/javascript/get-api-key)
+// Enter your private API key here
+// See here how to get an API private key: (https://developers.google.com/maps/documentation/javascript/get-api-key)
 $nagMapR_Mapkey = '';
 
 ####################################################################################################
@@ -52,12 +48,26 @@ $nagMapR_Mapkey = '';
 // necessary changes.
 $nagMapR_Lang = 'en-US';
 
-//Custom styles
-//If used, this option overlaps the map type defined in ($nagMapR_MapType)
-//This option should contain the name of the .json file in the styles folder.
-//Custom styles can be created in: (https://mapstyle.withgoogle.com/)
-//Look in the styles folder, for ready styles.
-//Leave empty if you do not want to use custom style.
+// Hostgroup filter - only show hosts from this hostgroup
+// Leave empty for not filtering
+$nagMapR_FilterHostgroup  = '';
+
+// Service filter - Use the status of a specific service as the primary. The service that will be used
+// to set the status on the map. Useful when there is more than one service per host.
+// More than one service can be used in the filter (using ';' as a separator), as long a single host
+// does not contain more than one of the filtered services.
+// It is not necessary to indicate the full name of the service, but a single part that sets it apart
+// from others is enough.
+// Services are filtered by service_description.
+// Leave empty for not filtering
+$nagMapR_FilterService  = '';
+
+// Custom styles
+// If used, this option overlaps the map type defined in ($nagMapR_MapType)
+// This option should contain the name of the .json file in the styles folder.
+// Custom styles can be created in: (https://mapstyle.withgoogle.com/)
+// Look in the styles folder, for ready styles.
+// Leave empty if you do not want to use custom style.
 $nagMapR_Style = '';  //For example: ($nagMapR_Style = 'Dark';) To use de Dark.json style.
 
 // Show ChangesBar? (Bar with information about the hosts) 
@@ -102,9 +112,14 @@ $nagMapR_Lines = 1;
 // Time in seconds, to update the hosts status. (use only numbers)
 $nagMapR_TimeUpdate = 10;
 
+// Allow automatic errors reporting?
+// 1 = YES.
+// 0 = NO.
+$nagMapR_Reporting = 1;
+
 ####################################################################################################
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = '4T4whvqi9wthrvGXhzas21JTrCpUcSd5Nc6PWct6QOQuGKtRp2';
+$nagMapR_key = 'JFJQPLyCqcEnTOe7ReWJUzYO7QA9Tq9v9XOhTQfEvLe3dUiQLdoVVny2PI9gdcJ0R8TWadF6m8j8iqPKpqCFZBr2XnCaVFyWGTlND5BG2C58qvMr3AjYfv01T7qoPmoh';
 ?>

@@ -23,6 +23,15 @@ html {
   min-width: 400px;
 }
 
+.card-deck .card-father {
+  min-width: 800px !important;
+}
+
+.title{
+  color: white;
+  text-shadow:2px 2px 4px #000000;
+}
+
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
 

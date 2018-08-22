@@ -23,9 +23,11 @@ $one_column_error2 = (") que contém somente uma coluna, não está correta! Arq
 
 $no_data_error = ("Não existem dados a serem exibidos, ou você não definiu as configurações corretamente ou esse é um bug do sistema.<br>Por favor entre em contato através do e-mail joao_carlos.r@hotmail.com para obter assistência.");
 
-//Informações do debug:
-$positionHosts = ("Posição do host: ");
+$reported = (" reportado.");
 
+$errorFound = ("Um erro foi automaticamente reportado.");
+
+//Informações do debug:
 $message = ("Mensagem:");
 
 $lineNum = ("Número da linha:");
@@ -47,7 +49,7 @@ $hostP = ("Parentes");
 
 $newVersion = ("Nova versão disponível");
 
-$newVersionText = ("A versão do NagMap Reborn que você está usando atualmente não está atualizada!<br><br>Faça o download da nova versão para ter acesso as novidades e melhorias.<br><br>Encontre a nova versão no GitHub:<br><br>");
+$newVersionText = ("A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Faça o download da nova versão para ter acesso as novidades e melhorias.<br><br>Obtenha a nova versão no GitHub:<br><br>");
 
 //Alertas ChangesBar:
 $up = ("UP");
@@ -95,6 +97,10 @@ $hostName = ("Nome do host");
 
 $reasons = ("Motivo(s)");
 
+$tServ = ("O serviço ");
+
+$tHost = ("O host ");
+
 $cs = ("Estado atual");
 
 $lhs = ("Último pior estado");
@@ -125,7 +131,7 @@ $inWar = ("está em alerta");
 
 $incrit = ("está crítico");
 
-$isunk = ("desconhecido");
+$isunk = ("tem um status desconhecido");
 
 $controlInfo = ("Para/Continua a atualização das informações");
 
@@ -141,29 +147,32 @@ $help = ("Ajuda");
 
 $close = ("Fechar");
 
+$primary = (" (Primário)");
+
 $debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!<br><br>
 
 As caractéristicas da páginas são essas:<br><br>
 
-1 - Hosts que foram ignorados.<br>
+<strong>1 - Hosts que foram ignorados.</strong><br>
      - Exibe todos os hosts ignorados.<br>
      - Informa o nome do host.<br>
      - O aliás do host.<br>
      - O motivos ou motivos daquele host ter sido ignorado.<br>
      - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
 
-2 - Informações importantes sobre cada host existente no arquivo de Status.<br>
-     - A cor do Card indica qual o status do host em questão.<br>
-     - Mostra informações sobre stats interno.<br>
+<strong>2 - Informações importantes sobre cada host existente no arquivo de Status.</strong><br>
+     - A cor do Card indica qual o status do host ou serviço em questão.<br>
+       - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.<br>
+     - Mostra informações sobre status interno.<br>
      - Exibe os valores de tempo para varios parametros.<br>
      - Exibe o tempo em formato Epoch e o tempo em horas e minutos.<br><br>
 
-3 - No rodapé da página existe o controlador de atualização das informações da página.<br>
+<strong>3 - No rodapé da página existe o controlador de atualização das informações da página.</strong><br>
      - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.<br>
      - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.<br>
      - O botão de download fica desabilitado durante as atualizações de informações da página.<br><br>
 
-Sempre que for solicitar suporte acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
+<strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
 
-Você pode obter suporte me contatando através do e-mail: joao_carlos.r@hotmail.com');
+Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
 ?>
