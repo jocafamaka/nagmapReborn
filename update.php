@@ -1,14 +1,4 @@
 <?php
-/*
- * ##################################################################
- * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
- * ##################################################################
- *
- * KEEP THE PATTERN
- *
- * Original Credits: João Ribeiro (https://github.com/jocafamaka) in 06 March 2018
- *
- */
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $key = $_GET['key'];

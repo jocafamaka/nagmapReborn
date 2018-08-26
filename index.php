@@ -1,16 +1,4 @@
 <?php
-/*
- * ##################################################################
- * #             ALL CREDITS FOR MODIFICATIONS ARE HERE             #
- * ##################################################################
- *
- * KEEP THE PATTERN
- *
- * Original Credits: Marcel Hecko (https://github.com/hecko) in 16 Oct 2014
- * Some changes: João Ribeiro (https://github.com/jocafamaka) in 06 March 2018
- *
- */
-
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
 $nagMapR_version = '1.5.0';
@@ -105,7 +93,7 @@ if ($javascript == "") {
   <link rel=StyleSheet href="resources/style.css" type="text/css" media=screen>
   <link href="resources/toastr/toastr.css" rel="stylesheet"/>
   <title>NagMap Reborn <?php echo $nagMapR_version ?></title>
-  <script src="https://maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
+  <script src="//maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
 
   <div id="myModal" class="modal">
     <div class="modal-content" id="modalContent">
@@ -779,53 +767,19 @@ if($nagMapR_Debug == 1)
       ');
   if($nagMapR_Reporting == 1)
     echo ('
-      var report = "err:" + error + ",url:" + url + ",lineN:" + lineNo + ",at:" + now() + ",hFr:['. $nagMapR_FilterHostgroup. '],sF:['. $nagMapR_FilterService. '],uD:['. $nagMapR_Debug. '],iN:['. $nagMapR_IsNagios. '],uS:['. $nagMapR_Style. '],uCB:['. $nagMapR_ChangesBar. '],mCB:['. $nagMapR_ChangesBarMode. '],dF:['. $nagMapR_DateFormat. '],sL:['. $nagMapR_Lines. '],tU:['. $nagMapR_TimeUpdate. ']";
 
-      $.post( "https://nagmaprebornanalytics.000webhostapp.com/report/", {report:Encrypt(report)}, function( data ) {});
+      if(Lastmsg == msg && LastLine == lineNo)
+        var diferent = false;
+      else
+        var diferent = true;
 
-      toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "10000",
-        "extendedTimeOut": "5000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-
-      toastr["success"]("'. $errorFound .'", "'. $error . $reported .'");
-
-      toastr.options = {
-        "closeButton": false,
-        "progressBar": false,
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "1000",
-        "timeOut": "10000",
-        "extendedTimeOut": "1000"
-      };
-
-    }
-    ');
-  else
-    echo ('}');
-}
-else{
-  if($nagMapR_Reporting == 1)
-    echo ('
-      window.onerror = function (msg, url, lineNo, columnNo, error) {
+      if((!waitToReport) && (diferent)){
 
         var report = "err:" + error + ",url:" + url + ",lineN:" + lineNo + ",at:" + now() + ",hFr:['. $nagMapR_FilterHostgroup. '],sF:['. $nagMapR_FilterService. '],uD:['. $nagMapR_Debug. '],iN:['. $nagMapR_IsNagios. '],uS:['. $nagMapR_Style. '],uCB:['. $nagMapR_ChangesBar. '],mCB:['. $nagMapR_ChangesBarMode. '],dF:['. $nagMapR_DateFormat. '],sL:['. $nagMapR_Lines. '],tU:['. $nagMapR_TimeUpdate. ']";
 
-        $.post( "https://nagmaprebornanalytics.000webhostapp.com/report/", {report:Encrypt(report)}, function( data ) {});
+        var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
+        spt.parentNode.insertBefore(elt, spt);
 
         toastr.options = {
           "closeButton": true,
@@ -845,8 +799,7 @@ else{
           "hideMethod": "fadeOut"
         };
 
-        toastr["success"]("'. $errorFound .'", "'. $error . $reported .'");
-
+        toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
         toastr.options = {
           "closeButton": false,
           "progressBar": false,
@@ -856,6 +809,70 @@ else{
           "timeOut": "10000",
           "extendedTimeOut": "1000"
         };
+        waitToReport = true;
+        setTimeout(function(){waitToReport = false;}, 60000);
+        Lastmsg = msg;
+        LastLine = lineNo;
+      }
+    }
+    ');
+  else
+    echo ('}');
+}
+else{
+  if($nagMapR_Reporting == 1)
+    echo ('
+
+      window.onerror = function (msg, url, lineNo, columnNo, error) {
+
+        if(Lastmsg == msg && LastLine == lineNo)
+          var diferent = false;
+        else
+          var diferent = true;
+
+        if((!waitToReport) && (diferent)){
+
+          var report = "err:" + error + ",url:" + url + ",lineN:" + lineNo + ",at:" + now() + ",hFr:['. $nagMapR_FilterHostgroup. '],sF:['. $nagMapR_FilterService. '],uD:['. $nagMapR_Debug. '],iN:['. $nagMapR_IsNagios. '],uS:['. $nagMapR_Style. '],uCB:['. $nagMapR_ChangesBar. '],mCB:['. $nagMapR_ChangesBarMode. '],dF:['. $nagMapR_DateFormat. '],sL:['. $nagMapR_Lines. '],tU:['. $nagMapR_TimeUpdate. ']";
+
+          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
+          spt.parentNode.insertBefore(elt, spt);
+          
+          toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "5000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          };
+
+          toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
+
+          toastr.options = {
+            "closeButton": false,
+            "progressBar": false,
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000"
+          };
+
+          waitToReport = true;
+          setTimeout(function(){waitToReport = false;}, 60000);
+          Lastmsg = msg;
+          LastLine = lineNo;
+        }
       }
       ');
 }
@@ -898,6 +915,10 @@ echo('
   if($nagMapR_Reporting == 1)
     echo('
       <script type="text/javascript">
+      var waitToReport = false;
+      var Lastmsg = "";
+      var LastLine = "";
+
       var key;
 
       setMaxDigits(262);

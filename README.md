@@ -1,6 +1,6 @@
 # NagMap Reborn Introduction
 
-NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images. It also aims to give administrator basic information on devices to do further investigation of their status..."
+NagMap Reborn is an initiative to improve the original project NagMap which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
 ## New Features
 
@@ -12,6 +12,8 @@ Some changes were made to the functions and logic used in the original project a
 * New system of sound warning.
 * Almost total control of page characteristics.
 * Powerful debug page.
+* Service filter. <sup>(NEW)</sup>
+* Self report of errors. <sup>(NEW)</sup>
 
 ## What you can control
 
@@ -42,13 +44,13 @@ It is possible to integrate with other systems that have the structure similar t
 
 !["NagMap Reborn Page"](https://i.imgur.com/4rg98IC.png "NagMap Reborn Page")
 
-<sup>Using the Custom Dark Style</sup>
+<sup>Using the Custom [Dark Style](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#dark-style)</sup>
 
 ## Preview of animations
 
 ![Demo CountPages alpha](https://i.imgur.com/hLzJ6T6.gif "NagMap Reborn Animation")
 
-<sup>Using the Custom Dark Style</sup>
+<sup>Using the Custom [Dark Style](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#dark-style)</sup>
 
 ## Contribution
 
@@ -73,4 +75,4 @@ You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / 
 
 ## Remaining credits
 
-This application was originally developed by [Marcel Hecko](https://github.com/hecko).
+NagMap Reborn is based on the NagMap project developed by [Marcel Hecko](https://github.com/hecko).
