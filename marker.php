@@ -1,5 +1,9 @@
 <?php
 include("functions.php");
+
+//Auth Request
+require_auth();
+
 // pre-define variables so the E_NOTICES do not show in webserver logs
 $javascript = "";
 

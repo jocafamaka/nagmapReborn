@@ -1,11 +1,15 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-$page = $_SERVER['PHP_SELF'];
 $nagMapR_version = '1.5.0';
 $nagMapR_CurrVersion = file_get_contents('https://pastebin.com/raw/HGUTiEtE'); //Get current version;
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
-include('config.php');
+
+// Check if the config file exist.
+if(file_exists("config.php"))
+  include('config.php');
+else
+  die("The 'config.php' file was not found in the project folder. Please check the existence of the file and if the name is correct and try again.");
 
 // Check if the translation file informed exist.
 if(file_exists("langs/$nagMapR_Lang.php"))

@@ -175,4 +175,8 @@ As caractéristicas da páginas são essas:<br><br>
 <strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
 
 Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
+
+// Autenticação
+
+$authFail = ("Falha de autenticação! Tente novamente.");
 ?>

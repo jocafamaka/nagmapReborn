@@ -121,5 +121,11 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = 'JFJQPLyCqcEnTOe7ReWJUzYO7QA9Tq9v9XOhTQfEvLe3dUiQLdoVVny2PI9gdcJ0R8TWadF6m8j8iqPKpqCFZBr2XnCaVFyWGTlND5BG2C58qvMr3AjYfv01T7qoPmoh';
+$nagMapR_key = 'lfdl6PkPq50vWlTqKpfz46dsWxVg8NltpQwBuJnobKHlwQhEMmngqFwhXNA7iJGp4F3584275AF8E5DBC78FB191EFD6A';
+
+// User used for authentication.
+$nagMapR_User = "ngradmin";
+
+// Password used for authentication.
+$nagMapR_UserKey = "ngradmin";
 ?>

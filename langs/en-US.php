@@ -175,4 +175,8 @@ The characteristics of the pages are these:<br><br>
 <strong>Whenever requesting support</strong> access the debug page download the file and attach in your request, this procedure can and will make troubleshooting easier.<br><br>
 
 You can get support by contacting me via e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
+
+//Auth
+
+$authFail = ("Authentication failed! Try again.");
 ?>

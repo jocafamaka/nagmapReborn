@@ -9,8 +9,10 @@ if(file_exists("../langs/$nagMapR_Lang.php"))
 else
   die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
 
-$version = 'v1.3.0';
+//Auth Request
+require_auth();
 
+$version = 'v1.3.0';
 
 $files = get_config_files();
 
