@@ -12,7 +12,7 @@ else
 //Auth Request
 require_auth();
 
-$version = 'v1.3.0';
+$version = 'v1.3.1';
 
 $files = get_config_files();
 

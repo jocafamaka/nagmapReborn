@@ -198,7 +198,6 @@ function get_config_files() {
       $file = explode('=',$line,2);
       $file[1] = trim($file[1]);
       $files[] = $file[1];
-      //echo "\n\n// including Nagios config file ".$file[1].", config reference $line\n";
       unset($file);
     } elseif (preg_match("/^cfg_dir/i",$line)) {
       $dir = explode('=',$line,2);
@@ -206,7 +205,6 @@ function get_config_files() {
       read_recursive_dir($files, $dir[1]);
     }
   }
-  //echo "\n\n// end of reading config file $nagios_cfg_file\n\n";
   $file_list = array_unique($files);
   return $file_list;
 }
@@ -217,7 +215,6 @@ function read_recursive_dir(&$files, $dir){
   foreach ($dir_recursive as $file => $object) {
     if(preg_match("/.cfg$/i",$file)) {
       $files[] = $file;
-      //echo "\n\n// including Nagios config file ".$file.", config reference ".$line."\n";
     } elseif (is_link($file) || (is_dir($file) && !preg_match("/\.$/i",$file)) ) {
       read_recursive_dir($files, $file);
     }

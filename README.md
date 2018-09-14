@@ -12,8 +12,9 @@ Some changes were made to the functions and logic used in the original project a
 * New system of sound warning.
 * Almost total control of page characteristics.
 * Powerful debug page.
-* Service filter. <sup>(NEW)</sup>
-* Self report of errors. <sup>(NEW)</sup>
+* Service filter.
+* Self report of errors.
+* Access control. <sup>(NEW)</sup>
 
 ## What you can control
 
