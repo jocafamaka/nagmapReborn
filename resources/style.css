@@ -160,3 +160,33 @@ a:hover {
   background-color: #2c822c;
   border-color: #2c822c;
 }
+
+.changesBarLine{
+  text-shadow:2px 2px 4px #000000 !important; 
+  margin-bottom:1px !important; 
+  font-weight:bold !important; 
+  padding-left:1% !important; 
+  width:99% !important;  
+  color:white !important; 
+  vertical-align: middle !important
+}
+
+.changesBarLine.up{
+  background:#159415 !important;
+}
+
+.changesBarLine.war{
+  background:#c5d200 !important;
+}
+
+.changesBarLine.crit{
+  background:#ff6a00 !important;
+}
+
+.changesBarLine.down{
+  background:#770101 !important;
+}
+
+.changesBarLine.unk{
+  background:#A9ABAE !important;
+}

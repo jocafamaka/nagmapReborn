@@ -298,18 +298,22 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo ('
+              var newUp = ("<div class=\"changesBarLine up\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
               if(hostStatus[host].status == 1){
-                var newUp = ("<div style=\"font-size:'. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000 ;margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $warning .'\" → \"'. $up .'\"</div>");
+                newUp += "'. $warning .'";
               }
               else if(hostStatus[host].status == 2){
-                var newUp = ("<div style=\"font-size:'. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000 ;margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $critical .'\" → \"'. $up .'\"</div>");
+                newUp += "'. $critical .'";
               }
               else if(hostStatus[host].status == 3){
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $down .'\" → \"' .$up. '\"</div>");
+                newUp += "'. $down .'";
               }
               else{
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#159415; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $unknown .'\" → \"' .$up. '\"</div>");
+                newUp += "'. $unknown .'";
               }
+
+              newUp +=  " → '. $up .'</div>";
               ');
           }
         }
@@ -349,14 +353,22 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
-              if(hostStatus[host].status == 0)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $up .'\" → \"'. $warning .'\"</div>");
-              else if(hostStatus[host].status == 2)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $critical .'\" → \"'. $warning .'\"</div>");
-              else if(hostStatus[host].status == 3)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $down .'\" → \"'. $warning .'\"</div>");
-              else
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $unknown .'\" → \"'. $warning .'\"</div>");
+              var newUp = ("<div class=\"changesBarLine war\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+              if(hostStatus[host].status == 0){
+                newUp += "'. $up .'";
+              }
+              else if(hostStatus[host].status == 2){
+                newUp += "'. $critical .'";
+              }
+              else if(hostStatus[host].status == 3){
+                newUp += "'. $down .'";
+              }
+              else{
+                newUp += "'. $unknown .'";
+              }
+
+              newUp +=  " → '. $warning .'</div>";
               ');
           }
         }
@@ -394,14 +406,22 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo ('
-              if(hostStatus[host].status == 0)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $up .'\" → \"'. $critical .'\"</div>");
-              else if(hostStatus[host].status == 1)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $warning .'\" → \"'. $critical .'\"</div>");
-              else if(hostStatus[host].status == 3)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $down .'\" → \"'. $critical .'\"</div>");
-              else
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $unknown .'\" → \"'. $critical .'\"</div>");
+              var newUp = ("<div class=\"changesBarLine crit\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+              if(hostStatus[host].status == 0){
+                newUp += "'. $up .'";
+              }
+              else if(hostStatus[host].status == 1){
+                newUp += "'. $warning .'";
+              }
+              else if(hostStatus[host].status == 3){
+                newUp += "'. $down .'";
+              }
+              else{
+                newUp += "'. $unknown .'";
+              }
+
+              newUp +=  " → '. $critical .'</div>";
               ');
           }
         }
@@ -439,14 +459,22 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
-              if(hostStatus[host].status == 0)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $up .'\" → \"'. $down .'\"</div>");
-              else if(hostStatus[host].status == 1)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $warning .'\" → \"'. $down .'\"</div>");
-              else if(hostStatus[host].status == 2)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $critical .'\" → \"'. $down .'\"</div>");
-              else
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $unknown .'\" → \"'. $down .'\"</div>");
+              var newUp = ("<div class=\"changesBarLine down\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+              if(hostStatus[host].status == 0){
+                newUp += "'. $up .'";
+              }
+              else if(hostStatus[host].status == 1){
+                newUp += "'. $warning .'";
+              }
+              else if(hostStatus[host].status == 2){
+                newUp += "'. $critical .'";
+              }
+              else{
+                newUp += "'. $unknown .'";
+              }
+
+              newUp +=  " → '. $down .'</div>";
               ');
           }
         }
@@ -492,14 +520,26 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
-              if(hostStatus[host].status == 0)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#A9ABAE; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $up .'\" → \"'. $unknown .'\"</div>");
-              else if(hostStatus[host].status == 1)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#A9ABAE; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $warning .'\" → \"'. $unknown .'\"</div>");
-              else if(hostStatus[host].status == 2)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#A9ABAE; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $critical .'\" → \"'. $unknown .'\"</div>");
-              else if(hostStatus[host].status == 3)
-                var newUp = ("<div style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#A9ABAE; color:white; vertical-align: middle;\">" + now() + " - " + hostStatus[host].alias + ": \"'. $down .'\" → \"'. $unknown .'\"</div>");
+
+              var newUp = ("<div class=\"changesBarLine unk\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+              if(hostStatus[host].status == 0){
+                newUp += "'. $up .'";
+              }
+              else if(hostStatus[host].status == 1){
+                newUp += "'. $warning .'";
+              }
+              else if(hostStatus[host].status == 2){
+                newUp += "'. $critical .'";
+              }
+              else if(hostStatus[host].status == 3){
+                newUp += "'. $down .'";
+              }
+              else{
+                newUp += "'. $unknown .'";
+              }
+
+              newUp +=  " → '. $unknown .'</div>";
               ');
           }
         }
@@ -544,18 +584,20 @@ if ($nagMapR_ChangesBar == 1) {
         echo('
 
           function addHost(i, status, time){
+
+            var insert = ("<div class=\"changesBarLine " + status + " news\" id=\"" + hostStatus[i].nagios_host_name + "-" + status + "\" style=\"font-size: '. $nagMapR_FontSize .'px; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
+
             if(status ==  "WAR"){
-              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + hostStatus[i].nagios_host_name + "-WAR\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
-              var div = document.getElementById(hostStatus[i].nagios_host_name+"-WAR");
+              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", insert);
             }
             if(status ==  "CRIT"){
-              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + hostStatus[i].nagios_host_name + "-CRIT\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
-              var div = document.getElementById(hostStatus[i].nagios_host_name+"-CRIT");
+              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", insert);
             }
             if(status ==  "DOWN"){
-              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + hostStatus[i].nagios_host_name + "-DOWN\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
-              var div = document.getElementById(hostStatus[i].nagios_host_name+"-DOWN");
+              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", insert);
             }
+
+            var div = document.getElementById(hostStatus[i].nagios_host_name+"-"+status);
             setTimeout( function (){
               div.style.maxHeight =(' . $nagMapR_FontSize . ' + 4 ) * 2;
               div.style.opacity = "1";
@@ -586,16 +628,21 @@ if ($nagMapR_ChangesBar == 1) {
 
           for (var i = 0; i < hostStatusPre.length; i++) {
             var name = hostStatusPre[i].nagios_host_name;
+
+            var insert = ("style=\"font-size: '. $nagMapR_FontSize .'px;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
+
             if(hostStatusPre[i].status == 1){
-              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + name + "-WAR\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#c5d200; color:white; vertical-align: middle;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
+              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine WAR news\" id=\"" + name + "-WAR\"" + insert);
             }
             if(hostStatusPre[i].status == 2){
-              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + name + "-CRIT\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#ff6a00; color:white; vertical-align: middle;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
+              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine CRIT news\" id=\"" + name + "-CRIT\"" + insert);
             }
             if(hostStatusPre[i].status == 3){
-              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", "<div class=\"news\" id=\"" + name + "-DOWN\" style=\"font-size: '. $nagMapR_FontSize .'px; text-shadow:2px 2px 4px #000000; margin-bottom:1px; font-weight:bold; padding-left:1%; width:99%; background:#770101; color:white; vertical-align: middle;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
+              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine DOWN news\" id=\"" + name + "-DOWN\"" + insert);
             }
           }
+
+          hostStatusPre = [];
           ');
 }
 }
@@ -607,7 +654,7 @@ if ($nagMapR_ChangesBar == 1) {
 
     var arrayHosts;
 
-    ajax.open('POST', 'update.php?key=<?php echo $nagMapR_key ?>', true);
+    ajax.open('GET', 'update.php?key=<?php echo $nagMapR_key ?>', true);
 
     ajax.send();
 
@@ -779,7 +826,7 @@ if($nagMapR_Debug == 1)
 
       if((!waitToReport) && (diferent)){
 
-        var report = "err:" + error + "&url:" + url + "&lineN:" + lineNo + "&at:" + now() + "&hFr:'. $nagMapR_FilterHostgroup. '&sF:'. $nagMapR_FilterService. '&uD:'. $nagMapR_Debug. '&iN:'. $nagMapR_IsNagios. '&uS:'. $nagMapR_Style. '&uCB:'. $nagMapR_ChangesBar. '&mCB:'. $nagMapR_ChangesBarMode. '&dF:'. $nagMapR_DateFormat. '&sL:'. $nagMapR_Lines. '&tU:'. $nagMapR_TimeUpdate. '";
+        var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
         var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
         elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
@@ -815,7 +862,7 @@ if($nagMapR_Debug == 1)
           "extendedTimeOut": "1000"
         };
         waitToReport = true;
-        setTimeout(function(){waitToReport = false;}, 60000);
+        setTimeout(function(){waitToReport = false;}, 20000);
         Lastmsg = msg;
         LastLine = lineNo;
       }
@@ -837,7 +884,7 @@ else{
 
         if((!waitToReport) && (diferent)){
 
-          var report = "err:" + error + "&url:" + url + "&lineN:" + lineNo + "&at:" + now() + "&hFr:'. $nagMapR_FilterHostgroup. '&sF:'. $nagMapR_FilterService. '&uD:'. $nagMapR_Debug. '&iN:'. $nagMapR_IsNagios. '&uS:'. $nagMapR_Style. '&uCB:'. $nagMapR_ChangesBar. '&mCB:'. $nagMapR_ChangesBarMode. '&dF:'. $nagMapR_DateFormat. '&sL:'. $nagMapR_Lines. '&tU:'. $nagMapR_TimeUpdate. '";
+          var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
           elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
@@ -874,15 +921,13 @@ else{
           };
 
           waitToReport = true;
-          setTimeout(function(){waitToReport = false;}, 60000);
+          setTimeout(function(){waitToReport = false;}, 20000);
           Lastmsg = msg;
           LastLine = lineNo;
         }
       }
       ');
 }
-
-
 ?>
 </script>
 <script src="debugInfo/resources/js/jquery.min.js"></script>
