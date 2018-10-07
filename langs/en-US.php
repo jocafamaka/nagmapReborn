@@ -17,10 +17,6 @@ $file_not_find_error = ("does not exist! Please set the variable in NagMap Rebor
 
 $in_definition_error =("Starting a new in_definition before closing the previous one! That is not cool.");
 
-$one_column_error1 = ("In-hose config file line (");
-
-$one_column_error2 = (") which contains only one column. This is not right! File and line:");
-
 $no_data_error = ("There is no data to display. You either did not set NagMap Reborn properly or there is a software bug.<br>Please contact joao_carlos.r@hotmail.com assistance.");
 
 $reported = (" reported.");
@@ -47,9 +43,13 @@ $other = ("Other");
 
 $hostP = ("Parents");
 
-$newVersion = ("New version available");
+$newVersion = ("Update available");
 
-$newVersionText = ("The currently used version of NagMap Reborn is outdated!<br><br>Download the new version to have access to news and improvements.<br><br>Get the new version on GitHub:<br><br>");
+$newVersionText = ("<br>The currently used version of NagMap Reborn is outdated!<br><br>Get the new version on GitHub:<br><br>");
+
+$passAlertTitle = ("Default authentication");
+
+$passAlert = ("Currently you are using the password and default user, do not be unprotected, modify it now!");
 
 //ChangesBar warnings:
 $up = ("UP");

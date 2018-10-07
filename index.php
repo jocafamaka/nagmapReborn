@@ -1,85 +1,11 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-$nagMapR_version = '1.5.1';
-$nagMapR_CurrVersion = file_get_contents('https://pastebin.com/raw/HGUTiEtE'); //Get current version;
+$nagMapR_version = '1.5.2';
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION');
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
 
-// Check if the config file exist.
-if(file_exists("config.php"))
-  include('config.php');
-else
-  die("The 'config.php' file was not found in the project folder. Please check the existence of the file and if the name is correct and try again.");
-
-// Check if the translation file informed exist.
-if(file_exists("langs/$nagMapR_Lang.php"))
-  include("langs/$nagMapR_Lang.php");
-else
-  die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
-
-// Validation of configuration variables.
-if(!is_string($nagios_cfg_file)) 
-  die("\$nagios_cfg_file $var_cfg_error ($nagios_cfg_file)");
-
-if(!is_string($nagios_status_dat_file)) 
-  die("\$nagios_status_dat_file $var_cfg_error ($nagios_status_dat_file)");
-
-if(!is_string($nagMapR_Mapkey) || empty($nagMapR_Mapkey)) 
-  die("\$nagMapR_Mapkey $var_cfg_error ($nagMapR_Mapkey)");
-
-if(!is_string($nagMapR_FilterHostgroup)) 
-  die("\$nagMapR_FilterHostgroup $var_cfg_error ($nagMapR_FilterHostgroup)");
-
-if(!is_string($nagMapR_MapCentre)) 
-  die("\$nagMapR_MapCentre $var_cfg_error ($nagMapR_MapCentre)");
-
-if(!is_string($nagMapR_MapType)) 
-  die("\$nagMapR_MapType $var_cfg_error ($nagMapR_MapType)");
-
-if(!is_string($nagMapR_key)) 
-  die("\$nagMapR_key $var_cfg_error ($nagMapR_key)");
-
-if(!is_int($nagMapR_Debug))
-  die("\$nagMapR_Debug $var_cfg_error ($nagMapR_Debug)");
-
-if(!is_int($nagMapR_DateFormat))
-  die("\$nagMapR_DateFormat $var_cfg_error ($nagMapR_DateFormat)");
-
-if(!is_int($nagMapR_PlaySound))
-  die("\$nagMapR_PlaySound $var_cfg_error ($nagMapR_PlaySound)");
-
-if(!is_int($nagMapR_ChangesBar))
-  die("\$nagMapR_ChangesBar $var_cfg_error ($nagMapR_ChangesBar)");
-
-if(($nagMapR_ChangesBarMode < 1) || ($nagMapR_ChangesBarMode > 2))
-  die("\$nagMapR_ChangesBarMode $var_cfg_error ($nagMapR_ChangesBarMode)");
-
-if(($nagMapR_Reporting < 0) || ($nagMapR_Reporting > 1))
-  die("\$nagMapR_Reporting $var_cfg_error ($nagMapR_Reporting)");
-
-if(!is_int($nagMapR_Lines))
-  die("\$nagMapR_Lines $var_cfg_error ($nagMapR_Lines)");
-
-if(!( is_float($nagMapR_ChangesBarSize) || is_int($nagMapR_ChangesBarSize) ))
-  die("\$nagMapR_ChangesBarSize $var_cfg_error ($nagMapR_ChangesBarSize)");
-
-if(!( is_float($nagMapR_FontSize) || is_int($nagMapR_FontSize) ))
-  die("\$nagMapR_FontSize $var_cfg_error ($nagMapR_FontSize)");
-
-if(!( is_float($nagMapR_MapZoom) || is_int($nagMapR_MapZoom) ))
-  die("\$nagMapR_MapZoom $var_cfg_error ($nagMapR_MapZoom)");
-
-if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
-  die("\$nagMapR_TimeUpdate $var_cfg_error ($nagMapR_TimeUpdate)");
-
-if($nagMapR_IconStyle > 2 || $nagMapR_IconStyle < 0)
-  die("\$nagMapR_IconStyle $var_cfg_error ($nagMapR_IconStyle)");
-
-if($nagMapR_Style != ''){
-  if(!file_exists("styles/$nagMapR_Style.json")){
-    die("\$nagMapR_Style $var_cfg_error ($nagMapR_Style)");
-  }
-}
+include('validateAndVerify.php');
 
 include('marker.php');
 
@@ -96,31 +22,17 @@ if ($javascript == "") {
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel=StyleSheet href="resources/style.css" type="text/css" media=screen>
   <link href="resources/toastr/toastr.css" rel="stylesheet"/>
+  <link href="resources/sa/sweetalert2.min.css" rel="stylesheet"/>
   <title>NagMap Reborn <?php echo $nagMapR_version ?></title>
   <script src="//maps.google.com/maps/api/js?key=<?php echo $nagMapR_Mapkey; ?>" type="text/javascript"></script>
 
-  <div id="myModal" class="modal">
-    <div class="modal-content" id="modalContent">
-      <div class="modal-header">
-        <h2><?php echo $newVersion; ?> (<?php echo $nagMapR_CurrVersion; ?>)</h2>
-      </div>
-      <div class="modal-body">
-        <?php echo $newVersionText; ?>
-        <center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank" style="cursor: pointer;"><img title="<?php echo $project; ?>" src="resources/img/logoBlack.svg" alt=""></a><center>
-        </div>
-        <div class="modal-footer">
-          <button class="modal-btn" id="closeModal"><?php echo $close; ?></button>
-        </div>
-      </div>
-    </div>
-
-    <script type="text/javascript">
+  <script type="text/javascript">
 
     // Defines the array used for the comparisons.
     var hostStatus = <?php echo json_encode($jsData); ?>;
 
     <?php
-    if($nagMapR_ChangesBarMode == 2)
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode == 2)
       echo ('
 
         var hostStatusPre = '. json_encode($jsData) .';
@@ -148,7 +60,7 @@ if ($javascript == "") {
     //Define the source of the audio file.
     <?php
     if($nagMapR_PlaySound == 1)
-      echo ("var audio = new Audio('Beep.mp3');\n")
+      echo ("var audio = new Audio('resources/Beep.mp3');\n")
     ?>
 
     //Define icons style.
@@ -644,9 +556,9 @@ if ($nagMapR_ChangesBar == 1) {
 
           hostStatusPre = [];
           ');
-}
-}
-?>
+      }
+    }
+    ?>
 
   setInterval(function(){ // Request the arrau with the update status of each host.
 
@@ -751,87 +663,11 @@ if ($nagMapR_ChangesBar == 1) {
     };
   }, <?php echo $nagMapR_TimeUpdate; ?>000);
 
-//Modal functions
-
-if(<?php if($nagMapR_version != $nagMapR_CurrVersion) echo 'true'; else echo 'false'; ?>)
-{
-  document.getElementById('myModal').style.display = "block";
-  setTimeout( function(){
-    document.getElementById('myModal').style.opacity = 1;
-    document.getElementById('modalContent').style.top = "10%";
-  },100);
-}
-
-document.getElementById("closeModal").onclick = function() {
-  document.getElementById('modalContent').style.top = "-300px";
-  document.getElementById('myModal').style.opacity = 0;
-  setTimeout( function(){
-    document.getElementById('myModal').style.display = "none";
-  },550);
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == document.getElementById('myModal')) {
-    document.getElementById('modalContent').style.top = "-300px";
-    document.getElementById('myModal').style.opacity = 0;
-    setTimeout( function(){
-      document.getElementById('myModal').style.display = "none";
-    },550);
-  }
-}
-
-<?php 
-if($nagMapR_Debug == 1)
-{
-  echo('
-    window.onerror = function (msg, url, lineNo, columnNo, error) {
-      toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "20000",
-        "extendedTimeOut": "10000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-
-      toastr["error"]("'. $message .' " + msg + " - '. $error .': " + error + " - URL: " + url + " - '. $lineNum .' " + lineNo + " - '. $at .' " + now(),"'. $error .'");
-
-      toastr.options = {
-        "closeButton": false,
-        "progressBar": false,
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "1000",
-        "timeOut": "10000",
-        "extendedTimeOut": "1000"
-      };
-      ');
-  if($nagMapR_Reporting == 1)
-    echo ('
-
-      if(Lastmsg == msg && LastLine == lineNo)
-        var diferent = false;
-      else
-        var diferent = true;
-
-      if((!waitToReport) && (diferent)){
-
-        var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
-
-        var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
-        spt.parentNode.insertBefore(elt, spt);
-
+  <?php 
+  if($nagMapR_Debug == 1)
+  {
+    echo('
+      window.onerror = function (msg, url, lineNo, columnNo, error) {
         toastr.options = {
           "closeButton": true,
           "debug": false,
@@ -850,7 +686,7 @@ if($nagMapR_Debug == 1)
           "hideMethod": "fadeOut"
         };
 
-        toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
+        toastr["error"]("'. $message .' " + msg + " - '. $error .': " + error + " - URL: " + url + " - '. $lineNum .' " + lineNo + " - '. $at .' " + now(),"'. $error .'");
 
         toastr.options = {
           "closeButton": false,
@@ -861,21 +697,9 @@ if($nagMapR_Debug == 1)
           "timeOut": "10000",
           "extendedTimeOut": "1000"
         };
-        waitToReport = true;
-        setTimeout(function(){waitToReport = false;}, 20000);
-        Lastmsg = msg;
-        LastLine = lineNo;
-      }
-    }
-    ');
-  else
-    echo ('}');
-}
-else{
-  if($nagMapR_Reporting == 1)
-    echo ('
-
-      window.onerror = function (msg, url, lineNo, columnNo, error) {
+        ');
+    if($nagMapR_Reporting == 1)
+      echo ('
 
         if(Lastmsg == msg && LastLine == lineNo)
           var diferent = false;
@@ -889,7 +713,7 @@ else{
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
           elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
           spt.parentNode.insertBefore(elt, spt);
-          
+
           toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -919,7 +743,6 @@ else{
             "timeOut": "10000",
             "extendedTimeOut": "1000"
           };
-
           waitToReport = true;
           setTimeout(function(){waitToReport = false;}, 20000);
           Lastmsg = msg;
@@ -927,11 +750,71 @@ else{
         }
       }
       ');
-}
-?>
+    else
+      echo ('}');
+  }
+  else{
+    if($nagMapR_Reporting == 1)
+      echo ('
+
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+
+          if(Lastmsg == msg && LastLine == lineNo)
+            var diferent = false;
+          else
+            var diferent = true;
+
+          if((!waitToReport) && (diferent)){
+
+            var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
+
+            var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
+            spt.parentNode.insertBefore(elt, spt);
+
+            toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "20000",
+              "extendedTimeOut": "10000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            };
+
+            toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
+
+            toastr.options = {
+              "closeButton": false,
+              "progressBar": false,
+              "preventDuplicates": true,
+              "onclick": null,
+              "showDuration": "1000",
+              "timeOut": "10000",
+              "extendedTimeOut": "1000"
+            };
+
+            waitToReport = true;
+            setTimeout(function(){waitToReport = false;}, 20000);
+            Lastmsg = msg;
+            LastLine = lineNo;
+          }
+        }
+        ');
+  }
+  ?>
 </script>
 <script src="debugInfo/resources/js/jquery.min.js"></script>
 <script src="resources/toastr/toastr.min.js"></script>
+<script src="resources/sa/sweetalert2.all.min.js"></script>
 <?php
 if($nagMapR_Reporting == 1) // Used for encryption
 echo('
@@ -960,6 +843,41 @@ echo('
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
     };
+
+    if(<?php if($nagMapR_version != $nagMapR_CurrVersion) echo 'true'; else echo 'false'; ?>){
+      swal({
+        type: 'info',
+        title: '<?php echo $newVersion; ?> (<?php echo $nagMapR_CurrVersion; ?>)',
+        html: '<?php echo $newVersionText; ?><center><a href="https://github.com/jocafamaka/nagmapReborn/releases" target="_blank" style="cursor: pointer;"><img title="<?php echo $project; ?>" src="resources/img/logoBlack.svg" alt=""></a><center>',
+        confirmButtonText: '<?php echo $close; ?>'
+      }).then(function(){
+        <?php 
+        if(checkUserPass()){
+          echo ("
+            swal({
+              type: 'warning',
+              title: '".$passAlertTitle."',
+              text: '".$passAlert."',
+              confirmButtonText: 'OK'
+            })
+            ");
+        }?>
+      })
+    }
+    else
+    {
+      <?php 
+      if(checkUserPass()){
+        echo ("
+          swal({
+              type: 'warning',
+              title: '".$passAlertTitle."',
+              text: '".$passAlert."',
+              confirmButtonText: 'OK'
+            })
+          ");
+      }?>
+    }
   </script>
   <?php
   if($nagMapR_Reporting == 1)

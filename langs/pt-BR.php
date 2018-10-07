@@ -17,10 +17,6 @@ $file_not_find_error = ("não foi encontrado! Por favor defina corretamente a va
 
 $in_definition_error = ("Começar um novo \"in_definition\" sem finalizar o anterior, não é legal!");
 
-$one_column_error1 = ("Linha do arquivo de configuração (");
-
-$one_column_error2 = (") que contém somente uma coluna, não está correta! Arquivo e linha: ");
-
 $no_data_error = ("Não existem dados a serem exibidos, ou você não definiu as configurações corretamente ou esse é um bug do sistema.<br>Por favor entre em contato através do e-mail joao_carlos.r@hotmail.com para obter assistência.");
 
 $reported = (" reportado.");
@@ -47,9 +43,13 @@ $other = ("Outros");
 
 $hostP = ("Parentes");
 
-$newVersion = ("Nova versão disponível");
+$newVersion = ("Atualização disponível");
 
-$newVersionText = ("A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Faça o download da nova versão para ter acesso as novidades e melhorias.<br><br>Obtenha a nova versão no GitHub:<br><br>");
+$newVersionText = ("<br>A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Obtenha a nova versão no GitHub:<br><br>");
+
+$passAlertTitle = ("Autenticação padrão");
+
+$passAlert = ("Você está atualmente utilizando a senha e usuário padrão, não fique desprotegido, modifique agora mesmo!");
 
 //Alertas ChangesBar:
 $up = ("UP");
