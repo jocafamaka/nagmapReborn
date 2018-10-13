@@ -90,23 +90,23 @@ a:hover {
   vertical-align: middle !important
 }
 
-.changesBarLine.up{
+.changesBarLine.UP{
   background:#159415 !important;
 }
 
-.changesBarLine.war{
+.changesBarLine.WAR{
   background:#c5d200 !important;
 }
 
-.changesBarLine.crit{
+.changesBarLine.CRIT{
   background:#ff6a00 !important;
 }
 
-.changesBarLine.down{
+.changesBarLine.DOWN{
   background:#770101 !important;
 }
 
-.changesBarLine.unk{
+.changesBarLine.UNK{
   background:#A9ABAE !important;
 }
 

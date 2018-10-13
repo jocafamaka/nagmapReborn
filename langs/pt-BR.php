@@ -23,6 +23,10 @@ $reported = (" reportado.");
 
 $errorFound = ("Um erro foi automaticamente reportado.");
 
+$reporterErrorPre =("Ocorreu um erro porém ele não pode ser reportado!");
+
+$reporterError =("Essa versão do NagMap Reborn não recebe mais suporte para erros. Por favor utilize a <a href='https://github.com/jocafamaka/nagmapReborn/releases'>versão mais recente!</a>");
+
 //Informações do debug:
 $message = ("Mensagem:");
 

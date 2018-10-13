@@ -210,7 +210,7 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo ('
-              var newUp = ("<div class=\"changesBarLine up\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+              var newUp = ("<div class=\"changesBarLine UP\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
               if(hostStatus[host].status == 1){
                 newUp += "'. $warning .'";
@@ -265,7 +265,7 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
-              var newUp = ("<div class=\"changesBarLine war\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+              var newUp = ("<div class=\"changesBarLine WAR\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
               if(hostStatus[host].status == 0){
                 newUp += "'. $up .'";
@@ -318,7 +318,7 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo ('
-              var newUp = ("<div class=\"changesBarLine crit\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+              var newUp = ("<div class=\"changesBarLine CRIT\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
               if(hostStatus[host].status == 0){
                 newUp += "'. $up .'";
@@ -371,7 +371,7 @@ if ($nagMapR_ChangesBar == 1) {
         if($nagMapR_ChangesBar == 1){
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
-              var newUp = ("<div class=\"changesBarLine down\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+              var newUp = ("<div class=\"changesBarLine DOWN\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
               if(hostStatus[host].status == 0){
                 newUp += "'. $up .'";
@@ -433,7 +433,7 @@ if ($nagMapR_ChangesBar == 1) {
           if($nagMapR_ChangesBarMode == 1){
             echo (' 
 
-              var newUp = ("<div class=\"changesBarLine unk\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+              var newUp = ("<div class=\"changesBarLine UNK\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
               if(hostStatus[host].status == 0){
                 newUp += "'. $up .'";
@@ -708,41 +708,12 @@ if ($nagMapR_ChangesBar == 1) {
 
         if((!waitToReport) && (diferent)){
 
-          var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
+          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.ml/error.php?r="+Encrypt(report);
           spt.parentNode.insertBefore(elt, spt);
 
-          toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "20000",
-            "extendedTimeOut": "10000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-          };
-
-          toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
-
-          toastr.options = {
-            "closeButton": false,
-            "progressBar": false,
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "1000",
-            "timeOut": "10000",
-            "extendedTimeOut": "1000"
-          };
           waitToReport = true;
           setTimeout(function(){waitToReport = false;}, 20000);
           Lastmsg = msg;
@@ -766,41 +737,11 @@ if ($nagMapR_ChangesBar == 1) {
 
           if((!waitToReport) && (diferent)){
 
-            var report = "**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
+            var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//nagmaprebornanalytics.000webhostapp.com/reports/report-error.php?report="+Encrypt(report);
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.ml/error.php?r="+Encrypt(report);
             spt.parentNode.insertBefore(elt, spt);
-
-            toastr.options = {
-              "closeButton": true,
-              "debug": false,
-              "newestOnTop": false,
-              "progressBar": true,
-              "positionClass": "toast-top-right",
-              "preventDuplicates": false,
-              "onclick": null,
-              "showDuration": "300",
-              "hideDuration": "1000",
-              "timeOut": "20000",
-              "extendedTimeOut": "10000",
-              "showEasing": "swing",
-              "hideEasing": "linear",
-              "showMethod": "fadeIn",
-              "hideMethod": "fadeOut"
-            };
-
-            toastr["info"]("'. $errorFound .'", "'. $error . $reported .'");
-
-            toastr.options = {
-              "closeButton": false,
-              "progressBar": false,
-              "preventDuplicates": true,
-              "onclick": null,
-              "showDuration": "1000",
-              "timeOut": "10000",
-              "extendedTimeOut": "1000"
-            };
 
             waitToReport = true;
             setTimeout(function(){waitToReport = false;}, 20000);
@@ -844,6 +785,34 @@ echo('
       "hideMethod": "fadeOut"
     };
 
+    function reportReturn(type){
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "showDuration": "300",
+        "timeOut": "20000",
+        "extendedTimeOut": "10000",
+      };
+
+      if(type < 1)
+      {
+        toastr["info"]("<?php echo ($reporterErrorPre) ?>");
+        if(type == -1)
+          toastr["error"]("<?php echo ($reporterError) ?>");
+      }
+
+      if(type == 1)
+        toastr["info"]("<?php echo ($errorFound) ?>", "<?php echo ($error . $reported) ?>");
+
+      toastr.options = {
+        "closeButton": false,
+        "progressBar": false,
+        "showDuration": "1000",
+        "timeOut": "10000",
+        "extendedTimeOut": "1000"
+      };
+    };
+
     if(<?php if($nagMapR_version != $nagMapR_CurrVersion) echo 'true'; else echo 'false'; ?>){
       swal({
         type: 'info',
@@ -870,11 +839,11 @@ echo('
       if(checkUserPass()){
         echo ("
           swal({
-              type: 'warning',
-              title: '".$passAlertTitle."',
-              text: '".$passAlert."',
-              confirmButtonText: 'OK'
-            })
+            type: 'warning',
+            title: '".$passAlertTitle."',
+            text: '".$passAlert."',
+            confirmButtonText: 'OK'
+          })
           ");
       }?>
     }
@@ -904,20 +873,9 @@ echo('
         return window.btoa(ciphertext);
       };
 
-      var _paq = _paq || [];
-      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-      _paq.push(["setDomains", ["*."]]);
-      _paq.push(["trackPageView"]);
-      _paq.push(["enableLinkTracking"]);
-      (function() {
-        var u="//nagmaprebornanalytics.000webhostapp.com/";
-        _paq.push(["setTrackerUrl", u+"piwik.php"]);
-        _paq.push(["setSiteId", "2"]);
-        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
-        g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-        })();
-        </script>
-        ');
-        ?>
-      </body>
-      </html>
+      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "1.5.2", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.ml/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      </script>
+      ');
+      ?>
+    </body>
+    </html>
