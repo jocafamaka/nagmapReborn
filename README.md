@@ -47,6 +47,14 @@ It is possible to integrate with other systems that have the structure similar t
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
+## NagMap Reborn with Leaflet
+
+Is a modified version of NagMap Reborn, which uses the [Leaflet library](https://leafletjs.com/) for map rendering instead of the Google Maps API.
+
+**ATTENTION:** This version is still under development and being tested and should **not be used in production!**
+
+See the repository [here](https://github.com/jocafamaka/nagmapReborn-leaflet).
+
 ## Support
 
 If you experience any problems deploying NagMap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.

@@ -20,8 +20,6 @@ To draw connections, hosts need to have 'parents' field set up in Nagios / Icing
 Your webserver (e.g. Apache) needs to have PHP support enabled!
 Please make sure your PHP is version 5.2.0 and above :) (see phpinfo() php function)
 
-Required extensions: json and mbstring.
-
 On some distributions you might need to install mbstring for PHP - like Fedora/RedHat:
 yum install php-mbstring
 
@@ -33,6 +31,12 @@ yum install php-mbstring
 
 3) Open the website of Nagmap Reborn installation
    (e.g. open Firefox - point to YOURIP/nagmapReborn)
+
+## Dependencies
+The only dependencies of NagMap Reborn are **PHP extensions/modules**, make sure they are installed:
+
+* json.
+* mbstring.
 
 ## Support
 
