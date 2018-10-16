@@ -53,7 +53,7 @@ Is a modified version of NagMap Reborn, which uses the [Leaflet library](https:/
 
 **ATTENTION:** This version is still under development and being tested and should **not be used in production!**
 
-See the repository [here](https://github.com/jocafamaka/nagmapReborn-leaflet).
+See the repository [here](https://github.com/jocafamaka/nagmapReborn/tree/leaflet).
 
 ## Support
 
