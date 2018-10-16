@@ -22,12 +22,20 @@ $nagMapR_IsNagios = 1;
 ####################################################################################################
 #                                      PREFERENCIAS DO MAPA                                        #
 ####################################################################################################
+// Qual API utilizar?
+// 0 = Google Maps API. (Rquer chave da API)
+// 1 = Leaflet.
+$nagMapR_MapAPI = 1;
+
 // Defina o centro do mapa (latitude, longitude)
 $nagMapR_MapCentre = '-4.018935, -52.607260';
 
 // Nivel padrao de zoom no mapa.
 $nagMapR_MapZoom = 6.2;
 
+########################################################
+#			  SE UTILIZANDO GOOGLE MAPS API			   #
+########################################################
 // Qual tipo de mapa?
 // ROADMAP
 // SATELLITE
@@ -39,6 +47,14 @@ $nagMapR_MapType = 'ROADMAP';
 // Veja aqui como conseguir uma chave privada de API (EM INGLES):
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 $nagMapR_Mapkey = '';
+
+// Estilos personalizados do Google Maps
+// Se utilizado, essa opcao sobrepoem o tipo de mapa definido em ($nagMapR_MapType)
+// Essa opcao deve conter o nome do arquivo .json presente na pasta 'styles'.
+// Estilos personalizados podem ser criados aqui: (https://mapstyle.withgoogle.com/)
+// Veja na pasta 'styles' os estilos prontos para uso.
+// Deixe em branco para nao utilizar estilos personalizados.
+$nagMapR_Style = '';  //Por exemplo: ($nagMapR_Style = 'Dark';) Para usar o estilo Dark.json
 
 ####################################################################################################
 #                                 CARACTERISTICAS DO NAGMAP REBORN                                 #
@@ -62,14 +78,6 @@ $nagMapR_FilterHostgroup  = '';
 // Os servicos sao filtrados pelo service_description.
 // Deixe em branco para não filtrar.
 $nagMapR_FilterService  = '';
-
-// Estilos personalizados
-// Se utilizado, essa opcao sobrepoem o tipo de mapa definido em ($nagMapR_MapType)
-// Essa opcao deve conter o nome do arquivo .json presente na pasta 'styles'.
-// Estilos personalizados podem ser criados aqui: (https://mapstyle.withgoogle.com/)
-// Veja na pasta 'styles' os estilos prontos para uso.
-// Deixe em branco para nao utilizar estilos personalizados.
-$nagMapR_Style = '';  //Por exemplo: ($nagMapR_Style = 'Dark';) Para usar o estilo Dark.json
 
 // Exibir ChangesBar? (Barra com informãcoes sobre os hosts) 
 // 1 = SIM.
@@ -122,7 +130,7 @@ $nagMapR_Reporting = 1;
 #                                     INFORMACAO DE SEGURANCA                                      #
 ####################################################################################################
 // Chave de seguranca, protege de requisicoes externas. (use somente numeros e letras)
-$nagMapR_key = 'I4ZkUlsBtAwioliOFp0C1SrcsEqQb1ZsLyy6zjAaqClCtYIyHu6Te3lmQCOpYCwbNuGZivjr40zWnO8mfQvRK0231CRTZz7Z';
+$nagMapR_key = 'WewCK9qHXcGrtI2BhoCWwqCOx6RQ4e7Q8tSItAPGcWzMfrNDWPaI6cXtZpBSJ8kHs3Pc4fiW2YjYFxbbC1k9T7ttnuDytn6chL4';
 
 // Usuário utilizado na autenticação.
 $nagMapR_User = "ngradmin";

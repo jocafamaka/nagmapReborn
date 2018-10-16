@@ -2,9 +2,13 @@
 
 NagMap Reborn is an initiative to improve the NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
-## New Features
+## NagMap Reborn 1.6.0-alpha
 
-Some changes were made to the functions and logic used in the original project and from these modifications it was possible to make the following improvementes:
+This is a modified version of [NagMap Reborn](https://github.com/jocafamaka/nagmapReborn), which can use the [Leaflet library](https://leafletjs.com/) or Google Maps API for map rendering.
+
+**ATTENTION:** This version is still in experimental phase and should not be used in production!
+
+## Features
 
 * Updating hosts status without refresh on page.
 * Support for multiple languages.
@@ -15,12 +19,12 @@ Some changes were made to the functions and logic used in the original project a
 * Powerful debug page.
 * Service filter.
 * Self report of errors.
-* Access control. <sup>(NEW)</sup>
+* Access control.
+* Support for multiple API's. <sup>(NEW)</sup>
 
 ## What you can control
 
 * Map center.
-* Custom map style.
 * Zoom level.
 * Language.
   * Currently only available: English and Portuguese. (Translation contributions are welcome)
@@ -33,6 +37,7 @@ Some changes were made to the functions and logic used in the original project a
 * Show lines between hosts and their parents.
 * Time to update hosts status.
 * Icons style.
+* Which API to use. <sup>(NEW)</sup>
 
 ## Compatible with
 
@@ -42,18 +47,10 @@ Some changes were made to the functions and logic used in the original project a
 
 It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
-## Live preview
+## Live preview (Google Maps)
 
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
-
-## NagMap Reborn with Leaflet
-
-Is a modified version of NagMap Reborn, which uses the [Leaflet library](https://leafletjs.com/) for map rendering instead of the Google Maps API.
-
-**ATTENTION:** This version is still under development and being tested and should **not be used in production!**
-
-See the repository [here](https://github.com/jocafamaka/nagmapReborn-leaflet).
 
 ## Support
 
@@ -70,8 +67,8 @@ Contribution are always **welcome and recommended**! Here is how:
 1. Make your changes
 1. Create a pull request
 
-## Terms of use (Google Maps API)
+## Terms of use (Leaflet / OpenStreetMap)
 
-* By using this Maps API Implementation, your are agreeing to be bound by Google's Terms of Use.
-* This app uses the Maps API(s) - [See here](https://cloud.google.com/maps-platform/terms/) Google privacy policy.
-* [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
+* By using this API Implementation, your are agreeing to be bound by Leaflet, OpenStreetMap and Google's Terms of Use.
+* This app uses the OpenStreetMap's tiles. [See here](https://wiki.osmfoundation.org/wiki/Privacy_Policy) the privacy policy.
+* This app uses the Google Maps API. [See here](https://cloud.google.com/maps-platform/terms/) Google privacy policy. - [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.

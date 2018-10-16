@@ -83,7 +83,6 @@ foreach ($hosts as $h) {
   if ((isset($h["latlng"])) AND (isset($h["host_name"])) AND (isset($s[$h["nagios_host_name"]]['status']))) {
     $data[$h["host_name"]] = $h;
     $data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
-
     $jsData[$ii]['host_name'] = $h['host_name'];
     $jsData[$ii]['time'] = $s[$h["nagios_host_name"]]['time'];
     $jsData[$ii]['nagios_host_name'] = $h['nagios_host_name'];
@@ -97,123 +96,180 @@ foreach ($hosts as $h) {
 unset($hosts);
 unset($s);
 
-$ii = 0;
+if($nagMapR_MapAPI == 0){
+
+  $ii = 0;
 // put markers and bubbles onto a map
-foreach ($data as $h) {
+  foreach ($data as $h) {
     // position the host on the map
-  $javascript .= ("window.".$h["host_name"]."_pos = new google.maps.LatLng(".$h["latlng"].");\n");
+    $javascript .= ("window.".$h["host_name"]."_pos = new google.maps.LatLng(".$h["latlng"].");\n");
 
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
-  if ($h['status'] == 0) {
-    $javascript .= ("MARK.push(new google.maps.Marker({".
-      "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: iconGreen,".
-      "\n  map: map,".
-      "\n  zIndex: 2,".
-      "\n  title: \"".$h["nagios_host_name"]."\"".
-      "}));"."\n\n");
+    if ($h['status'] == 0) {
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGreen, map: map, zIndex: 2, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but in WARNING
-  } elseif ($h['status'] == 1) {
-    $javascript .= ("MARK.push(new google.maps.Marker({".
-      "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: iconYellow,".
-      "\n  map: map,".
-      "\n  zIndex: 3,".
-      "\n  title: \"".$h["nagios_host_name"]."\"".
-      "}));"."\n\n");
+    } elseif ($h['status'] == 1) {
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconYellow, map: map, zIndex: 3, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but CRITICAL
-  }elseif ($h['status'] == 2) {
-    $javascript .= ("MARK.push(new google.maps.Marker({".
-      "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: iconOrange,".
-      "\n  map: map,".
-      "\n  zIndex: 4,".
-      "\n  title: \"".$h["nagios_host_name"]."\"".
-      "}));"."\n\n");
+    }elseif ($h['status'] == 2) {
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconOrange, map: map, zIndex: 4, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state DOWN
-  } elseif ($h['status'] == 3) {
-    $javascript .= ("MARK.push(new google.maps.Marker({".
-      "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: iconRed,".
-      "\n  map: map,".
-      "\n  zIndex: 5,".
-      "\n  title: \"".$h["nagios_host_name"]."\"".
-      "}));"."\n\n");
-  } else {
+    } elseif ($h['status'] == 3) {
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconRed, map: map, zIndex: 5, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+    } else {
     // if host is in state UNKNOWN
-    $javascript .= ("window.MARK.push(new google.maps.Marker({".
-      "\n  position: ".$h["host_name"]."_pos,".
-      "\n  icon: iconGrey,".
-      "\n  map: map,".
-      "\n  zIndex: 6,".
-      "\n  title: \"".$h["nagios_host_name"]."\"".
-      "}));"."\n\n");
-  };
+      $javascript .= ("window.MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGrey, map: map, zIndex: 6, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+    };
     //generate google maps info bubble
-  if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
-  $info = '<div class=\"bubble\"><strong>'.$h["nagios_host_name"]."</strong><br><table>"
-  .'<tr><td>'.$alias.'</td><td>:</td><td> '.$h["alias"].'</td></tr>'
-  .'<tr><td>'.$hostG.'</td><td>:</td><td> '.join('<br>', $h["hostgroups"]).'</td></tr>'
-  .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
-  .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'
-  .'<tr><td>'.$hostP.'</td><td>:</td><td> '.join('<br>' , $h["parents"]).'</td></tr>'
-  .'</table>';
-  
-  if($nagMapR_IsNagios == 1){
-    $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
-    .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
-    .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
-  }
-  else{
-    $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
-    
-  }
+    if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
+    $info = '<div class=\"bubble\"><strong>'.$h["nagios_host_name"]."</strong><br><table>"
+    .'<tr><td>'.$alias.'</td><td>:</td><td> '.$h["alias"].'</td></tr>'
+    .'<tr><td>'.$hostG.'</td><td>:</td><td> '.join('<br>', $h["hostgroups"]).'</td></tr>'
+    .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
+    .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'
+    .'<tr><td>'.$hostP.'</td><td>:</td><td> '.join('<br>' , $h["parents"]).'</td></tr>'
+    .'</table>';
 
-  $javascript .= ("window.".$h["host_name"]."_mark_infowindow = new google.maps.InfoWindow({ content: '$info'})\n");
-
-  $javascript .= ("google.maps.event.addListener(MARK[".$ii."], 'click', function() {"
-    .$h["host_name"]."_mark_infowindow.open(map, MARK[".$ii."]);\n
-  });\n\n");
-  $ii++;
-};
-
-if($nagMapR_Lines == 1){
-  $ii = 0;
-// create (multiple) parent connection links between nodes/markers
-  $javascript .= "// generating links between hosts\n";
-  foreach ($data as $h) {
-  // if we do not have any parents, just create an empty array
-    if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
-      continue;
+    if($nagMapR_IsNagios == 1){
+      $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
+      .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
+      .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
     }
-    foreach ($h["parents"] as $parent) {
-      if (isset($data[$parent]["latlng"])) {
-      // default colors for links
-        if ($h['status'] == 0)
-          $stroke_color = "#007f00";
-      // links in warning state
-        elseif ($h['status'] == 1) 
-          $stroke_color ='#ffff00';
-        // links in critical state
-        elseif ($h['status'] == 2) 
-          $stroke_color ='#d25700';
-      // links in problem state
-        elseif ($h['status'] == 3)
-          $stroke_color ='#c92a2a';
-        else
-          $stroke_color ='#A9ABAE';
-        $javascript .= "\n";
+    else{
+      $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
 
-        $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
+    }
 
-        $javascript .= ('LINES['.$ii.'].line = new google.maps.Polyline({'."\n".
-          ' path: ['.$h["host_name"].'_pos,'.$parent.'_pos],'."\n".
-          "  strokeColor: \"$stroke_color\",\n".
-          "  strokeOpacity: 0.8,\n".
-          "  strokeWeight: 1.5});\n");
-        $javascript .= ('LINES['.$ii."].line.setMap(map);\n\n");
-        $ii++;
+    $javascript .= ("window.".$h["host_name"]."_mark_infowindow = new google.maps.InfoWindow({ content: '$info'})\n");
+
+    $javascript .= ("google.maps.event.addListener(MARK[".$ii."], 'click', function() {"
+      .$h["host_name"]."_mark_infowindow.open(map, MARK[".$ii."]);\n
+    });\n\n");
+    $ii++;
+  };
+
+  if($nagMapR_Lines == 1){
+    $ii = 0;
+    // create (multiple) parent connection links between nodes/markers
+    $javascript .= "// generating links between hosts\n";
+    foreach ($data as $h) {
+      // if we do not have any parents, just create an empty array
+      if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
+        continue;
+      }
+      foreach ($h["parents"] as $parent) {
+        if (isset($data[$parent]["latlng"])) {
+          // default colors for links
+          if ($h['status'] == 0)
+            $stroke_color = "#007f00";
+          // links in warning state
+          elseif ($h['status'] == 1) 
+            $stroke_color ='#ffff00';
+            // links in critical state
+          elseif ($h['status'] == 2) 
+            $stroke_color ='#d25700';
+          // links in problem state
+          elseif ($h['status'] == 3)
+            $stroke_color ='#c92a2a';
+          else
+            $stroke_color ='#A9ABAE';
+          $javascript .= "\n";
+
+          $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
+
+          $javascript .= ('LINES['.$ii.'].line = new google.maps.Polyline({'."\n".
+            ' path: ['.$h["host_name"].'_pos,'.$parent.'_pos],'."\n".
+            "  strokeColor: \"$stroke_color\",\n".
+            "  strokeOpacity: 0.8,\n".
+            "  strokeWeight: 1.5});\n");
+          $javascript .= ('LINES['.$ii."].line.setMap(map);\n\n");
+          $ii++;
+        }
+      }
+    }
+  }
+}
+else{
+  // put markers and bubbles onto a map
+  foreach ($data as $h) {
+    // position the host on the map
+    $javascript .= ("window.".$h["host_name"]."_pos = new L.latLng(".$h["latlng"].");\n");
+
+    // display different icons for the host (according to the status in nagios)
+    // if host is in state OK
+    if ($h['status'] == 0) {
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGreen}).addTo(map).bindPopup(\"");
+      // if host is in state UP but in WARNING
+    } elseif ($h['status'] == 1) {
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconYellow}).addTo(map).bindPopup(\"");
+      // if host is in state UP but CRITICAL
+    }elseif ($h['status'] == 2) {
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconOrange}).addTo(map).bindPopup(\"");
+      // if host is in state DOWN
+    } elseif ($h['status'] == 3) {
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconRed}).addTo(map).bindPopup(\"");
+      // if host is in state UNKNOWN
+    } else {
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGrey}).addTo(map).bindPopup(\"");
+    };
+    //generate google maps info bubble
+    if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
+    $info = '<div class=\"bubble\"><strong>'.$h["nagios_host_name"]."</strong><br><table>"
+    .'<tr><td>'.$alias.'</td><td>:</td><td> '.$h["alias"].'</td></tr>'
+    .'<tr><td>'.$hostG.'</td><td>:</td><td> '.join('<br>', $h["hostgroups"]).'</td></tr>'
+    .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
+    .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'
+    .'<tr><td>'.$hostP.'</td><td>:</td><td> '.join('<br>' , $h["parents"]).'</td></tr>'
+    .'</table>';
+
+    if($nagMapR_IsNagios == 1){
+      $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
+      .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
+      .'<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\" target=\"_blank\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.svg\" alt=\"\"></a><center>';
+    }
+    else{
+      $info .= '<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.svg\" alt=\"\"></a><center>';
+
+    }
+
+    $javascript .= ($info."\"));");
+
+  };
+
+  if($nagMapR_Lines == 1){
+    $ii = 0;
+    // create (multiple) parent connection links between nodes/markers
+    $javascript .= "// generating links between hosts\n";
+    foreach ($data as $h) {
+      // if we do not have any parents, just create an empty array
+      if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
+        continue;
+      }
+      foreach ($h["parents"] as $parent) {
+        if (isset($data[$parent]["latlng"])) {
+          // default colors for links
+          if ($h['status'] == 0)
+            $stroke_color = "#007f00";
+          // links in warning state
+          elseif ($h['status'] == 1) 
+            $stroke_color ='#ffff00';
+          // links in critical state
+          elseif ($h['status'] == 2) 
+            $stroke_color ='#d25700';
+          // links in problem state
+          elseif ($h['status'] == 3)
+            $stroke_color ='#c92a2a';
+          else
+            $stroke_color ='#A9ABAE';
+          $javascript .= "\n";
+
+          $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
+
+          $javascript .= ('LINES['.$ii.'].line = new L.Polyline(['.$h["host_name"].'_pos,'.$parent.'_pos] ,{color: "'.$stroke_color.'", weight: 1.5,opacity: 0.8,smoothFactor: 1});');
+          $javascript .= ('LINES['.$ii."].line.addTo(map);\n\n");
+          $ii++;
+        }
       }
     }
   }

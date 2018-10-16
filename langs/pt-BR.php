@@ -13,6 +13,8 @@
 //ERROS:
 $var_cfg_error = ("não foi corretamente configurada, verifique o arquivo de configuração do NagMap Reborn e faça as correções necessárias! Valor definido: ");
 
+$moduleError = ("Um módulo/extensão do PHP essencial para o funcionamento do NagMap Reborn não foi encontrado, por favor instale o módulo/extensão antes de continuar. Nome do módulo/extenssão: ");
+
 $file_not_find_error = ("não foi encontrado! Por favor defina corretamente a variável no arquivo de configuração do NagMap Reborn!");
 
 $in_definition_error = ("Começar um novo \"in_definition\" sem finalizar o anterior, não é legal!");

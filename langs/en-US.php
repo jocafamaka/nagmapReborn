@@ -13,6 +13,8 @@
 //Errors:
 $var_cfg_error = ("has not been properly configured, check the NagMap Reborn configuration file and make the necessary corrections! Defined value: ");
 
+$moduleError = ("A PHP module/extension essential for running NagMap Reborn was not found, please install the module/extension before proceeding. Module/Extension name: ");
+
 $file_not_find_error = ("does not exist! Please set the variable in NagMap Reborn config file!\n");
 
 $in_definition_error =("Starting a new in_definition before closing the previous one! That is not cool.");

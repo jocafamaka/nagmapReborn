@@ -22,12 +22,20 @@ $nagMapR_IsNagios = 1;
 ####################################################################################################
 #                                         MAP PREFERENCES                                          #
 ####################################################################################################
+// Which API to use?
+// 0 = Google Maps API. (Requires API key)
+// 1 = Leaflet.
+$nagMapR_MapAPI = 1;
+
 // Set to the centre of your map (lat,long)
-$nagMapR_MapCentre = '-4.018935, -52.607260';
+$nagMapR_MapCentre = '-6.469293, -50.913464';
 
 // Default zoom level of the map
 $nagMapR_MapZoom = 6.2;
 
+########################################################
+#			    IF USING GOOGLE MAPS API			   #
+########################################################
 // Which google maps type to use?
 // ROADMAP
 // SATELLITE
@@ -35,9 +43,18 @@ $nagMapR_MapZoom = 6.2;
 // TERRAIN
 $nagMapR_MapType = 'ROADMAP';
 
-// Enter your private API key here
-// See here how to get an API private key: (https://developers.google.com/maps/documentation/javascript/get-api-key)
+// Enter your private Google Maps API key here
+// See here how to get an API private key: 
+// (https://developers.google.com/maps/documentation/javascript/get-api-key)
 $nagMapR_Mapkey = '';
+
+// Google Maps custom styles
+// If used, this option overlaps the map type defined in ($nagMapR_MapType)
+// This option should contain the name of the .json file in the styles folder.
+// Custom styles can be created in: (https://mapstyle.withgoogle.com/)
+// Look in the styles folder, for ready styles.
+// Leave empty if you do not want to use custom style.
+$nagMapR_Style = '';  //For example: ($nagMapR_Style = 'Dark';) To use de Dark.json style.
 
 ####################################################################################################
 #                                      NAGMAP REBORN FEATURES                                      #
@@ -61,14 +78,6 @@ $nagMapR_FilterHostgroup  = '';
 // Services are filtered by service_description.
 // Leave empty for not filtering
 $nagMapR_FilterService  = '';
-
-// Custom styles
-// If used, this option overlaps the map type defined in ($nagMapR_MapType)
-// This option should contain the name of the .json file in the styles folder.
-// Custom styles can be created in: (https://mapstyle.withgoogle.com/)
-// Look in the styles folder, for ready styles.
-// Leave empty if you do not want to use custom style.
-$nagMapR_Style = '';  //For example: ($nagMapR_Style = 'Dark';) To use de Dark.json style.
 
 // Show ChangesBar? (Bar with information about the hosts) 
 // 1 = YES.
@@ -121,7 +130,7 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = 'I4ZkUlsBtAwioliOFp0C1SrcsEqQb1ZsLyy6zjAaqClCtYIyHu6Te3lmQCOpYCwbNuGZivjr40zWnO8mfQvRK0231CRTZz7Z';
+$nagMapR_key = 'WewCK9qHXcGrtI2BhoCWwqCOx6RQ4e7Q8tSItAPGcWzMfrNDWPaI6cXtZpBSJ8kHs3Pc4fiW2YjYFxbbC1k9T7ttnuDytn6chL4';
 
 // User used for authentication.
 $nagMapR_User = "ngradmin";

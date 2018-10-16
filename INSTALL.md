@@ -1,13 +1,15 @@
 # Installation
 
-## Nagios Configuration
+## Configuration
 
 The 'notes' field for host definition in Nagios needs to match the following example:
   latlng: 66.174082,-13.119136
 
 If you are editing Nagios configuration files by hand this is how the FULL notes
 line should look like:
+```
   notes       latlng: 66.174082,-13.119136
+```
 
 You can get the precise coordinates from [Google Maps](http://maps.google.com)
 Right click on the spot where your device is located and select option "What's here?".
