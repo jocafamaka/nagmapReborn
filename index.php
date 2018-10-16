@@ -168,7 +168,7 @@ if ($javascript == "") {
 
           var map = L.map('map',{zoomControl:false}).setView([".$nagMapR_MapCentre."], ".$nagMapR_MapZoom.");
 
-          L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution:'&copy; Contribuidores do <a href=\"http://osm.org/copyright\">OpenStreetMap</a>'}).addTo(map);
+          L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution:'&copy; Contribuidores do <a href=\"http://osm.org/copyright\">OpenStreetMap</a>'}).addTo(map);
           ");
     }
     ?>    
