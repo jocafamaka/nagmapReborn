@@ -128,6 +128,8 @@ if ($javascript == "") {
       echo("\n          });");
     }
     else{
+      if($nagMapR_LeafletStyle == "")
+        $nagMapR_LeafletStyle = "//{s}.tile.osm.org/{z}/{x}/{y}.png";
       echo("
         var iconRed = L.icon({
           iconUrl: 'resources/img/icons/MarkerRedSt-".$nagMapR_IconStyle.".png',
@@ -168,7 +170,7 @@ if ($javascript == "") {
 
           var map = L.map('map',{zoomControl:false}).setView([".$nagMapR_MapCentre."], ".$nagMapR_MapZoom.");
 
-          L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution:'&copy; Contribuidores do <a href=\"http://osm.org/copyright\">OpenStreetMap</a>'}).addTo(map);
+          L.tileLayer('".$nagMapR_LeafletStyle."', {attribution:'&copy; Contribuidores do <a href=\"http://osm.org/copyright\">OpenStreetMap</a>'}).addTo(map);
           ");
     }
     ?>    

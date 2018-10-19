@@ -34,6 +34,19 @@ $nagMapR_MapCentre = '-6.469293, -50.913464';
 $nagMapR_MapZoom = 6.2;
 
 ########################################################
+#				   IF USING LEAFLET API				   #
+########################################################
+
+// Leaflet styles/tiles.
+// Use a provider of images / vectors other than OpenStreetMap.
+// You can see several for free here:
+// (http://leaflet-extras.github.io/leaflet-providers/preview/)
+// Some of these need a token to access.
+// Put the full link.
+// Leave blank to use the default.
+$nagMapR_LeafletStyle = '';  //For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
+
+########################################################
 #			    IF USING GOOGLE MAPS API			   #
 ########################################################
 // Which google maps type to use?
@@ -130,7 +143,7 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = 'WewCK9qHXcGrtI2BhoCWwqCOx6RQ4e7Q8tSItAPGcWzMfrNDWPaI6cXtZpBSJ8kHs3Pc4fiW2YjYFxbbC1k9T7ttnuDytn6chL4';
+$nagMapR_key = 'ELsV7OqefspxiVIPvzOqGzYJShz5TxoKYkZGa0ecfMGj4e3pzAmCho6CQqfuJ3qI3i0J0OiWdFyKkJp2aHANUa8BKUdKXmBO';
 
 // User used for authentication.
 $nagMapR_User = "ngradmin";
