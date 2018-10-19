@@ -34,7 +34,7 @@ $nagMapR_MapCentre = '-6.469293, -50.913464';
 $nagMapR_MapZoom = 6.2;
 
 ########################################################
-#				   IF USING LEAFLET API				   #
+#                 IF USING LEAFLET API                 #
 ########################################################
 
 // Leaflet styles/tiles.
@@ -47,7 +47,7 @@ $nagMapR_MapZoom = 6.2;
 $nagMapR_LeafletStyle = '';  //For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
 
 ########################################################
-#			    IF USING GOOGLE MAPS API			   #
+#               IF USING GOOGLE MAPS API               #
 ########################################################
 // Which google maps type to use?
 // ROADMAP
