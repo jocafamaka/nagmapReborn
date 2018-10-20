@@ -33,7 +33,7 @@ NagMap Reborn is an initiative to improve the NagMap project developed by [Marce
 * Icons style.
 * Which API to use. <sup>(NEW)</sup>
 
-## Compatible with
+## Compatibility
 
 * Nagios.
 * Icinga.
