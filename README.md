@@ -2,12 +2,6 @@
 
 NagMap Reborn is an initiative to improve the NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
-## NagMap Reborn 1.6.0-alpha
-
-This is a modified version of [NagMap Reborn](https://github.com/jocafamaka/nagmapReborn), which can use the [Leaflet library](https://leafletjs.com/) or Google Maps API for map rendering.
-
-**ATTENTION:** This version is still in experimental phase and should not be used in production!
-
 ## Features
 
 * Updating hosts status without refresh on page.
@@ -47,6 +41,21 @@ This is a modified version of [NagMap Reborn](https://github.com/jocafamaka/nagm
 
 It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
 
+## Which API?
+Undecided about which API to use? Here are some differences between them:
+
+**Google Maps API**
+* Requires API key to be used.
+* It has limits of free use.
+* It does not rely on third-party services for display or customization.
+* Easier customization and use of [styles](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#google-maps-api).
+
+**Leaflet API**
+* You do not need an API key to use.
+* No use limits when used in conjunction with OpenStreetMap.
+* Depends on third parties to display the map and use [styles](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#leaflet-api).
+* Most services that provide custom maps require an API key and have usage limits.
+
 ## Live preview (Google Maps)
 
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
@@ -67,7 +76,7 @@ Contribution are always **welcome and recommended**! Here is how:
 1. Make your changes
 1. Create a pull request
 
-## Terms of use (Leaflet / OpenStreetMap)
+## Terms of use (Leaflet / OpenStreetMap / Google Maps)
 
 * By using this API Implementation, your are agreeing to be bound by Leaflet, OpenStreetMap and Google's Terms of Use.
 * This app uses the OpenStreetMap's tiles. [See here](https://wiki.osmfoundation.org/wiki/Privacy_Policy) the privacy policy.

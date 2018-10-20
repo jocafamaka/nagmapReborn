@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-$nagMapR_version = '1.6.0-alpha';
+$nagMapR_version = file_get_contents('VERSION');
 $nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/leaflet/VERSION');
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
@@ -749,7 +749,7 @@ if ($javascript == "") {
             var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-leaflet.php?r="+Encrypt(report);
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
             spt.parentNode.insertBefore(elt, spt);
 
             waitToReport = true;
@@ -778,7 +778,7 @@ if ($javascript == "") {
               var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
 
               var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-              elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-leaflet.php?r="+Encrypt(report);
+              elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
               spt.parentNode.insertBefore(elt, spt);
 
               waitToReport = true;
@@ -911,7 +911,7 @@ echo('
         return window.btoa(ciphertext);
       };
 
-      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "1.6.0-alpha", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.com/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.com/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
       </script>
       ');
       ?>

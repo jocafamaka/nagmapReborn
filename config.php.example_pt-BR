@@ -41,8 +41,9 @@ $nagMapR_MapZoom = 6.2;
 // Usar um fornecedor de imagens/vetores diferente do OpenStreetMap.
 // Voce pode ve varios gratis aqui:
 // (http://leaflet-extras.github.io/leaflet-providers/preview/)
-// Alguns desses precisam de token para acesso.
-// Coloque o link completo.
+// Alguns desses precisam de token para acesso. Coloque o link completo.
+// Como usar o estilos do Mapbox:
+// https://github.com/jocafamaka/nagmapReborn/wiki/Como-usar-o-estilos-do-Mapbox-no-Leaflet%3F
 // Deixe em branco para utilizar o padrão.
 $nagMapR_LeafletStyle = '';  //Por exemplo: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
 
