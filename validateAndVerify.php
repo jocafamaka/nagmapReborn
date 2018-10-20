@@ -18,17 +18,29 @@ if(!is_string($nagios_cfg_file))
 if(!is_string($nagios_status_dat_file)) 
   die("\$nagios_status_dat_file $var_cfg_error ($nagios_status_dat_file)");
 
-if(!is_string($nagMapR_Mapkey) || empty($nagMapR_Mapkey)) 
-  die("\$nagMapR_Mapkey $var_cfg_error ($nagMapR_Mapkey)");
+if(($nagMapR_MapAPI < 0) || ($nagMapR_MapAPI > 1))
+  die("\$nagMapR_MapAPI $var_cfg_error ($nagMapR_MapAPI)");
+
+if($nagMapR_MapAPI == 0){
+
+  if(!is_string($nagMapR_Mapkey) || empty($nagMapR_Mapkey)) 
+    die("\$nagMapR_Mapkey $var_cfg_error ($nagMapR_Mapkey)");
+
+  if(!is_string($nagMapR_MapType)) 
+    die("\$nagMapR_MapType $var_cfg_error ($nagMapR_MapType)");
+
+  if($nagMapR_Style != ''){
+    if(!file_exists("styles/$nagMapR_Style.json")){
+      die("\$nagMapR_Style $var_cfg_error ($nagMapR_Style)");
+    }
+  }
+}
 
 if(!is_string($nagMapR_FilterHostgroup)) 
   die("\$nagMapR_FilterHostgroup $var_cfg_error ($nagMapR_FilterHostgroup)");
 
 if(!is_string($nagMapR_MapCentre)) 
   die("\$nagMapR_MapCentre $var_cfg_error ($nagMapR_MapCentre)");
-
-if(!is_string($nagMapR_MapType)) 
-  die("\$nagMapR_MapType $var_cfg_error ($nagMapR_MapType)");
 
 if(!is_string($nagMapR_key)) 
   die("\$nagMapR_key $var_cfg_error ($nagMapR_key)");
@@ -69,11 +81,11 @@ if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
 if($nagMapR_IconStyle > 2 || $nagMapR_IconStyle < 0)
   die("\$nagMapR_IconStyle $var_cfg_error ($nagMapR_IconStyle)");
 
-if($nagMapR_Style != ''){
-  if(!file_exists("styles/$nagMapR_Style.json")){
-    die("\$nagMapR_Style $var_cfg_error ($nagMapR_Style)");
-  }
-}
+if(!extension_loaded('mbstring'))
+  die("$moduleError mbstring");
+
+if(!extension_loaded('json'))
+  die("$moduleError json");
 
 function checkUserPass(){
   include('config.php');

@@ -1,3 +1,5 @@
-config*
-*random*
+config.php
 keys.txt
+random*
+tests/*
+features/*

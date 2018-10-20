@@ -2,34 +2,47 @@ NagMap Reborn Styles
 =====
 You can customize the map as you wish, define in the configuration file the variable:
 ```PHP
-$nagMapR_Style
+$nagMapR_Style or $nagMapR_StyleLeaflet
 ```
+
+## Lealfet API
+You can see several styles for free [here](http://leaflet-extras.github.io/leaflet-providers/preview/).
+Some of these need a token to access, paste the full link.
+
+For example: 
+```PHP
+$nagMapR_StyleLeaflet = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png';
+```
+
+How to use the Mapbox styles [here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles-on-Leaflet%3F).
+
+## Google Maps API
 With the name of the chosen style.
 
 You can create your own styles [here](https://mapstyle.withgoogle.com/).
 
 Be aware, after creating your custom style, save the generated code in a .json file into the styles folder.
 
-Preview of pre-defined styles:
-====
-### Aubergine style:
+### Preview of pre-defined styles:
+
+**Aubergine style:**
 !["NagMap Reborn Styles"](https://i.imgur.com/FAU7lOp.png "Aubergine style")
 
-### Dark style:
+**Dark style:**
 !["NagMap Reborn Styles"](https://i.imgur.com/QPeh3AN.png "Dark style")
 
-### Night style:
+**Night style:**
 !["NagMap Reborn Styles"](https://i.imgur.com/EaArsvB.png "Night style")
 
-### Retro style:
+**Retro style:**
 !["NagMap Reborn Styles"](https://i.imgur.com/GWxQc23.png "Retro style")
 
-### Silve style:
+**Silve style:**
 !["NagMap Reborn Styles"](https://i.imgur.com/hiEQEJU.png "Silve style")
 
 
-Priority of choice.
-===
+## Priority of choice.
+
 If you set the style variable, the style you choose will override any previously defined options in the map type variable:
 ```PHP
 $nagMapR_MapType
