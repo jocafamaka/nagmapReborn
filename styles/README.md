@@ -5,7 +5,7 @@ You can customize the map as you wish, define in the configuration file the vari
 $nagMapR_Style or $nagMapR_StyleLeaflet
 ```
 
-## Lealfet API
+## Leaflet API
 You can see several styles for free [here](http://leaflet-extras.github.io/leaflet-providers/preview/).
 Some of these need a token to access, paste the full link.
 
