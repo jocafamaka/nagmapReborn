@@ -746,7 +746,7 @@ if ($javascript == "") {
 
           if((!waitToReport) && (diferent)){
 
-            var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
+            var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
             elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
@@ -775,7 +775,7 @@ if ($javascript == "") {
 
             if((!waitToReport) && (diferent)){
 
-              var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'. $nagMapR_FilterHostgroup. '&s'. $nagMapR_FilterService. '&D'. $nagMapR_Debug. '&N'. $nagMapR_IsNagios. '&S'. $nagMapR_Style. '&B'. $nagMapR_ChangesBar. '&C'. $nagMapR_ChangesBarMode. '&d'. $nagMapR_DateFormat. '&s'. $nagMapR_Lines. '&t'. $nagMapR_TimeUpdate. '";
+              var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
               var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
               elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
@@ -911,7 +911,7 @@ echo('
         return window.btoa(ciphertext);
       };
 
-      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.com/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.com/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
       </script>
       ');
       ?>
