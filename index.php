@@ -713,19 +713,27 @@ if ($javascript == "") {
         }
         catch(err){
 
-          toastr["error"]("<?php echo $updateError; ?>");
-
           realTimeUp = false;
 
-          if(err.message == "Unexpected token < in JSON at position 0")
+          if(err.message == "Unexpected token < in JSON at position 0"){
+            toastr["error"]("<?php echo $updateError; ?>");
             console.warn("<?php echo $updateErrorStatus; ?>\n" + err);
-          else if(err.message == "Failed to request update.php")
+          }
+          else if(err.message == "Failed to request update.php"){
+            toastr["error"]("<?php echo $updateError; ?>");
             console.warn("<?php echo $updateErrorServ; ?>\n" + err);
-          else if(err.message == "Cannot read property 'status' of undefined")
+          }
+          else if(err.message == "Cannot read property 'status' of undefined"){
+            toastr["error"]("<?php echo $updateError; ?>");
             console.warn("<?php echo $updateErrorChanges; ?>\n" + err);
-          else{
-            throw err;
+          }
+          else{            
+            <?php
+            if($nagMapR_Debug == 0)
+              echo('toastr["error"]("'.$updateError.'");');
+            ?>
             console.warn(err);
+            throw err;
           }
         }
       }
