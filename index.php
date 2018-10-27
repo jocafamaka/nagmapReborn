@@ -284,7 +284,7 @@ if ($javascript == "") {
           if(time == 0)
             time = 1;
           else
-            time = 15;
+            time = 20;
           if(MARK[host].isBouncing())
             MARK[host].stopBouncing();
           else

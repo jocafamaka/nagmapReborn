@@ -53,16 +53,10 @@ function filter_raw_data($raw_data, $filesName) {
 
 function safe_name($in) {
   $out = trim($in);
-  $out = mb_convert_encoding($out, "ASCII");
-  $out = str_replace('-','_',$out);
-  $out = str_replace('.','_',$out);
-  $out = str_replace('/','_',$out);
-  $out = str_replace('(','_',$out);
-  $out = str_replace(')','_',$out);
-  $out = str_replace(' ','_',$out);
-  $out = str_replace(',','_',$out);
-  $out = str_replace("'",'',$out);
-  $out = str_replace(':','_',$out);
+  $replace = Array('-','.','/','(',')',' ',',',':');
+  $out = str_replace($replace, '_', $out);
+  $replace = Array('\'','"','?','!','+','-',';');
+  $out = str_replace($replace, '', $out);
   return $out;
 }
 
