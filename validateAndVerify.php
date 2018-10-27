@@ -1,6 +1,4 @@
 <?php
-// Check if the config file exist.
-
 $fails = '';
 
 // Check if the config file exist.

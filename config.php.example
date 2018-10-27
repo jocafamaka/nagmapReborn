@@ -43,7 +43,7 @@ $nagMapR_MapZoom = 6.2;
 // (http://leaflet-extras.github.io/leaflet-providers/preview/)
 // Some of these need a token to access. Put the full link.
 // How to use the Mapbox styles:
-// https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles-on-Leaflet%3F
+// https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F
 // Leave blank to use the default.
 $nagMapR_LeafletStyle = '';  //For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
 
