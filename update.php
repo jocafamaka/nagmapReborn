@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-$key = $_GET['key'];
+$key = $_POST['key'];
 
 include('config.php');
 include("langs/$nagMapR_Lang.php");

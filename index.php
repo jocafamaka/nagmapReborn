@@ -598,33 +598,42 @@ if ($javascript == "") {
     }
     ?>
 
+    realTimeUp = true;
+
     setInterval(function(){ // Request the arrau with the update status of each host.
 
       var ajax = new XMLHttpRequest();
 
       var arrayHosts;
 
-      ajax.open('GET', 'update.php?key=<?php echo $nagMapR_key ?>', true);
+      ajax.open('POST', 'update.php', true);
 
-      ajax.send();
+      ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      ajax.send('key=<?php echo $nagMapR_key ?>');
 
       ajax.onreadystatechange = function(){
 
-        if(ajax.readyState == 4 && ajax.status == 200) {
-          arrayHosts = JSON.parse(ajax.responseText); 
+        if(ajax.readyState == 4) {
+          try{
 
-          <?php
-          if($nagMapR_ChangesBar == 1){
-            if($nagMapR_ChangesBarMode == 1){
-              echo ('
-                newDivs = "";
-                var qntChange = 0; 
-                ');
+            if(ajax.status != 200)
+              throw new Error('Failed to request update.php');
+
+            arrayHosts = JSON.parse(ajax.responseText); 
+
+            <?php
+            if($nagMapR_ChangesBar == 1){
+              if($nagMapR_ChangesBarMode == 1){
+                echo ('
+                  newDivs = "";
+                  var qntChange = 0; 
+                  ');
+              }
             }
-          }
-          ?>
+            ?>
 
-          for (var i = 0; i < hostStatus.length; i++) {
+            for (var i = 0; i < hostStatus.length; i++) {
           if(hostStatus[i].status != arrayHosts[hostStatus[i].nagios_host_name].status){ //Call the update function if the last status is different from the current status.'
 
             <?php
@@ -697,104 +706,126 @@ if ($javascript == "") {
         }
         '); 
           ?>
+          if(realTimeUp == false){
+            realTimeUp = true;
+            toastr["success"]("<?php echo $updateErrorSolved; ?>");
+          }
         }
+        catch(err){
+
+          toastr["error"]("<?php echo $updateError; ?>");
+
+          realTimeUp = false;
+
+          if(err.message == "Unexpected token < in JSON at position 0")
+            console.warn("<?php echo $updateErrorStatus; ?>\n" + err);
+          else if(err.message == "Failed to request update.php")
+            console.warn("<?php echo $updateErrorServ; ?>\n" + err);
+          else if(err.message == "Cannot read property 'status' of undefined")
+            console.warn("<?php echo $updateErrorChanges; ?>\n" + err);
+          else{
+            throw err;
+            console.warn(err);
+          }
+        }
+      }
+    };
+  }, <?php echo $nagMapR_TimeUpdate; ?>000);
+
+<?php 
+if($nagMapR_Debug == 1)
+{
+  echo('
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "20000",
+        "extendedTimeOut": "10000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
       };
-    }, <?php echo $nagMapR_TimeUpdate; ?>000);
 
-    <?php 
-    if($nagMapR_Debug == 1)
-    {
-      echo('
-        window.onerror = function (msg, url, lineNo, columnNo, error) {
-          toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "20000",
-            "extendedTimeOut": "10000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-          };
+      toastr["error"]("'. $message .' " + msg + " - '. $error .': " + error + " - URL: " + url + " - '. $lineNum .' " + lineNo + " - '. $at .' " + now(),"'. $error .'");
 
-          toastr["error"]("'. $message .' " + msg + " - '. $error .': " + error + " - URL: " + url + " - '. $lineNum .' " + lineNo + " - '. $at .' " + now(),"'. $error .'");
+      toastr.options = {
+        "closeButton": false,
+        "progressBar": false,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "1000",
+        "timeOut": "10000",
+        "extendedTimeOut": "1000"
+      };
+      ');
+  if($nagMapR_Reporting == 1)
+    echo ('
 
-          toastr.options = {
-            "closeButton": false,
-            "progressBar": false,
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "1000",
-            "timeOut": "10000",
-            "extendedTimeOut": "1000"
-          };
-          ');
-      if($nagMapR_Reporting == 1)
-        echo ('
-
-          if(Lastmsg == msg && LastLine == lineNo)
-            var diferent = false;
-          else
-            var diferent = true;
-
-          if((!waitToReport) && (diferent)){
-
-            var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
-
-            var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
-            spt.parentNode.insertBefore(elt, spt);
-
-            waitToReport = true;
-            setTimeout(function(){waitToReport = false;}, 20000);
-            Lastmsg = msg;
-            LastLine = lineNo;
-          }
-        }
-        ');
+      if(Lastmsg == msg && LastLine == lineNo)
+        var diferent = false;
       else
-        echo ('}');
+        var diferent = true;
+
+      if((!waitToReport) && (diferent)){
+
+        var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
+
+        var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
+        spt.parentNode.insertBefore(elt, spt);
+
+        waitToReport = true;
+        setTimeout(function(){waitToReport = false;}, 20000);
+        Lastmsg = msg;
+        LastLine = lineNo;
+      }
     }
-    else{
-      if($nagMapR_Reporting == 1)
-        echo ('
+    ');
+  else
+    echo ('}');
+}
+else{
+  if($nagMapR_Reporting == 1)
+    echo ('
 
-          window.onerror = function (msg, url, lineNo, columnNo, error) {
+      window.onerror = function (msg, url, lineNo, columnNo, error) {
 
-            if(Lastmsg == msg && LastLine == lineNo)
-              var diferent = false;
-            else
-              var diferent = true;
+        if(Lastmsg == msg && LastLine == lineNo)
+          var diferent = false;
+        else
+          var diferent = true;
 
-            if((!waitToReport) && (diferent)){
+        if((!waitToReport) && (diferent)){
 
-              var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
+          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
-              var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-              elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
-              spt.parentNode.insertBefore(elt, spt);
+          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
+          spt.parentNode.insertBefore(elt, spt);
 
-              waitToReport = true;
-              setTimeout(function(){waitToReport = false;}, 20000);
-              Lastmsg = msg;
-              LastLine = lineNo;
-            }
-          }
-          ');
-    }
-    ?>
-  </script>
-  <script src="debugInfo/resources/js/jquery.min.js"></script>
-  <script src="resources/toastr/toastr.min.js"></script>
-  <script src="resources/sa/sweetalert2.all.min.js"></script>
-  <?php
+          waitToReport = true;
+          setTimeout(function(){waitToReport = false;}, 20000);
+          Lastmsg = msg;
+          LastLine = lineNo;
+        }
+      }
+      ');
+}
+?>
+</script>
+<script src="debugInfo/resources/js/jquery.min.js"></script>
+<script src="resources/toastr/toastr.min.js"></script>
+<script src="resources/sa/sweetalert2.all.min.js"></script>
+<?php
 if($nagMapR_Reporting == 1) // Used for encryption
 echo('
   <script type="text/javascript" src="resources/BigInt.js"></script>

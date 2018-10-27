@@ -31,6 +31,16 @@ $reporterError =("This version of NagMap Reborn is no longer supported for bug f
 
 $emptyUserPass = ("Authentication username and/or password have not been defined, set user and password in the configuration file.");
 
+$updateError = ("There was a problem updating the status of hosts, displayed statuses may be outdated, check the console for more information.");
+
+$updateErrorServ = ("This type of error is usually related to the following problem: The server is inaccessible or recusing connections, check the server and your connection.");
+
+$updateErrorStatus = ("This type of error is usually related to the following problem: The status file is inaccessible or does not exist, verify that the monitoring service is executing correctly.");
+
+$updateErrorChanges = ("This type of error is usually related to the following problem: Host modifications, addition, removal or editing of names have occurred, in this case update the page.");
+
+$updateErrorSolved = ("Issue solved, the statuses displayed are in real time.");
+
 //Debug info:
 $message = ("Message:");
 

@@ -31,6 +31,16 @@ $reporterError =("Essa versão do NagMap Reborn não recebe mais suporte para er
 
 $emptyUserPass = ("Usuário e/ou senha de autenticação não foram definidos, defina usuário e senha no arquivo de configuração.");
 
+$updateError = ("Ocorreu um problema na atualização do status dos hosts, os status exibidos podem estar desatualizados, verifique o console para mais informações.");
+
+$updateErrorServ = ("Esse tipo de erro está normalmente relacionado ao seguinte problema: O servidor está inacessível ou recussando conexões, verifique o servidor e sua conexão.");
+
+$updateErrorStatus = ("Esse tipo de erro está normalmente relacionado ao seguinte problema: O arquivo de status esta inacessível ou não existe, verifique se o serviço de monitoramento está executando corretamente.");
+
+$updateErrorChanges = ("Esse tipo de erro está normalmente relacionado ao seguinte problema: Aconteceu modificações nos hosts, adição, remoção ou edição de nomes, nesses caso atualize a página.");
+
+$updateErrorSolved = ("Problema resolvido, os status exibidos estão em tempo real.");
+
 //Informações do debug:
 $message = ("Mensagem:");
 
