@@ -6,7 +6,7 @@
  *
  * KEEP THE PATTERN
  *
- * Original Credits: João Ribeiro (https://github.com/jocafamaka) in 04 March 2018
+ * Original Credits: xvx45 (https://github.com/xvx45) in 31 October 2018
  *
  */
 
