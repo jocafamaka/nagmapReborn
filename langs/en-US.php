@@ -88,6 +88,8 @@ $timePrefix = ('');
 
 $timeSuffix = (' ago.');
 
+$filter = ("Filter");
+
 //Debug page
 $debugTitle = ("Debug Info.");
 

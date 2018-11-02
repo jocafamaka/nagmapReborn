@@ -88,6 +88,8 @@ $timePrefix = ('Há ');
 
 $timeSuffix = ('');
 
+$filter = ("Filtrar");
+
 //Debug page
 $debugTitle = ("Info. de depuração");
 

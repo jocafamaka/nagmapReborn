@@ -107,19 +107,19 @@ if($nagMapR_MapAPI == 0){
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGreen, map: map, zIndex: 2, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGreen, map: map, zIndex: 2000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but in WARNING
     } elseif ($h['status'] == 1) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconYellow, map: map, zIndex: 3, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconYellow, map: map, zIndex: 3000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but CRITICAL
     }elseif ($h['status'] == 2) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconOrange, map: map, zIndex: 4, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconOrange, map: map, zIndex: 4000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state DOWN
     } elseif ($h['status'] == 3) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconRed, map: map, zIndex: 5, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconRed, map: map, zIndex: 5000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     } else {
     // if host is in state UNKNOWN
-      $javascript .= ("window.MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGrey, map: map, zIndex: 6, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("window.MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGrey, map: map, zIndex: 2000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     };
     //generate google maps info bubble
     if (!isset($h["parents"])) { $h["parents"] = Array(); }; 

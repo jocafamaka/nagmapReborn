@@ -59,6 +59,9 @@ if(!is_int($nagMapR_PlaySound))
 if(!is_int($nagMapR_ChangesBar))
   $fails .= "<br><b>\$nagMapR_ChangesBar</b> $var_cfg_error ($nagMapR_ChangesBar)";
 
+if(!is_int($nagMapR_BarFilter))
+  $fails .= "<br><b>\$nagMapR_BarFilter</b> $var_cfg_error ($nagMapR_BarFilter)";
+
 if(($nagMapR_ChangesBarMode < 1) || ($nagMapR_ChangesBarMode > 2))
   $fails .= "<br><b>\$nagMapR_ChangesBarMode</b> $var_cfg_error ($nagMapR_ChangesBarMode)";
 

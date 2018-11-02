@@ -88,6 +88,8 @@ $timePrefix = ('Depuis ');
 
 $timeSuffix = ('');
 
+$filter = ("Filtrer");
+
 //Debug page
 $debugTitle = ("Informations de débogage");
 

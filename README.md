@@ -1,12 +1,13 @@
 # NagMap Reborn Introduction
 
-NagMap Reborn is an initiative to improve the NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
+NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
 ## Features
 
 * Updating hosts status without refresh on page.
 * Support for multiple languages.
 * System of last occurrences (ChangesBar).
+  * Content filter. <sup>(NEW)</sup>
 * System of sound warning.
 * Notification system on the page.
 * Almost total control of page characteristics.
@@ -14,24 +15,25 @@ NagMap Reborn is an initiative to improve the NagMap project developed by [Marce
 * Service filter.
 * Self report of errors.
 * Access control.
-* Support for multiple API's. <sup>(NEW)</sup>
+* Support for multiple API's.
 
 ## What you can control
 
 * Map center.
 * Zoom level.
 * Language.
-  * Currently only available: English and Portuguese. (Translation contributions are welcome)
+  * Currently only available: English, Portuguese and French. (Translation contributions are welcome)
 * Last occurrences view (ChangesBar).
   * ChangesBar size on screen.
   * Font size.
   * Used date format.
   * ChangesBar mode.
+  * Show content filter. <sup>(NEW)</sup>
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
 * Icons style.
-* Which API to use. <sup>(NEW)</sup>
+* Which API to use. 
 
 ## Compatibility
 

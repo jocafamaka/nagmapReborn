@@ -109,6 +109,11 @@ $nagMapR_ChangesBarSize = 15;
 // Font size in pixels used in ChangesBar. (use only numbers)
 $nagMapR_FontSize = 15;
 
+//Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+// 1 = YES.
+// 0 = NO.
+$nagMapR_BarFilter = 1;
+
 // Defines the date format used in the ChangesBar.
 // 1 = DD/MM/YYYY
 // 2 = MM/DD/YYYY

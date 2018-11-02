@@ -1,4 +1,5 @@
 config.php
+migrate.php
 keys.txt
 random*
 tests/*

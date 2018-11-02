@@ -36,6 +36,14 @@ a:hover {
   font-weight: bold;
 }
 
+.form-group input{
+  width: 100%;
+  color: #fff;
+  border: 2px solid #4f5b63;
+  padding: 2px 0px 2px 5px;
+  background: #2c313b;
+}
+
 .news {
   transition: opacity 500ms linear, max-height 500ms linear;
 }

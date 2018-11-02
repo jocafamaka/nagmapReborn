@@ -194,6 +194,8 @@ if ($javascript == "") {
     }
     if ($nagMapR_ChangesBar == 1) {
       echo '<div id="map" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';
+      if($nagMapR_BarFilter == 1)
+        echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."></div>';
       echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
       if($nagMapR_ChangesBarMode == 2){
         echo('<div id="downHosts"></div><div id="critHosts"></div><div id="warHosts"></div>');
@@ -289,6 +291,8 @@ if ($javascript == "") {
             MARK[host].stopBouncing();
           else
             MARK[host].bounce(time);
+
+          MARK[host].setZIndexOffset(zindex*1000);
           \n");
       }
       ?>
@@ -513,7 +517,7 @@ if ($javascript == "") {
         }
         ?>
 
-        changeIcon(host, iconGrey, 0, 3);
+        changeIcon(host, iconGrey, 0, 2);
 
         <?php
         if($nagMapR_ChangesBar == 1){
@@ -704,8 +708,15 @@ if ($javascript == "") {
             echo('
           }
         }
-        '); 
-          ?>
+        ');
+          if($nagMapR_ChangesBar == 1 && $nagMapR_BarFilter == 1){
+            echo ("
+              if($('#searchBar').val().toLowerCase() != '')
+                search();
+              ");
+          }
+          ?>         
+
           if(realTimeUp == false){
             realTimeUp = true;
             toastr["success"]("<?php echo $updateErrorSolved; ?>");
@@ -861,6 +872,26 @@ echo('
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
     };
+
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_BarFilter == 1)
+      echo ("
+        $('#searchBar').keyup(function(){
+          search();
+        });
+
+        function search(){
+          var query = \$('#searchBar').val().toLowerCase();
+          $('#changesbar .changesBarLine').each(function(){
+            var \$this = \$(this);
+            if(\$this.text().toLowerCase().indexOf(query) === -1)
+             \$this.closest('#changesbar .changesBarLine').hide();
+           else 
+            \$this.closest('#changesbar .changesBarLine').show();
+        });
+      };
+      ");
+    ?>
 
     function reportReturn(type){
       toastr.options = {
