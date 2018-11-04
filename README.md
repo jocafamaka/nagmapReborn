@@ -67,7 +67,7 @@ Undecided about which API to use? Here are some differences between them:
 
 The master branch will always contain the code referring to the latest stable version.
 
-See [here](https://github.com/jocafamaka/nagmapReborn/developing) the version in development, this version contains the latest modifications and new features.
+See [here](https://github.com/jocafamaka/nagmapReborn/tree/developing) the version in development, this version contains the latest modifications and new features.
 
 It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
 
