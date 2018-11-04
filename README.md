@@ -63,6 +63,14 @@ Undecided about which API to use? Here are some differences between them:
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
+## Under development
+
+The master branch will always contain the code referring to the latest stable version.
+
+See [here](https://github.com/jocafamaka/nagmapReborn/developing) the version in development, this version contains the latest modifications and new features.
+
+It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
+
 ## Support
 
 If you experience any problems deploying NagMap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
