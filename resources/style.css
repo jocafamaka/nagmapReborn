@@ -37,13 +37,31 @@ a:hover {
 }
 
 .form-group input{
-  width: 100%;
+  width: calc(100% - 8%);
   color: #fff;
   border: 2px solid #4f5b63;
   padding: 2px 0px 2px 5px;
   background: #2c313b;
+  font-family: times;
+  font-weight: bold;
+  text-shadow:2px 2px 4px #000 !important;
 }
 
+.form-group .cleanS{
+  font-family: arial;
+  cursor: pointer;
+  min-width: calc(8% - 9px) !important;
+  color: #fff;
+  border: 2px solid #4f5b63;
+  padding: 2px 0px 2px 5px;
+  background: #333;
+  text-shadow:2px 2px 4px #000 !important;
+  display:-webkit-inline-box;
+}
+
+.form-group .cleanS:hover{
+  background: #7d2828;
+}
 .news {
   transition: opacity 500ms linear, max-height 500ms linear;
 }
@@ -79,8 +97,60 @@ a:hover {
   transition: 0.5s;
 }
 
-.button:hover span {
-  padding-right: 25px;
+.filter{
+  cursor: url("img/cursorFilter.png"), auto;
+}
+
+[tooltip]{
+  position:relative;
+  display:inline-block;
+}
+[tooltip]::before {
+    content: "";
+    position: absolute;
+    top:-6px;
+    left:-2px;
+    transform: translateX(-50%);
+    border-width: 4px 6px 0 6px;
+    border-style: solid;
+    border-color: rgba(128, 128, 128, 0.9) transparent transparent transparent;
+    z-index: 99;
+    opacity:0;
+}
+
+[tooltip-position='buttom']::before{
+  top:100%;
+  margin-top:8px;
+  transform: translateX(-50%) translatey(-100%) rotate(-180deg)
+}
+
+[tooltip]::after {
+    content: attr(tooltip);
+    position: absolute;
+    left:-2px;
+    top:-6px;
+    transform: translateX(-50%)   translateY(-100%);
+    background: rgba(128, 128, 128, 0.9);
+    text-align: center;
+    color: #fff;
+    padding:4px 2px;
+    font-size: 12px;
+    min-width: 80px;
+    border-radius: 5px;
+    pointer-events: none;
+    padding: 4px 4px;
+    z-index:99;
+    opacity:0;
+}
+
+[tooltip-position='buttom']::after{
+  top:100%;
+  margin-top:8px;
+  transform: translateX(-50%) translateY(0%);
+}
+
+[tooltip]:hover::after,[tooltip]:hover::before {
+   opacity:1
 }
 
 .button:hover span:after {
@@ -95,7 +165,8 @@ a:hover {
   padding-left:1% !important; 
   width:99% !important;  
   color:white !important; 
-  vertical-align: middle !important
+  vertical-align: middle !important;
+  cursor: pointer;
 }
 
 .changesBarLine.UP{

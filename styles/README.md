@@ -14,10 +14,13 @@ For example:
 $nagMapR_StyleLeaflet = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png';
 ```
 
-How to use the Mapbox styles [here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles-on-Leaflet%3F).
+How to use the Mapbox styles [here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F).
 
 ## Google Maps API
-With the name of the chosen style.
+With the name of the chosen style, set the variable in the configuration file:
+```PHP
+$nagMapR_Style = 'Style_Chosen';
+```
 
 You can create your own styles [here](https://mapstyle.withgoogle.com/).
 

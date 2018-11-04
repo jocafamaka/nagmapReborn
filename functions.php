@@ -123,7 +123,7 @@ function nagMapR_status() {
         $data[$host]['hostStatus_CS'] = ($value);
       }
 
-      if($nagMapR_ChangesBarMode == 2) {
+      if($nagMapR_ChangesBarMode == 2 || $nagMapR_ChangesBarMode == 3) {
 
         if (($option == "last_time_up") && ($type == "hoststatus")) {          
           $dataTime[$host]['time_LTU'] = $value;

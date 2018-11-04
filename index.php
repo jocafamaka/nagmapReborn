@@ -1,13 +1,13 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $nagMapR_version = file_get_contents('VERSION');
-$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION');
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION');
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
 
-include('validateAndVerify.php');
+include_once('validateAndVerify.php');
 
-include('marker.php');
+include_once('marker.php');
 
 if ($javascript == "") {
   echo $no_data_error;
@@ -44,7 +44,7 @@ if ($javascript == "") {
     var hostStatus = <?php echo json_encode($jsData); ?>;
 
     <?php
-    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode == 2)
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3 && $nagMapR_ChangesBarMode == 2)
       echo ('
 
         var hostStatusPre = '. json_encode($jsData) .';
@@ -69,10 +69,20 @@ if ($javascript == "") {
     //Defines the array that will contain the Polylines.
     var LINES = [];
 
-    //Define the source of the audio file.
     <?php
+    if($nagMapR_MapAPI == 0){
+      echo("
+        //Defines the array that will contain the infowindows of the marks.
+        var INFO = [];
+
+        //Used for infowindows control.
+        clicked = false;
+        ");
+    }
+
     if($nagMapR_PlaySound == 1)
-      echo ("var audio = new Audio('resources/Beep.mp3');\n");
+      echo ("//Define the source of the audio file.
+        var audio = new Audio('resources/Beep.mp3');\n");
 
     if($nagMapR_MapAPI == 0){
       echo("
@@ -170,7 +180,7 @@ if ($javascript == "") {
 
           var map = L.map('map',{zoomControl:false}).setView([".$nagMapR_MapCentre."], ".$nagMapR_MapZoom.");
 
-          L.tileLayer('".$nagMapR_LeafletStyle."', {attribution:'&copy; Contribuidores do <a href=\"http://osm.org/copyright\">OpenStreetMap</a>'}).addTo(map);
+          L.tileLayer('".$nagMapR_LeafletStyle."', {attribution:'&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors.'}).addTo(map);
           ");
     }
     ?>    
@@ -194,13 +204,19 @@ if ($javascript == "") {
     }
     if ($nagMapR_ChangesBar == 1) {
       echo '<div id="map" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';
-      if($nagMapR_BarFilter == 1)
-        echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."></div>';
-      echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
-      if($nagMapR_ChangesBarMode == 2){
-        echo('<div id="downHosts"></div><div id="critHosts"></div><div id="warHosts"></div>');
+
+      if($nagMapR_ChangesBarMode == 3){
+        echo ('<iframe src="resources/changesBarLite.php?key='.$nagMapR_key.'" width="100%" height="'.$nagMapR_ChangesBarSize.'%;" style="border:none;background:black;"></iframe>');
       }
-      echo('</div>');
+      else{
+        if($nagMapR_BarFilter == 1)
+          echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."><dic class="cleanS" onclick="$(\'#searchBar\').val(\'\');search();" style="font-size:'.$nagMapR_FontSize.'px;" title="'.$clear.'"><span>'.$clear.'</span></div></div>';
+        echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
+        if($nagMapR_ChangesBarMode == 2){
+          echo('<div id="downHosts"></div><div id="critHosts"></div><div id="warHosts"></div>');
+        }
+        echo('</div>');
+      }
     } else {
       echo '<div id="map" style="width:100%; height:100%; float: left"></div>';
     }
@@ -209,7 +225,11 @@ if ($javascript == "") {
 
     <script type="text/javascript">
 
-    function now(){ //Return the formated date
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode != 3){
+      echo ('
+
+      function now(){ //Return the formated date
       var date = new Date();   
 
       str_day = new String(date.getDate());
@@ -234,8 +254,7 @@ if ($javascript == "") {
 
       if (str_seconds.length < 2)
         str_seconds = 0 + str_seconds;
-
-      <?php // Use the chosen format
+      ');
 
       if($nagMapR_DateFormat == 1){
         echo ("return(date = str_day + '/' + str_month + '/' + year"); 
@@ -247,9 +266,42 @@ if ($javascript == "") {
 
       echo (" + ' ' + str_hours + ':' + str_minutes + ':' + str_seconds);");
 
-      ?>
+      echo ('
 
+    };
+
+        function openPopup(host, search){
+          if(search){
+            for(var i = 0 ; i < hostStatus.length ; i++) 
+            {
+              if(hostStatus[i].nagios_host_name == hostStatusPre[host].nagios_host_name){
+                host = i;
+                break;
+              }
+            }
+          }
+          ');
+
+      if($nagMapR_MapAPI == 0)
+        echo("
+          clicked = true;
+
+          for(i = 0; i < INFO.length ; i++){
+            if(i == host){
+              INFO[host].open(map, MARK[host]);
+            }
+            else{
+              INFO[i].close(map);
+            }
+          }
+          setTimeout( function(){clicked = false;}, 500)\n");
+
+      else
+        echo("MARK[host].openPopup();\n");
+
+      echo('};');
     }
+    ?> 
 
     function changeLines(host, color){
       if(Array.isArray(hostStatus[host].parents)){
@@ -298,350 +350,350 @@ if ($javascript == "") {
       ?>
     };
 
-    function updateStatus(host, status){  // Updates the status of the host informed and apply the animations
+function updateStatus(host, status){  // Updates the status of the host informed and apply the animations
 
-      if(status == 0){
+  if(status == 0){
 
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1){
-            echo ('
-              var newUp = ("<div class=\"changesBarLine UP\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
-
-              if(hostStatus[host].status == 1){
-                newUp += "'. $warning .'";
-              }
-              else if(hostStatus[host].status == 2){
-                newUp += "'. $critical .'";
-              }
-              else if(hostStatus[host].status == 3){
-                newUp += "'. $down .'";
-              }
-              else{
-                newUp += "'. $unknown .'";
-              }
-
-              newUp +=  " → '. $up .'</div>";
-              ');
-          }
-        }
-        ?>
-
-        hostStatus[host].status = status;
-
-        <?php
-        if($nagMapR_Lines == 1){
-          echo ("changeLines(host, '#59BB48');\n");
-        }
-        ?>
-
-        changeIcon(host, iconGreen, 0, 2);
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1)
-            echo ('newDivs = newUp.concat(newDivs);');
-        }
-        ?>
-
-      }else if (status == 1) {
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1){
-            echo (' 
-              var newUp = ("<div class=\"changesBarLine WAR\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
-
-              if(hostStatus[host].status == 0){
-                newUp += "'. $up .'";
-              }
-              else if(hostStatus[host].status == 2){
-                newUp += "'. $critical .'";
-              }
-              else if(hostStatus[host].status == 3){
-                newUp += "'. $down .'";
-              }
-              else{
-                newUp += "'. $unknown .'";
-              }
-
-              newUp +=  " → '. $warning .'</div>";
-              ');
-          }
-        }
-        ?>
-
-        <?php
-        if($nagMapR_Lines == 1){
-          echo ("changeLines(host, '#ffff00');\n");
-        }
-        ?>
-
-        changeIcon(host, iconYellow, 0, 3);
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1)
-            echo ('newDivs = newUp.concat(newDivs);');
-        }
-        ?>
-
-        hostStatus[host].status = status;
-      }else if (status == 2) {
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1){
-            echo ('
-              var newUp = ("<div class=\"changesBarLine CRIT\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
-
-              if(hostStatus[host].status == 0){
-                newUp += "'. $up .'";
-              }
-              else if(hostStatus[host].status == 1){
-                newUp += "'. $warning .'";
-              }
-              else if(hostStatus[host].status == 3){
-                newUp += "'. $down .'";
-              }
-              else{
-                newUp += "'. $unknown .'";
-              }
-
-              newUp +=  " → '. $critical .'</div>";
-              ');
-          }
-        }
-        ?>
-
-        <?php
-        if($nagMapR_Lines == 1){
-          echo ("changeLines(host, '#ff6a00');\n");
-        }
-        ?>
-
-        changeIcon(host, iconOrange, 0, 4);
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1)
-            echo ('newDivs = newUp.concat(newDivs);');
-        }
-        ?>
-
-        hostStatus[host].status = status;
-      } else if (status == 3) {
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1){
-            echo (' 
-              var newUp = ("<div class=\"changesBarLine DOWN\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
-
-              if(hostStatus[host].status == 0){
-                newUp += "'. $up .'";
-              }
-              else if(hostStatus[host].status == 1){
-                newUp += "'. $warning .'";
-              }
-              else if(hostStatus[host].status == 2){
-                newUp += "'. $critical .'";
-              }
-              else{
-                newUp += "'. $unknown .'";
-              }
-
-              newUp +=  " → '. $down .'</div>";
-              ');
-          }
-        }
-        ?>
-
-        hostStatus[host].status = status;
-
-        <?php
-        if($nagMapR_Lines == 1){
-          echo ("changeLines(host, '#ff0000');\n");
-        }
-        ?>
-
-        changeIcon(host, iconRed, 1, 5);
-
-        <?php
-        if($nagMapR_PlaySound ==1)
-          echo ("audio.play();")
-        ?>
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1)
-            echo ('newDivs = newUp.concat(newDivs);');
-        }
-        ?>
-
-      } else {
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1){
-            echo (' 
-
-              var newUp = ("<div class=\"changesBarLine UNK\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
-
-              if(hostStatus[host].status == 0){
-                newUp += "'. $up .'";
-              }
-              else if(hostStatus[host].status == 1){
-                newUp += "'. $warning .'";
-              }
-              else if(hostStatus[host].status == 2){
-                newUp += "'. $critical .'";
-              }
-              else if(hostStatus[host].status == 3){
-                newUp += "'. $down .'";
-              }
-              else{
-                newUp += "'. $unknown .'";
-              }
-
-              newUp +=  " → '. $unknown .'</div>";
-              ');
-          }
-        }
-        ?>
-
-        hostStatus[host].status = status;
-
-        <?php
-        if($nagMapR_Lines == 1){
-          echo ("changeLines(host, '#A9ABAE');\n");
-        }
-        ?>
-
-        changeIcon(host, iconGrey, 0, 2);
-
-        <?php
-        if($nagMapR_ChangesBar == 1){
-          if($nagMapR_ChangesBarMode == 1)
-            echo ('newDivs = newUp.concat(newDivs);');
-        }
-        ?>
-      }
-
-    }
     <?php
-    if($nagMapR_ChangesBar == 1){
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
       if($nagMapR_ChangesBarMode == 1){
-        echo ("var newDivs = \"\";");
-      }
+        echo ('
+          var newUp = ("<div onclick=\'openPopup("+host+",false);\' class=\"changesBarLine UP\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
-      if($nagMapR_ChangesBarMode == 2){
-        echo('
-
-          function addHost(i, status, time){
-
-            var insert = ("<div class=\"changesBarLine " + status + " news\" id=\"" + hostStatus[i].nagios_host_name + "-" + status + "\" style=\"font-size: '. $nagMapR_FontSize .'px; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
-
-            if(status ==  "WAR"){
-              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", insert);
-            }
-            if(status ==  "CRIT"){
-              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", insert);
-            }
-            if(status ==  "DOWN"){
-              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", insert);
-            }
-
-            var div = document.getElementById(hostStatus[i].nagios_host_name+"-"+status);
-            setTimeout( function (){
-              div.style.maxHeight =(' . $nagMapR_FontSize . ' + 4 ) * 2;
-              div.style.opacity = "1";
-            }, 80);
-
+          if(hostStatus[host].status == 1){
+            newUp += "'. $warning .'";
+          }
+          else if(hostStatus[host].status == 2){
+            newUp += "'. $critical .'";
+          }
+          else if(hostStatus[host].status == 3){
+            newUp += "'. $down .'";
+          }
+          else{
+            newUp += "'. $unknown .'";
           }
 
-          function removeHost(i, status){
-
-            if(status == "WAR"){
-              var parent = document.getElementById("warHosts");
-              var child = document.getElementById(hostStatus[i].nagios_host_name+"-WAR");
-            }
-            if(status == "CRIT"){
-              var parent = document.getElementById("critHosts");
-              var child = document.getElementById(hostStatus[i].nagios_host_name+"-CRIT");
-            }
-            if(status == "DOWN"){
-              var parent = document.getElementById("downHosts");
-              var child = document.getElementById(hostStatus[i].nagios_host_name+"-DOWN");
-            }
-            child.style.maxHeight = 0;
-            child.style.opacity = 0;
-
-            setTimeout( function() {parent.removeChild(child);}, 900);
-
-          }
-
-          for (var i = 0; i < hostStatusPre.length; i++) {
-            var name = hostStatusPre[i].nagios_host_name;
-
-            var insert = ("style=\"font-size: '. $nagMapR_FontSize .'px;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
-
-            if(hostStatusPre[i].status == 1){
-              document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine WAR news\" id=\"" + name + "-WAR\"" + insert);
-            }
-            if(hostStatusPre[i].status == 2){
-              document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine CRIT news\" id=\"" + name + "-CRIT\"" + insert);
-            }
-            if(hostStatusPre[i].status == 3){
-              document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", "<div class=\"changesBarLine DOWN news\" id=\"" + name + "-DOWN\"" + insert);
-            }
-          }
-
-          hostStatusPre = [];
+          newUp +=  " → '. $up .'</div>";
           ');
       }
     }
     ?>
 
-    realTimeUp = true;
+    hostStatus[host].status = status;
 
-    setInterval(function(){ // Request the arrau with the update status of each host.
+    <?php
+    if($nagMapR_Lines == 1){
+      echo ("changeLines(host, '#59BB48');\n");
+    }
+    ?>
 
-      var ajax = new XMLHttpRequest();
+    changeIcon(host, iconGreen, 0, 2);
 
-      var arrayHosts;
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1)
+        echo ('newDivs = newUp.concat(newDivs);');
+    }
+    ?>
 
-      ajax.open('POST', 'update.php', true);
+  }else if (status == 1) {
 
-      ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1){
+        echo (' 
+          var newUp = ("<div onclick=\'openPopup("+host+",false);\' class=\"changesBarLine WAR\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
 
-      ajax.send('key=<?php echo $nagMapR_key ?>');
+          if(hostStatus[host].status == 0){
+            newUp += "'. $up .'";
+          }
+          else if(hostStatus[host].status == 2){
+            newUp += "'. $critical .'";
+          }
+          else if(hostStatus[host].status == 3){
+            newUp += "'. $down .'";
+          }
+          else{
+            newUp += "'. $unknown .'";
+          }
 
-      ajax.onreadystatechange = function(){
+          newUp +=  " → '. $warning .'</div>";
+          ');
+      }
+    }
+    ?>
 
-        if(ajax.readyState == 4) {
-          try{
+    <?php
+    if($nagMapR_Lines == 1){
+      echo ("changeLines(host, '#ffff00');\n");
+    }
+    ?>
 
-            if(ajax.status != 200)
-              throw new Error('Failed to request update.php');
+    changeIcon(host, iconYellow, 0, 3);
 
-            arrayHosts = JSON.parse(ajax.responseText); 
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1)
+        echo ('newDivs = newUp.concat(newDivs);');
+    }
+    ?>
 
-            <?php
-            if($nagMapR_ChangesBar == 1){
-              if($nagMapR_ChangesBarMode == 1){
-                echo ('
-                  newDivs = "";
-                  var qntChange = 0; 
-                  ');
-              }
-            }
-            ?>
+    hostStatus[host].status = status;
+  }else if (status == 2) {
 
-            for (var i = 0; i < hostStatus.length; i++) {
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1){
+        echo ('
+          var newUp = ("<div onclick=\'openPopup("+host+",false);\' class=\"changesBarLine CRIT\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+          if(hostStatus[host].status == 0){
+            newUp += "'. $up .'";
+          }
+          else if(hostStatus[host].status == 1){
+            newUp += "'. $warning .'";
+          }
+          else if(hostStatus[host].status == 3){
+            newUp += "'. $down .'";
+          }
+          else{
+            newUp += "'. $unknown .'";
+          }
+
+          newUp +=  " → '. $critical .'</div>";
+          ');
+      }
+    }
+    ?>
+
+    <?php
+    if($nagMapR_Lines == 1){
+      echo ("changeLines(host, '#ff6a00');\n");
+    }
+    ?>
+
+    changeIcon(host, iconOrange, 0, 4);
+
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1)
+        echo ('newDivs = newUp.concat(newDivs);');
+    }
+    ?>
+
+    hostStatus[host].status = status;
+  } else if (status == 3) {
+
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1){
+        echo (' 
+          var newUp = ("<div onclick=\'openPopup("+host+",false);\' class=\"changesBarLine DOWN\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+          if(hostStatus[host].status == 0){
+            newUp += "'. $up .'";
+          }
+          else if(hostStatus[host].status == 1){
+            newUp += "'. $warning .'";
+          }
+          else if(hostStatus[host].status == 2){
+            newUp += "'. $critical .'";
+          }
+          else{
+            newUp += "'. $unknown .'";
+          }
+
+          newUp +=  " → '. $down .'</div>";
+          ');
+      }
+    }
+    ?>
+
+    hostStatus[host].status = status;
+
+    <?php
+    if($nagMapR_Lines == 1){
+      echo ("changeLines(host, '#ff0000');\n");
+    }
+    ?>
+
+    changeIcon(host, iconRed, 1, 5);
+
+    <?php
+    if($nagMapR_PlaySound ==1)
+      echo ("audio.play();")
+    ?>
+
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1)
+        echo ('newDivs = newUp.concat(newDivs);');
+    }
+    ?>
+
+  } else {
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1){
+        echo (' 
+
+          var newUp = ("<div onclick=\'openPopup("+host+",false);\' class=\"changesBarLine UNK\" style=\"font-size:'. $nagMapR_FontSize .'px;\">" + now() + " - " + hostStatus[host].alias + ": ");
+
+          if(hostStatus[host].status == 0){
+            newUp += "'. $up .'";
+          }
+          else if(hostStatus[host].status == 1){
+            newUp += "'. $warning .'";
+          }
+          else if(hostStatus[host].status == 2){
+            newUp += "'. $critical .'";
+          }
+          else if(hostStatus[host].status == 3){
+            newUp += "'. $down .'";
+          }
+          else{
+            newUp += "'. $unknown .'";
+          }
+
+          newUp +=  " → '. $unknown .'</div>";
+          ');
+      }
+    }
+    ?>
+
+    hostStatus[host].status = status;
+
+    <?php
+    if($nagMapR_Lines == 1){
+      echo ("changeLines(host, '#A9ABAE');\n");
+    }
+    ?>
+
+    changeIcon(host, iconGrey, 0, 2);
+
+    <?php
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+      if($nagMapR_ChangesBarMode == 1)
+        echo ('newDivs = newUp.concat(newDivs);');
+    }
+    ?>
+  }
+
+}
+<?php
+if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+  if($nagMapR_ChangesBarMode == 1){
+    echo ("var newDivs = \"\";");
+  }
+
+  if($nagMapR_ChangesBarMode == 2){
+    echo('
+
+      function addHost(i, status, time){
+
+        var insert = ("<div onclick=\"openPopup("+i+", false);\" class=\"changesBarLine " + status + " news\" id=\"" + hostStatus[i].nagios_host_name + "-" + status + "\" style=\"font-size: '. $nagMapR_FontSize .'px; opacity:0; max-height: 0px;\">" + hostStatus[i].alias + " - '. $timePrefix .'" + time + "'. $timeSuffix .'</div>");
+
+        if(status ==  "WAR"){
+          document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", insert);
+        }
+        if(status ==  "CRIT"){
+          document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", insert);
+        }
+        if(status ==  "DOWN"){
+          document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", insert);
+        }
+
+        var div = document.getElementById(hostStatus[i].nagios_host_name+"-"+status);
+        setTimeout( function (){
+          div.style.maxHeight =(' . $nagMapR_FontSize . ' + 4 ) * 2;
+          div.style.opacity = "1";
+        }, 80);
+
+      }
+
+      function removeHost(i, status){
+
+        if(status == "WAR"){
+          var parent = document.getElementById("warHosts");
+          var child = document.getElementById(hostStatus[i].nagios_host_name+"-WAR");
+        }
+        if(status == "CRIT"){
+          var parent = document.getElementById("critHosts");
+          var child = document.getElementById(hostStatus[i].nagios_host_name+"-CRIT");
+        }
+        if(status == "DOWN"){
+          var parent = document.getElementById("downHosts");
+          var child = document.getElementById(hostStatus[i].nagios_host_name+"-DOWN");
+        }
+        child.style.maxHeight = 0;
+        child.style.opacity = 0;
+
+        setTimeout( function() {parent.removeChild(child);}, 900);
+
+      }
+
+      for (var i = 0; i < hostStatusPre.length; i++) {
+        var name = hostStatusPre[i].nagios_host_name;
+
+        var insert = ("style=\"font-size: '. $nagMapR_FontSize .'px;\">" + hostStatusPre[i].alias + " - ('. $waiting .')</div>");
+
+        if(hostStatusPre[i].status == 1){
+          document.getElementById(\'warHosts\').insertAdjacentHTML("afterbegin", "<div onclick=\"openPopup("+i+", true);\" class=\"changesBarLine WAR news\" id=\"" + name + "-WAR\"" + insert);
+        }
+        if(hostStatusPre[i].status == 2){
+          document.getElementById(\'critHosts\').insertAdjacentHTML("afterbegin", "<div onclick=\"openPopup("+i+", true);\" class=\"changesBarLine CRIT news\" id=\"" + name + "-CRIT\"" + insert);
+        }
+        if(hostStatusPre[i].status == 3){
+          document.getElementById(\'downHosts\').insertAdjacentHTML("afterbegin", "<div onclick=\"openPopup("+i+", true);\" class=\"changesBarLine DOWN news\" id=\"" + name + "-DOWN\"" + insert);
+        }
+      }
+
+          //hostStatusPre = [];
+      ');
+  }
+}
+?>
+
+realTimeUp = true;
+
+setInterval(function(){ // Request the arrau with the update status of each host.
+
+  var ajax = new XMLHttpRequest();
+
+  var arrayHosts;
+
+  ajax.open('POST', 'update.php', true);
+
+  ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  ajax.send('key=<?php echo $nagMapR_key ?>');
+
+  ajax.onreadystatechange = function(){
+
+    if(ajax.readyState == 4) {
+      try{
+
+        if(ajax.status != 200)
+          throw new Error('Failed to request update.php');
+
+        arrayHosts = JSON.parse(ajax.responseText); 
+
+        <?php
+        if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
+          if($nagMapR_ChangesBarMode == 1){
+            echo ('
+              newDivs = "";
+              var qntChange = 0; 
+              ');
+          }
+        }
+        ?>
+
+        for (var i = 0; i < hostStatus.length; i++) {
           if(hostStatus[i].status != arrayHosts[hostStatus[i].nagios_host_name].status){ //Call the update function if the last status is different from the current status.'
 
             <?php
-          if($nagMapR_ChangesBar == 1){
+          if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
             if($nagMapR_ChangesBarMode == 1){
               echo ('
                 qntChange++; 
@@ -664,7 +716,7 @@ if ($javascript == "") {
           updateStatus(i, arrayHosts[hostStatus[i].nagios_host_name].status);
 
           <?php
-          if($nagMapR_ChangesBar == 1){
+          if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
             if($nagMapR_ChangesBarMode == 1){
               echo ('
             }
@@ -709,7 +761,7 @@ if ($javascript == "") {
           }
         }
         ');
-          if($nagMapR_ChangesBar == 1 && $nagMapR_BarFilter == 1){
+          if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3 && $nagMapR_BarFilter == 1){
             echo ("
               if($('#searchBar').val().toLowerCase() != '')
                 search();
@@ -798,8 +850,10 @@ if($nagMapR_Debug == 1)
 
         var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
+        console.log(report);
+
         var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
+        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-alpha.php?r="+Encrypt(report);
         spt.parentNode.insertBefore(elt, spt);
 
         waitToReport = true;
@@ -827,8 +881,10 @@ else{
 
           var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
+          console.log(report);
+
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error.php?r="+Encrypt(report);
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-alpha.php?r="+Encrypt(report);
           spt.parentNode.insertBefore(elt, spt);
 
           waitToReport = true;
@@ -847,14 +903,32 @@ else{
 <?php
 if($nagMapR_Reporting == 1) // Used for encryption
 echo('
-  <script type="text/javascript" src="resources/BigInt.js"></script>
+  <script type="text/javascript" src="resources/reporter/BigInt.js"></script>
 
-  <script type="text/javascript" src="resources/Barrett.js"></script>
+  <script type="text/javascript" src="resources/reporter/Barrett.js"></script>
 
-  <script type="text/javascript" src="resources/RSA_Stripped.js"></script>
+  <script type="text/javascript" src="resources/reporter/RSA_Stripped.js"></script>
   ');
   ?>
   <script type="text/javascript">
+
+    <?php
+    if($nagMapR_MapAPI == 0){
+      echo('
+        $(document).on("click", function(e) {
+          var divNome = document.querySelector(".gm-style-iw");
+          if(divNome){
+            var fora = !divNome.contains(e.target);
+            if (fora && !clicked){
+              for(i = 0; i < INFO.length ; i++){
+                INFO[i].close(map);
+              } 
+            }
+          }
+        });');
+    }
+    ?>
+
     toastr.options = {
       "closeButton": false,
       "debug": false,
@@ -874,8 +948,14 @@ echo('
     };
 
     <?php
-    if($nagMapR_ChangesBar == 1 && $nagMapR_BarFilter == 1)
+    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3 && $nagMapR_BarFilter == 1)
       echo ("
+        function filterBy(self){
+          $('#searchBar').val($(self).children().next().next().text().substring(1));
+          search();
+        };
+
+
         $('#searchBar').keyup(function(){
           search();
         });

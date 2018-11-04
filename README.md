@@ -17,6 +17,21 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Access control.
 * Support for multiple API's.
 
+### New features
+* Open host infoWindow from ChangesBar.
+  * Clicking the host alias in ChangesBar opens your infoWindow on the map.
+  * Available in modes 1 and 2.
+* Add host alias to filter from infoWindow.
+  * Clicking on the host Alias in infoWindow will set the same as the filter.
+  * Available in modes 1 and 2.
+* Mode 3 of the Changesbar (Lite).
+  * Works similarly to mode 2 but is added in the form of iframe generated on the server side using less resources of the user browser/machine.
+* Added clean filter button.
+  * Provides a quick way to clean the filter.
+* Correction of infoWindow behavior when using Google Maps.
+  * Closes infoWindow when the user clicks on another part of the map and when another infoWindow is opened, behavior similar to Leaflet.
+
+
 ## What you can control
 
 * Map center.
@@ -63,13 +78,11 @@ Undecided about which API to use? Here are some differences between them:
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
-## Under development
+## Stable version
 
-The master branch will always contain the code referring to the latest stable version.
+The [master](https://github.com/jocafamaka/nagmapReborn) branch will always contain the code referring to the latest stable version.
 
-See [here](https://github.com/jocafamaka/nagmapReborn/tree/developing) the version in development, this version contains the latest modifications and new features.
-
-It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
+This branch contains the latest modifications and new features that are still being tested and should NOT be used in production under any circumstances!
 
 ## Support
 

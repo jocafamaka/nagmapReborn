@@ -53,7 +53,7 @@ $at = ("A:");
 //Bubble info:
 $alias = ("Alias");
 
-$hostG = ("Groupes d'hôtes");
+$hostG = ("Groupes d\'hôtes");
 
 $addr = ("Adresse");
 
@@ -68,6 +68,8 @@ $newVersionText = ("<br>La version actuelle de NagMap Reborn est obsolète!<br><
 $passAlertTitle = ("Authentification par défaut");
 
 $passAlert = ("Actuellement, vous utilisez le mot de passe et le nom d'utilisateur par défaut, protégez vous, modifiez-les maintenant!");
+
+$asFilter = ("Utiliser comme filtre");
 
 //ChangesBar warnings:
 $up = ("EN LIGNE");
@@ -89,6 +91,8 @@ $timePrefix = ('Depuis ');
 $timeSuffix = ('');
 
 $filter = ("Filtrer");
+
+$clear = ("Effacer");
 
 //Debug page
 $debugTitle = ("Informations de débogage");

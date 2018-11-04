@@ -62,7 +62,7 @@ if(!is_int($nagMapR_ChangesBar))
 if(!is_int($nagMapR_BarFilter))
   $fails .= "<br><b>\$nagMapR_BarFilter</b> $var_cfg_error ($nagMapR_BarFilter)";
 
-if(($nagMapR_ChangesBarMode < 1) || ($nagMapR_ChangesBarMode > 2))
+if(($nagMapR_ChangesBarMode < 1) || ($nagMapR_ChangesBarMode > 3))
   $fails .= "<br><b>\$nagMapR_ChangesBarMode</b> $var_cfg_error ($nagMapR_ChangesBarMode)";
 
 if(($nagMapR_Reporting < 0) || ($nagMapR_Reporting > 1)  || (!isset($nagMapR_Reporting)))

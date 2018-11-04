@@ -69,6 +69,8 @@ $passAlertTitle = ("Autenticação padrão");
 
 $passAlert = ("Você está atualmente utilizando a senha e usuário padrão, não fique desprotegido, modifique agora mesmo!");
 
+$asFilter = ("Usar como filtro");
+
 //Alertas ChangesBar:
 $up = ("UP");
 
@@ -89,6 +91,8 @@ $timePrefix = ('Há ');
 $timeSuffix = ('');
 
 $filter = ("Filtrar");
+
+$clear = ("Limpar");
 
 //Debug page
 $debugTitle = ("Info. de depuração");

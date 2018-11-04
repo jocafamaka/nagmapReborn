@@ -3,12 +3,12 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $key = $_POST['key'];
 
-include('config.php');
-include("langs/$nagMapR_Lang.php");
+include_once('config.php');
+include_once("langs/$nagMapR_Lang.php");
 
 if($key == $nagMapR_key){
 	if (!file_exists($nagios_status_dat_file)) {
-		die("</script>$nagios_status_dat_file $file_not_find_error");
+		die("$nagios_status_dat_file $file_not_find_error");
 	}
 	$fp = fopen($nagios_status_dat_file,"r");
 	$type = "";
@@ -69,7 +69,7 @@ if($key == $nagMapR_key){
         		$data[$host]['hostStatus_CS'] = ($value);
         	}
 
-        	if($nagMapR_ChangesBarMode == 2) {
+        	if($nagMapR_ChangesBarMode == 2 || $nagMapR_ChangesBarMode == 3) {
 
         		if (($option == "last_time_up") && ($type == "hoststatus")) {
 

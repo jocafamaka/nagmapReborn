@@ -69,6 +69,8 @@ $passAlertTitle = ("Default authentication");
 
 $passAlert = ("Currently you are using the password and default user, do not be unprotected, modify it now!");
 
+$asFilter = ("Use as a filter");
+
 //ChangesBar warnings:
 $up = ("UP");
 
@@ -89,6 +91,8 @@ $timePrefix = ('');
 $timeSuffix = (' ago.');
 
 $filter = ("Filter");
+
+$clear = ("Clear");
 
 //Debug page
 $debugTitle = ("Debug Info.");
