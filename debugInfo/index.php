@@ -12,7 +12,7 @@ else
 //Auth Request
 require_auth();
 
-$version = 'v1.3.1';
+$version = 'v1.3.2';
 
 $files = get_config_files();
 
@@ -24,20 +24,12 @@ $data = filter_raw_data($raw_data, $files);
 
 foreach ($data as $host) {
   if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name']))) | ($host['register'] == 0)) {
-    $hostname = 'x'.safe_name($host["host_name"]).'x';
+    $hostname = $host["host_name"];
     $hosts[$hostname]['host_name'] = $hostname;
     $hosts[$hostname]['nagios_host_name'] = $host["host_name"];
     $hosts[$hostname]['alias'] = $host["alias"];
 
     foreach ($host as $option => $value) {
-      if ($option == "parents") {
-        $parents = explode(',', $value); 
-        foreach ($parents as $parent) {
-          $parent = safe_name($parent);
-          $hosts[$hostname]['parents'][] = "x".$parent."x";
-        }
-        continue;
-      }
       if ($option == "notes") {
         if (preg_match("/latlng/",$value)) { 
           $value = explode(":",$value); 
@@ -46,9 +38,6 @@ foreach ($data as $host) {
         } else {
           continue;
         }
-      };
-      if (($option == "address")) {
-        $hosts[$hostname]['address'] = trim($value);
       };
       if (($option == "hostgroups")) {
         $hostgroups = explode(',', $value);
@@ -65,36 +54,57 @@ foreach ($data as $host) {
 }
 unset($data);
 
-if ($nagMapR_FilterHostgroup) {
-  foreach ($hosts as $host) {
-    if (!in_array($nagMapR_FilterHostgroup, $hosts[$host["host_name"]]['hostgroups'])) {
-      unset($hosts[$host["host_name"]]);
-    }
-  }
-}
-
 $s = nagMapR_status();
 
 $ii = 0;
+if ($nagMapR_FilterHostgroup == "") {
+  foreach ($hosts as $h) {
+    if ((!isset($h["latlng"])) || (!isset($h["host_name"])) || (!isset($s[$h["nagios_host_name"]]['status'])) ) { 
 
-foreach ($hosts as $h) {
-  if ((!isset($h["latlng"])) || (!isset($h["host_name"])) || (!isset($s[$h["nagios_host_name"]]['status']))) { 
-    $ignored[$ii]['hostname'] = $h['host_name'];
-    $ignored[$ii]['alias'] = $h['alias'];
+      $ignored[$ii]['hostname'] = $h['host_name'];
+      $ignored[$ii]['alias'] = $h['alias'];
 
-    if(!isset($h["latlng"]))
-      $reason .= "($noLatLng)";
-    if(!isset($h["host_name"]))
-      $reason .= " ($noHostN)";
-    if(!isset($s[$h["nagios_host_name"]]['status']))
-      $reason .= " ($noStatus)";
-    $ignored[$ii]['reason'] = $reason;
-    $reason = "";
-    $ii++;
+      if(!isset($h["latlng"]))
+        $reason .= "($noLatLng)";
+      if(!isset($h["host_name"]))
+        $reason .= " ($noHostN)";
+      if(!isset($s[$h["nagios_host_name"]]['status']))
+        $reason .= " ($noStatus)";
+      $ignored[$ii]['reason'] = $reason;
+      $reason = "";
+      $ii++;
+    }
+  }
+}
+else{
+  foreach ($hosts as $h) {
+    if (
+      (!isset($h["latlng"])) ||
+      (!isset($h["host_name"])) ||
+      (!isset($s[$h["nagios_host_name"]]['status'])) ||
+      (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups'])) ) {
+
+      $ignored[$ii]['hostname'] = $h['host_name'];
+      $ignored[$ii]['alias'] = $h['alias'];
+
+      if(!isset($h["latlng"]))
+        $reason .= "($noLatLng)";
+      if(!isset($h["host_name"]))
+        $reason .= " ($noHostN)";
+      if(!isset($s[$h["nagios_host_name"]]['status']))
+        $reason .= " ($noStatus)";
+      if (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups']))
+        $reason .= " ($outFilterHg)";
+      $ignored[$ii]['reason'] = $reason;
+      $reason = "";
+      $ii++;
+    }
   }
 }
 unset($hosts);
 unset($s);
+
+$debugHelp = str_replace("\r\n", "", $debugHelp);
 ?>
 
 <!doctype html>
@@ -111,33 +121,18 @@ unset($s);
   <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
   <link href="resources/css/style.css" rel="stylesheet">
+
+  <link href="../resources/sa/sweetalert2.min.css" rel="stylesheet"/>
 </head>
 
 <body>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="resources/img/iconQuestion.svg" class="cursor_pointer" alt="" title="<?php echo ($help); ?>" data-toggle="modal" data-target="#myModal"></img></h1>
-    <p class="lead"><?php echo ($debugInfo); ?></p>
+    <h1 class="display-6"><?php echo ($debugTitle. " (" .$version); ?>)  <img src="resources/img/iconQuestion.svg" class="cursor_pointer" id="question" alt="" title="<?php echo ($help); ?>" ></img></h1>
   </div>
 
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"><?php echo ($debugTitle. " (" .$version); ?>)</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <?php echo ($debugHelp); ?>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo ($close); ?></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container" id="allInfo">
-    <div id="tableh" style="display: none;"></div>
+  <div class="container border-top" id="allInfo">
+    <br>
+    <div id="tableh"></div>
     <div id="wait"><div class="loader"></div></div>
     <div id="InContainer" class="card-deck mb-3 text-center">
     </div>
@@ -165,15 +160,15 @@ unset($s);
     </footer>
   </div>
 
-  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:2000;" onclick="changeImg();"><img src="resources/img/loading.svg" alt="" class="cursor_pointer" id="control"></div>
+  <div id="div_fixa" title="<?php echo ($controlInfo); ?>" class="div_fixa" style="z-index:1031;" onclick="changeImg();"><img src="resources/img/loading.svg" alt="" class="cursor_pointer" id="control"></div>
 
   <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
     <a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="<?php echo ($project); ?>" class="navbar-brand" src="resources/img/logoMini.svg" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
 
+    <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a title="<?php echo ($appStatus); ?>" class="nav-link">Status: <span id="status"><?php echo ($starting); ?></span></a>
@@ -192,6 +187,7 @@ unset($s);
   <script src="resources/js/popper.min.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
   <script src="resources/js/holder.min.js"></script>
+  <script src="../resources/sa/sweetalert2.all.min.js"></script>
   <script>
     Holder.addTheme('thumb', {
       bg: '#55595c',
@@ -240,6 +236,7 @@ unset($s);
       document.body.removeChild(event.target);
     }
 
+    $("#question").click(function(){swal({type:'info',width:'55%',title:'<?php echo ($debugTitle. " (" .$version); ?>)',html:'<?php echo ($debugHelp); ?>',confirmButtonText:'<?php echo ($close);?>'});});
 
     var play = false;
     var update = true;
@@ -283,18 +280,20 @@ unset($s);
 
         load();
 
-        var ajax = new XMLHttpRequest();
+        var rq = new XMLHttpRequest();
 
         var arrayHosts;
 
-        ajax.open('POST', 'debugInfo.php?key=<?php echo $nagMapR_key ?>', true);
+        rq.open('POST', 'debugInfo.php', true);
 
-        ajax.send();
+        rq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        ajax.onreadystatechange = function(){
+        rq.send('key=<?php echo $nagMapR_key ?>');
 
-          if(ajax.readyState == 4 && ajax.status == 200) {
-            arrayInfo = JSON.parse(ajax.responseText);
+        rq.onreadystatechange = function(){
+
+          if(rq.readyState == 4 && rq.status == 200) {
+            arrayInfo = JSON.parse(rq.responseText);
 
             var hosts = [];
 
@@ -312,36 +311,36 @@ unset($s);
 
               newDivs = newDivs.concat("<table class=\"table table-hover\"><thead><tr><th colspan =\"3\"><h1><small class=\"text-muted\">Host status</small></h1></th></tr></thead><tbody><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LHS +"</td></tr><tr><td><?php echo ($ltup); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTU +"</td></tr><tr><td><?php echo ($ltd); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTD +"</td></tr><tr><td><?php echo ($ltun); ?></td><td> : </td><td>"+ arrayInfo[i]['services']['HostStatus'].hostStatus_LTUNR +"</td></tr></tbody><thead><tr><th colspan =\"3\"><h1><small class=\"text-muted\">Services status</small></h1></th></tr></thead></table>");
 
-            for(var serv in arrayInfo[i].services){
-              if(serv != "HostStatus"){
-                if(arrayInfo[i]['services'][serv].servStatus_CS == 0)
-                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-success\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isUp); ?>\" class=\"card-header title\" style=\"background-color: #159415;\">");
-                if(arrayInfo[i]['services'][serv].servStatus_CS == 1)
-                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-warning\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inWar); ?>\" class=\"card-header title\" style=\"background-color: #c5d200;\">");
-                if(arrayInfo[i]['services'][serv].servStatus_CS == 2)
-                  newDivs = newDivs.concat("<div class=\"card inside mb-4 border-orange\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inCrit); ?>\" class=\"card-header title\" style=\"background-color: #ff8d00;\">");
-                if(arrayInfo[i]['services'][serv].servStatus_CS != 0 && arrayInfo[i]['services'][serv].servStatus_CS != 1 && arrayInfo[i]['services'][serv].servStatus_CS != 2)
-                newDivs = newDivs.concat("<div class=\"card inside mb-4 border-secondary\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isunk); ?>\" class=\"card-header title\" style=\"background-color: #6c757d;\">");
+              for(var serv in arrayInfo[i].services){
+                if(serv != "HostStatus"){
+                  if(arrayInfo[i]['services'][serv].servStatus_CS == 0)
+                    newDivs = newDivs.concat("<div class=\"card inside mb-4 border-success\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isUp); ?>\" class=\"card-header title\" style=\"background-color: #159415;\">");
+                  if(arrayInfo[i]['services'][serv].servStatus_CS == 1)
+                    newDivs = newDivs.concat("<div class=\"card inside mb-4 border-warning\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inWar); ?>\" class=\"card-header title\" style=\"background-color: #c5d200;\">");
+                  if(arrayInfo[i]['services'][serv].servStatus_CS == 2)
+                    newDivs = newDivs.concat("<div class=\"card inside mb-4 border-orange\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($inCrit); ?>\" class=\"card-header title\" style=\"background-color: #ff8d00;\">");
+                  if(arrayInfo[i]['services'][serv].servStatus_CS != 0 && arrayInfo[i]['services'][serv].servStatus_CS != 1 && arrayInfo[i]['services'][serv].servStatus_CS != 2)
+                    newDivs = newDivs.concat("<div class=\"card inside mb-4 border-secondary\"><div title=\"<?php echo ($tServ); ?>" + serv +" <?php echo ($isunk); ?>\" class=\"card-header title\" style=\"background-color: #6c757d;\">");
 
-                newDivs = newDivs.concat("<h4 class=\"my-0 font-weight-bold\">" + serv + "</h4></div><div class=\"card-body\">");
+                  newDivs = newDivs.concat("<h4 class=\"my-0 font-weight-bold\">" + serv + "</h4></div><div class=\"card-body\">");
 
 
-                newDivs = newDivs.concat("<table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTC +"</td></tr></table></div></div>");
+                  newDivs = newDivs.concat("<table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTC +"</td></tr></table></div></div>");
+                }
               }
+              newDivs = newDivs.concat("</div></div></div>");
             }
-          newDivs = newDivs.concat("</div></div></div>");
-        }
 
-        if(document.getElementById('wait') != null){
-          document.getElementById('wait').style.display = 'none';
-          document.getElementById('tableh').style.display = 'block';
-        }
-        document.getElementById('InContainer').innerHTML = newDivs;
+            if(document.getElementById('wait') != null){
+              document.getElementById('wait').style.display = 'none';
+              document.getElementById('tableh').style.display = 'block';
+            }
+            document.getElementById('InContainer').innerHTML = newDivs;
+          }
+        };
       }
-    };
-  }
-}, <?php echo $nagMapR_TimeUpdate; ?>000);
-</script>
-<br>
+    }, <?php echo $nagMapR_TimeUpdate; ?>000);
+  </script>
+  <br>
 </body>
 </html>

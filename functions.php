@@ -53,7 +53,7 @@ function filter_raw_data($raw_data, $filesName) {
 
 function safe_name($in) {
   $out = trim($in);
-  $out = preg_replace('#[^a-z0-9]#', '_', $out);
+  $out = preg_replace('#[^a-z0-9A-Z]#', '_', $out);
   return $out;
 }
 

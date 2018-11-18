@@ -97,8 +97,6 @@ $clear = ("Effacer");
 //Debug page
 $debugTitle = ("Informations de débogage");
 
-$debugInfo = ("Cette page contient des informations importantes qui peuvent vous aider en cas de bugs. Parmi ces informations se trouvent les hôtes ignorés avec la raison, et des informations supplémentaires sur chacun des hôtes présents dans le fichier d'état.");
-
 $updating = ("Mise à jour");
 
 $mainPage = ("Accueil");
@@ -167,13 +165,15 @@ $noHostN = ("N'a pas de HostName");
 
 $noStatus = ("N'existe pas dans le fichier d'état");
 
+$outFilterHg = ("Ce n'est pas dans le HostGroup filtré.");
+
 $help = ("Aide");
 
 $close = ("Fermer");
 
 $primary = (" (Primaire)");
 
-$debugHelp = ('TCette page contient des informations utiles pour toute demande de support.!<br><br>
+$debugHelp = ("TCette page contient des informations utiles pour toute demande de support.!<br><br>
 
 Les caractéristiques des pages sont les suivantes:<br><br>
 
@@ -198,7 +198,7 @@ Les caractéristiques des pages sont les suivantes:<br><br>
 <br>
 <strong>Chaque fois que vous sollicitez une assistance</strong> accéder à la page de débogage, téléchargez le fichier et joignez-la à votre demande, cette procédure peut faciliter le dépannage.<br><br>
 
-Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
+Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.r@hotmail.com</strong>");
 
 //Auth
 

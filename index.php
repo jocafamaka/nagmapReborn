@@ -1,9 +1,14 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $nagMapR_version = file_get_contents('VERSION');
-$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION');
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION'); //Get last dev version known.
+$nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
+
+if($nagMapR_Domain == "")  //Set local domain in case of fail.
+$nagMapR_Domain = file_get_contents('resources/reporter/DOMAIN');
 
 include_once('validateAndVerify.php');
 
@@ -229,32 +234,32 @@ if ($javascript == "") {
     if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode != 3){
       echo ('
 
-      function now(){ //Return the formated date
-      var date = new Date();   
+        function now(){ //Return the formated date
+          var date = new Date();   
 
-      str_day = new String(date.getDate());
-      str_month = new String((date.getMonth() + 1));
-      year = date.getFullYear();
+          str_day = new String(date.getDate());
+          str_month = new String((date.getMonth() + 1));
+          year = date.getFullYear();
 
-      str_hours = new String(date.getHours());
-      str_minutes = new String(date.getMinutes());
-      str_seconds = new String(date.getSeconds());
+          str_hours = new String(date.getHours());
+          str_minutes = new String(date.getMinutes());
+          str_seconds = new String(date.getSeconds());
 
-      if (str_day.length < 2) 
-        str_day = 0 + str_day;
+          if (str_day.length < 2) 
+            str_day = 0 + str_day;
 
-      if (str_month.length < 2) 
-        str_month = 0 + str_month;
+          if (str_month.length < 2) 
+            str_month = 0 + str_month;
 
-      if (str_hours.length < 2)
-        str_hours = 0 + str_hours;
+          if (str_hours.length < 2)
+            str_hours = 0 + str_hours;
 
-      if (str_minutes.length < 2)
-        str_minutes = 0 + str_minutes;
+          if (str_minutes.length < 2)
+            str_minutes = 0 + str_minutes;
 
-      if (str_seconds.length < 2)
-        str_seconds = 0 + str_seconds;
-      ');
+          if (str_seconds.length < 2)
+            str_seconds = 0 + str_seconds;
+          ');
 
       if($nagMapR_DateFormat == 1){
         echo ("return(date = str_day + '/' + str_month + '/' + year"); 
@@ -270,17 +275,17 @@ if ($javascript == "") {
 
     };
 
-        function openPopup(host, search){
-          if(search){
-            for(var i = 0 ; i < hostStatus.length ; i++) 
-            {
-              if(hostStatus[i].nagios_host_name == hostStatusPre[host].nagios_host_name){
-                host = i;
-                break;
-              }
-            }
+    function openPopup(host, search){
+      if(search){
+        for(var i = 0 ; i < hostStatus.length ; i++) 
+        {
+          if(hostStatus[i].nagios_host_name == hostStatusPre[host].nagios_host_name){
+            host = i;
+            break;
           }
-          ');
+        }
+      }
+      ');
 
       if($nagMapR_MapAPI == 0)
         echo("
@@ -656,27 +661,27 @@ if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
 
 realTimeUp = true;
 
-setInterval(function(){ // Request the arrau with the update status of each host.
+setInterval(function(){ // Request the array with the update status of each host.
 
-  var ajax = new XMLHttpRequest();
+  var rq = new XMLHttpRequest();
 
   var arrayHosts;
 
-  ajax.open('POST', 'update.php', true);
+  rq.open('POST', 'update.php', true);
 
-  ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  rq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-  ajax.send('key=<?php echo $nagMapR_key ?>');
+  rq.send('key=<?php echo $nagMapR_key ?>');
 
-  ajax.onreadystatechange = function(){
+  rq.onreadystatechange = function(){
 
-    if(ajax.readyState == 4) {
+    if(rq.readyState == 4) {
       try{
 
-        if(ajax.status != 200)
+        if(rq.status != 200)
           throw new Error('Failed to request update.php');
 
-        arrayHosts = JSON.parse(ajax.responseText); 
+        arrayHosts = JSON.parse(rq.responseText); 
 
         <?php
         if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3){
@@ -840,27 +845,7 @@ if($nagMapR_Debug == 1)
       ');
   if($nagMapR_Reporting == 1)
     echo ('
-
-      if(Lastmsg == msg && LastLine == lineNo)
-        var diferent = false;
-      else
-        var diferent = true;
-
-      if((!waitToReport) && (diferent)){
-
-        var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
-
-        console.log(report);
-
-        var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-        elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-alpha.php?r="+Encrypt(report);
-        spt.parentNode.insertBefore(elt, spt);
-
-        waitToReport = true;
-        setTimeout(function(){waitToReport = false;}, 20000);
-        Lastmsg = msg;
-        LastLine = lineNo;
-      }
+      reportError(msg, url, lineNo, error);
     }
     ');
   else
@@ -871,27 +856,7 @@ else{
     echo ('
 
       window.onerror = function (msg, url, lineNo, columnNo, error) {
-
-        if(Lastmsg == msg && LastLine == lineNo)
-          var diferent = false;
-        else
-          var diferent = true;
-
-        if((!waitToReport) && (diferent)){
-
-          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
-
-          console.log(report);
-
-          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="//report.nagmapreborn.com/error-alpha.php?r="+Encrypt(report);
-          spt.parentNode.insertBefore(elt, spt);
-
-          waitToReport = true;
-          setTimeout(function(){waitToReport = false;}, 20000);
-          Lastmsg = msg;
-          LastLine = lineNo;
-        }
+        reportError(msg, url, lineNo, error);
       }
       ');
 }
@@ -1054,6 +1019,27 @@ echo('
       2048
       );
 
+      function reportError(msg, url, lineNo, error){
+        if(Lastmsg == msg && LastLine == lineNo)
+        var diferent = false;
+        else
+        var diferent = true;
+
+        if((!waitToReport) && (diferent)){
+
+          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
+
+          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error.php?r="+Encrypt(report);
+          spt.parentNode.insertBefore(elt, spt);
+
+          waitToReport = true;
+          setTimeout(function(){waitToReport = false;}, 20000);
+          Lastmsg = msg;
+          LastLine = lineNo;
+        }
+      }
+
       function Encrypt(data)
       {
         var ciphertext = encryptedString(key, data,
@@ -1061,7 +1047,7 @@ echo('
         return window.btoa(ciphertext);
       };
 
-      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="//analytics.nagmapreborn.com/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="https://'.$nagMapR_Domain.'/analytics/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
       </script>
       ');
       ?>
