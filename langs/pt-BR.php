@@ -69,6 +69,8 @@ $passAlertTitle = ("Autenticação padrão");
 
 $passAlert = ("Você está atualmente utilizando a senha e usuário padrão, não fique desprotegido, modifique agora mesmo!");
 
+$asFilter = ("Usar como filtro");
+
 //Alertas ChangesBar:
 $up = ("UP");
 
@@ -90,10 +92,10 @@ $timeSuffix = ('');
 
 $filter = ("Filtrar");
 
+$clear = ("Limpar");
+
 //Debug page
 $debugTitle = ("Info. de depuração");
-
-$debugInfo = ("Essa página contém informações importantes que podem ajudar em caso de bug. Entre essas informações estão os hosts ignorados com o motivo, além de informações adicionais sobre cada um dos hosts presentes no aquivo de Status.");
 
 $updating = ("Atualizando");
 
@@ -162,6 +164,8 @@ $noLatLng = ("Não possui LatLng no arquivo de definição");
 $noHostN = ("Não possui HostName");
 
 $noStatus = ("Não existe no arquivo de Status");
+
+$outFilterHg = ("Não está no HostGroup filtrado.");
 
 $help = ("Ajuda");
 

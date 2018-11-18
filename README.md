@@ -7,7 +7,7 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Updating hosts status without refresh on page.
 * Support for multiple languages.
 * System of last occurrences (ChangesBar).
-  * Content filter. <sup>(NEW)</sup>
+  * Content filter.
 * System of sound warning.
 * Notification system on the page.
 * Almost total control of page characteristics.
@@ -28,7 +28,10 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
   * Font size.
   * Used date format.
   * ChangesBar mode.
-  * Show content filter. <sup>(NEW)</sup>
+    * History.
+    * Alert.
+    * Alert lite. <sup>(NEW)</sup>
+  * Show content filter.
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.

@@ -1,5 +1,9 @@
 <?php
-include("functions.php");
+include_once("functions.php");
+
+include_once('config.php');
+
+include_once("langs/$nagMapR_Lang.php");
 
 //Auth Request
 require_auth();
@@ -96,10 +100,13 @@ foreach ($hosts as $h) {
 unset($hosts);
 unset($s);
 
+$fil = ($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3 && $nagMapR_BarFilter == 1) ? (' onclick=\"filterBy(this);\" class=\"filter\"') : ("");
+$tip = ($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode !=3 && $nagMapR_BarFilter == 1) ? (' tooltip=\"'.$asFilter.'\" tooltip-position=\"buttom\"') : ("");
+
 if($nagMapR_MapAPI == 0){
 
   $ii = 0;
-// put markers and bubbles onto a map
+  // put markers and bubbles onto a map
   foreach ($data as $h) {
     // position the host on the map
     $javascript .= ("window.".$h["host_name"]."_pos = new google.maps.LatLng(".$h["latlng"].");\n");
@@ -107,24 +114,24 @@ if($nagMapR_MapAPI == 0){
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGreen, map: map, zIndex: 2000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGreen, map: map, zIndex: 2, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but in WARNING
     } elseif ($h['status'] == 1) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconYellow, map: map, zIndex: 3000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconYellow, map: map, zIndex: 3, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state UP but CRITICAL
     }elseif ($h['status'] == 2) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconOrange, map: map, zIndex: 4000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconOrange, map: map, zIndex: 4, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     // if host is in state DOWN
     } elseif ($h['status'] == 3) {
-      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconRed, map: map, zIndex: 5000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconRed, map: map, zIndex: 5, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     } else {
     // if host is in state UNKNOWN
-      $javascript .= ("window.MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGrey, map: map, zIndex: 2000, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
+      $javascript .= ("window.MARK.push(new google.maps.Marker({ position: ".$h["host_name"]."_pos, icon: iconGrey, map: map, zIndex: 2, title: \"".$h["nagios_host_name"]."\"}));"."\n\n");
     };
     //generate google maps info bubble
     if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
     $info = '<div class=\"bubble\"><strong>'.$h["nagios_host_name"]."</strong><br><table>"
-    .'<tr><td>'.$alias.'</td><td>:</td><td> '.$h["alias"].'</td></tr>'
+    .'<tr'.$fil.'><td>'.$alias.'</td><td>:</td><td'.$tip.'> '.$h["alias"].'</td></tr>'
     .'<tr><td>'.$hostG.'</td><td>:</td><td> '.join('<br>', $h["hostgroups"]).'</td></tr>'
     .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
     .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'
@@ -141,11 +148,9 @@ if($nagMapR_MapAPI == 0){
 
     }
 
-    $javascript .= ("window.".$h["host_name"]."_mark_infowindow = new google.maps.InfoWindow({ content: '$info'})\n");
+    $javascript .= ("INFO.push(new google.maps.InfoWindow({ content: '$info'}));\n");
 
-    $javascript .= ("google.maps.event.addListener(MARK[".$ii."], 'click', function() {"
-      .$h["host_name"]."_mark_infowindow.open(map, MARK[".$ii."]);\n
-    });\n\n");
+    $javascript .= ("google.maps.event.addListener(MARK[".$ii."], 'click', function() {openPopup(".$ii.", false);\n});\n\n");
     $ii++;
   };
 
@@ -199,24 +204,24 @@ else{
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGreen}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGreen, zIndexOffset: 2000}).addTo(map).bindPopup(\"");
       // if host is in state UP but in WARNING
     } elseif ($h['status'] == 1) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconYellow}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconYellow, zIndexOffset: 3000}).addTo(map).bindPopup(\"");
       // if host is in state UP but CRITICAL
     }elseif ($h['status'] == 2) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconOrange}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconOrange, zIndexOffset: 4000}).addTo(map).bindPopup(\"");
       // if host is in state DOWN
     } elseif ($h['status'] == 3) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconRed}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconRed, zIndexOffset: 5000}).addTo(map).bindPopup(\"");
       // if host is in state UNKNOWN
     } else {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGrey}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGrey, zIndexOffset: 2000}).addTo(map).bindPopup(\"");
     };
     //generate google maps info bubble
     if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
     $info = '<div class=\"bubble\"><strong>'.$h["nagios_host_name"]."</strong><br><table>"
-    .'<tr><td>'.$alias.'</td><td>:</td><td> '.$h["alias"].'</td></tr>'
+    .'<tr'.$fil.'><td>'.$alias.'</td><td>:</td><td'.$tip.'> '.$h["alias"].'</td></tr>'
     .'<tr><td>'.$hostG.'</td><td>:</td><td> '.join('<br>', $h["hostgroups"]).'</td></tr>'
     .'<tr><td>'.$addr.'</td><td>:</td><td> '.$h["address"].'</td></tr>'
     .'<tr><td>'.$other.'</td><td>:</td><td> '.join("<br>",$h['user']).'</td></tr>'

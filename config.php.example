@@ -101,6 +101,9 @@ $nagMapR_ChangesBar = 1;
 // Select ChangesBar mode
 // 1 = History mode. (Displays all occurrences sequentially with date and time)
 // 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
+// 3 = Alert mode lite. (The same as the previous, but in the form of iframe using less resources of
+// the browser/machine.) Mode 3 has some limitations such as: It is not able to open infoWindows directly
+// from ChangesBar and is not able to capture the hostname of infoWindows for filtering.
 $nagMapR_ChangesBarMode = 2;
 
 // Percentage size occupied by the ChangesBar on the screen. (use only numbers)
@@ -109,7 +112,8 @@ $nagMapR_ChangesBarSize = 15;
 // Font size in pixels used in ChangesBar. (use only numbers)
 $nagMapR_FontSize = 15;
 
-//Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+// Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+// Useful when there are a lot of hosts.
 // 1 = YES.
 // 0 = NO.
 $nagMapR_BarFilter = 1;
@@ -151,7 +155,7 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = 'ELsV7OqefspxiVIPvzOqGzYJShz5TxoKYkZGa0ecfMGj4e3pzAmCho6CQqfuJ3qI3i0J0OiWdFyKkJp2aHANUa8BKUdKXmBO';
+$nagMapR_key = 'O9CJ16er3XsjI5Bj1CHmGnS6Yv4xQuBuGhx3h9fa2ZU0SuOkhBIVR8MtkLhyG0SiMJr3YCG98hz1eh99vVLZ0b3NbTUKLs4M';
 
 // User used for authentication.
 $nagMapR_User = "ngradmin";

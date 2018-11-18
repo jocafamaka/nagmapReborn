@@ -7,6 +7,10 @@ html {
   }
 }
 
+#swal2-content{
+  text-align: left !important;
+}
+
 .container {
   max-width: 1280px;
 }

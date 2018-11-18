@@ -69,6 +69,8 @@ $passAlertTitle = ("Default authentication");
 
 $passAlert = ("Currently you are using the password and default user, do not be unprotected, modify it now!");
 
+$asFilter = ("Use as a filter");
+
 //ChangesBar warnings:
 $up = ("UP");
 
@@ -90,10 +92,10 @@ $timeSuffix = (' ago.');
 
 $filter = ("Filter");
 
+$clear = ("Clear");
+
 //Debug page
 $debugTitle = ("Debug Info.");
-
-$debugInfo = ("This page contains important information that can help in case of bugs. Among this informations are the hosts ignored with the reason, and additional information about each of the hosts present in the status file.");
 
 $updating = ("Updating");
 
@@ -162,6 +164,8 @@ $noLatLng = ("It has no definition of LatLng in the settings");
 $noHostN = ("Do not have a HostName");
 
 $noStatus = ("It does not exist in the Status file");
+
+$outFilterHg = ("It is not in the filtered HostGroup.");
 
 $help = ("Help");
 
