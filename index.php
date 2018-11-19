@@ -1,16 +1,17 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-$nagMapR_version = file_get_contents('VERSION');
-$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION'); //Get last dev version known.
-$nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+include_once('validateAndVerify.php');
 
+$nagMapR_version = file_get_contents('VERSION');
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION'); //Get last dev version known.
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
 
-if($nagMapR_Domain == "")  //Set local domain in case of fail.
-$nagMapR_Domain = file_get_contents('resources/reporter/DOMAIN');
-
-include_once('validateAndVerify.php');
+if($nagMapR_Reporting == 1){
+  $nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+  if($nagMapR_Domain == "")  //Set local domain in case of fail.
+  $nagMapR_Domain = file_get_contents('resources/reporter/DOMAIN');
+}
 
 include_once('marker.php');
 
@@ -1030,7 +1031,7 @@ echo('
           var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
 
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error.php?r="+Encrypt(report);
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error-alpha.php?r="+Encrypt(report);
           spt.parentNode.insertBefore(elt, spt);
 
           waitToReport = true;

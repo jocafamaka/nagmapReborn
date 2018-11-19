@@ -17,6 +17,9 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Access control.
 * Support for multiple API's.
 
+## New features
+* None currently in development.
+
 ## What you can control
 
 * Map center.
@@ -66,13 +69,11 @@ Undecided about which API to use? Here are some differences between them:
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
-## Under development
+## Stable version
 
-The master branch will always contain the code referring to the latest stable version.
+The [master](https://github.com/jocafamaka/nagmapReborn) branch will always contain the code referring to the latest stable version.
 
-See [here](https://github.com/jocafamaka/nagmapReborn/tree/developing) the version in development, this version contains the latest modifications and new features.
-
-It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
+This branch contains the latest modifications and new features that are still being tested and should NOT be used in production under any circumstances!
 
 ## Support
 
