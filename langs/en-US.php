@@ -29,6 +29,8 @@ $reporterErrorPre =("An error has occurred but could not be reported!");
 
 $reporterError =("This version of NagMap Reborn is no longer supported for bug fixes. Please use the <a href='https://github.com/jocafamaka/nagmapReborn/releases'>latest available version</a>.");
 
+$reporterErrorOF =("Could not report bug because one or more major project files have been modified!");
+
 $emptyUserPass = ("Authentication username and/or password have not been defined, set user and password in the configuration file.");
 
 $updateError = ("There was a problem updating the status of hosts, displayed statuses may be outdated, check the console for more information.");

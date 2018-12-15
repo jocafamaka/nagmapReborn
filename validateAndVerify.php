@@ -86,8 +86,15 @@ if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
 if($nagMapR_IconStyle > 2 || $nagMapR_IconStyle < 0  || (!isset($nagMapR_IconStyle)))
   $fails .= "<br><b>\$nagMapR_IconStyle</b> $var_cfg_error ($nagMapR_IconStyle)";
 
-if(empty($nagMapR_User) || empty($nagMapR_UserKey))
-  $fails .= "<br>$emptyUserPass";
+if(($nagMapR_useAuth < 0) || ($nagMapR_useAuth > 1)  || (!isset($nagMapR_useAuth))){
+  $fails .= "<br><b>\$nagMapR_useAuth</b> $var_cfg_error ($nagMapR_useAuth)";
+}
+else{
+  if($nagMapR_useAuth == 1){
+    if(empty($nagMapR_User) || empty($nagMapR_UserKey))
+      $fails .= "<br>$emptyUserPass";
+  }
+}
 
 if(!extension_loaded('mbstring'))
   $fails .= "<br>$moduleError mbstring";
@@ -100,11 +107,26 @@ if(!empty($fails))
 
 function checkUserPass(){
   include('config.php');
+  if($nagMapR_useAuth == 1){
 
-  if($nagMapR_User == "ngradmin" && $nagMapR_UserKey == "ngradmin")
-    return true;
-  else
-    return false;
-
+    if($nagMapR_User == "ngradmin" && $nagMapR_UserKey == "ngradmin")
+      return true;
+    else
+      return false;
+  }
+  return false;
 }
+
+$checkFile = parse_ini_file("resources/checkFiles.ini");
+
+$nagMapR_OriginalFiles = "true";
+
+foreach ($checkFile as $key => $value) {
+  if(md5_file($key) != $value){
+    $nagMapR_OriginalFiles = "false";
+    break;
+  }
+}
+
+
 ?>

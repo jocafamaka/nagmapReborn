@@ -142,7 +142,7 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
         <div class="col-12 col-md">
-          <img class="mb-2" src="resources/img/logo.svg" alt="">
+          <img class="mb-2" src="resources/img/logo.png" alt="">
         </div>
         <div class="col-9 col-md">
           <h5>LINKS</h5>

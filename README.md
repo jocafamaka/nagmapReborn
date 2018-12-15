@@ -18,7 +18,11 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Support for multiple API's.
 
 ## New features
-* None currently in development.
+* Improvements in dynamic code generation.
+* Treatments to avoid errors when used apostrophe in the host alias.
+* Possibility to disable authentication.
+* Changes in reporting errors.
+* Improvements in the notification system, avoiding many warning on the screen, when debug and error reporting are enabled.
 
 ## What you can control
 

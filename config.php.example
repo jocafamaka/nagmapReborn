@@ -28,7 +28,7 @@ $nagMapR_IsNagios = 1;
 $nagMapR_MapAPI = 1;
 
 // Set to the centre of your map (lat,long)
-$nagMapR_MapCentre = '-6.469293, -50.913464';
+$nagMapR_MapCentre = "-6.469293, -50.913464";
 
 // Default zoom level of the map
 $nagMapR_MapZoom = 6.2;
@@ -45,7 +45,8 @@ $nagMapR_MapZoom = 6.2;
 // How to use the Mapbox styles:
 // https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F
 // Leave blank to use the default.
-$nagMapR_LeafletStyle = '';  //For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
+// For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
+$nagMapR_LeafletStyle = "";
 
 ########################################################
 #               IF USING GOOGLE MAPS API               #
@@ -55,12 +56,12 @@ $nagMapR_LeafletStyle = '';  //For example: https://cartodb-basemaps-{s}.global.
 // SATELLITE
 // HYBRID
 // TERRAIN
-$nagMapR_MapType = 'ROADMAP';
+$nagMapR_MapType = "ROADMAP";
 
 // Enter your private Google Maps API key here
 // See here how to get an API private key: 
 // (https://developers.google.com/maps/documentation/javascript/get-api-key)
-$nagMapR_Mapkey = '';
+$nagMapR_Mapkey = "";
 
 // Google Maps custom styles
 // If used, this option overlaps the map type defined in ($nagMapR_MapType)
@@ -68,30 +69,31 @@ $nagMapR_Mapkey = '';
 // Custom styles can be created in: (https://mapstyle.withgoogle.com/)
 // Look in the styles folder, for ready styles.
 // Leave empty if you do not want to use custom style.
-$nagMapR_Style = '';  //For example: ($nagMapR_Style = 'Dark';) To use de Dark.json style.
+// For example: ($nagMapR_Style = "Dark";) To use de Dark.json style.
+$nagMapR_Style = "";
 
 ####################################################################################################
 #                                      NAGMAP REBORN FEATURES                                      #
 ####################################################################################################
 // Sets the translation file name.
-// See the folder 'langs' for available translations.
+// See the folder "langs" for available translations.
 // You can create your own translation by copying and renaming one of the files and making the
 // necessary changes.
-$nagMapR_Lang = 'en-US';
+$nagMapR_Lang = "en-US";
 
 // Hostgroup filter - only show hosts from this hostgroup
 // Leave empty for not filtering
-$nagMapR_FilterHostgroup  = '';
+$nagMapR_FilterHostgroup  = "";
 
 // Service filter - Use the status of a specific service as the primary. The service that will be used
 // to set the status on the map. Useful when there is more than one service per host.
-// More than one service can be used in the filter (using ';' as a separator), as long a single host
+// More than one service can be used in the filter (using ";" as a separator), as long a single host
 // does not contain more than one of the filtered services.
 // It is not necessary to indicate the full name of the service, but a single part that sets it apart
 // from others is enough.
 // Services are filtered by service_description.
 // Leave empty for not filtering
-$nagMapR_FilterService  = '';
+$nagMapR_FilterService  = "";
 
 // Show ChangesBar? (Bar with information about the hosts) 
 // 1 = YES.
@@ -125,7 +127,7 @@ $nagMapR_BarFilter = 1;
 $nagMapR_DateFormat = 1;
 
 // Play alert when a server's status changes to down?
-// To change the alert sound, simply replace the file 'Beep.mp3' in the resources folder
+// To change the alert sound, simply replace the file "Beep.mp3" in the resources folder
 // In some browsers it is necessary for user to interact with the page before it emits a sound, 
 // so an initial interaction is required for the alert to be played.
 // 1 = YES.
@@ -155,7 +157,12 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = 'O9CJ16er3XsjI5Bj1CHmGnS6Yv4xQuBuGhx3h9fa2ZU0SuOkhBIVR8MtkLhyG0SiMJr3YCG98hz1eh99vVLZ0b3NbTUKLs4M';
+$nagMapR_key = "UTHAXY4ijEYBTiSWKnCCf4W4DNlPPpMXOM3MK3HUKt2vx1L4k3pa0erJxY92seL6ufX5hNc7TldzkcOXV9bQHVtn2oqQAM7B";
+
+// Request authentication when accessing the page?
+// 1 = YES (Strongly recommended).
+// 0 = NO.
+$nagMapR_useAuth = 1;
 
 // User used for authentication.
 $nagMapR_User = "ngradmin";
