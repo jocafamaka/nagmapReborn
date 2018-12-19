@@ -232,7 +232,7 @@ else{
       .'<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\" target=\"_blank\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.png\" alt=\"\"></a><center>';
     }
     else{
-      $info .= '<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.png\" alt=\"\"></a><center>';
+      $info .= '<center><a href=\"https://github.com/jocafamaka/nagmapReborn\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.png\" alt=\"\"></a><center>';
 
     }
 
