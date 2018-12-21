@@ -113,6 +113,8 @@ $stopped = ("Stoppé");
 
 $downData = ("Téléchargement des données");
 
+$verifications = ("Contrôles (statique)");
+
 $ignHosts = ("Hôtes ignorés (statique)");
 
 $statusFile = ("Informations sur le fichier d'état (dynamique)");
@@ -205,4 +207,30 @@ Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.
 //Auth
 
 $authFail = ("Authentification échouée! Réessayer ultérieurement.");
+
+$noAuthDanger = ("<strong>Danger!</strong> Le contrôle d'accès est actuellement désactivé!");
+
+$defaultPassUser = ("<strong>Accueil!</strong> ".$passAlert);
+
+$AuthOk = ("<strong>Tout va bien!</strong> Le contrôle d'accès est activé et le changement d'utilisateur par défaut et le mot de passe ont été effectués.");
+
+$reportOffOF = ("<strong>Danger!</strong> Un ou plusieurs fichiers de projet principaux ont été modifiés, il n'est donc pas possible de signaler automatiquement les bogues.");
+
+$reportOff = ("<strong>Accueil!</strong> Le rapport d'erreur automatique est désactivé!");
+
+$reportOk = ("<strong>Tout va bien!</strong> Toutes les erreurs sont signalées automatiquement!");
+
+$reportDataRequestP1 = ('*Pour demander toutes les données collectées à partir des rapports d\'erreur, veuillez envoyer un courrier électronique à: joao_carlos.r@hotmail.com
+<br>Dans le sujet: Data of the report of errors.
+<br>Dans le corps de l\'e-mail, entrez le domaine (URL) via lequel le service est accédé et votre');
+
+$reportDataRequestP2 = ('jeton de rapport');
+
+$reportDataRequestP3 = ('<br>Votre demande sera traitée dans les meilleurs délais. Si nécessaire pour des raisons de sécurité, d\'autres formes de vérification de domaine vous seront demandées.');
+
+$yourRToken = ("Votre jeton de rapport");
+
+$accessControl =("Contrôle d'accès");
+
+$errorReporting = ("Rapport d'erreur");
 ?>

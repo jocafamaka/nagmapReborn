@@ -113,6 +113,8 @@ $stopped = ("Stopped");
 
 $downData = ("Download data");
 
+$verifications = ("Checks (static)");
+
 $ignHosts = ("Ignored hosts (static)");
 
 $statusFile = ("Status file info (dynamic)");
@@ -205,4 +207,30 @@ You can get support by contacting me via e-mail: <strong>joao_carlos.r@hotmail.c
 //Auth
 
 $authFail = ("Authentication failed! Try again.");
+
+$noAuthDanger = ("<strong>Danger!</strong> Access control is currently disabled!");
+
+$defaultPassUser = ("<strong>Attention!</strong> ".$passAlert);
+
+$AuthOk = ("<strong>All right!</strong> Access control is enabled and default user change and password has been performed.");
+
+$reportOffOF = ("<strong>Danger!</strong> One or more main project files have been modified, so it is not possible to automatically report bugs.");
+
+$reportOff = ("<strong>Attention!</strong> Automatic errors reporting is disabled!");
+
+$reportOk = ("<strong>All right!</strong> All errors are reported automatically!");
+
+$reportDataRequestP1 = ('*To request all data collected from error reports, please send an email to: joao_carlos.r@hotmail.com
+<br>In the subject: Data of the report of errors.
+<br>In the body of the email, enter the domain (url) through which the service is accessed and your');
+
+$reportDataRequestP2 = ('report token');
+
+$reportDataRequestP3 = ('<br>Your request will be dealt with as soon as possible, if necessary for security reasons, other forms of domain verification will be requested.');
+
+$yourRToken = ("Your report token");
+
+$accessControl = ("Access control");
+
+$errorReporting = ("Error reporting");
 ?>

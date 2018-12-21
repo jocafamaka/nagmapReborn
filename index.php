@@ -832,7 +832,7 @@ setInterval(function(){ // Request the array with the update status of each host
                   ');
               else
                 echo('
-                    toastr["error"]("'.$updateError.'");
+                  toastr["error"]("'.$updateError.'");
                   ');
             }
             ?>
@@ -905,6 +905,7 @@ else{
 <script src="debugInfo/resources/js/jquery.min.js"></script>
 <script src="resources/toastr/toastr.min.js"></script>
 <script src="resources/sa/sweetalert2.all.min.js"></script>
+
 <?php
 if($nagMapR_Reporting == 1 ) // Used for encryption
 echo('
@@ -913,6 +914,8 @@ echo('
   <script type="text/javascript" src="resources/reporter/Barrett.js"></script>
 
   <script type="text/javascript" src="resources/reporter/RSA_Stripped.js"></script>
+
+  <script type="text/javascript" src="resources/reporter/js.cookie.js"></script>
   ');
   ?>
   <script type="text/javascript">
@@ -1047,6 +1050,29 @@ echo('
   if($nagMapR_Reporting == 1)
     echo('
       <script type="text/javascript">
+
+      $( document ).ready(
+      function() {
+        if(Cookies.get("domainReportId")){
+          domainReportId = Cookies.get("domainReportId");
+          a();
+        }
+        else{
+          domainReportId = "null";
+          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/reportId.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
+          spt.parentNode.insertBefore(elt, spt);
+        }
+      }
+      );
+
+      function domainReportIdReturn(domainId){
+        Cookies.set("domainReportId",domainId);
+        domainReportId = domainId;
+        a();
+      };
+
+
       var waitToReport = false;
       var waitToWarning = true;
       var Lastmsg = "";
@@ -1071,7 +1097,7 @@ echo('
 
         if((!waitToReport) && (diferent)){
 
-          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
+          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'&I"+ domainReportId;
 
           if('. $nagMapR_OriginalFiles .'){
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
@@ -1087,7 +1113,7 @@ echo('
           Lastmsg = msg;
           LastLine = lineNo;
         }
-        
+
       }
 
       function Encrypt(data)
@@ -1096,7 +1122,12 @@ echo('
         RSAAPP.PKCS1Padding, RSAAPP.RawEncoding);
         return window.btoa(ciphertext);
       };
-      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="https://'.$nagMapR_Domain.'/analytics/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      
+      var _paq = _paq || [];
+
+      function a(){
+        _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["setCustomVariable", 3, "reportId", domainReportId, "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="https://'.$nagMapR_Domain.'/analytics/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      }
       </script>
       ');
       ?>

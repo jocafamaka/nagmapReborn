@@ -113,6 +113,8 @@ $stopped = ("Parado");
 
 $downData = ("Baixar dados");
 
+$verifications = ("Verificações (estático)");
+
 $ignHosts = ("Hosts ignorados (estático)");
 
 $statusFile = ("Informações do arquivo de status (dinâmico)");
@@ -205,4 +207,30 @@ Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r
 // Autenticação
 
 $authFail = ("Falha de autenticação! Tente novamente.");
+
+$noAuthDanger = ("<strong>Perigo!</strong> Atualmente o controle de acesso está desabilitado!");
+
+$defaultPassUser = ("<strong>Atenção!</strong> ".$passAlert);
+
+$AuthOk = ("<strong>Tudo certo!</strong> O controle de acesso está habilitado e foi realizada alteração do usuário e senha padrão.");
+
+$reportOffOF = ("<strong>Perigo!</strong> Um ou mais arquivos principais do projeto foram modificados, por esse motivo, não é possível reportar erros automáticamente.");
+
+$reportOff = ("<strong>Atenção!</strong> O reporte automático de erros está desabilitado!");
+
+$reportOk = ("<strong>Tudo certo!</strong> Todos os erros são reportados automáticamente!");
+
+$reportDataRequestP1 = ('*Para solicitar todos os dados recolhidos dos reportes de erros, por favor envie um email para: joao_carlos.r@hotmail.com
+<br>No assunto: Data of the report of errors.
+<br>No corpo do e-mail informe o domínio (url) pelo qual o serviço é acessado e o seu');
+
+$reportDataRequestP2 = ('token de report');
+
+$reportDataRequestP3 = ('<br>Sua solicitação será atendida o mais breve possível, caso necessário por motivos de segurança, serão solicitadas outras formas de verificação do domínio.');
+
+$yourRToken = ("Seu token de reporte");
+
+$accessControl =("Controle de acesso");
+
+$errorReporting = ("Reporte de erros");
 ?>
