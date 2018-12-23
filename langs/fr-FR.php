@@ -65,6 +65,8 @@ $hostP = ("Parents");
 
 $newVersion = ("Mise à jour disponible");
 
+$newVersionFooter = ("Il se fermera après 10 secondes.");
+
 $newVersionText = ("<br>La version actuelle de NagMap Reborn est obsolète!<br><br>Téléchargez la dernière version sur GitHub:<br><br>");
 
 $passAlertTitle = ("Authentification par défaut");
@@ -181,21 +183,26 @@ $debugHelp = ("TCette page contient des informations utiles pour toute demande d
 
 Les caractéristiques des pages sont les suivantes:<br><br>
 
-<strong>1 - Les hôtes qui ont été ignorés.</strong><br>
+<strong>1 - Contrôles.</strong><br>
+     - Affiche des informations sur le contrôle d'accès.<br>
+     - Affiche des informations sur le rapport d'erreur automatique.<br>
+     - Rapporte les données importantes et les avertissements concernant les données rapportées.<br><br>
+
+<strong>2 - Les hôtes qui ont été ignorés.</strong><br>
      - Affiche tous les hôtes ignorés.<br>
      - Informe le nom d\'hôte.<br>
      - L\'alias de l\'hôte.<br>
      - Les raisons pour lesquelles cet hôte a été ignorées.<br>
      - Les raisons peuvent être très utiles pour définir s\'il s\'agis d\'une erreur de configuration ou d\'un bug applicatif.<br><br>
 
-<strong>2 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong><br>
+<strong>3 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong><br>
      - La couleur de la \'Card\' indique le statut de l\'hôte ou du service en question.<br>
      - Affiche des informations sur le statut interne.<br>
          - Vert: ok; Jaune: attention; Orange: critique; Gris: inconnu.<br>
      - Affiche les valeurs de temps pour plusieurs paramètres.<br>
      - Affiche l\'heure au format Epoch et l\'heure en heures et minutes.<br><br>
 
-<strong>3 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong><br>
+<strong>4 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong><br>
      - Il est possible d\'arrêter la mise à jour à tout moment, utile pour capturer des événements rapides.<br>
      - Il y a aussi un bouton de téléchargement qui télécharge un fichier avec les informations sur la page en ce moment.<br>
      - Le bouton de téléchargement est désactivé pendant les mises à jour des informations de page.<br>
@@ -208,17 +215,17 @@ Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.
 
 $authFail = ("Authentification échouée! Réessayer ultérieurement.");
 
-$noAuthDanger = ("<strong>Danger!</strong> Le contrôle d'accès est actuellement désactivé!");
+$noAuthDanger = ("<strong>Danger: </strong> Le contrôle d'accès est actuellement désactivé!");
 
-$defaultPassUser = ("<strong>Accueil!</strong> ".$passAlert);
+$defaultPassUser = ("<strong>Accueil: </strong> ".$passAlert);
 
-$AuthOk = ("<strong>Tout va bien!</strong> Le contrôle d'accès est activé et le changement d'utilisateur par défaut et le mot de passe ont été effectués.");
+$AuthOk = ("<strong>Tout va bien: </strong> Le contrôle d'accès est activé et le changement d'utilisateur par défaut et le mot de passe ont été effectués.");
 
-$reportOffOF = ("<strong>Danger!</strong> Un ou plusieurs fichiers de projet principaux ont été modifiés, il n'est donc pas possible de signaler automatiquement les bogues.");
+$reportOffOF = ("<strong>Danger: </strong> Un ou plusieurs fichiers de projet principaux ont été modifiés, il n'est donc pas possible de signaler automatiquement les bogues.");
 
-$reportOff = ("<strong>Accueil!</strong> Le rapport d'erreur automatique est désactivé!");
+$reportOff = ("<strong>Accueil: </strong> Le rapport d'erreur automatique est désactivé!");
 
-$reportOk = ("<strong>Tout va bien!</strong> Toutes les erreurs sont signalées automatiquement!");
+$reportOk = ("<strong>Tout va bien: </strong> Toutes les erreurs sont signalées automatiquement!");
 
 $reportDataRequestP1 = ('*Pour demander toutes les données collectées à partir des rapports d\'erreur, veuillez envoyer un courrier électronique à: joao_carlos.r@hotmail.com
 <br>Dans le sujet: Data of the report of errors.
@@ -233,4 +240,8 @@ $yourRToken = ("Votre jeton de rapport");
 $accessControl =("Contrôle d'accès");
 
 $errorReporting = ("Rapport d'erreur");
+
+$reportCountP1 = ("<strong>Données: </strong>Vous avez effectué");
+
+$reportCountP2 = ("rapport(s) valide(s) au cours des 7 derniers jours");
 ?>

@@ -65,6 +65,8 @@ $hostP = ("Parents");
 
 $newVersion = ("Update available");
 
+$newVersionFooter = ("It will close after 10 seconds.");
+
 $newVersionText = ("<br>The currently used version of NagMap Reborn is outdated!<br><br>Get the new version on GitHub:<br><br>");
 
 $passAlertTitle = ("Default authentication");
@@ -181,21 +183,26 @@ $debugHelp = ('This page contains helpful information when requesting support!<b
 
 The characteristics of the pages are these:<br><br>
 
-<strong>1 - Hosts that were ignored.</strong><br>
+<strong>1 - Checks.</strong><br>
+     - Displays information about access control.<br>
+     - Displays information about automatic error reporting.<br>
+     - Reports important data and warnings about reported data.<br><br>
+
+<strong>2 - Hosts that were ignored.</strong><br>
      - Displays all the ignored hosts.<br>
      - Informs the host name.<br>
      - The host alias.<br>
      - The reasons or motives of that host have been ignored.<br>
      - The reasons can be very useful to define if it was a configuration error or application bug.<br><br>
 
-<strong>2 - Important information about each host in the Status file.</strong><br>
+<strong>3 - Important information about each host in the Status file.</strong><br>
      - The color of the Card indicates the status of the host or service in question.<br>
      - Shows information about internal status.<br>
          - Green: ok; Yellow: warning; Orange: critical; Gray: unknown.<br>
      - Displays the time values for several parameters.<br>
      - Displays the time in Epoch format and the time in hours and minutes.<br><br>
 
-<strong>3 - In the footer of the page there is the controller to update the page information.</strong><br>
+<strong>4 - In the footer of the page there is the controller to update the page information.</strong><br>
      - It is possible to stop the update at any time, useful for capturing quick events.<br>
      - There is also a download button that downloads a file with the information on the page right now.<br>
      - The download button is disabled during page information updates.<br>
@@ -208,17 +215,17 @@ You can get support by contacting me via e-mail: <strong>joao_carlos.r@hotmail.c
 
 $authFail = ("Authentication failed! Try again.");
 
-$noAuthDanger = ("<strong>Danger!</strong> Access control is currently disabled!");
+$noAuthDanger = ("<strong>Danger: </strong> Access control is currently disabled!");
 
-$defaultPassUser = ("<strong>Attention!</strong> ".$passAlert);
+$defaultPassUser = ("<strong>Attention: </strong> ".$passAlert);
 
-$AuthOk = ("<strong>All right!</strong> Access control is enabled and default user change and password has been performed.");
+$AuthOk = ("<strong>All right: </strong> Access control is enabled and default user change and password has been performed.");
 
-$reportOffOF = ("<strong>Danger!</strong> One or more main project files have been modified, so it is not possible to automatically report bugs.");
+$reportOffOF = ("<strong>Danger: </strong> One or more main project files have been modified, so it is not possible to automatically report bugs.");
 
-$reportOff = ("<strong>Attention!</strong> Automatic errors reporting is disabled!");
+$reportOff = ("<strong>Attention: </strong> Automatic errors reporting is disabled!");
 
-$reportOk = ("<strong>All right!</strong> All errors are reported automatically!");
+$reportOk = ("<strong>All right: </strong> All errors are reported automatically!");
 
 $reportDataRequestP1 = ('*To request all data collected from error reports, please send an email to: joao_carlos.r@hotmail.com
 <br>In the subject: Data of the report of errors.
@@ -233,4 +240,8 @@ $yourRToken = ("Your report token");
 $accessControl = ("Access control");
 
 $errorReporting = ("Error reporting");
+
+$reportCountP1 = ("<strong>Data: </strong>You have made");
+
+$reportCountP2 = ("valid report(s) in the last 7 days.");
 ?>

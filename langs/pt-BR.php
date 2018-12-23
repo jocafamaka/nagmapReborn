@@ -65,6 +65,8 @@ $hostP = ("Parentes");
 
 $newVersion = ("Atualização disponível");
 
+$newVersionFooter = ("Irá fechar após 10 segundos.");
+
 $newVersionText = ("<br>A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Obtenha a nova versão no GitHub:<br><br>");
 
 $passAlertTitle = ("Autenticação padrão");
@@ -181,21 +183,26 @@ $debugHelp = ('Essa página contem informações úteis na hora de solicitar sup
 
 As caractéristicas da páginas são essas:<br><br>
 
-<strong>1 - Hosts que foram ignorados.</strong><br>
+<strong>1 - Verificações.</strong><br>
+     - Exibe informações sobre o controle de acesso.<br>
+     - Exibe informações sobre reporte automático de erros.<br>
+     - Informa dados e avisos importantes sobre os dados reportados.<br><br>
+
+<strong>2 - Hosts que foram ignorados.</strong><br>
      - Exibe todos os hosts ignorados.<br>
      - Informa o nome do host.<br>
      - O aliás do host.<br>
      - O motivos ou motivos daquele host ter sido ignorado.<br>
      - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
 
-<strong>2 - Informações importantes sobre cada host existente no arquivo de Status.</strong><br>
+<strong>3 - Informações importantes sobre cada host existente no arquivo de Status.</strong><br>
      - A cor do Card indica qual o status do host ou serviço em questão.<br>
        - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.<br>
      - Mostra informações sobre status interno.<br>
      - Exibe os valores de tempo para varios parametros.<br>
      - Exibe o tempo em formato Epoch e o tempo em horas e minutos.<br><br>
 
-<strong>3 - No rodapé da página existe o controlador de atualização das informações da página.</strong><br>
+<strong>4 - No rodapé da página existe o controlador de atualização das informações da página.</strong><br>
      - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.<br>
      - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.<br>
      - O botão de download fica desabilitado durante as atualizações de informações da página.<br><br>
@@ -208,17 +215,17 @@ Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r
 
 $authFail = ("Falha de autenticação! Tente novamente.");
 
-$noAuthDanger = ("<strong>Perigo!</strong> Atualmente o controle de acesso está desabilitado!");
+$noAuthDanger = ("<strong>Perigo: </strong> Atualmente o controle de acesso está desabilitado!");
 
-$defaultPassUser = ("<strong>Atenção!</strong> ".$passAlert);
+$defaultPassUser = ("<strong>Atenção: </strong> ".$passAlert);
 
-$AuthOk = ("<strong>Tudo certo!</strong> O controle de acesso está habilitado e foi realizada alteração do usuário e senha padrão.");
+$AuthOk = ("<strong>Tudo certo: </strong> O controle de acesso está habilitado e foi realizada alteração do usuário e senha padrão.");
 
-$reportOffOF = ("<strong>Perigo!</strong> Um ou mais arquivos principais do projeto foram modificados, por esse motivo, não é possível reportar erros automáticamente.");
+$reportOffOF = ("<strong>Perigo: </strong> Um ou mais arquivos principais do projeto foram modificados, por esse motivo, não é possível reportar erros automáticamente.");
 
-$reportOff = ("<strong>Atenção!</strong> O reporte automático de erros está desabilitado!");
+$reportOff = ("<strong>Atenção: </strong> O reporte automático de erros está desabilitado!");
 
-$reportOk = ("<strong>Tudo certo!</strong> Todos os erros são reportados automáticamente!");
+$reportOk = ("<strong>Tudo certo: </strong> Todos os erros são reportados automáticamente!");
 
 $reportDataRequestP1 = ('*Para solicitar todos os dados recolhidos dos reportes de erros, por favor envie um email para: joao_carlos.r@hotmail.com
 <br>No assunto: Data of the report of errors.
@@ -233,4 +240,8 @@ $yourRToken = ("Seu token de reporte");
 $accessControl =("Controle de acesso");
 
 $errorReporting = ("Reporte de erros");
+
+$reportCountP1 = ("<strong>Dados: </strong>Você fez");
+
+$reportCountP2 = ("reporte(s) válido(s) nos últimos 7 dias.");
 ?>

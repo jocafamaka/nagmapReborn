@@ -1016,7 +1016,9 @@ echo('
         type: 'info',
         title: '<?php echo $newVersion; ?>!<br><?php echo $nagMapR_CurrVersion; ?>',
         html: '<?php echo $newVersionText; ?><center><a href="https://github.com/jocafamaka/nagmapReborn/releases" target="_blank" style="cursor: pointer;"><img title="<?php echo $project; ?>" src="resources/img/logoBlack.png" alt=""></a><center>',
-        confirmButtonText: '<?php echo $close; ?>'
+        confirmButtonText: '<?php echo $close; ?>',
+        timer: 10000,
+        footer: '<small><?php echo $newVersionFooter; ?></small>'
       }).then(function(){
         <?php 
         if(checkUserPass()){
@@ -1060,7 +1062,7 @@ echo('
         else{
           domainReportId = "null";
           var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/reportId.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
           spt.parentNode.insertBefore(elt, spt);
         }
       }

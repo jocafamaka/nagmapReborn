@@ -193,6 +193,8 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
             '. $reportOk .'
             </div>
 
+            <div id="reportCount"></div>
+
             '.$reportDataRequestP1 . ' <button type="button" id="token" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" title="'. $yourRToken .'" data-placement="right" data-content="'. $waiting .'.">' . $reportDataRequestP2 . '</button>.' . $reportDataRequestP3);
         }
         else{
@@ -274,7 +276,6 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
     <script type="text/javascript" src="../resources/reporter/BigInt.js"></script>
     <script type="text/javascript" src="../resources/reporter/Barrett.js"></script>
     <script type="text/javascript" src="../resources/reporter/RSA_Stripped.js"></script>
-    <script type="text/javascript" src="../resources/reporter/js.cookie.js"></script>
 
     <script>
       Holder.addTheme('thumb', {
@@ -283,19 +284,40 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
         text: 'Thumbnail'
       });
 
+      var reportCountGA = false;
+
       <?php
       echo('
         $( document ).ready(function(){getReportId()});
+
+        function getReportCount(){
+          if(document.getElementById("reportCount") && !reportCountGA){
+            var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt(domainReportId+"&debug");
+            spt.parentNode.insertBefore(elt, spt);
+          }
+        }
+
+        function reportCountReturn(qnt){
+          reportCountGA = true;
+          if(qnt > 0){
+            $("#reportCount").hide();
+            $("#reportCount").html("'. $reportCountP1 .' "+qnt+" '. $reportCountP2 .'");
+            $("#reportCount").addClass("alert alert-info");
+            $("#reportCount").fadeIn();
+          }
+        }
 
         function getReportId(){
           $(\'[data-toggle="popover"]\').popover();
           if(Cookies.get("domainReportId")){
             domainReportId = Cookies.get("domainReportId");
+            getReportCount();
           }
           else{
             domainReportId = "'. $waiting .'.";
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/reportId.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
             spt.parentNode.insertBefore(elt, spt);
           }
         }
@@ -303,6 +325,7 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
         function domainReportIdReturn(domainId){
           Cookies.set("domainReportId",domainId);
           domainReportId = domainId;
+          getReportCount();
         };
         ');
       ?>

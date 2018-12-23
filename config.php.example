@@ -157,7 +157,7 @@ $nagMapR_Reporting = 1;
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = "UTHAXY4ijEYBTiSWKnCCf4W4DNlPPpMXOM3MK3HUKt2vx1L4k3pa0erJxY92seL6ufX5hNc7TldzkcOXV9bQHVtn2oqQAM7B";
+$nagMapR_key = "AHgRux3iIEMLnh60v7CMUlHlYqM2AtFsHausnSUn63NJEtp7glX3ClkHS12Mc7ASiVu5wqePXNNAwzYAE0pOcfnRvbn4zClb";
 
 // Request authentication when accessing the page?
 // 1 = YES (Strongly recommended).
