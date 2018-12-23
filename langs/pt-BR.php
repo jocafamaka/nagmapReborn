@@ -99,6 +99,8 @@ $filter = ("Filtrar");
 $clear = ("Limpar");
 
 //Debug page
+$debugOff = ("O debug está desabilitado, para acessar essa página ative o debug no arquivo de configuração.");
+
 $debugTitle = ("Info. de depuração");
 
 $updating = ("Atualizando");
@@ -186,6 +188,7 @@ As caractéristicas da páginas são essas:<br><br>
 <strong>1 - Verificações.</strong><br>
      - Exibe informações sobre o controle de acesso.<br>
      - Exibe informações sobre reporte automático de erros.<br>
+     - Exibe informações sobre a integridade dos arquivos.<br>
      - Informa dados e avisos importantes sobre os dados reportados.<br><br>
 
 <strong>2 - Hosts que foram ignorados.</strong><br>
@@ -241,7 +244,13 @@ $accessControl =("Controle de acesso");
 
 $errorReporting = ("Reporte de erros");
 
+$fileIntegrity = ("Integridade dos arquivos");
+
 $reportCountP1 = ("<strong>Dados: </strong>Você fez");
 
 $reportCountP2 = ("reporte(s) válido(s) nos últimos 7 dias.");
+
+$debugFile = ("Arquivo");
+
+$debugIntegrity = ("Integridade");
 ?>

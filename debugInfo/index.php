@@ -9,108 +9,114 @@ if(file_exists("../langs/$nagMapR_Lang.php"))
 else
   die("$nagMapR_Lang.php does not exist in the languages folder! Please set the proper \$nagMapR_Lang variable in NagMap Reborn config file!");
 
-//Auth Request
-require_auth();
+if($nagMapR_Debug == 1){
 
-if($nagMapR_Reporting == 1){
-  $nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
-  if($nagMapR_Domain == "")  //Set local domain in case of fail.
-  $nagMapR_Domain = file_get_contents('../resources/reporter/DOMAIN');
-}
+  //Auth Request
+  require_auth();
 
-$version = 'v1.4.0';
-
-$files = get_config_files();
-
-foreach ($files as $file) {
-  $raw_data[$file] = file($file);
-}
-
-$data = filter_raw_data($raw_data, $files);
-
-foreach ($data as $host) {
-  if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name']))) | ($host['register'] == 0)) {
-    $hostname = $host["host_name"];
-    $hosts[$hostname]['host_name'] = $hostname;
-    $hosts[$hostname]['nagios_host_name'] = $host["host_name"];
-    $hosts[$hostname]['alias'] = $host["alias"];
-
-    foreach ($host as $option => $value) {
-      if ($option == "notes") {
-        if (preg_match("/latlng/",$value)) { 
-          $value = explode(":",$value); 
-          $hosts[$hostname]['latlng'] = trim($value[1]);
-          continue;
-        } else {
-          continue;
-        }
-      };
-      if (($option == "hostgroups")) {
-        $hostgroups = explode(',', $value);
-        foreach ($hostgroups as $hostgroup) {
-          $hosts[$hostname]['hostgroups'][] = $hostgroup;
-        }
-      };
-      if (preg_match("/^_/", trim($option))) {
-        $hosts[$hostname]['user'][] = $option.':'.$value;
-      };
-      unset($parent, $parents);
-    } 
+  if($nagMapR_Reporting == 1){
+    $nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+    if($nagMapR_Domain == "")  //Set local domain in case of fail.
+    $nagMapR_Domain = file_get_contents('../resources/reporter/DOMAIN');
   }
-}
-unset($data);
 
-$s = nagMapR_status();
+  $version = 'v1.4.0';
 
-$ii = 0;
-if ($nagMapR_FilterHostgroup == "") {
-  foreach ($hosts as $h) {
-    if ((!isset($h["latlng"])) || (!isset($h["host_name"])) || (!isset($s[$h["nagios_host_name"]]['status'])) ) { 
+  $files = get_config_files();
 
-      $ignored[$ii]['hostname'] = $h['host_name'];
-      $ignored[$ii]['alias'] = $h['alias'];
+  foreach ($files as $file) {
+    $raw_data[$file] = file($file);
+  }
 
-      if(!isset($h["latlng"]))
-        $reason .= "($noLatLng)";
-      if(!isset($h["host_name"]))
-        $reason .= " ($noHostN)";
-      if(!isset($s[$h["nagios_host_name"]]['status']))
-        $reason .= " ($noStatus)";
-      $ignored[$ii]['reason'] = $reason;
-      $reason = "";
-      $ii++;
+  $data = filter_raw_data($raw_data, $files);
+
+  foreach ($data as $host) {
+    if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name']))) | ($host['register'] == 0)) {
+      $hostname = $host["host_name"];
+      $hosts[$hostname]['host_name'] = $hostname;
+      $hosts[$hostname]['nagios_host_name'] = $host["host_name"];
+      $hosts[$hostname]['alias'] = $host["alias"];
+
+      foreach ($host as $option => $value) {
+        if ($option == "notes") {
+          if (preg_match("/latlng/",$value)) { 
+            $value = explode(":",$value); 
+            $hosts[$hostname]['latlng'] = trim($value[1]);
+            continue;
+          } else {
+            continue;
+          }
+        };
+        if (($option == "hostgroups")) {
+          $hostgroups = explode(',', $value);
+          foreach ($hostgroups as $hostgroup) {
+            $hosts[$hostname]['hostgroups'][] = $hostgroup;
+          }
+        };
+        if (preg_match("/^_/", trim($option))) {
+          $hosts[$hostname]['user'][] = $option.':'.$value;
+        };
+        unset($parent, $parents);
+      } 
     }
   }
+  unset($data);
+
+  $s = nagMapR_status();
+
+  $ii = 0;
+  if ($nagMapR_FilterHostgroup == "") {
+    foreach ($hosts as $h) {
+      if ((!isset($h["latlng"])) || (!isset($h["host_name"])) || (!isset($s[$h["nagios_host_name"]]['status'])) ) { 
+
+        $ignored[$ii]['hostname'] = $h['host_name'];
+        $ignored[$ii]['alias'] = $h['alias'];
+
+        if(!isset($h["latlng"]))
+          $reason .= "($noLatLng)";
+        if(!isset($h["host_name"]))
+          $reason .= " ($noHostN)";
+        if(!isset($s[$h["nagios_host_name"]]['status']))
+          $reason .= " ($noStatus)";
+        $ignored[$ii]['reason'] = $reason;
+        $reason = "";
+        $ii++;
+      }
+    }
+  }
+  else{
+    foreach ($hosts as $h) {
+      if (
+        (!isset($h["latlng"])) ||
+        (!isset($h["host_name"])) ||
+        (!isset($s[$h["nagios_host_name"]]['status'])) ||
+        (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups'])) ) {
+
+        $ignored[$ii]['hostname'] = $h['host_name'];
+        $ignored[$ii]['alias'] = $h['alias'];
+
+        if(!isset($h["latlng"]))
+          $reason .= "($noLatLng)";
+        if(!isset($h["host_name"]))
+          $reason .= " ($noHostN)";
+        if(!isset($s[$h["nagios_host_name"]]['status']))
+          $reason .= " ($noStatus)";
+        if (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups']))
+          $reason .= " ($outFilterHg)";
+        $ignored[$ii]['reason'] = $reason;
+        $reason = "";
+        $ii++;
+      }
+    }
+  }
+  unset($hosts);
+  unset($s);
+
+  $debugHelp = str_replace("\r\n", "", $debugHelp);
 }
 else{
-  foreach ($hosts as $h) {
-    if (
-      (!isset($h["latlng"])) ||
-      (!isset($h["host_name"])) ||
-      (!isset($s[$h["nagios_host_name"]]['status'])) ||
-      (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups'])) ) {
-
-      $ignored[$ii]['hostname'] = $h['host_name'];
-      $ignored[$ii]['alias'] = $h['alias'];
-
-      if(!isset($h["latlng"]))
-        $reason .= "($noLatLng)";
-      if(!isset($h["host_name"]))
-        $reason .= " ($noHostN)";
-      if(!isset($s[$h["nagios_host_name"]]['status']))
-        $reason .= " ($noStatus)";
-      if (!in_array($nagMapR_FilterHostgroup, $hosts[$h["host_name"]]['hostgroups']))
-        $reason .= " ($outFilterHg)";
-      $ignored[$ii]['reason'] = $reason;
-      $reason = "";
-      $ii++;
-    }
-  }
+  die($debugOff);
 }
-unset($hosts);
-unset($s);
-
-$debugHelp = str_replace("\r\n", "", $debugHelp);
 ?>
 
 <!doctype html>
@@ -183,8 +189,10 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
         foreach ($checkFile as $key => $value) {
           if(md5_file('../'.$key) != $value){
             $nagMapR_OriginalFiles = false;
-            break;
+            $intFile[$key] = 0;
           }
+          else
+            $intFile[$key] = 1;
         }
 
         if($nagMapR_OriginalFiles){
@@ -195,7 +203,7 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
 
             <div id="reportCount"></div>
 
-            '.$reportDataRequestP1 . ' <button type="button" id="token" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" title="'. $yourRToken .'" data-placement="right" data-content="'. $waiting .'.">' . $reportDataRequestP2 . '</button>.' . $reportDataRequestP3);
+            '.$reportDataRequestP1 . ' <button type="button" id="token" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" title="'. $yourRToken .'" data-placement="right" data-content="'. $waiting .'.">' . $reportDataRequestP2 . '</button>.' . $reportDataRequestP3.'<br><br>');
         }
         else{
           echo('
@@ -212,9 +220,42 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
           </div>
           ');
       }
-      ?>
 
-      <hr>
+      echo('
+        <h6>- '. $fileIntegrity .':</h6>
+        <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>'. $debugFile .'</th>
+            <th>'. $debugIntegrity .'</th>
+          </tr>
+        </thead>
+        <tbody>
+        '
+      );
+
+      foreach ($intFile as $key => $value) {
+        if($value == 1)
+          echo('
+            <tr>
+              <td>'. $key .'</td>
+              <td><img src="resources/img/Ok.png"></td>
+            </tr>
+            ');
+        else
+          echo('
+            <tr>
+              <td>'. $key .'</td>
+              <td><img src="resources/img/No.png"></td>
+            </tr>
+            ');
+      }
+
+      echo('
+        </tbody>
+      </table>
+        ');
+      ?>
 
       <div id="tableh"></div>
       <div id="wait"><div class="loader"></div></div>
@@ -355,7 +396,7 @@ $debugHelp = str_replace("\r\n", "", $debugHelp);
 
       var ignoredHosts = <?php echo json_encode($ignored); ?>;
 
-      var divIgnored = "<h2><?php echo ($ignHosts); ?></h2><table class=\"table table-bordered\"><thead><tr><th><?php echo ($hostName); ?></th><th><?php echo ($alias); ?></th><th><?php echo ($reasons); ?></th></tr></thead><tbody>";
+      var divIgnored = "<h2><?php echo ($ignHosts); ?></h2><table class=\"table table-bordered table-hover\"><thead><tr><th><?php echo ($hostName); ?></th><th><?php echo ($alias); ?></th><th><?php echo ($reasons); ?></th></tr></thead><tbody>";
 
       for (var i = 0 ; i < ignoredHosts.length ; i++) {
         divIgnored += "<tr><td>"+ ignoredHosts[i].hostname +"</td><td>"+ ignoredHosts[i].alias +"</td><td>"+ ignoredHosts[i].reason +"</td></tr>";

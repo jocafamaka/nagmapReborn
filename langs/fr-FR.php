@@ -99,6 +99,8 @@ $filter = ("Filtrer");
 $clear = ("Effacer");
 
 //Debug page
+$debugOff = ("Le débogage est désactivé, pour accéder à cette page, activez le débogage dans le fichier de configuration.");
+
 $debugTitle = ("Informations de débogage");
 
 $updating = ("Mise à jour");
@@ -186,6 +188,7 @@ Les caractéristiques des pages sont les suivantes:<br><br>
 <strong>1 - Contrôles.</strong><br>
      - Affiche des informations sur le contrôle d'accès.<br>
      - Affiche des informations sur le rapport d'erreur automatique.<br>
+     - Affiche des informations sur l'intégrité du fichier.<br>
      - Rapporte les données importantes et les avertissements concernant les données rapportées.<br><br>
 
 <strong>2 - Les hôtes qui ont été ignorés.</strong><br>
@@ -241,7 +244,11 @@ $accessControl =("Contrôle d'accès");
 
 $errorReporting = ("Rapport d'erreur");
 
+$fileIntegrity = ("Intégrité du fichier");
+
 $reportCountP1 = ("<strong>Données: </strong>Vous avez effectué");
 
 $reportCountP2 = ("rapport(s) valide(s) au cours des 7 derniers jours");
+
+$debugFile = ("Intégrité");
 ?>

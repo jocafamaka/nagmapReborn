@@ -99,6 +99,8 @@ $filter = ("Filter");
 $clear = ("Clear");
 
 //Debug page
+$debugOff = ("The debug is disabled, to access this page activate the debug in the configuration file.");
+
 $debugTitle = ("Debug Info.");
 
 $updating = ("Updating");
@@ -186,6 +188,7 @@ The characteristics of the pages are these:<br><br>
 <strong>1 - Checks.</strong><br>
      - Displays information about access control.<br>
      - Displays information about automatic error reporting.<br>
+     - Displays information about file integrity.<br>
      - Reports important data and warnings about reported data.<br><br>
 
 <strong>2 - Hosts that were ignored.</strong><br>
@@ -241,7 +244,13 @@ $accessControl = ("Access control");
 
 $errorReporting = ("Error reporting");
 
+$fileIntegrity = ("Files integrity");
+
 $reportCountP1 = ("<strong>Data: </strong>You have made");
 
 $reportCountP2 = ("valid report(s) in the last 7 days.");
+
+$debugFile = ("File");
+
+$debugIntegrity = ("Integrity");
 ?>
