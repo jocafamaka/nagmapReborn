@@ -181,36 +181,36 @@ $close = ("Fechar");
 
 $primary = (" (Primário)");
 
-$debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!<br><br>
+$debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!
 
-As caractéristicas da páginas são essas:<br><br>
+As caractéristicas da páginas são essas:
 
-<strong>1 - Verificações.</strong><br>
-     - Exibe informações sobre o controle de acesso.<br>
-     - Exibe informações sobre reporte automático de erros.<br>
-     - Exibe informações sobre a integridade dos arquivos.<br>
-     - Informa dados e avisos importantes sobre os dados reportados.<br><br>
+<strong>1 - Verificações.</strong>
+     - Exibe informações sobre o controle de acesso.
+     - Exibe informações sobre reporte automático de erros.
+     - Exibe informações sobre a integridade dos arquivos.
+     - Informa dados e avisos importantes sobre os dados reportados.
 
-<strong>2 - Hosts que foram ignorados.</strong><br>
-     - Exibe todos os hosts ignorados.<br>
-     - Informa o nome do host.<br>
-     - O aliás do host.<br>
-     - O motivos ou motivos daquele host ter sido ignorado.<br>
-     - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
+<strong>2 - Hosts que foram ignorados.</strong>
+     - Exibe todos os hosts ignorados.
+     - Informa o nome do host.
+     - O aliás do host.
+     - O motivos ou motivos daquele host ter sido ignorado.
+     - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.
 
-<strong>3 - Informações importantes sobre cada host existente no arquivo de Status.</strong><br>
-     - A cor do Card indica qual o status do host ou serviço em questão.<br>
-       - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.<br>
-     - Mostra informações sobre status interno.<br>
-     - Exibe os valores de tempo para varios parametros.<br>
-     - Exibe o tempo em formato Epoch e o tempo em horas e minutos.<br><br>
+<strong>3 - Informações importantes sobre cada host existente no arquivo de Status.</strong>
+     - A cor do Card indica qual o status do host ou serviço em questão.
+       - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.
+     - Mostra informações sobre status interno.
+     - Exibe os valores de tempo para varios parametros.
+     - Exibe o tempo em formato Epoch e o tempo em horas e minutos.
 
-<strong>4 - No rodapé da página existe o controlador de atualização das informações da página.</strong><br>
-     - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.<br>
-     - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.<br>
-     - O botão de download fica desabilitado durante as atualizações de informações da página.<br><br>
+<strong>4 - No rodapé da página existe o controlador de atualização das informações da página.</strong>
+     - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.
+     - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.
+     - O botão de download fica desabilitado durante as atualizações de informações da página.
 
-<strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
+<strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.
 
 Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
 

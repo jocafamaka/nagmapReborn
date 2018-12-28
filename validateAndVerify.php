@@ -103,7 +103,7 @@ if(!extension_loaded('json'))
   $fails .= "<br>$moduleError json";
 
 if(!empty($fails))
-  die($fails);
+  die("<h1>Nagmap Reborn ". file_get_contents('VERSION') ."</h1><hr>".$fails);
 
 function checkUserPass(){
   include('config.php');
@@ -117,16 +117,21 @@ function checkUserPass(){
   return false;
 }
 
+//Function to generate hash of files avoiding problems with encode.
+function fileHash($file){
+  $data = file_get_contents($file);
+  $arr = explode(PHP_EOL, $data); 
+  return md5(serialize($arr));
+}
+
 $checkFile = parse_ini_file("resources/checkFiles.ini");
 
 $nagMapR_OriginalFiles = "true";
 
 foreach ($checkFile as $key => $value) {
-  if(md5_file($key) != $value){
+  if(fileHash($key) != $value){
     $nagMapR_OriginalFiles = "false";
     break;
   }
 }
-
-
 ?>

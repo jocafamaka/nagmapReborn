@@ -181,36 +181,36 @@ $close = ("Fermer");
 
 $primary = (" (Primaire)");
 
-$debugHelp = ("TCette page contient des informations utiles pour toute demande de support.!<br><br>
+$debugHelp = ("TCette page contient des informations utiles pour toute demande de support!
 
-Les caractéristiques des pages sont les suivantes:<br><br>
+Les caractéristiques des pages sont les suivantes:
 
-<strong>1 - Contrôles.</strong><br>
-     - Affiche des informations sur le contrôle d'accès.<br>
-     - Affiche des informations sur le rapport d'erreur automatique.<br>
-     - Affiche des informations sur l'intégrité du fichier.<br>
-     - Rapporte les données importantes et les avertissements concernant les données rapportées.<br><br>
+<strong>1 - Contrôles.</strong>
+     - Affiche des informations sur le contrôle d'accès.
+     - Affiche des informations sur le rapport d'erreur automatique.
+     - Affiche des informations sur l'intégrité du fichier.
+     - Rapporte les données importantes et les avertissements concernant les données rapportées.
 
-<strong>2 - Les hôtes qui ont été ignorés.</strong><br>
-     - Affiche tous les hôtes ignorés.<br>
-     - Informe le nom d\'hôte.<br>
-     - L\'alias de l\'hôte.<br>
-     - Les raisons pour lesquelles cet hôte a été ignorées.<br>
-     - Les raisons peuvent être très utiles pour définir s\'il s\'agis d\'une erreur de configuration ou d\'un bug applicatif.<br><br>
+<strong>2 - Les hôtes qui ont été ignorés.</strong>
+     - Affiche tous les hôtes ignorés.
+     - Informe le nom d\'hôte.
+     - L\'alias de l\'hôte.
+     - Les raisons pour lesquelles cet hôte a été ignorées.
+     - Les raisons peuvent être très utiles pour définir s\'il s\'agis d\'une erreur de configuration ou d\'un bug applicatif.
 
-<strong>3 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong><br>
-     - La couleur de la \'Card\' indique le statut de l\'hôte ou du service en question.<br>
-     - Affiche des informations sur le statut interne.<br>
-         - Vert: ok; Jaune: attention; Orange: critique; Gris: inconnu.<br>
-     - Affiche les valeurs de temps pour plusieurs paramètres.<br>
-     - Affiche l\'heure au format Epoch et l\'heure en heures et minutes.<br><br>
+<strong>3 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong>
+     - La couleur de la \'Card\' indique le statut de l\'hôte ou du service en question.
+     - Affiche des informations sur le statut interne.
+         - Vert: ok; Jaune: attention; Orange: critique; Gris: inconnu.
+     - Affiche les valeurs de temps pour plusieurs paramètres.
+     - Affiche l\'heure au format Epoch et l\'heure en heures et minutes.
 
-<strong>4 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong><br>
-     - Il est possible d\'arrêter la mise à jour à tout moment, utile pour capturer des événements rapides.<br>
-     - Il y a aussi un bouton de téléchargement qui télécharge un fichier avec les informations sur la page en ce moment.<br>
-     - Le bouton de téléchargement est désactivé pendant les mises à jour des informations de page.<br>
-<br>
-<strong>Chaque fois que vous sollicitez une assistance</strong> accéder à la page de débogage, téléchargez le fichier et joignez-la à votre demande, cette procédure peut faciliter le dépannage.<br><br>
+<strong>4 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong>
+     - Il est possible d\'arrêter la mise à jour à tout moment, utile pour capturer des événements rapides.
+     - Il y a aussi un bouton de téléchargement qui télécharge un fichier avec les informations sur la page en ce moment.
+     - Le bouton de téléchargement est désactivé pendant les mises à jour des informations de page.
+
+<strong>Chaque fois que vous sollicitez une assistance</strong> accéder à la page de débogage, téléchargez le fichier et joignez-la à votre demande, cette procédure peut faciliter le dépannage.
 
 Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.r@hotmail.com</strong>");
 

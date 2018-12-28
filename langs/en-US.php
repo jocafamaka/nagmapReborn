@@ -181,36 +181,36 @@ $close = ("Close");
 
 $primary = (" (Primary)");
 
-$debugHelp = ('This page contains helpful information when requesting support!<br><br>
+$debugHelp = ('This page contains helpful information when requesting support!
 
-The characteristics of the pages are these:<br><br>
+The characteristics of the pages are these:
 
-<strong>1 - Checks.</strong><br>
-     - Displays information about access control.<br>
-     - Displays information about automatic error reporting.<br>
-     - Displays information about file integrity.<br>
-     - Reports important data and warnings about reported data.<br><br>
+<strong>1 - Checks.</strong>
+     - Displays information about access control.
+     - Displays information about automatic error reporting.
+     - Displays information about file integrity.
+     - Reports important data and warnings about reported data.
 
-<strong>2 - Hosts that were ignored.</strong><br>
-     - Displays all the ignored hosts.<br>
-     - Informs the host name.<br>
-     - The host alias.<br>
-     - The reasons or motives of that host have been ignored.<br>
-     - The reasons can be very useful to define if it was a configuration error or application bug.<br><br>
+<strong>2 - Hosts that were ignored.</strong>
+     - Displays all the ignored hosts.
+     - Informs the host name.
+     - The host alias.
+     - The reasons or motives of that host have been ignored.
+     - The reasons can be very useful to define if it was a configuration error or application bug.
 
-<strong>3 - Important information about each host in the Status file.</strong><br>
-     - The color of the Card indicates the status of the host or service in question.<br>
-     - Shows information about internal status.<br>
-         - Green: ok; Yellow: warning; Orange: critical; Gray: unknown.<br>
-     - Displays the time values for several parameters.<br>
-     - Displays the time in Epoch format and the time in hours and minutes.<br><br>
+<strong>3 - Important information about each host in the Status file.</strong>
+     - The color of the Card indicates the status of the host or service in question.
+     - Shows information about internal status.
+         - Green: ok; Yellow: warning; Orange: critical; Gray: unknown.
+     - Displays the time values for several parameters.
+     - Displays the time in Epoch format and the time in hours and minutes.
 
-<strong>4 - In the footer of the page there is the controller to update the page information.</strong><br>
-     - It is possible to stop the update at any time, useful for capturing quick events.<br>
-     - There is also a download button that downloads a file with the information on the page right now.<br>
-     - The download button is disabled during page information updates.<br>
-<br>
-<strong>Whenever requesting support</strong> access the debug page download the file and attach in your request, this procedure can and will make troubleshooting easier.<br><br>
+<strong>4 - In the footer of the page there is the controller to update the page information.</strong>
+     - It is possible to stop the update at any time, useful for capturing quick events.
+     - There is also a download button that downloads a file with the information on the page right now.
+     - The download button is disabled during page information updates.
+
+<strong>Whenever requesting support</strong> access the debug page download the file and attach in your request, this procedure can and will make troubleshooting easier.
 
 You can get support by contacting me via e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
 

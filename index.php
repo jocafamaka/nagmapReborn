@@ -215,7 +215,7 @@ if ($javascript == "") {
       }
       else{
         if($nagMapR_BarFilter == 1)
-          echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."><dic class="cleanS" onclick="$(\'#searchBar\').val(\'\');search();" style="font-size:'.$nagMapR_FontSize.'px;" title="'.$clear.'"><span>'.$clear.'</span></div></div>';
+          echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."><div class="cleanS" onclick="$(\'#searchBar\').val(\'\');search();" style="font-size:'.$nagMapR_FontSize.'px;" title="'.$clear.'"><span>'.$clear.'</span></div></div>';
         echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
         if($nagMapR_ChangesBarMode == 2){
           echo('<div id="downHosts"></div><div id="critHosts"></div><div id="warHosts"></div>');
