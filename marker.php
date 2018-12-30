@@ -141,12 +141,14 @@ if($nagMapR_MapAPI == 0){
     if($nagMapR_IsNagios == 1){
       $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
       .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
-      .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
+      .'<center><a href="https://www.github.com/jocafamaka/nagmapReborn/" target="_blank"><img title="'. $project .'" src="resources/img/logoMiniBlack.png" alt=""></a><center>';
     }
     else{
-      $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="resources/img/logoMiniBlack.svg" alt=""></a><center>';
+      $info .= '<center><a href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="'. $project .'" src="resources/img/logoMiniBlack.png" alt=""></a><center>';
 
     }
+
+    $info = preg_replace("#[']#", "\\'", $info);
 
     $javascript .= ("INFO.push(new google.maps.InfoWindow({ content: '$info'}));\n");
 
@@ -157,7 +159,7 @@ if($nagMapR_MapAPI == 0){
   if($nagMapR_Lines == 1){
     $ii = 0;
     // create (multiple) parent connection links between nodes/markers
-    $javascript .= "// generating links between hosts\n";
+    $javascript .= "\n\n// generating links between hosts\n";
     foreach ($data as $h) {
       // if we do not have any parents, just create an empty array
       if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
@@ -183,12 +185,8 @@ if($nagMapR_MapAPI == 0){
 
           $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
 
-          $javascript .= ('LINES['.$ii.'].line = new google.maps.Polyline({'."\n".
-            ' path: ['.$h["host_name"].'_pos,'.$parent.'_pos],'."\n".
-            "  strokeColor: \"$stroke_color\",\n".
-            "  strokeOpacity: 0.8,\n".
-            "  strokeWeight: 1.5});\n");
-          $javascript .= ('LINES['.$ii."].line.setMap(map);\n\n");
+          $javascript .= ('createLine('.$ii.', '.$h["host_name"].'_pos, '.$parent.'_pos, "'.$stroke_color.'", map);');
+
           $ii++;
         }
       }
@@ -231,10 +229,10 @@ else{
     if($nagMapR_IsNagios == 1){
       $info .='<a href=\"/nagios/cgi-bin/statusmap.cgi\?host='.$h["nagios_host_name"].'\">Nagios map page</a>'
       .'<br><a href=\"/nagios/cgi-bin/extinfo.cgi\?type=1\&host='.$h["nagios_host_name"].'\">Nagios host page</a>'
-      .'<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\" target=\"_blank\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.svg\" alt=\"\"></a><center>';
+      .'<center><a href=\"https://github.com/jocafamaka/nagmapReborn\" target=\"_blank\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.png\" alt=\"\"></a><center>';
     }
     else{
-      $info .= '<center><a href=\"https://github.com/jocafamaka/nagmapReborn-leaflet\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.svg\" alt=\"\"></a><center>';
+      $info .= '<center><a href=\"https://github.com/jocafamaka/nagmapReborn\"><img title=\"'. $project .'\" src=\"resources/img/logoMiniBlack.png\" alt=\"\"></a><center>';
 
     }
 
@@ -245,7 +243,7 @@ else{
   if($nagMapR_Lines == 1){
     $ii = 0;
     // create (multiple) parent connection links between nodes/markers
-    $javascript .= "// generating links between hosts\n";
+    $javascript .= "\n\n// generating links between hosts\n";
     foreach ($data as $h) {
       // if we do not have any parents, just create an empty array
       if (!isset($h["latlng"]) OR (!is_array($h["parents"]))) {
@@ -271,8 +269,8 @@ else{
 
           $linesArray .= ("LINES.push({line: null, host:\"".$h["host_name"]."\", parent:\"".$parent."\"});\n");
 
-          $javascript .= ('LINES['.$ii.'].line = new L.Polyline(['.$h["host_name"].'_pos,'.$parent.'_pos] ,{color: "'.$stroke_color.'", weight: 1.5,opacity: 0.8,smoothFactor: 1});');
-          $javascript .= ('LINES['.$ii."].line.addTo(map);\n\n");
+          $javascript .= ('createLine('.$ii.', '.$h["host_name"].'_pos,'.$parent.'_pos, "'.$stroke_color.'", map);');
+
           $ii++;
         }
       }

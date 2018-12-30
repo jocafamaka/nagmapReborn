@@ -176,7 +176,7 @@ function get_config_files() {
   include("langs/$nagMapR_Lang.php");
 
   if (!file_exists($nagios_cfg_file)){
-    die("$nagios_cfg_file $file_not_find_error");
+    die("<h1>Nagmap Reborn ". file_get_contents('VERSION') ."</h1><hr>$nagios_cfg_file $file_not_find_error");
   }
 
   $cfg_raw = file($nagios_cfg_file);
@@ -214,19 +214,20 @@ function read_recursive_dir(&$files, $dir){
 
 function require_auth() {
   include('config.php');
-  include("langs/$nagMapR_Lang.php");
-  header('Cache-Control: no-cache, must-revalidate, max-age=0');
-  $is_not_authenticated = (
-    empty($_SERVER['PHP_AUTH_USER']) ||
-    empty($_SERVER['PHP_AUTH_PW']) ||
-    $_SERVER['PHP_AUTH_USER'] != $nagMapR_User ||
-    $_SERVER['PHP_AUTH_PW']   != $nagMapR_UserKey
-  );
-  if ($is_not_authenticated) {
-    header('HTTP/1.1 401 Authorization Required');
-    header('WWW-Authenticate: Basic realm="Access denied"');
-    die($authFail);
+  if($nagMapR_useAuth == 1){
+    include("langs/$nagMapR_Lang.php");
+    header('Cache-Control: no-cache, must-revalidate, max-age=0');
+    $is_not_authenticated = (
+      empty($_SERVER['PHP_AUTH_USER']) ||
+      empty($_SERVER['PHP_AUTH_PW']) ||
+      $_SERVER['PHP_AUTH_USER'] != $nagMapR_User ||
+      $_SERVER['PHP_AUTH_PW']   != $nagMapR_UserKey
+    );
+    if ($is_not_authenticated) {
+      header('HTTP/1.1 401 Authorization Required');
+      header('WWW-Authenticate: Basic realm="Access denied"');
+      die("<h1>Nagmap Reborn ". file_get_contents('VERSION') ."</h1><hr><strong>ERROR 401:</strong> ".$authFail);
+    }
   }
 }
-
 ?>

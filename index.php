@@ -1,16 +1,17 @@
 <?php
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-$nagMapR_version = file_get_contents('VERSION');
-$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION'); //Get last dev version known.
-$nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+include_once('validateAndVerify.php');
 
+$nagMapR_version = file_get_contents('VERSION');
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION'); //Get last stable version known.
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
 
-if($nagMapR_Domain == "")  //Set local domain in case of fail.
-$nagMapR_Domain = file_get_contents('resources/reporter/DOMAIN');
-
-include_once('validateAndVerify.php');
+if($nagMapR_Reporting == 1){
+  $nagMapR_Domain = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/resources/reporter/DOMAIN'); //Get last online domain known.
+  if($nagMapR_Domain == "")  //Set local domain in case of fail.
+  $nagMapR_Domain = file_get_contents('resources/reporter/DOMAIN');
+}
 
 include_once('marker.php');
 
@@ -40,8 +41,7 @@ if ($javascript == "") {
       <script type="text/javascript" src="resources/leaflet/leaflet.smoothmarkerbouncing.js"></script>
       ');
   }
-  ?>
-  
+  ?> 
 
   <script type="text/javascript">
 
@@ -215,7 +215,7 @@ if ($javascript == "") {
       }
       else{
         if($nagMapR_BarFilter == 1)
-          echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."><dic class="cleanS" onclick="$(\'#searchBar\').val(\'\');search();" style="font-size:'.$nagMapR_FontSize.'px;" title="'.$clear.'"><span>'.$clear.'</span></div></div>';
+          echo '<div class="form-group"><input style="font-size:'.$nagMapR_FontSize.'px;" type="text" id="searchBar" class="form-control" placeholder="'.$filter.'..."><div class="cleanS" onclick="$(\'#searchBar\').val(\'\');search();" style="font-size:'.$nagMapR_FontSize.'px;" title="'.$clear.'"><span>'.$clear.'</span></div></div>';
         echo '<div id="changesbar" style="padding-top:2px; padding-left: 1px; background: black; height:'.$nagMapR_ChangesBarSize.'%; overflow:auto;">';
         if($nagMapR_ChangesBarMode == 2){
           echo('<div id="downHosts"></div><div id="critHosts"></div><div id="warHosts"></div>');
@@ -352,6 +352,33 @@ if ($javascript == "") {
           MARK[host].setZIndexOffset(zindex*1000);
           \n");
       }
+      ?>
+    };
+
+    function createLine(index, hostA, hostB, lineColor, map){
+      <?php
+
+      if($nagMapR_MapAPI == 0){
+        echo ("
+          LINES[index].line = new google.maps.Polyline({
+           path: [hostA, hostB],
+           strokeColor: lineColor,
+           strokeOpacity: 0.8,
+           strokeWeight: 1.5});
+           LINES[index].line.setMap(map);
+           \n");
+      }
+      else{
+        echo("
+          LINES[index].line = new L.Polyline([hostA,hostB],
+          {color: lineColor, 
+            weight: 1.5,
+            opacity: 0.8,
+            smoothFactor: 1});
+            LINES[index].line.addTo(map);
+            \n");
+      }
+
       ?>
     };
 
@@ -797,8 +824,17 @@ setInterval(function(){ // Request the array with the update status of each host
           }
           else{            
             <?php
-            if($nagMapR_Debug == 0)
-              echo('toastr["error"]("'.$updateError.'");');
+            if($nagMapR_Debug == 0 ){
+              if($nagMapR_Reporting == 1)
+                echo('
+                  if(!waitToWarning)
+                    toastr["error"]("'.$updateError.'");
+                  ');
+              else
+                echo('
+                  toastr["error"]("'.$updateError.'");
+                  ');
+            }
             ?>
             console.warn(err);
             throw err;
@@ -845,6 +881,8 @@ if($nagMapR_Debug == 1)
       ');
   if($nagMapR_Reporting == 1)
     echo ('
+      waitToWarning = true;
+      setTimeout(function(){waitToWarning = false}, 21000);
       reportError(msg, url, lineNo, error);
     }
     ');
@@ -856,6 +894,8 @@ else{
     echo ('
 
       window.onerror = function (msg, url, lineNo, columnNo, error) {
+        waitToWarning = true;
+        setTimeout(function(){waitToWarning = false}, 21000);
         reportError(msg, url, lineNo, error);
       }
       ');
@@ -865,14 +905,17 @@ else{
 <script src="debugInfo/resources/js/jquery.min.js"></script>
 <script src="resources/toastr/toastr.min.js"></script>
 <script src="resources/sa/sweetalert2.all.min.js"></script>
+
 <?php
-if($nagMapR_Reporting == 1) // Used for encryption
+if($nagMapR_Reporting == 1 ) // Used for encryption
 echo('
   <script type="text/javascript" src="resources/reporter/BigInt.js"></script>
 
   <script type="text/javascript" src="resources/reporter/Barrett.js"></script>
 
   <script type="text/javascript" src="resources/reporter/RSA_Stripped.js"></script>
+
+  <script type="text/javascript" src="resources/reporter/js.cookie.js"></script>
   ');
   ?>
   <script type="text/javascript">
@@ -944,7 +987,7 @@ echo('
         "progressBar": true,
         "showDuration": "300",
         "timeOut": "20000",
-        "extendedTimeOut": "10000",
+        "extendedTimeOut": "0",
       };
 
       if(type < 1)
@@ -952,6 +995,8 @@ echo('
         toastr["info"]("<?php echo ($reporterErrorPre) ?>");
         if(type == -1)
           toastr["error"]("<?php echo ($reporterError) ?>");
+        if(type == -2)
+          toastr["error"]("<?php echo ($reporterErrorOF) ?>");
       }
 
       if(type == 1)
@@ -969,9 +1014,11 @@ echo('
     if(<?php if($nagMapR_version != $nagMapR_CurrVersion) echo 'true'; else echo 'false'; ?>){
       swal({
         type: 'info',
-        title: '<?php echo $newVersion; ?> (<?php echo $nagMapR_CurrVersion; ?>)',
-        html: '<?php echo $newVersionText; ?><center><a href="https://github.com/jocafamaka/nagmapReborn/releases" target="_blank" style="cursor: pointer;"><img title="<?php echo $project; ?>" src="resources/img/logoBlack.svg" alt=""></a><center>',
-        confirmButtonText: '<?php echo $close; ?>'
+        title: '<?php echo $newVersion; ?>!<br><?php echo $nagMapR_CurrVersion; ?>',
+        html: '<?php echo $newVersionText; ?><center><a href="https://github.com/jocafamaka/nagmapReborn/releases" target="_blank" style="cursor: pointer;"><img title="<?php echo $project; ?>" src="resources/img/logoBlack.png" alt=""></a><center>',
+        confirmButtonText: '<?php echo $close; ?>',
+        timer: 10000,
+        footer: '<small><?php echo $newVersionFooter; ?></small>'
       }).then(function(){
         <?php 
         if(checkUserPass()){
@@ -1005,7 +1052,31 @@ echo('
   if($nagMapR_Reporting == 1)
     echo('
       <script type="text/javascript">
+
+      $( document ).ready(
+      function() {
+        if(Cookies.get("domainReportId")){
+          domainReportId = Cookies.get("domainReportId");
+          a();
+        }
+        else{
+          domainReportId = "null";
+          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
+          spt.parentNode.insertBefore(elt, spt);
+        }
+      }
+      );
+
+      function domainReportIdReturn(domainId){
+        Cookies.set("domainReportId",domainId);
+        domainReportId = domainId;
+        a();
+      };
+
+
       var waitToReport = false;
+      var waitToWarning = true;
       var Lastmsg = "";
       var LastLine = "";
 
@@ -1020,6 +1091,7 @@ echo('
       );
 
       function reportError(msg, url, lineNo, error){
+
         if(Lastmsg == msg && LastLine == lineNo)
         var diferent = false;
         else
@@ -1027,17 +1099,23 @@ echo('
 
         if((!waitToReport) && (diferent)){
 
-          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'";
+          var report = "'.$nagMapR_version.'**" + error + "&u" + url + "&l" + lineNo + "&a" + now() + "&h'.$nagMapR_FilterHostgroup.'&s'.$nagMapR_FilterService.'&D'.$nagMapR_Debug.'&N'.$nagMapR_IsNagios.'&S'.$nagMapR_Style.'&B'.$nagMapR_ChangesBar.'&C'.$nagMapR_ChangesBarMode.'&d'.$nagMapR_DateFormat.'&s'.$nagMapR_Lines.'&t'.$nagMapR_TimeUpdate.'&A'.$nagMapR_MapAPI.'&I"+ domainReportId;
 
-          var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-          elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error.php?r="+Encrypt(report);
-          spt.parentNode.insertBefore(elt, spt);
+          if('. $nagMapR_OriginalFiles .'){
+            var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error.php?r="+Encrypt(report);
+            spt.parentNode.insertBefore(elt, spt);
+          }
+          else{
+            reportReturn(-2);
+          }
 
           waitToReport = true;
           setTimeout(function(){waitToReport = false;}, 20000);
           Lastmsg = msg;
           LastLine = lineNo;
         }
+
       }
 
       function Encrypt(data)
@@ -1046,8 +1124,12 @@ echo('
         RSAAPP.PKCS1Padding, RSAAPP.RawEncoding);
         return window.btoa(ciphertext);
       };
+      
+      var _paq = _paq || [];
 
-      var _paq = _paq || [];_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="https://'.$nagMapR_Domain.'/analytics/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      function a(){
+        _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);_paq.push(["setCustomVariable", 1, "versao", "'.$nagMapR_version.'", "visit"]);_paq.push(["setCustomVariable", 2, "API", "'.$nagMapR_MapAPI.'", "visit"]);_paq.push(["setCustomVariable", 3, "reportId", domainReportId, "visit"]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u="https://'.$nagMapR_Domain.'/analytics/";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);})();
+      }
       </script>
       ');
       ?>

@@ -30,13 +30,14 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
   * ChangesBar mode.
     * History.
     * Alert.
-    * Alert lite. <sup>(NEW)</sup>
+    * Alert lite.
   * Show content filter.
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
 * Icons style.
-* Which API to use. 
+* Which API to use.
+* Use or not access control. <sup>(NEW)</sup>
 
 ## Compatibility
 

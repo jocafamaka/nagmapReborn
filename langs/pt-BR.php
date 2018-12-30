@@ -29,6 +29,8 @@ $reporterErrorPre =("Ocorreu um erro porém ele não pode ser reportado!");
 
 $reporterError =("Essa versão do NagMap Reborn não recebe mais suporte para erros. Por favor utilize a <a href='https://github.com/jocafamaka/nagmapReborn/releases'>versão mais recente!</a>");
 
+$reporterErrorOF =("Não foi possível reportar o erro, porque um ou mais arquivos principais do projeto foram modificados!");
+
 $emptyUserPass = ("Usuário e/ou senha de autenticação não foram definidos, defina usuário e senha no arquivo de configuração.");
 
 $updateError = ("Ocorreu um problema na atualização do status dos hosts, os status exibidos podem estar desatualizados, verifique o console para mais informações.");
@@ -63,6 +65,8 @@ $hostP = ("Parentes");
 
 $newVersion = ("Atualização disponível");
 
+$newVersionFooter = ("Irá fechar após 10 segundos.");
+
 $newVersionText = ("<br>A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Obtenha a nova versão no GitHub:<br><br>");
 
 $passAlertTitle = ("Autenticação padrão");
@@ -95,6 +99,8 @@ $filter = ("Filtrar");
 $clear = ("Limpar");
 
 //Debug page
+$debugOff = ("O debug está desabilitado, para acessar essa página ative o debug no arquivo de configuração.");
+
 $debugTitle = ("Info. de depuração");
 
 $updating = ("Atualizando");
@@ -110,6 +116,8 @@ $starting = ("Iniciando, aguarde.");
 $stopped = ("Parado");
 
 $downData = ("Baixar dados");
+
+$verifications = ("Verificações (estático)");
 
 $ignHosts = ("Hosts ignorados (estático)");
 
@@ -173,34 +181,76 @@ $close = ("Fechar");
 
 $primary = (" (Primário)");
 
-$debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!<br><br>
+$debugHelp = ('Essa página contem informações úteis na hora de solicitar suporte!
 
-As caractéristicas da páginas são essas:<br><br>
+As caractéristicas da páginas são essas:
 
-<strong>1 - Hosts que foram ignorados.</strong><br>
-     - Exibe todos os hosts ignorados.<br>
-     - Informa o nome do host.<br>
-     - O aliás do host.<br>
-     - O motivos ou motivos daquele host ter sido ignorado.<br>
-     - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.<br><br>
+<strong>1 - Verificações.</strong>
+     - Exibe informações sobre o controle de acesso.
+     - Exibe informações sobre reporte automático de erros.
+     - Exibe informações sobre a integridade dos arquivos.
+     - Informa dados e avisos importantes sobre os dados reportados.
 
-<strong>2 - Informações importantes sobre cada host existente no arquivo de Status.</strong><br>
-     - A cor do Card indica qual o status do host ou serviço em questão.<br>
-       - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.<br>
-     - Mostra informações sobre status interno.<br>
-     - Exibe os valores de tempo para varios parametros.<br>
-     - Exibe o tempo em formato Epoch e o tempo em horas e minutos.<br><br>
+<strong>2 - Hosts que foram ignorados.</strong>
+     - Exibe todos os hosts ignorados.
+     - Informa o nome do host.
+     - O aliás do host.
+     - O motivos ou motivos daquele host ter sido ignorado.
+     - Os motivos podem ser bem úteis para definir se foi um erro de configuração ou bug da aplicação.
 
-<strong>3 - No rodapé da página existe o controlador de atualização das informações da página.</strong><br>
-     - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.<br>
-     - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.<br>
-     - O botão de download fica desabilitado durante as atualizações de informações da página.<br><br>
+<strong>3 - Informações importantes sobre cada host existente no arquivo de Status.</strong>
+     - A cor do Card indica qual o status do host ou serviço em questão.
+       - Verde: ok; Amarelo: alerta; Laranja: crítico; Cinza: desconhecido.
+     - Mostra informações sobre status interno.
+     - Exibe os valores de tempo para varios parametros.
+     - Exibe o tempo em formato Epoch e o tempo em horas e minutos.
 
-<strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.<br><br>
+<strong>4 - No rodapé da página existe o controlador de atualização das informações da página.</strong>
+     - É possivél parar a atualização a qualquer momento, útil para capturar acontecimentos rápidos.
+     - Também existe um botão de download que baixa um arquivo com as informações presentes na página no exato momento.
+     - O botão de download fica desabilitado durante as atualizações de informações da página.
+
+<strong>Sempre que for solicitar suporte</strong> acesse a página de debug faça o download do arquivo e envie em anexo a sua solicitação, esse procedimento, pode e irá tornar a resolução de problemas mais rapida.
 
 Você pode obter suporte me contatando através do e-mail: <strong>joao_carlos.r@hotmail.com</strong>');
 
 // Autenticação
 
 $authFail = ("Falha de autenticação! Tente novamente.");
+
+$noAuthDanger = ("<strong>Perigo: </strong> Atualmente o controle de acesso está desabilitado!");
+
+$defaultPassUser = ("<strong>Atenção: </strong> ".$passAlert);
+
+$AuthOk = ("<strong>Tudo certo: </strong> O controle de acesso está habilitado e foi realizada alteração do usuário e senha padrão.");
+
+$reportOffOF = ("<strong>Perigo: </strong> Um ou mais arquivos principais do projeto foram modificados, por esse motivo, não é possível reportar erros automáticamente.");
+
+$reportOff = ("<strong>Atenção: </strong> O reporte automático de erros está desabilitado!");
+
+$reportOk = ("<strong>Tudo certo: </strong> Todos os erros são reportados automáticamente!");
+
+$reportDataRequestP1 = ('*Para solicitar todos os dados recolhidos dos reportes de erros, por favor envie um email para: joao_carlos.r@hotmail.com
+<br>No assunto: Data of the report of errors.
+<br>No corpo do e-mail informe o domínio (url) pelo qual o serviço é acessado e o seu');
+
+$reportDataRequestP2 = ('token de report');
+
+$reportDataRequestP3 = ('<br>Sua solicitação será atendida o mais breve possível, caso necessário por motivos de segurança, serão solicitadas outras formas de verificação do domínio.');
+
+$yourRToken = ("Seu token de reporte");
+
+$accessControl =("Controle de acesso");
+
+$errorReporting = ("Reporte de erros");
+
+$fileIntegrity = ("Integridade dos arquivos");
+
+$reportCountP1 = ("<strong>Dados: </strong>Você fez");
+
+$reportCountP2 = ("reporte(s) válido(s) nos últimos 7 dias.");
+
+$debugFile = ("Arquivo");
+
+$debugIntegrity = ("Integridade");
 ?>

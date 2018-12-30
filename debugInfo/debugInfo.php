@@ -6,7 +6,7 @@ $key = $_POST['key'];
 include('../config.php');
 include("../langs/$nagMapR_Lang.php");
 
-if($key == $nagMapR_key){
+if($key == $nagMapR_key  && $nagMapR_Debug == 1){
 	if (!file_exists($nagios_status_dat_file)) {
 		die("</script>$nagios_status_dat_file $file_not_find_error");
 	}

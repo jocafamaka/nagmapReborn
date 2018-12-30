@@ -86,8 +86,15 @@ if(!( is_float($nagMapR_TimeUpdate) || is_int($nagMapR_TimeUpdate) ))
 if($nagMapR_IconStyle > 2 || $nagMapR_IconStyle < 0  || (!isset($nagMapR_IconStyle)))
   $fails .= "<br><b>\$nagMapR_IconStyle</b> $var_cfg_error ($nagMapR_IconStyle)";
 
-if(empty($nagMapR_User) || empty($nagMapR_UserKey))
-  $fails .= "<br>$emptyUserPass";
+if(($nagMapR_useAuth < 0) || ($nagMapR_useAuth > 1)  || (!isset($nagMapR_useAuth))){
+  $fails .= "<br><b>\$nagMapR_useAuth</b> $var_cfg_error ($nagMapR_useAuth)";
+}
+else{
+  if($nagMapR_useAuth == 1){
+    if(empty($nagMapR_User) || empty($nagMapR_UserKey))
+      $fails .= "<br>$emptyUserPass";
+  }
+}
 
 if(!extension_loaded('mbstring'))
   $fails .= "<br>$moduleError mbstring";
@@ -96,15 +103,35 @@ if(!extension_loaded('json'))
   $fails .= "<br>$moduleError json";
 
 if(!empty($fails))
-  die($fails);
+  die("<h1>Nagmap Reborn ". file_get_contents('VERSION') ."</h1><hr>".$fails);
 
 function checkUserPass(){
   include('config.php');
+  if($nagMapR_useAuth == 1){
 
-  if($nagMapR_User == "ngradmin" && $nagMapR_UserKey == "ngradmin")
-    return true;
-  else
-    return false;
+    if($nagMapR_User == "ngradmin" && $nagMapR_UserKey == "ngradmin")
+      return true;
+    else
+      return false;
+  }
+  return false;
+}
 
+//Function to generate hash of files avoiding problems with encode.
+function fileHash($file){
+  $data = file_get_contents($file);
+  $arr = explode(PHP_EOL, $data); 
+  return md5(serialize($arr));
+}
+
+$checkFile = parse_ini_file("resources/checkFiles.ini");
+
+$nagMapR_OriginalFiles = "true";
+
+foreach ($checkFile as $key => $value) {
+  if(fileHash($key) != $value){
+    $nagMapR_OriginalFiles = "false";
+    break;
+  }
 }
 ?>

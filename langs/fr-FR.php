@@ -29,6 +29,8 @@ $reporterErrorPre =("Une erreur est survenue mais ne peut être reportée!");
 
 $reporterError =("Cette version de NagMap Reborn n'est plus supportée. Merci d'utiliser <a href='https://github.com/jocafamaka/nagmapReborn/releases'>la dernière version disponible</a>.");
 
+$reporterErrorOF =("Impossible de signaler un bogue car un ou plusieurs fichiers de projet majeurs ont été modifiés!");
+
 $emptyUserPass = ("Le nom d'utilisateur et/ou le mot de passe n'ont pas été définis, définissez les dans le fichier de configuration.");
 
 $updateError = ("Un problème est survenu lors de la mise à jour du statut des hôtes. Les statuts affichés peuvent être obsolètes. Consultez la console pour plus d'informations.");
@@ -63,6 +65,8 @@ $hostP = ("Parents");
 
 $newVersion = ("Mise à jour disponible");
 
+$newVersionFooter = ("Il se fermera après 10 secondes.");
+
 $newVersionText = ("<br>La version actuelle de NagMap Reborn est obsolète!<br><br>Téléchargez la dernière version sur GitHub:<br><br>");
 
 $passAlertTitle = ("Authentification par défaut");
@@ -95,6 +99,8 @@ $filter = ("Filtrer");
 $clear = ("Effacer");
 
 //Debug page
+$debugOff = ("Le débogage est désactivé, pour accéder à cette page, activez le débogage dans le fichier de configuration.");
+
 $debugTitle = ("Informations de débogage");
 
 $updating = ("Mise à jour");
@@ -110,6 +116,8 @@ $starting = ("Démarrage, patientez.");
 $stopped = ("Stoppé");
 
 $downData = ("Téléchargement des données");
+
+$verifications = ("Contrôles (statique)");
 
 $ignHosts = ("Hôtes ignorés (statique)");
 
@@ -173,34 +181,74 @@ $close = ("Fermer");
 
 $primary = (" (Primaire)");
 
-$debugHelp = ("TCette page contient des informations utiles pour toute demande de support.!<br><br>
+$debugHelp = ("TCette page contient des informations utiles pour toute demande de support!
 
-Les caractéristiques des pages sont les suivantes:<br><br>
+Les caractéristiques des pages sont les suivantes:
 
-<strong>1 - Les hôtes qui ont été ignorés.</strong><br>
-     - Affiche tous les hôtes ignorés.<br>
-     - Informe le nom d\'hôte.<br>
-     - L\'alias de l\'hôte.<br>
-     - Les raisons pour lesquelles cet hôte a été ignorées.<br>
-     - Les raisons peuvent être très utiles pour définir s\'il s\'agis d\'une erreur de configuration ou d\'un bug applicatif.<br><br>
+<strong>1 - Contrôles.</strong>
+     - Affiche des informations sur le contrôle d'accès.
+     - Affiche des informations sur le rapport d'erreur automatique.
+     - Affiche des informations sur l'intégrité du fichier.
+     - Rapporte les données importantes et les avertissements concernant les données rapportées.
 
-<strong>2 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong><br>
-     - La couleur de la \'Card\' indique le statut de l\'hôte ou du service en question.<br>
-     - Affiche des informations sur le statut interne.<br>
-         - Vert: ok; Jaune: attention; Orange: critique; Gris: inconnu.<br>
-     - Affiche les valeurs de temps pour plusieurs paramètres.<br>
-     - Affiche l\'heure au format Epoch et l\'heure en heures et minutes.<br><br>
+<strong>2 - Les hôtes qui ont été ignorés.</strong>
+     - Affiche tous les hôtes ignorés.
+     - Informe le nom d\'hôte.
+     - L\'alias de l\'hôte.
+     - Les raisons pour lesquelles cet hôte a été ignorées.
+     - Les raisons peuvent être très utiles pour définir s\'il s\'agis d\'une erreur de configuration ou d\'un bug applicatif.
 
-<strong>3 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong><br>
-     - Il est possible d\'arrêter la mise à jour à tout moment, utile pour capturer des événements rapides.<br>
-     - Il y a aussi un bouton de téléchargement qui télécharge un fichier avec les informations sur la page en ce moment.<br>
-     - Le bouton de téléchargement est désactivé pendant les mises à jour des informations de page.<br>
-<br>
-<strong>Chaque fois que vous sollicitez une assistance</strong> accéder à la page de débogage, téléchargez le fichier et joignez-la à votre demande, cette procédure peut faciliter le dépannage.<br><br>
+<strong>3 - Informations importantes sur chaque hôte dans le fichier d\'état.</strong>
+     - La couleur de la \'Card\' indique le statut de l\'hôte ou du service en question.
+     - Affiche des informations sur le statut interne.
+         - Vert: ok; Jaune: attention; Orange: critique; Gris: inconnu.
+     - Affiche les valeurs de temps pour plusieurs paramètres.
+     - Affiche l\'heure au format Epoch et l\'heure en heures et minutes.
+
+<strong>4 - Au bas de la page se trouve le contrôleur pour mettre à jour les informations de la page..</strong>
+     - Il est possible d\'arrêter la mise à jour à tout moment, utile pour capturer des événements rapides.
+     - Il y a aussi un bouton de téléchargement qui télécharge un fichier avec les informations sur la page en ce moment.
+     - Le bouton de téléchargement est désactivé pendant les mises à jour des informations de page.
+
+<strong>Chaque fois que vous sollicitez une assistance</strong> accéder à la page de débogage, téléchargez le fichier et joignez-la à votre demande, cette procédure peut faciliter le dépannage.
 
 Vous pouvez obtenir de l\'aide en me contactant par e-mail: <strong>joao_carlos.r@hotmail.com</strong>");
 
 //Auth
 
 $authFail = ("Authentification échouée! Réessayer ultérieurement.");
+
+$noAuthDanger = ("<strong>Danger: </strong> Le contrôle d'accès est actuellement désactivé!");
+
+$defaultPassUser = ("<strong>Accueil: </strong> ".$passAlert);
+
+$AuthOk = ("<strong>Tout va bien: </strong> Le contrôle d'accès est activé et le changement d'utilisateur par défaut et le mot de passe ont été effectués.");
+
+$reportOffOF = ("<strong>Danger: </strong> Un ou plusieurs fichiers de projet principaux ont été modifiés, il n'est donc pas possible de signaler automatiquement les bogues.");
+
+$reportOff = ("<strong>Accueil: </strong> Le rapport d'erreur automatique est désactivé!");
+
+$reportOk = ("<strong>Tout va bien: </strong> Toutes les erreurs sont signalées automatiquement!");
+
+$reportDataRequestP1 = ('*Pour demander toutes les données collectées à partir des rapports d\'erreur, veuillez envoyer un courrier électronique à: joao_carlos.r@hotmail.com
+<br>Dans le sujet: Data of the report of errors.
+<br>Dans le corps de l\'e-mail, entrez le domaine (URL) via lequel le service est accédé et votre');
+
+$reportDataRequestP2 = ('jeton de rapport');
+
+$reportDataRequestP3 = ('<br>Votre demande sera traitée dans les meilleurs délais. Si nécessaire pour des raisons de sécurité, d\'autres formes de vérification de domaine vous seront demandées.');
+
+$yourRToken = ("Votre jeton de rapport");
+
+$accessControl =("Contrôle d'accès");
+
+$errorReporting = ("Rapport d'erreur");
+
+$fileIntegrity = ("Intégrité du fichier");
+
+$reportCountP1 = ("<strong>Données: </strong>Vous avez effectué");
+
+$reportCountP2 = ("rapport(s) valide(s) au cours des 7 derniers jours");
+
+$debugFile = ("Intégrité");
 ?>
