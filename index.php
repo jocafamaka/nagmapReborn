@@ -3,7 +3,7 @@ error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECO
 include_once('validateAndVerify.php');
 
 $nagMapR_version = file_get_contents('VERSION');
-$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION'); //Get last dev version known.
+$nagMapR_CurrVersion = file_get_contents('https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION'); //Get last stable version known.
 if($nagMapR_CurrVersion == "")  //Set local version in case of fail.
 $nagMapR_CurrVersion = $nagMapR_version;
 
@@ -1103,7 +1103,7 @@ echo('
 
           if('. $nagMapR_OriginalFiles .'){
             var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
-            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error-alpha.php?r="+Encrypt(report);
+            elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/error.php?r="+Encrypt(report);
             spt.parentNode.insertBefore(elt, spt);
           }
           else{

@@ -343,8 +343,14 @@ else{
 
             function getReportCount(){
               if(document.getElementById("reportCount") && !reportCountGA){
-                var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+                let doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
                 elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt(domainReportId+"&debug");
+                spt.parentNode.insertBefore(elt, spt);
+              }
+
+              if(!reportCountGA){
+                let doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+                elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/auth.php?r="+Encrypt(domainReportId);
                 spt.parentNode.insertBefore(elt, spt);
               }
             }
@@ -367,7 +373,7 @@ else{
               }
               else{
                 domainReportId = "'. $waiting .'.";
-                var doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
+                let doc=document, elt=doc.createElement("script"), spt=doc.getElementsByTagName("script")[0];
                 elt.type="text/javascript"; elt.async=true; elt.docefer=true; elt.src="https://'.$nagMapR_Domain.'/report/id.php?r="+Encrypt("'.$_SERVER["HTTP_HOST"].'&index");
                 spt.parentNode.insertBefore(elt, spt);
               }

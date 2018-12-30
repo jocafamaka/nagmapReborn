@@ -17,14 +17,6 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Access control.
 * Support for multiple API's.
 
-## New features
-* Improvements in dynamic code generation.
-* Treatments to avoid errors when used apostrophe in the host alias.
-* Possibility to disable authentication.
-* Improvements in reporting errors.
-* Improvements in the notification system, avoiding many warning on the screen, when debug and error reporting are enabled.
-* Improvements in Debug page.
-
 ## What you can control
 
 * Map center.
@@ -38,13 +30,14 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
   * ChangesBar mode.
     * History.
     * Alert.
-    * Alert lite. <sup>(NEW)</sup>
+    * Alert lite.
   * Show content filter.
 * Use system of sound warning.
 * Show lines between hosts and their parents.
 * Time to update hosts status.
 * Icons style.
-* Which API to use. 
+* Which API to use.
+* Use or not access control. <sup>(NEW)</sup>
 
 ## Compatibility
 
@@ -74,11 +67,13 @@ Undecided about which API to use? Here are some differences between them:
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
-## Stable version
+## Under development
 
-The [master](https://github.com/jocafamaka/nagmapReborn) branch will always contain the code referring to the latest stable version.
+The master branch will always contain the code referring to the latest stable version.
 
-This branch contains the latest modifications and new features that are still being tested and should NOT be used in production under any circumstances!
+See [here](https://github.com/jocafamaka/nagmapReborn/tree/developing) the version in development, this version contains the latest modifications and new features.
+
+It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
 
 ## Support
 
