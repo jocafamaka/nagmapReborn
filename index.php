@@ -38,6 +38,7 @@ if ($javascript == "") {
     echo ('
       <link rel="stylesheet" href="resources/leaflet/leaflet.css" />
       <script type="text/javascript" src="resources/leaflet/leaflet.js"></script>
+      <script type="text/javascript" src="resources/leaflet/oms.js"></script>
       <script type="text/javascript" src="resources/leaflet/leaflet.smoothmarkerbouncing.js"></script>
       ');
   }
@@ -183,10 +184,9 @@ if ($javascript == "") {
 
         function initialize() {
 
-          var map = L.map('map',{zoomControl:false}).setView([".$nagMapR_MapCentre."], ".$nagMapR_MapZoom.");
+          map = L.map('map',{zoomControl:false}).setView([".$nagMapR_MapCentre."], ".$nagMapR_MapZoom.");
 
-          L.tileLayer('".$nagMapR_LeafletStyle."', {attribution:'&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors.'}).addTo(map);
-          ");
+          L.tileLayer('".$nagMapR_LeafletStyle."', {attribution:'&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors.'}).addTo(map);");
     }
     ?>    
 
@@ -199,8 +199,17 @@ if ($javascript == "") {
     echo $linesArray;
     echo ("\n\n");
     echo $javascript;
-    echo ('};'); //end of initialize function
-    echo ('
+    if($nagMapR_MapAPI == 1)
+      echo("
+        oms = new OverlappingMarkerSpiderfier(map);
+        popup = new L.Popup();
+        for(let i = 0; i < MARK.length ; i ++)
+          oms.addMarker(MARK[i]);
+        oms.addListener('click', function(marker) {
+          openPopup(MARK.indexOf(marker), false);
+        });
+          ");
+    echo ('};
       </script>
       </head>
       <body style="margin:0px; padding:0px; overflow:hidden;" onload="initialize()">');
@@ -291,7 +300,7 @@ if ($javascript == "") {
         echo("
           clicked = true;
 
-          for(i = 0; i < INFO.length ; i++){
+          for(let i = 0; i < INFO.length ; i++){
             if(i == host){
               INFO[host].open(map, MARK[host]);
             }
@@ -301,8 +310,11 @@ if ($javascript == "") {
           }
           setTimeout( function(){clicked = false;}, 500)\n");
 
-      else
-        echo("MARK[host].openPopup();\n");
+      else{
+        echo("MARK[host].bindPopup(MARK[host].options.popupContent);
+              MARK[host].openPopup();
+              MARK[host].unbindPopup();\n");
+      }
 
       echo('};');
     }
@@ -314,11 +326,9 @@ if ($javascript == "") {
           for (var ii = LINES.length - 1; ii >= 0; ii--) {
             if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
               <?php
-            if($nagMapR_MapAPI == 0)
-              echo("LINES[ii].line.setOptions({strokeColor: color});\n");
-            else
-              echo("LINES[ii].line.setStyle({color: color});\n");
-            ?>
+                echo("LINES[ii].line.set");
+                ($nagMapR_MapAPI == 0) ? print("Options({strokeColor: color});\n") : print("Style({color: color});\n");
+              ?>
           }          
         }
       }

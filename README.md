@@ -18,7 +18,7 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Support for multiple API's.
 
 ## New features
-* None currently in development.
+* Use of [Overlapping Marker Spiderfier for Leaflet](https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet).
 
 ## What you can control
 

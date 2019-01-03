@@ -202,19 +202,19 @@ else{
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGreen, zIndexOffset: 2000}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGreen, zIndexOffset: 2000, popupContent: \"");
       // if host is in state UP but in WARNING
     } elseif ($h['status'] == 1) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconYellow, zIndexOffset: 3000}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconYellow, zIndexOffset: 3000, popupContent: \"");
       // if host is in state UP but CRITICAL
     }elseif ($h['status'] == 2) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconOrange, zIndexOffset: 4000}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconOrange, zIndexOffset: 4000, popupContent: \"");
       // if host is in state DOWN
     } elseif ($h['status'] == 3) {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconRed, zIndexOffset: 5000}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconRed, zIndexOffset: 5000, popupContent: \"");
       // if host is in state UNKNOWN
     } else {
-      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGrey, zIndexOffset: 2000}).addTo(map).bindPopup(\"");
+      $javascript .= ("MARK.push(L.marker(".$h["host_name"]."_pos, {icon: iconGrey, zIndexOffset: 2000, popupContent: \"");
     };
     //generate google maps info bubble
     if (!isset($h["parents"])) { $h["parents"] = Array(); }; 
@@ -236,7 +236,7 @@ else{
 
     }
 
-    $javascript .= ($info."\"));");
+    $javascript .= ($info."\"}).addTo(map));");
 
   };
 
