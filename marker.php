@@ -43,8 +43,9 @@ foreach ($data as $host) {
       // we are only interested in latlng values from notes
       if ($option == "notes") {
         if (preg_match("/latlng/",$value)) { 
-          $value = explode(":",$value); 
-          $hosts[$hostname]['latlng'] = trim($value[1]);
+          $value = explode(":",$value);
+          $value = strtok($value[1], '#');
+          $hosts[$hostname]['latlng'] = trim($value);
           continue;
         } else {
           continue;

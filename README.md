@@ -19,6 +19,10 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 
 ## New features
 * Use of [Overlapping Marker Spiderfier for Leaflet](https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet).
+* Fix unexpected behavior of hosts infoWindows, in some configurations.
+* Correction issue #18.
+* Authentication requirement in the ChangesBar Lite mode page.
+* Adding animations and better placement of the Debug page access button.
 
 ## What you can control
 

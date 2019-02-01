@@ -101,7 +101,7 @@ $nagMapR_FilterService  = "";
 $nagMapR_ChangesBar = 1;
 
 // Seelecione o modo de operacao da ChangesBar
-// 1 = Modo historico mode. (Exibe todas as ocorrencias de forma sequencial com a data e hora)
+// 1 = Modo historico. (Exibe todas as ocorrencias de forma sequencial com data e hora)
 // 2 = Modo alerta. (Exibe somente os hosts que estao DOWN, CRITICAL ou em WARNING, com o tempo decorrido)
 // 3 = Modo alerta leve. (O mesmo que o anterior, porem em forma de iframe utilizando menos recursos do
 // navegador/maquina.) O modo 3 tem algumas limitacoes, tais como: Nao e capaz de abrir a infoWindows diretamente
@@ -140,7 +140,7 @@ $nagMapR_PlaySound = 1;
 // 2 = Com bordas sem sombra.
 $nagMapR_IconStyle = 1;
 
-// Mostrar linha entre hosts e seus parentes?.
+// Mostrar linha entre hosts e seus parentes?
 // 1 = SIM.
 // 0 = NAO.
 $nagMapR_Lines = 1;

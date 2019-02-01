@@ -14,7 +14,7 @@ hr {
 
 .div_fixa {
   position:fixed;
-  top: 10px;
+  top: -60px !important;
   left: calc(50% - 125px);
 }
 
@@ -81,19 +81,15 @@ a:hover {
   margin: 5px;
 }
 
+.button:hover {
+  opacity: 1 !important;
+  margin-top: 65px !important;
+}
+
 .button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
   transition: 0.5s;
 }
 

@@ -6,14 +6,18 @@ $key = $_GET['key'];
 $search = $_GET['s'];
 
 include_once('../config.php');
+include_once('../functions.php');
 include_once("../langs/$nagMapR_Lang.php");
 include_once('../marker.php');
 
+//Require auth
+require_auth();
+
 if($key != $nagMapR_key)
-	die("<html><head></head><body style='color:white;background:black;'>".$authFail)."</body></html>";
+	die("<html><head></head><body style='color:white;background:black;'>".$authFail."</body><script>setTimeout(()=>{location.reload()},".$nagMapR_TimeUpdate."000)</script></html>");
 
 if($nagMapR_ChangesBar != 1 || $nagMapR_ChangesBarMode != 3)
-	die("<html><head></head><body style='color:white;background:black;'>Not activated.</body></html>");
+	die("<html><head></head><body style='color:white;background:black;'>Not activated.</body><script>setTimeout(()=>{location.reload()},".$nagMapR_TimeUpdate."000)</script></html>");
 
 function formatTime($value){
 	include('../config.php');

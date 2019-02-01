@@ -208,13 +208,13 @@ if ($javascript == "") {
         oms.addListener('click', function(marker) {
           openPopup(MARK.indexOf(marker), false);
         });
-          ");
+        ");
     echo ('};
       </script>
       </head>
       <body style="margin:0px; padding:0px; overflow:hidden;" onload="initialize()">');
     if ($nagMapR_Debug == 1){
-      echo ('<a href="debugInfo/index.php"><div href="debugInfo/index.php" id="div_fixa" class="div_fixa" style="z-index:2000;"><button class="button" style="vertical-align:middle"><span>Debug page</span></button></div></a>');
+      echo ('<a href="debugInfo/index.php"><div id="div_fixa" class="div_fixa" style="z-index:2000;"><button id="div_fixa_btn" class="button" style="vertical-align:middle"><span>Debug page</span></button></div></a><script>var debug = document.getElementById("div_fixa_btn").style;  debug.setProperty( "opacity", "1" ); debug.setProperty( "margin-top", "65px", ""); setTimeout(()=>{ debug.setProperty( "opacity", "0.6" ); debug.setProperty( "margin-top", "0px", ""); setTimeout(()=>{debug.setProperty( "opacity", "0.2" );}, 1000); }, 3500);</script>');
     }
     if ($nagMapR_ChangesBar == 1) {
       echo '<div id="map" style="width:100%; height:'.(100-$nagMapR_ChangesBarSize).'%; float: left"></div>';
@@ -239,36 +239,34 @@ if ($javascript == "") {
 
     <script type="text/javascript">
 
-    <?php
-    if($nagMapR_ChangesBar == 1 && $nagMapR_ChangesBarMode != 3){
-      echo ('
+    
+    function now(){ 
+      var date = new Date();   
 
-        function now(){ //Return the formated date
-          var date = new Date();   
+      str_day = new String(date.getDate());
+      str_month = new String((date.getMonth() + 1));
+      year = date.getFullYear();
 
-          str_day = new String(date.getDate());
-          str_month = new String((date.getMonth() + 1));
-          year = date.getFullYear();
+      str_hours = new String(date.getHours());
+      str_minutes = new String(date.getMinutes());
+      str_seconds = new String(date.getSeconds());
 
-          str_hours = new String(date.getHours());
-          str_minutes = new String(date.getMinutes());
-          str_seconds = new String(date.getSeconds());
+      if (str_day.length < 2) 
+        str_day = 0 + str_day;
 
-          if (str_day.length < 2) 
-            str_day = 0 + str_day;
+      if (str_month.length < 2) 
+        str_month = 0 + str_month;
 
-          if (str_month.length < 2) 
-            str_month = 0 + str_month;
+      if (str_hours.length < 2)
+        str_hours = 0 + str_hours;
 
-          if (str_hours.length < 2)
-            str_hours = 0 + str_hours;
+      if (str_minutes.length < 2)
+        str_minutes = 0 + str_minutes;
 
-          if (str_minutes.length < 2)
-            str_minutes = 0 + str_minutes;
+      if (str_seconds.length < 2)
+        str_seconds = 0 + str_seconds;
 
-          if (str_seconds.length < 2)
-            str_seconds = 0 + str_seconds;
-          ');
+      <?php
 
       if($nagMapR_DateFormat == 1){
         echo ("return(date = str_day + '/' + str_month + '/' + year"); 
@@ -280,117 +278,116 @@ if ($javascript == "") {
 
       echo (" + ' ' + str_hours + ':' + str_minutes + ':' + str_seconds);");
 
-      echo ('
+      echo ('};');
+      ?>
 
-    };
-
-    function openPopup(host, search){
-      if(search){
-        for(var i = 0 ; i < hostStatus.length ; i++) 
-        {
-          if(hostStatus[i].nagios_host_name == hostStatusPre[host].nagios_host_name){
-            host = i;
-            break;
+      function openPopup(host, search){
+        if(search){
+          for(var i = 0 ; i < hostStatus.length ; i++) 
+          {
+            if(hostStatus[i].nagios_host_name == hostStatusPre[host].nagios_host_name){
+              host = i;
+              break;
+            }
           }
         }
-      }
-      ');
 
-      if($nagMapR_MapAPI == 0)
-        echo("
-          clicked = true;
+        <?php
 
-          for(let i = 0; i < INFO.length ; i++){
-            if(i == host){
-              INFO[host].open(map, MARK[host]);
+        if($nagMapR_MapAPI == 0)
+          echo("
+            clicked = true;
+
+            for(let i = 0; i < INFO.length ; i++){
+              if(i == host){
+                INFO[host].open(map, MARK[host]);
+              }
+              else{
+                INFO[i].close(map);
+              }
             }
-            else{
-              INFO[i].close(map);
-            }
-          }
-          setTimeout( function(){clicked = false;}, 500)\n");
+            setTimeout( function(){clicked = false;}, 500)\n");
 
-      else{
-        echo("MARK[host].bindPopup(MARK[host].options.popupContent);
-              MARK[host].openPopup();
-              MARK[host].unbindPopup();\n");
-      }
+        else{
+          echo("MARK[host].bindPopup(MARK[host].options.popupContent);
+            MARK[host].openPopup();
+            MARK[host].unbindPopup();\n");
+        }
 
-      echo('};');
-    }
-    ?> 
+        echo('};');
+      ?> 
 
-    function changeLines(host, color){
-      if(Array.isArray(hostStatus[host].parents)){
-        for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
-          for (var ii = LINES.length - 1; ii >= 0; ii--) {
-            if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
-              <?php
-                echo("LINES[ii].line.set");
-                ($nagMapR_MapAPI == 0) ? print("Options({strokeColor: color});\n") : print("Style({color: color});\n");
+      function changeLines(host, color){
+        if(Array.isArray(hostStatus[host].parents)){
+          for (var i = hostStatus[host].parents.length - 1; i >= 0; i--) {
+            for (var ii = LINES.length - 1; ii >= 0; ii--) {
+              if( (hostStatus[host].host_name == LINES[ii].host) && (hostStatus[host].parents[i] == LINES[ii].parent))
+                <?php
+              echo("LINES[ii].line.set");
+              ($nagMapR_MapAPI == 0) ? print("Options({strokeColor: color});\n") : print("Style({color: color});\n");
               ?>
-          }          
+            }          
+          }
         }
-      }
-    };
+      };
 
-    function changeIcon(host, icon, time, zindex){
-      MARK[host].setIcon(icon);
-      <?php
-      if($nagMapR_MapAPI == 0){
-        echo ("
-          if(time == 0)
-            time = 500;
-          else
-            time = 15000;
-          MARK[host].setAnimation(google.maps.Animation.BOUNCE);
-          setTimeout(function () {MARK[host].setAnimation(null);}, time);
-          MARK[host].setZIndex(zindex);
-          \n");
-      }
-      else{
-        echo("
-          if(time == 0)
-            time = 1;
-          else
-            time = 20;
-          if(MARK[host].isBouncing())
-            MARK[host].stopBouncing();
-          else
-            MARK[host].bounce(time);
-
-          MARK[host].setZIndexOffset(zindex*1000);
-          \n");
-      }
-      ?>
-    };
-
-    function createLine(index, hostA, hostB, lineColor, map){
-      <?php
-
-      if($nagMapR_MapAPI == 0){
-        echo ("
-          LINES[index].line = new google.maps.Polyline({
-           path: [hostA, hostB],
-           strokeColor: lineColor,
-           strokeOpacity: 0.8,
-           strokeWeight: 1.5});
-           LINES[index].line.setMap(map);
-           \n");
-      }
-      else{
-        echo("
-          LINES[index].line = new L.Polyline([hostA,hostB],
-          {color: lineColor, 
-            weight: 1.5,
-            opacity: 0.8,
-            smoothFactor: 1});
-            LINES[index].line.addTo(map);
+      function changeIcon(host, icon, time, zindex){
+        MARK[host].setIcon(icon);
+        <?php
+        if($nagMapR_MapAPI == 0){
+          echo ("
+            if(time == 0)
+              time = 500;
+            else
+              time = 15000;
+            MARK[host].setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function () {MARK[host].setAnimation(null);}, time);
+            MARK[host].setZIndex(zindex);
             \n");
-      }
+        }
+        else{
+          echo("
+            if(time == 0)
+              time = 1;
+            else
+              time = 20;
+            if(MARK[host].isBouncing())
+              MARK[host].stopBouncing();
+            else
+              MARK[host].bounce(time);
 
-      ?>
-    };
+            MARK[host].setZIndexOffset(zindex*1000);
+            \n");
+        }
+        ?>
+      };
+
+      function createLine(index, hostA, hostB, lineColor, map){
+        <?php
+
+        if($nagMapR_MapAPI == 0){
+          echo ("
+            LINES[index].line = new google.maps.Polyline({
+             path: [hostA, hostB],
+             strokeColor: lineColor,
+             strokeOpacity: 0.8,
+             strokeWeight: 1.5});
+             LINES[index].line.setMap(map);
+             \n");
+        }
+        else{
+          echo("
+            LINES[index].line = new L.Polyline([hostA,hostB],
+            {color: lineColor, 
+              weight: 1.5,
+              opacity: 0.8,
+              smoothFactor: 1});
+              LINES[index].line.addTo(map);
+              \n");
+        }
+
+        ?>
+      };
 
 function updateStatus(host, status){  // Updates the status of the host informed and apply the animations
 
