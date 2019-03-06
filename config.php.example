@@ -10,32 +10,18 @@ $nagios_status_dat_file = "/usr/local/nagios/var/status.dat";
 
 // Use Debug?
 // Use this only to generate extra information for support.
-// 1 = YES.
 // 0 = NO.
+// 1 = YES.
 $nagMapR_Debug = 0;
-
-// Define if the monitoring system is nagios, if it does not hide some specific information.
-// 1 = YES, the monitoring system is Nagios.
-// 0 = NO, the monitoring system is not Nagios.
-$nagMapR_IsNagios = 1;
 
 ####################################################################################################
 #                                         MAP PREFERENCES                                          #
 ####################################################################################################
-// Which API to use?
-// 0 = Google Maps API. (Requires API key)
-// 1 = Leaflet.
-$nagMapR_MapAPI = 1;
-
 // Set to the centre of your map (lat,long)
 $nagMapR_MapCentre = "-6.469293, -50.913464";
 
 // Default zoom level of the map
 $nagMapR_MapZoom = 6.2;
-
-########################################################
-#                 IF USING LEAFLET API                 #
-########################################################
 
 // Leaflet styles/tiles.
 // Use a provider of images / vectors other than OpenStreetMap.
@@ -47,30 +33,6 @@ $nagMapR_MapZoom = 6.2;
 // Leave blank to use the default.
 // For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
 $nagMapR_LeafletStyle = "";
-
-########################################################
-#               IF USING GOOGLE MAPS API               #
-########################################################
-// Which google maps type to use?
-// ROADMAP
-// SATELLITE
-// HYBRID
-// TERRAIN
-$nagMapR_MapType = "ROADMAP";
-
-// Enter your private Google Maps API key here
-// See here how to get an API private key: 
-// (https://developers.google.com/maps/documentation/javascript/get-api-key)
-$nagMapR_Mapkey = "";
-
-// Google Maps custom styles
-// If used, this option overlaps the map type defined in ($nagMapR_MapType)
-// This option should contain the name of the .json file in the styles folder.
-// Custom styles can be created in: (https://mapstyle.withgoogle.com/)
-// Look in the styles folder, for ready styles.
-// Leave empty if you do not want to use custom style.
-// For example: ($nagMapR_Style = "Dark";) To use de Dark.json style.
-$nagMapR_Style = "";
 
 ####################################################################################################
 #                                      NAGMAP REBORN FEATURES                                      #
@@ -95,29 +57,23 @@ $nagMapR_FilterHostgroup  = "";
 // Leave empty for not filtering
 $nagMapR_FilterService  = "";
 
-// Show ChangesBar? (Bar with information about the hosts) 
-// 1 = YES.
-// 0 = NO.
-$nagMapR_ChangesBar = 1;
-
 // Select ChangesBar mode
+// 0 = Off.
 // 1 = History mode. (Displays all occurrences sequentially with date and time)
 // 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
-// 3 = Alert mode lite. (The same as the previous, but in the form of iframe using less resources of
-// the browser/machine.) Mode 3 has some limitations such as: It is not able to open infoWindows directly
-// from ChangesBar and is not able to capture the hostname of infoWindows for filtering.
+// 3 = Alert mode sidebar. (Same as above with less information)
 $nagMapR_ChangesBarMode = 2;
 
 // Percentage size occupied by the ChangesBar on the screen. (use only numbers)
-$nagMapR_ChangesBarSize = 15;
+$nagMapR_ChangesBarSize = 25;
 
 // Font size in pixels used in ChangesBar. (use only numbers)
-$nagMapR_FontSize = 15;
+$nagMapR_FontSize = 25;
 
 // Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
 // Useful when there are a lot of hosts.
-// 1 = YES.
 // 0 = NO.
+// 1 = YES.
 $nagMapR_BarFilter = 1;
 
 // Defines the date format used in the ChangesBar.
@@ -130,8 +86,8 @@ $nagMapR_DateFormat = 1;
 // To change the alert sound, simply replace the file "Beep.mp3" in the resources folder
 // In some browsers it is necessary for user to interact with the page before it emits a sound, 
 // so an initial interaction is required for the alert to be played.
-// 1 = YES.
 // 0 = NO.
+// 1 = YES.
 $nagMapR_PlaySound = 1;
 
 //Choose the style of the icons.
@@ -141,27 +97,27 @@ $nagMapR_PlaySound = 1;
 $nagMapR_IconStyle = 1;
 
 // Show lines between hosts and their parents.
-// 1 = YES.
 // 0 = NO.
+// 1 = YES.
 $nagMapR_Lines = 1;
 
 // Time in seconds, to update the hosts status. (use only numbers)
 $nagMapR_TimeUpdate = 10;
 
-// Allow automatic errors reporting?
-// 1 = YES.
+// Automatic errors reporting?
 // 0 = NO.
+// 1 = YES.
 $nagMapR_Reporting = 1;
 
 ####################################################################################################
 #                                       SECURITY INFORMATION                                       #
 ####################################################################################################
 // Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = "AHgRux3iIEMLnh60v7CMUlHlYqM2AtFsHausnSUn63NJEtp7glX3ClkHS12Mc7ASiVu5wqePXNNAwzYAE0pOcfnRvbn4zClb";
+$nagMapR_key = "s9Yqz7Ox9pgpYx5cVinh7Iez4ZY29KGqqx9SlxSDbxmRHWgkjuLjogOIz4WFGuFQy2EOwKBJo6AA5UQY1IArMgsiR7KQwXyB";
 
 // Request authentication when accessing the page?
-// 1 = YES (Strongly recommended).
 // 0 = NO.
+// 1 = YES (Strongly recommended).
 $nagMapR_useAuth = 1;
 
 // User used for authentication.

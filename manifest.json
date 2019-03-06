@@ -1,0 +1,43 @@
+{
+  "name": "Nagmap Reborn",
+  "short_name": "NgReborn",
+  "description": "User-friendly interface for monitoring system.",
+  "lang": "en-EN",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "background_color": "#00afa9",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "resources/img/appicons/favicon16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/img/appicons/favicon32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/img/appicons/favicon48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/img/appicons/favicon64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/img/appicons/favicon128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/img/appicons/favicon512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+    "alias": "Alias",
+    "hostG": "Hostgroups",
+    "address": "Address",
+    "parent": "Parents",
+    "project": "Project in GitHub",
+    "start": "Let's get started!",
+    "wait": "Please wait while the {{t}}",
+    "filter": "Filter",
+    "clear": "Clear",
+    "debug_pg": "Debug page",
+    "cover_error": "An error has occurred.",
+    "cr_map": "map is created",
+    "cr_extras": "extra elements are created",
+    "cr_hosts": "hosts are loaded",
+    "cr_markers": "markers are generated",
+    "cr_lines": "lines are drawn",
+    "load": "dependencies are loaded",
+    "too_long": "This is taking too long, please refresh the page!",
+    "as_filter": "Use as filter",
+    "not_released": "This version has not yet been released and is still <strong>in development</strong> and therefore <strong>unfinished</strong>, it may contain <strong>several bugs</strong>.<br><br>Must be used for testing only!<br><br>For use in production the <strong>stable version</strong> must be adopted.",
+    "last_stable": "Get the latest stable version."
+}

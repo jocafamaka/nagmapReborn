@@ -20,24 +20,6 @@ if(!is_string($nagios_cfg_file))
 if(!is_string($nagios_status_dat_file)) 
   $fails .= "<br><b>\$nagios_status_dat_file</b> $var_cfg_error ($nagios_status_dat_file)";
 
-if(($nagMapR_MapAPI < 0) || ($nagMapR_MapAPI > 1) || (!isset($nagMapR_MapAPI)))
-  $fails .= "<br><b>\$nagMapR_MapAPI</b> $var_cfg_error ($nagMapR_MapAPI)";
-
-if($nagMapR_MapAPI == 0){
-
-  if(!is_string($nagMapR_Mapkey) || !isset($nagMapR_Mapkey)) 
-    $fails .= "<br><b>\$nagMapR_Mapkey</b> $var_cfg_error ($nagMapR_Mapkey)";
-
-  if(!is_string($nagMapR_MapType)) 
-    $fails .= "<br><b>\$nagMapR_MapType</b> $var_cfg_error ($nagMapR_MapType)";
-
-  if($nagMapR_Style != ''){
-    if(!file_exists("styles/$nagMapR_Style.json")){
-      $fails .= "<br><b>\$nagMapR_Style</b> $var_cfg_error ($nagMapR_Style)";
-    }
-  }
-}
-
 if(!is_string($nagMapR_FilterHostgroup)) 
   $fails .= "<br><b>\$nagMapR_FilterHostgroup</b> $var_cfg_error ($nagMapR_FilterHostgroup)";
 
@@ -62,7 +44,7 @@ if(!is_int($nagMapR_ChangesBar))
 if(!is_int($nagMapR_BarFilter))
   $fails .= "<br><b>\$nagMapR_BarFilter</b> $var_cfg_error ($nagMapR_BarFilter)";
 
-if(($nagMapR_ChangesBarMode < 1) || ($nagMapR_ChangesBarMode > 3))
+if(($nagMapR_ChangesBarMode < 0) || ($nagMapR_ChangesBarMode > 3))
   $fails .= "<br><b>\$nagMapR_ChangesBarMode</b> $var_cfg_error ($nagMapR_ChangesBarMode)";
 
 if(($nagMapR_Reporting < 0) || ($nagMapR_Reporting > 1)  || (!isset($nagMapR_Reporting)))

@@ -1,6 +1,8 @@
 <?php 
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 
+//date_default_timezone_set('America/Fortaleza');
+
 include('../config.php');
 include("../functions.php");
 
@@ -194,10 +196,12 @@ else{
       foreach ($checkFile as $key => $value) {
         if(fileHash('../'.$key) != $value){
           $nagMapR_OriginalFiles = false;
-          $intFile[$key] = 0;
+          $intFile[$key]['int'] = 0;
         }
         else
-          $intFile[$key] = 1;
+          $intFile[$key]['int'] = 1;
+
+        $intFile[$key]['lc'] = date ("d/m/Y - H:i:s", filemtime('../'.$key));
       }
 
       echo('<h6>- '. $errorReporting .':</h6>');
@@ -239,6 +243,7 @@ else{
         <thead>
         <tr>
         <th>'. $debugFile .'</th>
+        <th>Last modification</th>
         <th>'. $debugIntegrity .'</th>
         </tr>
         </thead>
@@ -247,10 +252,11 @@ else{
       );
 
       foreach ($intFile as $key => $value) {
-        if($value == 1)
+        if($value['int'] == 1)
           echo('
             <tr>
             <td>'. $key .'</td>
+            <td>'. $value['lc'] .'</td>
             <td><img src="resources/img/Ok.png"></td>
             </tr>
             ');
@@ -258,7 +264,8 @@ else{
           echo('
             <tr>
             <td>'. $key .'</td>
-            <td><img src="resources/img/No.png"></td>
+            <td>'. $value['lc'] .'</td>
+            <td><img class="p03" src="resources/img/No.png"></td>
             </tr>
             ');
       }
