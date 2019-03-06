@@ -17,7 +17,9 @@ If you use the notes field to display other information, you can make this defin
 ```
 
 You can get the precise coordinates from [OSM](https://www.openstreetmap.org/).
+
 Right click on the spot where your device is located and select option "Show Addres".
+
 The coordinates will be set in maps search bar.
 
 To draw connections, hosts need to have 'parents' field set up.
@@ -49,6 +51,7 @@ The only dependencies of NagMap Reborn are **PHP extensions/modules**, make sure
 Since v2.0.0-alpha1 of the Nagmap Reborn, features of ES6 (ECMAScript 2015) are used, so it is only possible to use the project in more modern browsers.
 
 The following is the minimum supported version relationship:
+
 | Browser | Min. version |
 | -- | :--: |
 | Chrome | 58 |
@@ -57,6 +60,7 @@ The following is the minimum supported version relationship:
 | Safari | 10 |
 | Opera | 55 |
 | Internet Explorer | Does not support |
+
 _* You can see the full list [here](http://kangax.github.io/compat-table/es6/)._
 
 For compatibility with legacy browsers, use an earlier version [(1.6.3)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.3) of the project.
