@@ -12,7 +12,7 @@ include_once('marker.php');
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="resources/img/NagFavIcon.ico" />
-    <link rel="stylesheet" href="resources/style.css?v=<?php echo file_get_contents("VERSION");?>" />
+    <link rel="stylesheet" href="resources/style.css?v=<?php echo file_get_contents("VERSION");?>" /> <!-- To avoid cache problems -->
     <link rel="stylesheet" href="resources/animate.css" />
     <link rel="stylesheet" href="resources/toastr/toastr.css" />
     <link rel="stylesheet" href="resources/sa/sweetalert2.min.css" />
