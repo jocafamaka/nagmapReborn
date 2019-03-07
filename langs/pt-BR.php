@@ -67,7 +67,9 @@ $newVersion = ("Atualização disponível");
 
 $newVersionFooter = ("Irá fechar após 10 segundos.");
 
-$newVersionText = ("<br>A versão do NagMap Reborn utilizada atualmente está desatualizada!<br><br>Obtenha a nova versão no GitHub:<br><br>");
+$newVersionText = ("<br>A mais nova versão do Nagmap Reborn já está disponível.<br><br>Obtenha agora mesmo para desfrutar de todas as novidades e melhorias!<br>");
+
+$getNow = ("Obter agora!");
 
 $passAlertTitle = ("Autenticação padrão");
 
