@@ -208,11 +208,14 @@ else{
           echo('
             <div class="alert alert-success">
             '. $reportOk .'
+
+            <hr>
+
+            '.$reportDataRequestP1 . ' <button type="button" id="token" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" title="'. $yourRToken .'" data-placement="right" data-content="'. $waiting .'.">' . $reportDataRequestP2 . '</button>.' . $reportDataRequestP3.'
+
             </div>
 
-            <div id="reportCount"></div>
-
-            '.$reportDataRequestP1 . ' <button type="button" id="token" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" title="'. $yourRToken .'" data-placement="right" data-content="'. $waiting .'.">' . $reportDataRequestP2 . '</button>.' . $reportDataRequestP3.'<br><br>');
+            <div id="reportCount"></div>');
         }
         else{
           echo('
@@ -540,7 +543,7 @@ else{
                       newDivs = newDivs.concat("<h4 class=\"my-0 font-weight-bold\">" + serv + "</h4></div><div class=\"card-body\">");
 
 
-                      newDivs = newDivs.concat("<table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTC +"</td></tr></table></div></div>");
+                      newDivs = newDivs.concat("<table class=\"table table-hover\"><tr><td><?php echo ($cs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_CS +"</td></tr><tr><td><?php echo ($lhs); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHS +"</td></tr><tr><td><?php echo ($lsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LSC +"</td></tr><tr><td><?php echo ($lhsc); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LHSC +"</td></tr><tr><td><?php echo ($lto); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTO +"</td></tr><tr><td><?php echo ($ltw); ?></td><td> : </td><td>"+ arrayInfo[i]['services'][serv].servStatus_LTW +"</td></tr><tr><td><?php echo ($ltunk); ?></td><td> : </td><td>"+arrayInfo[i]['services'][serv].servStatus_LTUNK +"</td></tr><tr><td><?php echo ($ltc); ?></td><td> : </td><td>"+arrayInfo[i]['services'][serv].servStatus_LTC +"</td></tr></table></div></div>");
                     }
                   }
                   newDivs = newDivs.concat("</div></div></div>");

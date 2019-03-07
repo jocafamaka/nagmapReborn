@@ -37,7 +37,7 @@ NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://git
 * Time to update hosts status.
 * Icons style.
 * Which API to use.
-* Use or not access control. <sup>(NEW)</sup>
+* Use or not access control.
 
 ## Compatibility
 
@@ -67,13 +67,16 @@ Undecided about which API to use? Here are some differences between them:
 [See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
 [![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
 
-## Under development
+## Hiatus notice
 
-The master branch will always contain the code referring to the latest stable version.
+From 03/2019 the project will go into hiatus to add features.
 
-See [here](https://github.com/jocafamaka/nagmapReborn/tree/developing) the version in development, this version contains the latest modifications and new features.
+This decision was taken so that all attention is focused on the development of the [v2.0.0](https://github.com/jocafamaka/nagmapReborn/tree/v2.0.0), which will bring many benefits.
 
-It should be noted that this version may contain features that are still being tested and should **NOT** be used in production under any circumstances!
+### Important Notes:
+* This version will continue to receive support.
+* Version 1.6.4 will be the last stable version until release of v2.0.0(alpha/rc/final).
+* There is no prediction yet for release of the new version.
 
 ## Support
 
