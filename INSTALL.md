@@ -63,7 +63,7 @@ The following is the minimum supported version relationship:
 
 _* You can see the full list [here](http://kangax.github.io/compat-table/es6/)._
 
-For compatibility with legacy browsers, use an earlier version [(1.6.3)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) of the project.
+For compatibility with legacy browsers, use an earlier version [(1.6.4)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) of the project.
 
 ## Support
 
