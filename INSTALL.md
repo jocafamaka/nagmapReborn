@@ -18,9 +18,9 @@ If you use the notes field to display other information, you can make this defin
 
 You can get the precise coordinates from [OSM](https://www.openstreetmap.org/).
 
-Right click on the spot where your device is located and select option "Show Addres".
+  * Right click on the spot where your device is located and select option "Show Addres".
 
-The coordinates will be set in maps search bar.
+  * The coordinates will be set in maps search bar.
 
 To draw connections, hosts need to have 'parents' field set up.
 
