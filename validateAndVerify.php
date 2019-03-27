@@ -38,9 +38,6 @@ if(!is_int($nagMapR_DateFormat))
 if(!is_int($nagMapR_PlaySound))
   $fails .= "<br><b>\$nagMapR_PlaySound</b> $var_cfg_error ($nagMapR_PlaySound)";
 
-if(!is_int($nagMapR_ChangesBar))
-  $fails .= "<br><b>\$nagMapR_ChangesBar</b> $var_cfg_error ($nagMapR_ChangesBar)";
-
 if(!is_int($nagMapR_BarFilter))
   $fails .= "<br><b>\$nagMapR_BarFilter</b> $var_cfg_error ($nagMapR_BarFilter)";
 
