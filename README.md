@@ -1,6 +1,11 @@
 # NagMap Reborn Introduction
 NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
+## ATTENTION
+Note that his version still **in development** and therefore **unfinished**, it may contain **several bugs**, must be used for testing only!
+
+For use in production the [stable version](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) must be adopted.
+
 ## v2.0.0
 This version has as objective to bring update of the used technologies, as well as a redesing of the current structure of the project, allowing a better performance and maintenance.
 
