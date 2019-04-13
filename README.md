@@ -98,3 +98,14 @@ Contribution are always **welcome and recommended**! Here is how:
 * By using this API Implementation, your are agreeing to be bound by Leaflet, OpenStreetMap and Google's Terms of Use.
 * This app uses the OpenStreetMap's tiles. [See here](https://wiki.osmfoundation.org/wiki/Privacy_Policy) the privacy policy.
 * This app uses the Google Maps API. [See here](https://cloud.google.com/maps-platform/terms/) Google privacy policy. - [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
+
+## Donation
+As an Information Systems student about to graduate me, I use my free time to bring updates and improvements to the project, without any financial purpose.
+
+So if you like this project, help me to continue development and free support, buy me a coffee:
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G6E995UWUM2J6&item_name=Buy+me+a+coffee&currency_code=BRL&source=url)
+
+<p align="center"> 
+    <img src="https://media.giphy.com/media/UqTEN18TcQniWLWQBM/giphy.gif">
+</p>
