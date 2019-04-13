@@ -106,4 +106,6 @@ So if you like this project, help me to continue development and free support, b
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G6E995UWUM2J6&item_name=Buy+me+a+coffee&currency_code=BRL&source=url)
 
-<div style="text-align:center"><img src ="https://media.giphy.com/media/cn3f6tdgXSPTLFiGBA/giphy.gif" /></div>
+<p align="center"> 
+    <img src="https://media.giphy.com/media/cn3f6tdgXSPTLFiGBA/giphy.gif">
+</p>
