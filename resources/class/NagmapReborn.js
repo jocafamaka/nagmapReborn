@@ -8,7 +8,7 @@ class NagmapReborn {
 
     constructor(config = {}) {
         try {
-            /* Load config */
+            // Load config
             this._debug = config.debug || 0;
             this._mapCenter = config.mapCenter || [-6.469293, -50.913464];
             this._mapDefaultZoom = config.mapDefaultZoom || 6.1;
@@ -31,7 +31,7 @@ class NagmapReborn {
 
             this.icons = this.getIcons();
 
-            /* Create oms instance. */
+            // Create oms instance.
             this.oms = new OverlappingMarkerSpiderfier(window.map, {
                 keepSpiderfied: true,
                 spiralFootSeparation: 28,
@@ -48,7 +48,7 @@ class NagmapReborn {
 
             // justAnError();
 
-            window.generalStatus = 1;
+            // window.generalStatus = 1;
         } catch (e) {
             Utils.initErrorHandler(e);
         }
@@ -70,8 +70,9 @@ class NagmapReborn {
         document.getElementsByTagName("head")[0].appendChild(el);
     } */
 
-    /* 
-     *  Responsible for creating the map.
+    /** 
+     * Responsible for creating the map.
+     * @return undefined
      */
     insertMap() {
         /* this.insertNode("resources/leaflet/leaflet.css");
@@ -101,8 +102,9 @@ class NagmapReborn {
         }
     }
 
-    /* 
+    /**
      * Responsible for insert ChangesBar and Filter. 
+     * @return undefined
      */
     createExtras() {
         if (this._cbMode) {
@@ -135,8 +137,9 @@ class NagmapReborn {
         }
     }
 
-    /*
+    /**
      * Responsible for load all defined icons. 
+     * @return Object icons
      */
     getIcons() {
 
@@ -180,8 +183,9 @@ class NagmapReborn {
         return icons;
     }
 
-    /*
+    /**
      * Responsible for load all valid hosts.
+     * @return Array hosts
      */
     getHosts() {
         let tempHosts = [];
@@ -194,8 +198,9 @@ class NagmapReborn {
         return tempHosts;
     }
 
-    /*
+    /**
      * Responsible for create all lines. 
+     * @return undefined
      */
     createLines() {
         for (let h in this.hosts) {

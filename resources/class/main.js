@@ -4,11 +4,11 @@
  * 
  ******************************************************************************************/
 
-/* Handler the cover states */
+// Handler the cover states
 coverHanlder = () => {
     if (window.generalStatus >= 0) {
 
-        /* Case successfully loaded, display the map */
+        // Case successfully loaded, display the map
         if (window.generalStatus === 1) {
             tp.stop();
             $("#cover").addClass("fadeOut fast");
@@ -24,34 +24,34 @@ coverHanlder = () => {
                 confirmButtonText: 'OK'
             });
         }
-        /* If it is still loading, wait to check again */
+        // If it is still loading, wait to check again
         else {
             setTimeout(() => {
                 coverHanlder()
             }, 1500);
         }
     }
-    /* In case of error it displays the error page */
+    // In case of error it displays the error page
     else {
 
-        /* Stop the typed */
+        // Stop the typed
         tp.stop();
 
-        /* Stop the marker animation */
+        // Stop the marker animation
         $("#marker_circle").css("animation-iteration-count", 0).css("fill", "#663333");
 
-        /* Hide some elements from the page */
+        // Hide some elements from the page
         $("#marker_pin").fadeOut(200);
         $("#marker_shadow").fadeOut(200);
         $("#cover_msg").hide();
 
-        /* Displays error elements */
+        // Displays error elements
         $("#cover_error").fadeIn(200);
         $("#cover_msg_error").fadeIn(200);
         $("#marker_pin_error").fadeIn(200);
         $("#marker_shadow_error").fadeIn(200);
 
-        /* coverMsgUp('cover_error', true); */
+        // coverMsgUp('cover_error', true);
         if (window.generalStatus === -1)
             $("#cover_msg_error").html(i18next.t('cover_error'));
 
@@ -82,7 +82,7 @@ coverHanlder = () => {
 $(document).ready(() => {
     try {
 
-        /* Open hosts infoWindow */
+        // Open hosts infoWindow
         openPopup = host => {
             host.bindPopup(host.options.popupContent);
             host.openPopup();
