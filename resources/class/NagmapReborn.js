@@ -48,7 +48,7 @@ class NagmapReborn {
 
             // justAnError();
 
-            // window.generalStatus = 1;
+            window.generalStatus = 1;
         } catch (e) {
             Utils.initErrorHandler(e);
         }
