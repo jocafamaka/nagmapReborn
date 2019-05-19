@@ -1,6 +1,6 @@
-# NagMap Reborn Introduction
+# Nagmap Reborn Introduction
 
-NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
+Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
 ## Features
 
@@ -64,8 +64,8 @@ Undecided about which API to use? Here are some differences between them:
 
 ## Live preview (Google Maps)
 
-[See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
-[![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
+[See here](https://jocafamaka.github.io) the Nagmap Reborn live preview:
+[![Nagmap Reborn live preview](https://i.imgur.com/sTG8YBV.jpg)](https://jocafamaka.github.io)
 
 ## Hiatus notice
 
@@ -80,9 +80,9 @@ This decision was taken so that all attention is focused on the development of t
 
 ## Support
 
-If you experience any problems deploying NagMap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
+If you experience any problems deploying Nagmap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
 
-You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of NagMap Reborn.
+You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of Nagmap Reborn.
 
 ## Contribution
 
