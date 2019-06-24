@@ -13,6 +13,7 @@ class Host {
 		this.lines = [];
 	}
 
+
 	/*
 	 * Responsible for creating the host marker and infoWindow. 
 	 */
@@ -54,20 +55,14 @@ class Host {
 			zIndexOffset: zIndex,
 			popupContent: `
 				<div class="bubble">
-					<h3><strong>${data.nagios_host_name}</strong></h3>
-					
+					<h5><strong>${data.nagios_host_name}</strong></h5>
 					<table>
 						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}"` : ""} ><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
 						<tr><td><strong>${i18next.t('hostG')}</strong></td><td>:</td><td>${hostgroups}</td></tr>
-						<tr><td><strong>${i18next.t('address')}</strong></td><td>:</td><td>${data.address}</td></tr>
+						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http</a> | <a class='address-link' target='_blank' href='https://${data.address}'>https</a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src="resources/img/link.svg" alt="Link" /></td></tr>
 						<tr><td><strong>${i18next.t('parent')}</strong></td><td>:</td><td>${parents}</td></tr>
+						<tr><td colspan=3 style="text-align: center"><br><a target="_blank" href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="${i18next.t('project')}" src="resources/img/logoMiniBlack.png" alt=""></a></td></tr>
 					</table>
-					<center>
-						<br>
-						<a href="https://www.github.com/jocafamaka/nagmapReborn/">
-							<img title="${i18next.t('project')}" src="resources/img/logoMiniBlack.png" alt="">
-						</a>
-					<center>
 				</div>
 			`
 		}).addTo(window.map);

@@ -1,4 +1,4 @@
-<?php 
+<?php
 ####################################################################################################
 #                                          GENERAL CONFIGS                                         #
 ####################################################################################################
@@ -90,7 +90,7 @@ $nagMapR_DateFormat = 1;
 // 1 = YES.
 $nagMapR_PlaySound = 1;
 
-//Choose the style of the icons.
+// Choose the style of the icons.
 // 0 = Original icon.
 // 1 = No edges with shadow.
 // 2 = With edges without shadow.

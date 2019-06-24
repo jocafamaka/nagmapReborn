@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $key = $_POST['key'];
 $lastFile = $_POST['lastFile'];
@@ -86,7 +86,7 @@ if($key == $nagMapR_key){
 
 			if (($option == "current_state") && ($type == "servicestatus")) {
                 //Used if it is not included in the filters.
-				$serviceBackup[$host] = ($value);   
+				$serviceBackup[$host] = ($value);
 
 				if($nagMapR_FilterService != ''){
 
@@ -123,7 +123,7 @@ if($key == $nagMapR_key){
 
 					if($hours == 0)
 						$data[$host]['time_LTU'] = ( $minutes. " min");
-					else{           
+					else{
 						$data[$host]['time_LTU'] = ( $hours. " h ". $and ." " .$minutes. " min");
 					}
 				}
@@ -141,7 +141,7 @@ if($key == $nagMapR_key){
 
 					if($hours == 0)
 						$data[$host]['time_LSC'] = ( $minutes. " min");
-					else{           
+					else{
 						$data[$host]['time_LSC'] = ( $hours. " h ". $and ." " .$minutes. " min");
 					}
 				}
@@ -161,7 +161,7 @@ if($key == $nagMapR_key){
 			$hStatus[$key]['status'] = 1;
 
 		} elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 2)) {
-			$hStatus[$key]['status'] = 2;    
+			$hStatus[$key]['status'] = 2;
 
 		} elseif ($data[$key]['hostStatus_CS'] == 1)  {
 			$hStatus[$key]['status'] = 3;
@@ -204,7 +204,7 @@ if($key == $nagMapR_key){
 						$updateHosts[$key]['status'] = $hStatus[$key]['status'];
 						$updateHosts[$key]['time'] = $hStatus[$key]['time'];
 					}
-				} 
+				}
 				catch(Exception $e){
 					$response['leak'] = true;
 				}
@@ -249,4 +249,3 @@ if($key == $nagMapR_key){
 
 	echo json_encode($response);
 }
-?>

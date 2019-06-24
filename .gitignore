@@ -3,6 +3,8 @@ migrate.php
 random.php
 keys.txt
 check.php
+devNotes.md
 tests/
 features/
-cache/
+storage/
+*.old

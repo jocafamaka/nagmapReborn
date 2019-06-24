@@ -19,5 +19,10 @@
     "too_long": "Isto está demorando demais, por favor recarregue a página!",
     "as_filter": "Usar como filtro",
     "not_released": "Essa versão ainda não foi lançada e ainda está <strong>em desenvolvimento</strong> e portanto <strong>inacabada</strong>, pode conter <strong>vários bugs</strong>.<br><br>Deve ser utilizada somente para teste!<br><br>Para uso em produção deve ser adotada a <strong>versão estável</strong>.",
-    "last_stable": "Obtenha a última versão estável."
+    "last_stable": "Obtenha a última versão estável.",
+    "details": "Detalhes",
+    "close": "Fechar",
+
+
+    "ngr_init_error": "Falha ao inicializar a classe!"
 }

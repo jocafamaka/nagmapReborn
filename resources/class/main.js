@@ -50,6 +50,7 @@ coverHanlder = () => {
         $("#cover_msg_error").fadeIn(200);
         $("#marker_pin_error").fadeIn(200);
         $("#marker_shadow_error").fadeIn(200);
+        $("#error_button").fadeIn(200).addClass("animated shake delay-05s");
 
         // coverMsgUp('cover_error', true);
         if (window.generalStatus === -1)
@@ -86,12 +87,13 @@ $(document).ready(() => {
         openPopup = host => {
             host.bindPopup(host.options.popupContent);
             host.openPopup();
-            if (config.cbFilter) {
-                tippy('.filter', {
-                    arrow: true,
-                    followCursor: "horizontal"
-                });
-            }
+
+            tippy('.filter, .address', {
+                arrow: true,
+                //followCursor: "horizontal",
+                interactive: true
+            });
+
             host.unbindPopup();
         }
 

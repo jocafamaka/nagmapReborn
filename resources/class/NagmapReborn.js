@@ -50,7 +50,7 @@ class NagmapReborn {
 
             window.generalStatus = 1;
         } catch (e) {
-            Utils.initErrorHandler(e);
+            Utils.initErrorHandler(e, i18next.t('ngr_init_error'));
         }
     }
 
@@ -117,11 +117,16 @@ class NagmapReborn {
 
             if (this._cbFilter) {
                 $("#filter").html(`
-                <input style="font-size:${this._cbFontSize}px;" type="text" id="searchBar" class="form-control" placeholder="${i18next.t('filter')}...">
-                <button class="cleanS" onclick="e=>{e.preventDefault();};$('#searchBar').val('');search();" style="font-size:${this._cbFontSize}px;" title="${i18next.t('clear')}">
-                    <img alt="" src="resources/img/trash-alt-regular.svg" height="${this._cbFontSize}px">
-                </button>
-                <div class="clearfix"></div>
+                <div class="row" style="width:100%;margin-bottom:0px">
+                    <div class="input-field col s${(this._cbMode == 3) ? '10' : '11'}">
+                    <i class="material-icons prefix">search</i>
+                        <input id="filter_str" type="text" class="validate" style="font-size:${this._cbFontSize}px;">
+                        <label for="filter_str">${i18next.t('filter')}</label>
+                    </div>
+                    <div class="input-field col s${(this._cbMode == 3) ? '2' : '1'} center-align">
+                        <button class="btn waves-effect waves-light red lighten-1" title="${i18next.t('clear')}" onclick="e=>{e.preventDefault();};$('#searchBar').val('');search();"><i class="material-icons">delete</i></button>
+                    </div>
+                </div>
                 `);
 
                 $("#filter").css("display", "flex", "important");
@@ -130,9 +135,7 @@ class NagmapReborn {
 
         if (this._debug) {
             $("#debug").html(`
-            <button onclick="location.href='debugInfo/index.php'" class="button">
-                <span>${i18next.t('debug_pg')}</span>
-            </button>
+            <a onclick="location.href='debugInfo/index.php'" class="waves-effect waves-light btn btn-large green darken-3 button"><i class="material-icons left">assignment</i>${i18next.t('debug_pg')}</a>
             `);
         }
     }

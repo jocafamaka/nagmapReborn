@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
+//error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 include_once('validateAndVerify.php');
 include_once('marker.php');
 ?>
@@ -12,19 +12,28 @@ include_once('marker.php');
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="resources/img/NagFavIcon.ico" />
-    <link rel="stylesheet" href="resources/style.css?v=<?php echo file_get_contents("VERSION");?>" /> <!-- To avoid cache problems -->
+    <link rel="stylesheet" href="resources/materialize/materialize.min.css">
+    <link rel="stylesheet" href="resources/materialize/materialicons.css">
+    <link rel="stylesheet" href="resources/style.css?v=<?php echo file_get_contents("VERSION"); ?>" /> <!-- To avoid cache problems -->
     <link rel="stylesheet" href="resources/animate.css" />
     <link rel="stylesheet" href="resources/toastr/toastr.css" />
     <link rel="stylesheet" href="resources/sa/sweetalert2.min.css" />
     <link rel="stylesheet" href="resources/leaflet/leaflet.css" />
-    <title>NagMap Reborn</title>
+    <title>Nagmap Reborn</title>
 </head>
 
 <body>
     <div id="debug"> </div>
 
+    <div id="error_button" class="hidden">
+        <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal_error" onclick="$('#modal_error').modal().modal('open');"><i class="material-icons">error_outline</i></a>
+    </div>
+
+    <div id="modal_error" class="modal modal-fixed-footer">
+    </div>
+
     <div class="animated" id="cover">
-        <div id="cover_error" class="hide"></div>
+        <div id="cover_error" class="hidden"></div>
         <!-- Load page -->
         <div class="slide" id="welcome">
             <div class="inside animated fadeIn delay-05s slow">
@@ -32,7 +41,7 @@ include_once('marker.php');
                     <?php echo file_get_contents("resources/img/NagmapR-Logo.svg"); ?>
                 </svg>
                 <h2 id="cover_msg" class="animated fadeIn delay-2s fast"></h2>
-                <h2 id="cover_msg_error" class="hide"></h2>
+                <h2 id="cover_msg_error" class="hidden"></h2>
             </div>
         </div>
         <!-- End load page -->
@@ -54,6 +63,8 @@ include_once('marker.php');
 
     <script src="debugInfo/resources/js/jquery.min.js"></script>
 
+    <script src="resources/materialize/materialize.min.js"></script>
+
     <script src="debugInfo/resources/js/popper.min.js"></script>
     <script src="resources/tippy.min.js"></script>
 
@@ -64,36 +75,36 @@ include_once('marker.php');
     <script src="resources/toastr/toastr.min.js"></script>
     <script src="resources/sa/sweetalert2.all.min.js"></script>
 
-    <script src="resources/class/Utils.js"></script>
-    <script src="resources/class/Host.js"></script>
-    <script src="resources/class/NagmapReborn.js"></script>
-    <script src="resources/class/main.js"></script>
+    <script src="resources/Class/Utils.js"></script>
+    <script src="resources/Class/Host.js"></script>
+    <script src="resources/Class/NagmapReborn.js"></script>
+    <script src="resources/Class/main.js"></script>
 
     <script>
         try {
             var tempHostsInfo = <?php echo json_encode($data); ?>;
 
             var config = {
-                debug: <?php echo ($nagMapR_Debug); ?>,
-                mapCenter: [<?php echo ($nagMapR_MapCentre); ?>],
-                mapDefaultZoom: <?php echo ($nagMapR_MapZoom); ?>,
-                mapTiles: "<?php echo ($nagMapR_LeafletStyle); ?>",
-                locale: "<?php echo ($nagMapR_Lang); ?>",
-                cbMode: <?php echo ($nagMapR_ChangesBarMode); ?>,
-                cbSize: <?php echo ($nagMapR_ChangesBarSize); ?>,
-                cbFilter: <?php echo ($nagMapR_BarFilter); ?>,
-                cbFontSize: <?php echo ($nagMapR_FontSize); ?>,
-                dtFormat: <?php echo ($nagMapR_DateFormat); ?>,
-                soundAlert: <?php echo ($nagMapR_PlaySound); ?>,
-                iconStyle: <?php echo ($nagMapR_IconStyle); ?>,
-                showLines: <?php echo ($nagMapR_Lines); ?>,
-                updateTime: <?php echo ($nagMapR_TimeUpdate); ?>,
-                secKey: "<?php echo ($nagMapR_key); ?>"
+                debug: parseInt('<?php echo ($nagMapR_Debug); ?>' || 0),
+                mapCenter: [<?php echo ($nagMapR_MapCentre); ?>] || [-6.469293, -50.913464],
+                mapDefaultZoom: parseFloat('<?php echo ($nagMapR_MapZoom); ?>' || 6.1),
+                mapTiles: "<?php echo ($nagMapR_LeafletStyle); ?>" || "//{s}.tile.osm.org/{z}/{x}/{y}.png",
+                locale: "<?php echo ($nagMapR_Lang); ?>" || "en-US",
+                cbMode: parseInt('<?php echo ($nagMapR_ChangesBarMode); ?>' || 0),
+                cbSize: parseInt('<?php echo ($nagMapR_ChangesBarSize); ?>' || 25),
+                cbFilter: parseInt('<?php echo ($nagMapR_BarFilter); ?>' || 0),
+                cbFontSize: parseInt('<?php echo ($nagMapR_FontSize); ?>' || 25),
+                dtFormat: parseInt('<?php echo ($nagMapR_DateFormat); ?>' || 1),
+                soundAlert: parseInt('<?php echo ($nagMapR_PlaySound); ?>' || 0),
+                iconStyle: parseInt('<?php echo ($nagMapR_IconStyle); ?>' || 0),
+                showLines: parseInt('<?php echo ($nagMapR_Lines); ?>' || 0),
+                updateTime: parseInt('<?php echo ($nagMapR_TimeUpdate); ?>' || 15),
+                secKey: "<?php echo ($nagMapR_key); ?>" || "s9Yqz7Ox9pgpYx5cVinh7Iez4ZY29KGqqx9SlxSDbxmRHWgkjuLjogOIz4WFGuFQy2EOwKBJo6AA5UQY1IArMgsiR7KQwXyB"
             };
 
             var i18nConfig = {
                 lng: "<?php echo ($nagMapR_Lang); ?>",
-                debug: true,
+                debug: config.debug,
                 resources: {
                     "<?php echo ($nagMapR_Lang); ?>": {
                         translation: <?php echo file_get_contents("langs/$nagMapR_Lang.json"); ?>
@@ -101,9 +112,9 @@ include_once('marker.php');
                 }
             };
         } catch (e) {
-            Utils.initErrorHandler();
+            Utils.initErrorHandler(e);
         }
     </script>
 </body>
 
-</html> 
+</html>

@@ -16,42 +16,43 @@ $files = get_config_files();
 
 // Read content of all Nagios configuration files into one huge array
 foreach ($files as $file) {
-	$raw_data[$file] = file($file);
+	if (file_exists($file))
+		$raw_data[$file] = file($file);
 }
 
 $data = filter_raw_data($raw_data, $files);
 
 // hosts definition - we are only interested in hostname, parents and notes with position information
 foreach ($data as $host) {
-	if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name']))) | ($host['register'] == 0)) {
+	if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name'])))) {
 		$hostname = safe_name($host["host_name"]);
 		$hosts[$hostname]['host_name'] = $hostname;
 		$hosts[$hostname]['nagios_host_name'] = $host["host_name"];
 		$hosts[$hostname]['alias'] = $host["alias"];
 
-    // iterate for every option for the host
+		// iterate for every option for the host
 		foreach ($host as $option => $value) {
-      // get parents information
+			// get parents information
 			if ($option == "parents") {
-				$parents = explode(',', $value); 
+				$parents = explode(',', $value);
 				foreach ($parents as $parent) {
 					$parent = safe_name($parent);
 					$hosts[$hostname]['parents'][] = $parent;
 				}
 				continue;
 			}
-      // we are only interested in latlng values from notes
+			// we are only interested in latlng values from notes
 			if ($option == "notes") {
-				if (preg_match("/<latlng>/",$value)) { 
-					$value = explode("<latlng>",$value);
-					$value = explode("</latlng>",$value[1]);
+				if (preg_match("/<latlng>/", $value)) {
+					$value = explode("<latlng>", $value);
+					$value = explode("</latlng>", $value[1]);
 					$hosts[$hostname]['latlng'] = trim($value[0]);
 					continue;
 				} else {
 					continue;
 				}
 			};
-      // another few information we are interested in
+			// another few information we are interested in
 			if (($option == "address")) {
 				$hosts[$hostname]['address'] = trim($value);
 			};
@@ -61,12 +62,12 @@ foreach ($data as $host) {
 					$hosts[$hostname]['hostgroups'][] = $hostgroup;
 				}
 			};
-      // another few information we are interested in - this is a user-defined nagios variable
+			// another few information we are interested in - this is a user-defined nagios variable
 			if (preg_match("/^_/", trim($option))) {
-				$hosts[$hostname]['user'][] = $option.':'.$value;
+				$hosts[$hostname]['user'][] = $option . ':' . $value;
 			};
 			unset($parent, $parents);
-		} 
+		}
 	}
 }
 unset($data);
@@ -82,11 +83,10 @@ if ($nagMapR_FilterHostgroup) {
 // get host statuses
 $s = nagMapR_status();
 
-// remove hosts we are not able to render and combine those we are able to render with their statuses 
+// remove hosts we are not able to render and combine those we are able to render with their statuses
 foreach ($hosts as $h) {
-	if ((isset($h["latlng"])) AND (isset($h["host_name"])) AND (isset($s[$h["nagios_host_name"]]['status']))) {
+	if ((isset($h["latlng"])) and (isset($h["host_name"])) and (isset($s[$h["nagios_host_name"]]['status']))) {
 		$data[$h["host_name"]] = $h;
 		$data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
 	}
 }
-?>

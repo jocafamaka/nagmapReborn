@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='12px' height='12px' version='1.1' style='shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd' viewBox='0 0 2.7 2.7' xmlns:xlink='http://www.w3.org/1999/xlink'>
+	<defs>
+		<style type='text/css'><![CDATA[.link_svg_fil1 {fill:#010101}]]></style>
+	</defs>
+	<g id='Camada_x0020_1'>
+		<path class='link_svg_fil1' d='M0 0.52l0 1.88c0,0.16 0.14,0.3 0.29,0.3l1.91 0c0.07,0 0.16,-0.05 0.2,-0.09 0.05,-0.05 0.08,-0.13 0.08,-0.21l0 -1.12 -0.39 0 0 1.04 -1.7 0 0 -1.71 1.01 0 0 -0.39 -1.09 0c-0.16,0 -0.31,0.14 -0.31,0.3z'/>
+		<path class='link_svg_fil1' d='M1.63 0.11c0,0.12 -0.02,0.13 0.05,0.18 0.05,0.03 0.37,0.01 0.44,0.01 -0.02,0.04 -0.86,0.87 -0.96,0.97 -0.09,0.09 -0.12,0.09 -0.12,0.19 0,0.05 0.11,0.16 0.15,0.19 0.1,0.07 0.17,-0.02 0.21,-0.07l0.83 -0.83c0.04,-0.04 0.13,-0.14 0.17,-0.17 0,0.07 -0.01,0.39 0.02,0.44 0.04,0.07 0.06,0.06 0.17,0.06 0.07,0 0.11,-0.05 0.11,-0.12l0 -0.84c0,-0.07 -0.06,-0.12 -0.13,-0.12l-0.82 0c-0.06,0 -0.12,0.05 -0.12,0.11z'/>
+	</g>
+</svg>
