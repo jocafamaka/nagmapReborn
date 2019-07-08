@@ -5,6 +5,9 @@
  ******************************************************************************************/
 
 // Handler the cover states
+
+const _u = Utils;
+
 coverHanlder = () => {
     if (window.generalStatus >= 0) {
 
@@ -56,8 +59,10 @@ coverHanlder = () => {
         if (window.generalStatus === -1)
             $("#cover_msg_error").html(i18next.t('cover_error'));
 
-        if (window.generalStatus === -2)
+        if (window.generalStatus === -2) {
+            Utils.initErrorHandler(i18next.t('too_long_details'));
             $("#cover_msg_error").text(i18next.t('too_long'));
+        }
 
         swal({
             type: "warning",
@@ -97,7 +102,24 @@ $(document).ready(() => {
             host.unbindPopup();
         }
 
+        _u.consoleDebug("Starting translation library."); //#DEBUG_MSG#
+
         i18next.init(i18nConfig).then(function (t) {
+            _u.consoleDebug("Displaying loading message."); //#DEBUG_MSG#
+
+            jqueryI18next.init(i18next, $, {
+                tName: 't',
+                i18nName: 'i18n',
+                handleName: 'localize',
+                selectorAttr: 'data-i18n',
+                targetAttr: 'i18n-target',
+                optionsAttr: 'i18n-options',
+                useOptionsAttr: false,
+                parseDefaultValueFromContent: true
+            });
+
+            $(document).localize();
+
             tp = new Typed("#cover_msg", {
                 strings: [i18next.t('wait', {
                     t: `${i18next.t('load')}...`
@@ -127,9 +149,12 @@ $(document).ready(() => {
             /* window.firstTime = false;
             $("#cover_msg_error").text(i18next.t('start'));
             coverMsgUp('start', true); */
+            _u.consoleDebug("Initializing Nagmap Reborn class."); //#DEBUG_MSG#
+
             window.nagmapReborn = new NagmapReborn(config);
         });
+
     } catch (e) {
-        Utils.initErrorHandler(e);
+        _u.initErrorHandler(e);
     }
 });

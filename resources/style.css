@@ -119,8 +119,61 @@ hr {
 #debug {
     position: fixed;
     top: -40px !important;
-    left: calc(50% - 65px);
+    left: calc(50% - 204px);
     z-index: 2000;
+}
+
+.debug_console {
+    position: absolute;
+    overflow: hidden;
+    display: block;
+    width: 0%;
+    height: 100%;
+    z-index: 5000;
+    max-width: 300px;
+    transition: width ease-in-out 1s, min-width ease-in-out 1s;
+    background: #000;
+}
+
+.debug_console.open {
+    width: 25%;
+}
+
+#console_text{
+    overflow: auto;
+    height: 100%;
+    padding: 5px;
+}
+
+#console_text::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+#console_text::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+#console_text::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border: 2px solid #555555;
+}
+
+.debugText {
+    padding: 10px 0px 10px 0;
+    margin: 0;
+}
+
+.debugText.ok{
+    border-bottom: 1px solid green;
+    color: #0eff00;
+}
+
+.debugText.error{
+    border-bottom: 1px solid red;
+    color: #ff0000;
 }
 
 #error_button {
@@ -135,7 +188,7 @@ hr {
     border-radius: 10px !important;
     /* opacity: 0.5 !important; */
     background: #00000099 !important;
-    color: #ff0000 !important;
+    color: #f44336 !important;
     text-shadow: 2px 2px 4px #000 !important;
 }
 
@@ -143,7 +196,7 @@ hr {
     background-color: #00000021 !important;
 }
 
-.modal-close{
+.modal-close {
     color: #fff !important;
 }
 

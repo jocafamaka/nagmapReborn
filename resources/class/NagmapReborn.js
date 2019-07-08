@@ -135,6 +135,7 @@ class NagmapReborn {
 
         if (this._debug) {
             $("#debug").html(`
+            <a onclick="$('#debug_console').toggleClass('open')" class="waves-effect waves-light btn btn-large cyan darken-3 button"><i class="material-icons left">featured_play_list</i>${i18next.t('debug_csl')}</a>
             <a onclick="location.href='debugInfo/index.php'" class="waves-effect waves-light btn btn-large green darken-3 button"><i class="material-icons left">assignment</i>${i18next.t('debug_pg')}</a>
             `);
         }
