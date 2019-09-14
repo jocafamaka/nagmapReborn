@@ -113,4 +113,6 @@ foreach ($checkFile as $key => $value) {
     break;
   }
 }
+
+define("NGR_VERSION", file_get_contents("VERSION")); //rand());
 ?>

@@ -24,6 +24,7 @@
     "last_stable": "Obtenha a última versão estável.",
     "details": "Detalhes",
     "close": "Fechar",
+    "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> Esse navegador não é compátivel com NagmapReborn, por favor atualize seu navegador ou utilize um mais moderno!",
 
 
     "ngr_init_error": "Falha ao inicializar a classe!"

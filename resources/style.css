@@ -21,6 +21,10 @@ body {
     height: 100%;
 }
 
+.row {
+    margin-bottom: 0px !important;
+}
+
 .hidden {
     display: none;
 }
@@ -118,9 +122,50 @@ hr {
 
 #debug {
     position: fixed;
-    top: -40px !important;
-    left: calc(50% - 204px);
+    top: 25%;
+    right: -204px !important;
     z-index: 2000;
+    display: grid;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+#debug:hover {
+    right: -154px !important;
+}
+
+.button {
+    opacity: 0.3;
+    margin-top: 10px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.button:hover {
+    opacity: 1 !important;
+    right: 154px !important;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+
+}
+
+.button:hover span:after {
+    opacity: 1;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
 }
 
 .debug_console {
@@ -139,7 +184,7 @@ hr {
     width: 25%;
 }
 
-#console_text{
+#console_text {
     overflow: auto;
     height: 100%;
     padding: 5px;
@@ -166,12 +211,12 @@ hr {
     margin: 0;
 }
 
-.debugText.ok{
+.debugText.ok {
     border-bottom: 1px solid green;
     color: #0eff00;
 }
 
-.debugText.error{
+.debugText.error {
     border-bottom: 1px solid red;
     color: #ff0000;
 }
@@ -290,22 +335,12 @@ a:visited {
     transition: opacity 500ms linear, max-height 500ms linear;
 }
 
-.button:hover {
-    opacity: 1 !important;
-    margin-top: 45px !important;
-}
-
 .filter {
     cursor: url("img/cursorFilter.png"), auto;
 }
 
 .filter:focus {
     outline: none;
-}
-
-.button:hover span:after {
-    opacity: 1;
-    right: 0;
 }
 
 #changesbar {
@@ -352,63 +387,20 @@ a:visited {
     font-family: arial;
 }
 
-/* Tool tips on infoWindow */
+@media only screen and (max-width: 650px) {
+    .mapdb3 {
+        height: 70% !important;
+        width: 100% !important;
+    }
 
-[tooltip] {
-    position: relative;
-    display: inline-block;
+    .db3 {
+        height: 30% !important;
+        display: block !important;
+    }
+    .debug_console.open {
+        width: 50%;
+    }
 }
-
-[tooltip]::before {
-    content: "";
-    position: absolute;
-    top: -6px;
-    left: -2px;
-    transform: translateX(-50%);
-    border-width: 4px 6px 0 6px;
-    border-style: solid;
-    border-color: rgba(128, 128, 128, 0.9) transparent transparent transparent;
-    z-index: 99;
-    opacity: 0;
-}
-
-[tooltip-position='buttom']::before {
-    top: 100%;
-    margin-top: 8px;
-    transform: translateX(-50%) translatey(-100%) rotate(-180deg)
-}
-
-[tooltip]::after {
-    content: attr(tooltip);
-    position: absolute;
-    left: -2px;
-    top: -6px;
-    transform: translateX(-50%) translateY(-100%);
-    background: rgba(128, 128, 128, 0.9);
-    text-align: center;
-    color: #fff;
-    padding: 4px 2px;
-    font-size: 12px;
-    min-width: 80px;
-    border-radius: 5px;
-    pointer-events: none;
-    padding: 4px 4px;
-    z-index: 99;
-    opacity: 0;
-}
-
-[tooltip-position='buttom']::after {
-    top: 100%;
-    margin-top: 8px;
-    transform: translateX(-50%) translateY(0%);
-}
-
-[tooltip]:hover::after,
-[tooltip]:hover::before {
-    opacity: 1
-}
-
-/* End tool tips on infoWindow */
 
 /* Logo animation */
 

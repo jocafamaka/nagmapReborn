@@ -12,13 +12,13 @@ include_once('marker.php');
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="resources/img/NagFavIcon.ico" />
-    <link rel="stylesheet" href="resources/materialize/materialize.min.css">
-    <link rel="stylesheet" href="resources/materialize/materialicons.css">
-    <link rel="stylesheet" href="resources/style.css?v=<?php echo file_get_contents("VERSION"); ?>" /> <!-- To avoid cache problems -->
-    <link rel="stylesheet" href="resources/animate.css" />
-    <link rel="stylesheet" href="resources/toastr/toastr.css" />
-    <link rel="stylesheet" href="resources/sa/sweetalert2.min.css" />
-    <link rel="stylesheet" href="resources/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="resources/materialize/materialize.min.css?v=<?php echo NGR_VERSION?>">
+    <link rel="stylesheet" href="resources/materialize/materialicons.css?v=<?php echo NGR_VERSION?>">
+    <link rel="stylesheet" href="resources/style.css?v=<?php echo NGR_VERSION?>" />
+    <link rel="stylesheet" href="resources/animate.css?v=<?php echo NGR_VERSION?>" />
+    <link rel="stylesheet" href="resources/toastr/toastr.css?v=<?php echo NGR_VERSION?>" />
+    <link rel="stylesheet" href="resources/sa/sweetalert2.min.css?v=<?php echo NGR_VERSION?>" />
+    <link rel="stylesheet" href="resources/leaflet/leaflet.css?v=<?php echo NGR_VERSION?>" />
     <title>Nagmap Reborn</title>
 </head>
 
@@ -65,29 +65,30 @@ include_once('marker.php');
         <div id="warHosts"></div>
     </div>
 
-    <script src="resources/i18next.min.js"></script>
-    <script src="resources/jquery-i18next.min.js"></script>
+    <script src="resources/i18next.min.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/jquery-i18next.min.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="resources/typed.js"></script>
+    <script src="resources/typed.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="debugInfo/resources/js/jquery.min.js"></script>
+    <script src="debugInfo/resources/js/jquery.min.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="resources/materialize/materialize.min.js"></script>
+    <script src="resources/materialize/materialize.min.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="debugInfo/resources/js/popper.min.js"></script>
-    <script src="resources/tippy.min.js"></script>
+    <script src="debugInfo/resources/js/popper.min.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/tippy.min.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="resources/leaflet/leaflet.js"></script>
-    <script src="resources/leaflet/oms.js"></script>
-    <script src="resources/leaflet/leaflet.smoothmarkerbouncing.js"></script>
+    <script src="resources/leaflet/leaflet.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/leaflet/oms.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/leaflet/leaflet.smoothmarkerbouncing.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="resources/toastr/toastr.min.js"></script>
-    <script src="resources/sa/sweetalert2.all.min.js"></script>
+    <script src="resources/toastr/toastr.min.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/sa/sweetalert2.all.min.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/ns/jquery.nicescroll.min.js?v=<?php echo NGR_VERSION?>"></script>
 
-    <script src="resources/Class/Utils.js"></script>
-    <script src="resources/Class/Host.js"></script>
-    <script src="resources/Class/NagmapReborn.js"></script>
-    <script src="resources/Class/main.js"></script>
+    <script src="resources/Class/Utils.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/Class/Host.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/Class/NagmapReborn.js?v=<?php echo NGR_VERSION?>"></script>
+    <script src="resources/Class/main.js?v=<?php echo NGR_VERSION?>"></script>
 
     <script>
         try {

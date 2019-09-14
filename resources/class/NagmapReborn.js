@@ -87,7 +87,7 @@ class NagmapReborn {
             if (this._cbMode !== 3) {
                 $("#map").css("height", `${100 - this._cbSize}%`, "important");
             } else {
-                $("#map").css("width", `${100 - this._cbSize}%`, "important").css("float", "left", "important");
+                $("#map").addClass("mapdb3").css("width", `${100 - this._cbSize}%`, "important").css("float", "left", "important");
             }
         }
 
@@ -112,19 +112,20 @@ class NagmapReborn {
             if (this._cbMode !== 3) {
                 $("#changesbar").css("height", `${this._cbSize}%`, "important").css("display", "block", "important");
             } else {
-                $("#changesbar").css("height", "100%", "important").css("display", "block", "important");
+                $("#changesbar").addClass("db3").css("height", "100%", "important").css("display", "block", "important");
             }
 
             if (this._cbFilter) {
                 $("#filter").html(`
-                <div class="row" style="width:100%;margin-bottom:0px">
-                    <div class="input-field col s${(this._cbMode == 3) ? '10' : '11'}">
-                    <i class="material-icons prefix">search</i>
+                <div class="row" style="width:100%;">
+                    <div class="row">
+                        <div class="input-field col s10" style="margin-bottom: 0px !important;">
                         <input id="filter_str" type="text" class="validate" style="font-size:${this._cbFontSize}px;">
                         <label for="filter_str">${i18next.t('filter')}</label>
-                    </div>
-                    <div class="input-field col s${(this._cbMode == 3) ? '2' : '1'} center-align">
-                        <button class="btn waves-effect waves-light red lighten-1" title="${i18next.t('clear')}" onclick="e=>{e.preventDefault();};$('#searchBar').val('');search();"><i class="material-icons">delete</i></button>
+                        </div>
+                        <div class="input-field col s2">
+                        <button style="100%" class="btn waves-effect waves-light red lighten-1" title="${i18next.t('clear')}" onclick="e=>{e.preventDefault();};$('#searchBar').val('');search();"><i class="material-icons">delete</i></button>
+                        </div>
                     </div>
                 </div>
                 `);
@@ -135,9 +136,15 @@ class NagmapReborn {
 
         if (this._debug) {
             $("#debug").html(`
-            <a onclick="$('#debug_console').toggleClass('open')" class="waves-effect waves-light btn btn-large cyan darken-3 button"><i class="material-icons left">featured_play_list</i>${i18next.t('debug_csl')}</a>
+            <a onclick="$('#debug_console').toggleClass('open');setTimeout(() => {$('#console_text').getNiceScroll().resize();}, 1006);" class="waves-effect waves-light btn btn-large cyan darken-3 button"><i class="material-icons left">featured_play_list</i>${i18next.t('debug_csl')}</a>
             <a onclick="location.href='debugInfo/index.php'" class="waves-effect waves-light btn btn-large green darken-3 button"><i class="material-icons left">assignment</i>${i18next.t('debug_pg')}</a>
             `);
+            $("#console_text").niceScroll({
+                background: "rgba(0,0,0,0)",
+                cursorcolor: "rgba(9, 255, 0,0.75)",
+                cursorwidth: "4px",
+                cursorborder: "0px",
+            });
         }
     }
 

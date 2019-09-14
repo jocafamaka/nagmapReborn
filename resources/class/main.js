@@ -6,16 +6,26 @@
 
 // Handler the cover states
 
-const _u = Utils;
+var generalStatus = -3;
 
-coverHanlder = () => {
+const _u = function consoleDebug(msg, ok = true) {
+    // console.clear();
+    if (config.debug) {
+        $("#console_text").append($('<p>', {
+            text: new Date().toLocaleString(config.locale) + ' - ' + msg,
+            class: (ok) ? 'debugText ok' : 'debugText error'
+        }));
+    }
+}
+
+function coverHanlder() {
     if (window.generalStatus >= 0) {
 
         // Case successfully loaded, display the map
         if (window.generalStatus === 1) {
             tp.stop();
             $("#cover").addClass("fadeOut fast");
-            setTimeout(() => {
+            setTimeout(function () {
                 $("#cover").remove()
             }, 500);
 
@@ -29,13 +39,14 @@ coverHanlder = () => {
         }
         // If it is still loading, wait to check again
         else {
-            setTimeout(() => {
+            setTimeout(function () {
                 coverHanlder()
             }, 1500);
         }
     }
     // In case of error it displays the error page
     else {
+        console.log(window.generalStatus);
 
         // Stop the typed
         tp.stop();
@@ -56,12 +67,17 @@ coverHanlder = () => {
         $("#error_button").fadeIn(200).addClass("animated shake delay-05s");
 
         // coverMsgUp('cover_error', true);
-        if (window.generalStatus === -1)
-            $("#cover_msg_error").html(i18next.t('cover_error'));
+        // if (window.generalStatus === -1)
+        $("#cover_msg_error").html(i18next.t('cover_error'));
 
         if (window.generalStatus === -2) {
             Utils.initErrorHandler(i18next.t('too_long_details'));
             $("#cover_msg_error").text(i18next.t('too_long'));
+        }
+
+        if (window.generalStatus === -3) {
+            $("#cover_msg_error").html(i18next.t('unsupported_browser'));
+            $("#error_button").css("display", "none");
         }
 
         swal({
@@ -85,7 +101,7 @@ coverHanlder = () => {
 }
  */
 
-$(document).ready(() => {
+$(document).ready(function () {
     try {
 
         // Open hosts infoWindow
@@ -93,19 +109,24 @@ $(document).ready(() => {
             host.bindPopup(host.options.popupContent);
             host.openPopup();
 
-            tippy('.filter, .address', {
+            tippy('.filter', {
                 arrow: true,
-                //followCursor: "horizontal",
+                interactive: true
+            });
+
+            tippy('.address', {
+                arrow: true,
+                placement: 'bottom',
                 interactive: true
             });
 
             host.unbindPopup();
         }
 
-        _u.consoleDebug("Starting translation library."); //#DEBUG_MSG#
+        _u("Starting translation library."); //#DEBUG_MSG#
 
         i18next.init(i18nConfig).then(function (t) {
-            _u.consoleDebug("Displaying loading message."); //#DEBUG_MSG#
+            _u("Displaying loading message."); //#DEBUG_MSG#
 
             jqueryI18next.init(i18next, $, {
                 tName: 't',
@@ -140,21 +161,21 @@ $(document).ready(() => {
                 showCursor: true,
                 cursorChar: " ",
             });
-            setTimeout(() => {
+            setTimeout(function () {
                 coverHanlder();
-                tooLong = setTimeout(() => {
+                tooLong = setTimeout(function () {
                     window.generalStatus = -2
                 }, 50000);
             }, 1950);
             /* window.firstTime = false;
             $("#cover_msg_error").text(i18next.t('start'));
             coverMsgUp('start', true); */
-            _u.consoleDebug("Initializing Nagmap Reborn class."); //#DEBUG_MSG#
+            _u("Initializing Nagmap Reborn class."); //#DEBUG_MSG#
 
             window.nagmapReborn = new NagmapReborn(config);
         });
 
     } catch (e) {
-        _u.initErrorHandler(e);
+        Utils.initErrorHandler(e);
     }
 });

@@ -49,6 +49,9 @@ class Host {
 			});
 		}
 
+		let base64Black = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAAmJLR0QA/4ePzL8AAACPSURBVBjThc8xDgFhFEXhc/4wJlHZhFIrEr1SpVFYl16nQohgOxIS7IB5CsNEFO6pXr7qATRpldXS3DAMj6Spj/IIenSZeDUMvHtO81e0yd0bngwMD7zXcGu4YPwNmWvDFRkddxVkLg03NOgzIlUwMNySgxuDrAIZksMvfPYXHt48fHWxoE6aWrw/LyvSDJ6Qq0l9CGPrYQAAAABJRU5ErkJggg==";
+		let base64White = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAAmJLR0QA/4ePzL8AAAB/SURBVBjThckxDsEAGIDRn1BNTC5htIrEbjRZDM5lt5kQIvQ6EhLcgD6D0jQG3ze+iNDWKW5YencKc0+fBvpmbhAeLpbFXakjzgSyKNKyx8q0AhJbbCR6Dl+QWGOnZWiiXsIIe2mEHZISasbSiB8o+wtPd1nlq1wzzOWq5RYRLwFVuLSYFSaaAAAAAElFTkSuQmCC";
+
 		let marker = L.marker(this.latlng, {
 			icon: icon,
 			title: data.nagios_host_name,
@@ -59,7 +62,7 @@ class Host {
 					<table>
 						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}"` : ""} ><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
 						<tr><td><strong>${i18next.t('hostG')}</strong></td><td>:</td><td>${hostgroups}</td></tr>
-						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http</a> | <a class='address-link' target='_blank' href='https://${data.address}'>https</a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src="resources/img/link.svg" alt="Link" /></td></tr>
+						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http <img src='${base64White}' alt='Link' ></a> | <a class='address-link' target='_blank' href='https://${data.address}'>https <img src='${base64White}' alt='Link' /></a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src='${base64Black}' alt='Link' /></td></tr>
 						<tr><td><strong>${i18next.t('parent')}</strong></td><td>:</td><td>${parents}</td></tr>
 						<tr><td colspan=3 style="text-align: center"><br><a target="_blank" href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="${i18next.t('project')}" src="resources/img/logoMiniBlack.png" alt=""></a></td></tr>
 					</table>

@@ -24,7 +24,7 @@
     "last_stable": "Get the latest stable version.",
     "details": "Details",
     "close": "Close",
-
+    "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> this browser is not compatible with NagmapReborn, please upgrade your browser or use a more modern one!",
 
     "ngr_init_error": "Failed to initialize class!"
 }
