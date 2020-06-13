@@ -84,7 +84,7 @@ return [
         ],
 
         // Play alert when a server"s status changes to down?
-        // To change the alert sound, simply replace the file "Beep.mp3" in the resources folder
+        // To change the alert sound, simply replace the file "alert.mp3" in the resources folder
         // In some browsers it is necessary for user to interact with the page before it emits a sound, 
         // so an initial interaction is required for the alert to be played.
         // 0 = NO.
