@@ -86,7 +86,7 @@ if ($key == config('security.key')) {
 				$data[$host]['hostStatus_CS'] = ($value);
 			}
 
-			if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
+			if (config('ngreborn.changes_bar.mode') == 2 || config('ngreborn.changes_bar.mode') == 3) {
 
 				if (($option == "last_time_up") && ($type == "hoststatus")) {
 
@@ -146,7 +146,7 @@ if ($key == config('security.key')) {
 
 	unset($serviceBackup);
 
-	if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
+	if (config('ngreborn.changes_bar.mode') == 2 || config('ngreborn.changes_bar.mode') == 3) {
 
 		foreach ($hStatus as $key => $value) {
 			if ($hStatus[$key]['status'] == 3)
@@ -165,7 +165,7 @@ if ($key == config('security.key')) {
 		try {
 			if (array_key_exists($hostName[0], $hStatus)) {
 				$updateHosts[$hostName[0]]['status'] = $hStatus[$hostName[0]]['status'];
-				if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3)
+				if (config('ngreborn.changes_bar.mode') == 2 || config('ngreborn.changes_bar.mode') == 3)
 					$updateHosts[$hostName[0]]['time'] = $hStatus[$hostName[0]]['time'];
 			} else {
 				$response['missing'] = true;

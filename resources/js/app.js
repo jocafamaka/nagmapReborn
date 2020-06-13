@@ -205,7 +205,7 @@ function init() {
                     t: `${i18next.t('cr_lines')}...`
                 })],
                 typeSpeed: 35,
-                startDelay: 1500,
+                startDelay: 1800,
                 backSpeed: 40,
                 backDelay: 2000,
                 loop: true,

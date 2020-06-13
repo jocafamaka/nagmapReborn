@@ -85,4 +85,6 @@ foreach ($hosts as $h) {
 		$final_hosts[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
 	}
 }
+
 unset($hosts);
+unset($s);

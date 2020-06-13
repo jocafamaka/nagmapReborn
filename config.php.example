@@ -52,24 +52,26 @@ return [
         // Leave empty for not filtering
         'filter_service' => "",
 
-        // Select ChangesBar mode
-        // 0 = Off.
-        // 1 = History mode. (Displays all occurrences sequentially with date and time)
-        // 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
-        // 3 = Alert mode sidebar. (Same as above with less information)
-        'changes_bar_mode' => 2,
+        'changes_bar' => [
+            // Select ChangesBar mode
+            // 0 = Off.
+            // 1 = History mode. (Displays all occurrences sequentially with date and time)
+            // 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
+            // 3 = Alert mode sidebar. (Same as above with less information)
+            'mode' => 2,
 
-        // Percentage size occupied by the ChangesBar on the screen. (use only numbers)
-        'changes_bar_size' => 30,
+            // Percentage size occupied by the ChangesBar on the screen. (use only numbers)
+            'size' => 40,
 
-        // Font size in pixels used in ChangesBar. (use only numbers)
-        'font_size' => 20,
+            // Font size in pixels used in ChangesBar. (use only numbers)
+            'font_size' => 20,
 
-        // Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
-        // Useful when there are a lot of hosts.
-        // 0 = NO.
-        // 1 = YES.
-        'bar_filter' => 1,
+            // Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+            // Useful when there are a lot of hosts.
+            // 0 = NO.
+            // 1 = YES.
+            'filter' => 1,
+        ],
 
         // Defines the display priority for each status.
         // Who should be on top when there is more than one host in the same space.
@@ -100,7 +102,7 @@ return [
         // 1 = YES.
         'lines' => 1,
 
-        // Time in seconds, to update the hosts status. (use only numbers)
+        // Time in seconds, to update the hosts status, minimum 5. (use only numbers)
         'time_update' => 10,
 
         // Automatic errors reporting?

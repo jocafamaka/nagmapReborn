@@ -43,7 +43,7 @@ The only dependencies of Nagmap Reborn are **PHP extensions/modules**, make sure
 * mbstring.
 
 ### JS Compability
-Since v2.0.0-alpha1 of the Nagmap Reborn, features of ES6 (ECMAScript 2015) are used, so it is only possible to use the project in modern browsers.
+Since v2.0.0 of the Nagmap Reborn, features of ES6 (ECMAScript 2015) are used, so it is only possible to use the project in modern browsers.
 
 The following is the minimum supported version relationship:
 
@@ -58,7 +58,7 @@ The following is the minimum supported version relationship:
 
 _* You can see the full list [here](https://kangax.github.io/compat-table/es6/)._
 
-For compatibility with legacy browsers, use an earlier version [(1.6.4)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) of the project.
+For compatibility with legacy browsers, use an previous version [(1.6.4)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) of the project.
 
 ## Support
 

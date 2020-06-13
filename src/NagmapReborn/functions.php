@@ -115,15 +115,15 @@ function ngrebornStatus()
                 $data[$host]['hostStatus_CS'] = ($value);
             }
 
-            if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
+            // if (config('ngreborn.changes_bar.mode') == 2 || config('ngreborn.changes_bar.mode') == 3) {
 
-                if (($option == "last_time_up") && ($type == "hoststatus")) {
-                    $dataTime[$host]['time_LTU'] = $value;
-                }
-                if (($option == "last_state_change") && ($type == "servicestatus")) {
-                    $dataTime[$host]['time_LSC'] = $value;
-                }
-            }
+            //     if (($option == "last_time_up") && ($type == "hoststatus")) {
+            //         $dataTime[$host]['time_LTU'] = $value;
+            //     }
+            //     if (($option == "last_state_change") && ($type == "servicestatus")) {
+            //         $dataTime[$host]['time_LSC'] = $value;
+            //     }
+            // }
         }
     }
 
@@ -147,14 +147,14 @@ function ngrebornStatus()
 
     unset($serviceBackup);
 
-    if (('ngreborn.changes_bar_mode') == 2 || ('ngreborn.changes_bar_mode') == 3) {
-        foreach ($data as $key => $value) {
-            if ($data[$key]['status'] == 3)
-                $data[$key]['time'] = $dataTime[$key]['time_LTU'];
-            else
-                $data[$key]['time'] = $dataTime[$key]['time_LSC'];
-        }
-    }
+    // if (config('ngreborn.changes_bar.mode') == 2 || config('ngreborn.changes_bar.mode') == 3) {
+    //     foreach ($data as $key => $value) {
+    //         if ($data[$key]['status'] == 3)
+    //             $data[$key]['time'] = $dataTime[$key]['time_LTU'];
+    //         else
+    //             $data[$key]['time'] = $dataTime[$key]['time_LSC'];
+    //     }
+    // }
 
     return ($data);
 }
