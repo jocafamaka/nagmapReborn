@@ -172,22 +172,22 @@ return jsonResponse([
 ]);
 
 //Function to generate hash of files avoiding problems with encode.
-function fileHash($file)
-{
-    $data = file_get_contents($file);
-    $arr = explode(PHP_EOL, $data);
-    return md5(serialize($arr));
-}
+// function fileHash($file)
+// {
+//     $data = file_get_contents($file);
+//     $arr = explode(PHP_EOL, $data);
+//     return md5(serialize($arr));
+// }
 
-$checkFile = parse_ini_file("resources/checkFiles.ini");
+// $checkFile = parse_ini_file("resources/checkFiles.ini");
 
-$ORIGINALFILES = "true";
+// $ORIGINALFILES = "true";
 
-foreach ($checkFile as $key => $value) {
-    if (fileHash($key) != $value) {
-        $ORIGINALFILES = "false";
-        break;
-    }
-}
+// foreach ($checkFile as $key => $value) {
+//     if (fileHash($key) != $value) {
+//         $ORIGINALFILES = "false";
+//         break;
+//     }
+// }
 
-define("NGR_VERSION", file_get_contents("VERSION")); //rand());
+// define("NGR_VERSION", file_get_contents("VERSION")); //rand());
