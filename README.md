@@ -1,104 +1,34 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W61SUW3)
-# NagMap Reborn Introduction
+# Nagmap Reborn Introduction
+Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
 
-NagMap Reborn is based on NagMap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
+## ATTENTION
+Note that his version still **in development** and therefore **unfinished**, it may contain **several bugs**, must be used for testing only!
 
-## Features
+For use in production the [stable version](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) must be adopted.
 
-* Updating hosts status without refresh on page.
-* Support for multiple languages.
-* System of last occurrences (ChangesBar).
-  * Content filter.
-* System of sound warning.
-* Notification system on the page.
-* Almost total control of page characteristics.
-* Powerful debug page.
-* Service filter.
-* Self report of errors.
-* Access control.
-* Support for multiple API's.
+## v2.0.0
+This version has as objective to bring update of the used technologies, as well as a redesing of the current structure of the project, allowing a better performance and maintenance.
 
-## What you can control
+Main changes:
+* Use Object Orientation on the front end.
+* Use of JS6 (ECMAScript 2015) features.
+  * Incompatible with old browsers.
+* Exclusive use of Open Street Map.
+  * Due to the disuse of Google Maps.
+* Complete redesing of the host status update system.
+  * Providing good performance even in large installations.
 
-* Map center.
-* Zoom level.
-* Language.
-  * Currently only available: English, Portuguese and French. (Translation contributions are welcome)
-* Last occurrences view (ChangesBar).
-  * ChangesBar size on screen.
-  * Font size.
-  * Used date format.
-  * ChangesBar mode.
-    * History.
-    * Alert.
-    * Alert lite.
-  * Show content filter.
-* Use system of sound warning.
-* Show lines between hosts and their parents.
-* Time to update hosts status.
-* Icons style.
-* Which API to use.
-* Use or not access control.
+## Live preview (Coming soon)
+<p align="center"> 
+  <kbd>
+    <img src="https://i.imgur.com/4igZSkB.gif">
+  </kbd>
+</p>
 
-## Compatibility
-
-* Nagios.
-* Icinga.
-* Centreon.
-
-It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!
-
-## Which API?
-Undecided about which API to use? Here are some differences between them:
-
-**Google Maps API**
-* Requires API key to be used.
-* It has limits of free use.
-* It does not rely on third-party services for display or customization.
-* Easier customization and use of [styles](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#google-maps-api).
-
-**Leaflet API**
-* You do not need an API key to use.
-* No use limits when used in conjunction with OpenStreetMap.
-* Depends on third parties to display the map and use [styles](https://github.com/jocafamaka/nagmapReborn/tree/master/styles#leaflet-api).
-* Most services that provide custom maps require an API key and have usage limits.
-
-## Live preview (Google Maps)
-
-[See here](https://jocafamaka.github.io) the NagMap Reborn live preview:
-[![NagMap Reborn live preview](https://i.imgur.com/Mc26Pn5.png)](https://jocafamaka.github.io)
-
-## Hiatus notice
-
-From 03/2019 the project will go into hiatus to add features.
-
-This decision was taken so that all attention is focused on the development of the [v2.0.0](https://github.com/jocafamaka/nagmapReborn/tree/v2.0.0), which will bring many benefits.
-
-### Important Notes:
-* This version will continue to receive support.
-* Version 1.6.4 will be the last stable version until release of v2.0.0(alpha/rc/final).
-* There is no prediction yet for release of the new version.
-
-## Support
-
-If you experience any problems deploying NagMap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
-
-You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of NagMap Reborn.
-
-## Contribution
-
-Contribution are always **welcome and recommended**! Here is how:
-
-1. Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/))
-1. Clone to your machine
-1. Make your changes
-1. Create a pull request
-
-## Terms of use (Leaflet / OpenStreetMap / Google Maps)
-
-* By using this API Implementation, your are agreeing to be bound by Leaflet, OpenStreetMap and Google's Terms of Use.
+## Terms of use (Leaflet / OpenStreetMap)
+* By using this API Implementation, your are agreeing to be bound by Leaflet and OpenStreetMap Terms of Use.
 * This app uses the OpenStreetMap's tiles. [See here](https://wiki.osmfoundation.org/wiki/Privacy_Policy) the privacy policy.
-* This app uses the Google Maps API. [See here](https://cloud.google.com/maps-platform/terms/) Google privacy policy. - [See here](https://developers.google.com/maps/documentation/javascript/usage) Google Maps usage quotas.
 
 ## Donation
 As an Information Systems student about to graduate me, I use my free time to bring updates and improvements to the project, without any financial purpose.
