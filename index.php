@@ -1,6 +1,4 @@
 <?php
-// error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
-
 if (!defined('NGR_DOCUMENT_ROOT')) {
     define('NGR_DOCUMENT_ROOT', dirname(__FILE__) == '/' ? '' : dirname(__FILE__));
 }
@@ -16,11 +14,11 @@ include_once('src/NagmapReborn/ConfigLoader.php');
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="resources/img/NagFavIcon.ico" />
-    <link rel="stylesheet" href="resources/materialize/materialize.min.css?v=<?php echo config('ngreborn.version', rand()) ?>">
-    <link rel="stylesheet" href="resources/materialize/materialicons.css?v=<?php echo config('ngreborn.version', rand()) ?>">
-    <link rel="stylesheet" href="resources/css/style.css?v=<?php echo config('ngreborn.version', rand()) ?>" />
-    <link rel="stylesheet" href="resources/css/animate.css?v=<?php echo config('ngreborn.version', rand()) ?>" />
-    <link rel="stylesheet" href="resources/leaflet/leaflet.css?v=<?php echo config('ngreborn.version', rand()) ?>" />
+    <link rel="stylesheet" href="resources/materialize/materialize.min.css?v=<?php echo config('ngreborn.version') ?>">
+    <link rel="stylesheet" href="resources/materialize/materialicons.css?v=<?php echo config('ngreborn.version') ?>">
+    <link rel="stylesheet" href="resources/css/style.css?v=<?php echo config('ngreborn.version') ?>" />
+    <link rel="stylesheet" href="resources/css/animate.css?v=<?php echo config('ngreborn.version') ?>" />
+    <link rel="stylesheet" href="resources/leaflet/leaflet.css?v=<?php echo config('ngreborn.version') ?>" />
     <title>Nagmap Reborn - v<?php echo config('ngreborn.version') ?></title>
 </head>
 
@@ -95,31 +93,31 @@ include_once('src/NagmapReborn/ConfigLoader.php');
             };
     </script>
 
-    <script src="resources/js/i18next.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/js/jquery-i18next.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/js/i18next.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/jquery-i18next.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/js/typed.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/js/typed.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/js/jquery.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/js/jquery.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/materialize/materialize.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/materialize/materialize.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/js/popper.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/js/tippy.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/js/popper.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/tippy.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/leaflet/leaflet.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/leaflet/oms.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/leaflet/leaflet.smoothmarkerbouncing.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/leaflet/leaflet.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/leaflet/oms.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/leaflet/leaflet.smoothmarkerbouncing.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/sa/sweetalert2.all.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/ns/jquery.nicescroll.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/sa/sweetalert2.all.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/ns/jquery.nicescroll.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/js/axios.min.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/js/axios.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/classes/Utils.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/classes/Host.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/classes/NagmapReborn.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
-    <script src="resources/js/app.js?v=<?php echo config('ngreborn.version', rand()) ?>"></script>
+    <script src="resources/classes/Utils.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/classes/Host.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/classes/NagmapReborn.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/app.js?v=<?php echo config('ngreborn.version') ?>"></script>
 </body>
 
 </html>

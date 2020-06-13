@@ -100,7 +100,7 @@ if (!is_int(config('ngreborn.icon_style')) || config('ngreborn.icon_style') > 2 
 if (!is_int(config('ngreborn.lines')) || (config('ngreborn.lines') < 0) || (config('ngreborn.lines') > 1))
     $fails[] = L::config_error("ngreborn.lines", config('ngreborn.lines'));
 
-if (!(is_float(config('ngreborn.time_update')) || is_int(config('ngreborn.time_update'))) || (config('ngreborn.time_update') < 5))
+if (!(is_float(config('ngreborn.time_update')) || is_int(config('ngreborn.time_update'))) || (config('ngreborn.time_update') < 10))
     $fails[] = L::config_error("ngreborn.time_update", config('ngreborn.time_update'));
 
 if (!is_int(config('ngreborn.reporting')) || (config('ngreborn.reporting') < 0) || (config('ngreborn.reporting') > 1))
@@ -119,7 +119,6 @@ if ((!is_int(config('security.use_auth')) || config('security.use_auth') < 0) ||
             $fails[] = L::emptyUserPass;
     }
 }
-
 
 // MODULES
 if (!extension_loaded('mbstring'))
@@ -170,24 +169,3 @@ return jsonResponse([
     "initialHosts" => (isset($final_hosts) ? $final_hosts : []),
     "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/langs/" . config('ngreborn.language') . ".json"))
 ]);
-
-//Function to generate hash of files avoiding problems with encode.
-// function fileHash($file)
-// {
-//     $data = file_get_contents($file);
-//     $arr = explode(PHP_EOL, $data);
-//     return md5(serialize($arr));
-// }
-
-// $checkFile = parse_ini_file("resources/checkFiles.ini");
-
-// $ORIGINALFILES = "true";
-
-// foreach ($checkFile as $key => $value) {
-//     if (fileHash($key) != $value) {
-//         $ORIGINALFILES = "false";
-//         break;
-//     }
-// }
-
-// define("NGR_VERSION", file_get_contents("VERSION")); //rand());

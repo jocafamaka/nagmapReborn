@@ -1,6 +1,4 @@
 <?php
-//error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
 if (!defined('NGR_DOCUMENT_ROOT')) {
 	define('NGR_DOCUMENT_ROOT', dirname(__FILE__) == '/' ? '' : dirname(__FILE__));
 }
