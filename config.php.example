@@ -1,128 +1,126 @@
 <?php
-####################################################################################################
-#                                          GENERAL CONFIGS                                         #
-####################################################################################################
-// Set these two lines - they are very important
-// In linux run `updatedb` and `locate nagios.cfg` and `locate status.dat` to find these files
-// They are usually placed in /usr/local/nagios/etc/nagios.cfg and /usr/local/nagios/var/status.dat
-$nagios_cfg_file = "/usr/local/nagios/etc/nagios.cfg";
-$nagios_status_dat_file = "/usr/local/nagios/var/status.dat";
+return [
+    'general' => [
+        // Set these two lines - they are very important
+        // In linux run `updatedb` and `locate nagios.cfg` and `locate status.dat` to find these files
+        // They are usually placed in /usr/local/nagios/etc/nagios.cfg and /usr/local/nagios/var/status.dat
+        'cfg_file' => "/usr/local/nagios/etc/nagios.cfg",
+        'status_file' => "/usr/local/nagios/var/status.dat",
 
-// Use Debug?
-// Use this only to generate extra information for support.
-// 0 = NO.
-// 1 = YES.
-$nagMapR_Debug = 0;
+        // Use Debug?
+        // Use this only to generate extra information for support.
+        // 0 = NO.
+        // 1 = YES.
+        'debug' => 1,
+    ],
+    'map' => [
+        // Set to the centre of your map (lat,long)
+        'centre' => "-6.469293, -50.913464",
 
-####################################################################################################
-#                                         MAP PREFERENCES                                          #
-####################################################################################################
-// Set to the centre of your map (lat,long)
-$nagMapR_MapCentre = "-6.469293, -50.913464";
+        // Default zoom level of the map
+        'zoom' => 6.2,
 
-// Default zoom level of the map
-$nagMapR_MapZoom = 6.2;
+        // Leaflet styles/tiles.
+        // Use a provider of images / vectors other than OpenStreetMap.
+        // You can see several for free here:
+        // (http://leaflet-extras.github.io/leaflet-providers/preview/)
+        // Some of these need a token to access. Put the full link.
+        // How to use the Mapbox styles:
+        // https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F
+        // Leave blank to use the default.
+        // For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
+        'style' => "",
+    ],
+    'ngreborn' => [
+        // Sets the translation file name.
+        // See the folder "langs" for available translations.
+        // You can create your own translation by copying and renaming one of the files and making the
+        // necessary changes.
+        'language' => "en-US",
 
-// Leaflet styles/tiles.
-// Use a provider of images / vectors other than OpenStreetMap.
-// You can see several for free here:
-// (http://leaflet-extras.github.io/leaflet-providers/preview/)
-// Some of these need a token to access. Put the full link.
-// How to use the Mapbox styles:
-// https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F
-// Leave blank to use the default.
-// For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
-$nagMapR_LeafletStyle = "";
+        // Hostgroup filter - only show hosts from this hostgroup
+        // Leave empty for not filtering
+        'filter_hostgroup' => "",
 
-####################################################################################################
-#                                      NAGMAP REBORN FEATURES                                      #
-####################################################################################################
-// Sets the translation file name.
-// See the folder "langs" for available translations.
-// You can create your own translation by copying and renaming one of the files and making the
-// necessary changes.
-$nagMapR_Lang = "en-US";
+        // Service filter - Use the status of a specific service as the primary. The service that will be used
+        // to set the status on the map. Useful when there is more than one service per host.
+        // More than one service can be used in the filter (using ";" as a separator), as long a single host
+        // does not contain more than one of the filtered services.
+        // It is not necessary to indicate the full name of the service, but a single part that sets it apart
+        // from others is enough.
+        // Services are filtered by service_description.
+        // Leave empty for not filtering
+        'filter_service' => "",
 
-// Hostgroup filter - only show hosts from this hostgroup
-// Leave empty for not filtering
-$nagMapR_FilterHostgroup  = "";
+        // Select ChangesBar mode
+        // 0 = Off.
+        // 1 = History mode. (Displays all occurrences sequentially with date and time)
+        // 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
+        // 3 = Alert mode sidebar. (Same as above with less information)
+        'changes_bar_mode' => 2,
 
-// Service filter - Use the status of a specific service as the primary. The service that will be used
-// to set the status on the map. Useful when there is more than one service per host.
-// More than one service can be used in the filter (using ";" as a separator), as long a single host
-// does not contain more than one of the filtered services.
-// It is not necessary to indicate the full name of the service, but a single part that sets it apart
-// from others is enough.
-// Services are filtered by service_description.
-// Leave empty for not filtering
-$nagMapR_FilterService  = "";
+        // Percentage size occupied by the ChangesBar on the screen. (use only numbers)
+        'changes_bar_size' => 30,
 
-// Select ChangesBar mode
-// 0 = Off.
-// 1 = History mode. (Displays all occurrences sequentially with date and time)
-// 2 = Alert mode. (Shows only hosts who are DOWN, CRITICAL or in WARNING, with the elapsed time)
-// 3 = Alert mode sidebar. (Same as above with less information)
-$nagMapR_ChangesBarMode = 2;
+        // Font size in pixels used in ChangesBar. (use only numbers)
+        'font_size' => 20,
 
-// Percentage size occupied by the ChangesBar on the screen. (use only numbers)
-$nagMapR_ChangesBarSize = 25;
+        // Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+        // Useful when there are a lot of hosts.
+        // 0 = NO.
+        // 1 = YES.
+        'bar_filter' => 1,
 
-// Font size in pixels used in ChangesBar. (use only numbers)
-$nagMapR_FontSize = 25;
+        // Defines the display priority for each status.
+        // Who should be on top when there is more than one host in the same space.
+        'priorities' => [
+            'unknown' => 1,
+            'up' => 2,
+            'warning' => 3,
+            'critical' => 4,
+            'down' => 5
+        ],
 
-// Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
-// Useful when there are a lot of hosts.
-// 0 = NO.
-// 1 = YES.
-$nagMapR_BarFilter = 1;
+        // Play alert when a server"s status changes to down?
+        // To change the alert sound, simply replace the file "Beep.mp3" in the resources folder
+        // In some browsers it is necessary for user to interact with the page before it emits a sound, 
+        // so an initial interaction is required for the alert to be played.
+        // 0 = NO.
+        // 1 = YES.
+        'play_sound' => 1,
 
-// Defines the date format used in the ChangesBar.
-// 1 = DD/MM/YYYY
-// 2 = MM/DD/YYYY
-// 3 = YYYY/MM/DD
-$nagMapR_DateFormat = 1;
+        // Choose the style of the icons.
+        // 0 = Original icon.
+        // 1 = No edges with shadow.
+        // 2 = With edges without shadow.
+        'icon_style' => 1,
 
-// Play alert when a server's status changes to down?
-// To change the alert sound, simply replace the file "Beep.mp3" in the resources folder
-// In some browsers it is necessary for user to interact with the page before it emits a sound, 
-// so an initial interaction is required for the alert to be played.
-// 0 = NO.
-// 1 = YES.
-$nagMapR_PlaySound = 1;
+        // Show lines between hosts and their parents.
+        // 0 = NO.
+        // 1 = YES.
+        'lines' => 1,
 
-// Choose the style of the icons.
-// 0 = Original icon.
-// 1 = No edges with shadow.
-// 2 = With edges without shadow.
-$nagMapR_IconStyle = 1;
+        // Time in seconds, to update the hosts status. (use only numbers)
+        'time_update' => 10,
 
-// Show lines between hosts and their parents.
-// 0 = NO.
-// 1 = YES.
-$nagMapR_Lines = 1;
+        // Automatic errors reporting?
+        // 0 = NO.
+        // 1 = YES.
+        'reporting' => 1,
+    ],
+    'security' => [
+        // Security key to protect data from external requests (use only letters and numbers)
+        'key' => "tmRlL3QYisEuYITLaacJfsfGAYa3AAVMH9LizQzpHoishwMors1IUhA26drTOP112CL7oi2CbNGMFlmCArpR01CyJ1Sn0onH",
 
-// Time in seconds, to update the hosts status. (use only numbers)
-$nagMapR_TimeUpdate = 10;
+        // Request authentication when accessing the page?
+        // 0 = NO.
+        // 1 = YES (Strongly recommended).
+        'use_auth' => 1,
 
-// Automatic errors reporting?
-// 0 = NO.
-// 1 = YES.
-$nagMapR_Reporting = 1;
+        // User used for authentication.
+        'user' => "ngradmin",
 
-####################################################################################################
-#                                       SECURITY INFORMATION                                       #
-####################################################################################################
-// Security key to protect data from external requests (use only letters and numbers)
-$nagMapR_key = "s9Yqz7Ox9pgpYx5cVinh7Iez4ZY29KGqqx9SlxSDbxmRHWgkjuLjogOIz4WFGuFQy2EOwKBJo6AA5UQY1IArMgsiR7KQwXyB";
-
-// Request authentication when accessing the page?
-// 0 = NO.
-// 1 = YES (Strongly recommended).
-$nagMapR_useAuth = 1;
-
-// User used for authentication.
-$nagMapR_User = "ngradmin";
-
-// Password used for authentication.
-$nagMapR_UserKey = "ngradmin";
-?>
+        // Password used for authentication.
+        'user_pass' => "ngradmin",
+    ],
+];

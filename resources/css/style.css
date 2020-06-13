@@ -181,13 +181,14 @@ hr {
 }
 
 .debug_console.open {
-    width: 25%;
+    width: 35%;
 }
 
 #console_text {
     overflow: auto;
     height: 100%;
     padding: 5px;
+    padding-bottom: 36px;
 }
 
 #console_text::-webkit-scrollbar-track {
@@ -232,7 +233,7 @@ hr {
     z-index: 3002 !important;
     border-radius: 10px !important;
     /* opacity: 0.5 !important; */
-    background: #00000099 !important;
+    background: #000000d4 !important;
     color: #f44336 !important;
     text-shadow: 2px 2px 4px #000 !important;
 }
@@ -336,7 +337,7 @@ a:visited {
 }
 
 .filter {
-    cursor: url("img/cursorFilter.png"), auto;
+    cursor: url("../img/cursorFilter.png"), auto;
 }
 
 .filter:focus {
@@ -357,7 +358,7 @@ a:visited {
     margin-bottom: 1px !important;
     font-weight: bold !important;
     padding-left: 1% !important;
-    width: 99% !important;
+    /* width: 99% !important; */
     color: white !important;
     vertical-align: middle !important;
     cursor: pointer;
@@ -456,6 +457,46 @@ a:visited {
     transition: fill 200ms ease;
 }
 
+.swal2-popup.swal2-toast{
+    max-width: 400px;
+}
+
+.swal2-popup.swal2-toast .swal2-title{
+    font-size: 1.5rem !important;
+    text-align: justify !important;
+}
+
+.sw2Custom .swal2-icon[class^=swal2-],
+.sw2Custom .swal2-title {
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+.sw2Custom .swal2-icon.swal2-error [class^=swal2-x-mark-line],
+.sw2Custom .swal2-icon.swal2-success.swal2-icon-show [class^=swal2-success-line-] {
+    background-color: #fff !important;
+}
+
+.sw2Custom .swal2-icon.swal2-success.swal2-icon-show .swal2-success-ring,
+.sw2Custom .swal2-icon.swal2-info {
+    border: .25em solid white;
+}
+.sw2Custom.swal2-icon-warning {
+    background: #e47e00 !important;
+}
+
+.sw2Custom.swal2-icon-error {
+    background-color: #b22222 !important;
+}
+
+.sw2Custom.swal2-icon-success {
+    background-color: #22b22e !important;
+}
+
+.sw2Custom.swal2-icon-info {
+    background-color: #22a1b2 !important;
+}
+
 @keyframes marker_pin_animation {
     0% {
         fill: #007F00;
@@ -501,3 +542,19 @@ a:visited {
 }
 
 /* End logo animation */
+
+@media only screen and (max-width: 650px) {
+    .mapdb3 {
+        height: 70% !important;
+        width: 100% !important;
+    }
+
+    .db3 {
+        height: 30% !important;
+        display: block !important;
+    }
+
+    .debug_console.open {
+        width: 50%;
+    }
+}

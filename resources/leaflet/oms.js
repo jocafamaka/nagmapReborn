@@ -284,6 +284,7 @@ Note: The Leaflet maps API must be included *before* this code
             this.map.addLayer(leg);
             marker['_omsData'] = {
               usualPosition: marker.getLatLng(),
+              usualZindex: marker._zIndex,
               leg: leg
             };
             if (this['legColors']['highlighted'] !== this['legColors']['usual']) {
@@ -323,7 +324,7 @@ Note: The Leaflet maps API must be included *before* this code
             if (marker !== markerNotToMove) {
               marker.setLatLng(marker['_omsData'].usualPosition);
             }
-            marker.setZIndexOffset(0);
+            marker.setZIndexOffset(marker['_omsData'].usualZindex);
             mhl = marker['_omsData'].highlightListeners;
             if (mhl != null) {
               marker.removeEventListener('mouseover', mhl.highlight);

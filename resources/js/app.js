@@ -4,38 +4,96 @@
  * 
  ******************************************************************************************/
 
-// Handler the cover states
+window.generalStatus = STATUS.GENERAL.initial;
 
-var generalStatus = -3;
-
-const _u = function consoleDebug(msg, ok = true) {
-    // console.clear();
+_u = function consoleDebug(msg, ok = true) {
     if (config.debug) {
-        $("#console_text").append($('<p>', {
-            text: new Date().toLocaleString(config.locale) + ' - ' + msg,
+        $("#console_text").prepend($('<p>', {
+            html: new Date().toLocaleString(config.locale) + ' - ' + msg.replace(/{/g, '<b>').replace(/}/g, '</b>'),
             class: (ok) ? 'debugText ok' : 'debugText error'
         }));
     }
 }
 
+axios.get("InitialConfig.php")
+    .then(function (response) {
+        window.config = response.data;
+        i18nConfig = {
+            lng: config.locale,
+            debug: config.debug,
+            resources: {
+                [`${config.locale}`]: {
+                    translation: config.translation
+                }
+            }
+        };
+
+        init();
+    })
+    .catch(function (error) {
+        Utils.initErrorHandler(error.response.data.error || error);
+        if (error.response.status == 401)
+            window.generalStatus = STATUS.GENERAL.accessDenied;
+        coverHanlder();
+    });
+
+// Check compatibility with ES6
+try {
+    (eval("let foo = () => {};"));
+} catch (e) {
+    window.generalStatus = STATUS.GENERAL.incompatible;
+    coverHanlder();
+}
+
+// Handler the cover animation
+function animateBack() {
+
+    setTimeout(function () {
+        if (window.generalStatus != STATUS.GENERAL.finished) {
+
+            $("#cover_error").css("background", "radial-gradient(circle, rgb(236, 91, 91) " + firstRadial + "%, rgb(204, 29, 29) " + secondRadial + "%, rgb(175, 0, 0) 100%)");
+            $("#cover").css("background", "radial-gradient(circle, rgb(7, 194, 188) " + firstRadial + "%, rgb(0, 168, 163) " + secondRadial + "%, rgb(2, 124, 120) 100%)");
+            if (direction == "up") {
+                firstRadial = firstRadial + .5;
+                secondRadial = secondRadial - .7;
+            } else {
+                firstRadial = firstRadial - .5;
+                secondRadial = secondRadial + .7;
+            }
+            if (firstRadial == 13) {
+                direction = "down";
+            }
+            if (firstRadial == 1) {
+                direction = "up";
+            }
+            animateBack();
+        }
+    }, 70);
+};
+animateBack();
+
+// Handler the cover states
 function coverHanlder() {
-    if (window.generalStatus >= 0) {
+    if (window.generalStatus >= STATUS.GENERAL.initial) {
 
         // Case successfully loaded, display the map
-        if (window.generalStatus === 1) {
+        if (window.generalStatus === STATUS.GENERAL.finished) {
             tp.stop();
             $("#cover").addClass("fadeOut fast");
             setTimeout(function () {
                 $("#cover").remove()
             }, 500);
 
-            swal({
-                type: "warning",
+            Swal.fire({
+                heightAuto: false,
+                icon: "warning",
                 title: 'Nagmap Reborn v2.0.0',
                 html: i18next.t('not_released'),
                 footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,
                 confirmButtonText: 'OK'
             });
+
+            window.nagmapReborn.checkNgRebornUpdate();
         }
         // If it is still loading, wait to check again
         else {
@@ -46,10 +104,9 @@ function coverHanlder() {
     }
     // In case of error it displays the error page
     else {
-        console.log(window.generalStatus);
-
         // Stop the typed
-        tp.stop();
+        if (tp)
+            tp.stop();
 
         // Stop the marker animation
         $("#marker_circle").css("animation-iteration-count", 0).css("fill", "#663333");
@@ -67,47 +124,41 @@ function coverHanlder() {
         $("#error_button").fadeIn(200).addClass("animated shake delay-05s");
 
         // coverMsgUp('cover_error', true);
-        // if (window.generalStatus === -1)
-        $("#cover_msg_error").html(i18next.t('cover_error'));
+        if (window.generalStatus === STATUS.GENERAL.accessDenied)
+            $("#cover_msg_error").html("Access denied!");
 
-        if (window.generalStatus === -2) {
+        if (window.generalStatus === STATUS.GENERAL.generealError)
+            $("#cover_msg_error").html(i18next.t('cover_error') || 'An error has occurred!');
+
+        if (window.generalStatus === STATUS.GENERAL.tooLong) {
             Utils.initErrorHandler(i18next.t('too_long_details'));
             $("#cover_msg_error").text(i18next.t('too_long'));
         }
 
-        if (window.generalStatus === -3) {
-            $("#cover_msg_error").html(i18next.t('unsupported_browser'));
+        if (window.generalStatus === STATUS.GENERAL.incompatible) {
+            $("#cover_msg_error").html((i18next.t('unsupported_browser') || "<i class='material-icons' style='font-size: 5vh;'>warning</i> this browser is not compatible with NagmapReborn, please upgrade your browser or use a more modern one!"));
             $("#error_button").css("display", "none");
         }
 
-        swal({
-            type: "warning",
+        Swal.fire({
+            heightAuto: false,
+            icon: "warning",
             title: 'Nagmap Reborn v2.0.0',
             html: i18next.t('not_released'),
-            footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,
+            footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable') || 'Get the last stable version'}</a>`,
             confirmButtonText: 'OK'
         });
     }
 }
 
-/* coverMsgUp = (m, uni = false) => {
-    if (uni) {
-        $("#cover_msg_error").text(i18next.t(m));
-    }
-    else {
-        if (!window.firstTime)
-            $("#cover_msg_error").text(i18next.t('wait', { t: `${i18next.t(m)}...` }));
-    }
-}
- */
-
-$(document).ready(function () {
+function init() {
     try {
 
         // Open hosts infoWindow
-        openPopup = host => {
-            host.bindPopup(host.options.popupContent);
-            host.openPopup();
+        openPopup = function (marker) {
+            var marker = (typeof marker == 'string') ? nagmapReborn.hosts[marker].mark : marker;
+            marker.bindPopup(marker.options.popupContent);
+            marker.openPopup();
 
             tippy('.filter', {
                 arrow: true,
@@ -120,13 +171,13 @@ $(document).ready(function () {
                 interactive: true
             });
 
-            host.unbindPopup();
+            marker.unbindPopup();
         }
 
-        _u("Starting translation library."); //#DEBUG_MSG#
+        _u("Starting translation library.");
 
         i18next.init(i18nConfig).then(function (t) {
-            _u("Displaying loading message."); //#DEBUG_MSG#
+            _u("Displaying loading message.");
 
             jqueryI18next.init(i18next, $, {
                 tName: 't',
@@ -154,7 +205,7 @@ $(document).ready(function () {
                     t: `${i18next.t('cr_lines')}...`
                 })],
                 typeSpeed: 35,
-                startDelay: 2000,
+                startDelay: 1500,
                 backSpeed: 40,
                 backDelay: 2000,
                 loop: true,
@@ -164,18 +215,16 @@ $(document).ready(function () {
             setTimeout(function () {
                 coverHanlder();
                 tooLong = setTimeout(function () {
-                    window.generalStatus = -2
+                    window.generalStatus = STATUS.GENERAL.tooLong
                 }, 50000);
             }, 1950);
-            /* window.firstTime = false;
-            $("#cover_msg_error").text(i18next.t('start'));
-            coverMsgUp('start', true); */
-            _u("Initializing Nagmap Reborn class."); //#DEBUG_MSG#
 
-            window.nagmapReborn = new NagmapReborn(config);
+            _u("Initializing Nagmap Reborn class.");
+
+            window.nagmapReborn = new NagmapReborn();
         });
 
     } catch (e) {
         Utils.initErrorHandler(e);
     }
-});
+}

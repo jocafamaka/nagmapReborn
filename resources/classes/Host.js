@@ -5,7 +5,9 @@
  ******************************************************************************************/
 
 class Host {
-	constructor(data, icons, oms) {
+	constructor(h, data, icons, oms) {
+		this._u(`Creating host {${h}} at {${data.latlng}}.`);
+		this.alias = data.alias;
 		this.latlng = new L.latLng((data.latlng).split(","));
 		this.currentStatus = data.status;
 		this.mark = this.createMark(data, icons, oms);
@@ -14,26 +16,27 @@ class Host {
 	}
 
 
-	/*
+	/**
 	 * Responsible for creating the host marker and infoWindow. 
-	 */
+     * @return Marker mark
+     */
 	createMark(data, icons, oms) {
 
 		let icon = icons.grey;
-		let zIndex = 2000;
+		let zIndex = (config.priorities.unknown * 1000);
 
-		if (this.currentStatus === 0) {
+		if (this.currentStatus === STATUS.HOSTS.up) {
 			icon = icons.green;
-			zIndex = 2000;
-		} else if (this.currentStatus === 1) {
+			zIndex = (config.priorities.up * 1000);
+		} else if (this.currentStatus === STATUS.HOSTS.warning) {
 			icon = icons.yellow;
-			zIndex = 3000;
-		} else if (this.currentStatus === 2) {
+			zIndex = (config.priorities.warning * 1000);
+		} else if (this.currentStatus === STATUS.HOSTS.critical) {
 			icon = icons.orange;
-			zIndex = 4000;
-		} else if (this.currentStatus === 3) {
+			zIndex = (config.priorities.critical * 1000);
+		} else if (this.currentStatus === STATUS.HOSTS.down) {
 			icon = icons.red;
-			zIndex = 5000;
+			zIndex = (config.priorities.down * 1000);
 		}
 
 		let hostgroups = "";
@@ -60,11 +63,11 @@ class Host {
 				<div class="bubble">
 					<h5><strong>${data.nagios_host_name}</strong></h5>
 					<table>
-						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}"` : ""} ><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
+						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}" onclick="$('#filter_str').val($(this).children().next().next().text());M.updateTextFields();nagmapReborn.search();"` : ""}><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
 						<tr><td><strong>${i18next.t('hostG')}</strong></td><td>:</td><td>${hostgroups}</td></tr>
 						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http <img src='${base64White}' alt='Link' ></a> | <a class='address-link' target='_blank' href='https://${data.address}'>https <img src='${base64White}' alt='Link' /></a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src='${base64Black}' alt='Link' /></td></tr>
 						<tr><td><strong>${i18next.t('parent')}</strong></td><td>:</td><td>${parents}</td></tr>
-						<tr><td colspan=3 style="text-align: center"><br><a target="_blank" href="https://www.github.com/jocafamaka/nagmapReborn/"><img title="${i18next.t('project')}" src="resources/img/logoMiniBlack.png" alt=""></a></td></tr>
+						<tr><td colspan=3 style="text-align: center"><br><a target="_blank" href="https://www.github.com/jocafamaka/nagmapReborn/"><img width="100%" style="max-width:250px" title="${i18next.t('project')}" src="resources/img/logoBlack.png" alt=""></a></td></tr>
 					</table>
 				</div>
 			`
@@ -73,5 +76,35 @@ class Host {
 		oms.addMarker(marker);
 
 		return marker;
+	}
+
+	/**
+     * Responsible for update a host icon and lines. 
+     * @return undefined
+     */
+	updateStatus(icon, time, zIndex, color) {
+
+		this.mark.setIcon(icon);
+		this.mark.setZIndexOffset(zIndex * 1000);
+
+		if (typeof this.mark._omsData != 'undefined')
+			this.mark._omsData.usualZindex = zIndex * 1000;
+
+		this.lines.forEach(line => {
+			line.setStyle({ color: color });
+		});
+
+		if (this.mark.isBouncing())
+			this.mark.stopBouncing();
+		else
+			this.mark.bounce(time);
+	}
+
+	/**
+     * Decorator to debug console. 
+     * @return undefined
+     */
+	_u(msg) {
+		_u(`(${this.constructor.name}): ${msg}`);
 	}
 }

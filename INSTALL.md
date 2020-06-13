@@ -6,8 +6,7 @@ The 'notes' field for host definition needs to match the following example:
 ```
 <latlng>66.174082,-13.119136</latlng>
 ```
-If you are editing configuration files by hand this is how the FULL notes
-line should look like:
+If you are editing configuration files by hand this is how the FULL notes line should look like:
 ```
   notes       <latlng>66.174082,-13.119136</latlng>
 ```
@@ -27,22 +26,18 @@ To draw connections, hosts need to have 'parents' field set up.
 ## Apache / Nagmap Reborn setup
 
 Your webserver (e.g. Apache) needs to have PHP support enabled!
-Please make sure your PHP is version 7.0 and above :) (see phpinfo() php function)
+Please make sure your PHP is version 5.3 and above :) (see phpinfo() php function) yum install php-mbstring
 
-On some distributions you might need to install mbstring for PHP - like Fedora/RedHat:
-yum install php-mbstring
+1) copy the Nagmap Reborn directory into your Apache web folder (/var/www/ on Debian/Ubuntu, or /var/www/html/ on RedHat/CentOS);
 
-1) copy the Nagmap Reborn directory into your Apache web folder
-   (/var/www/ on Debian/Ubuntu, or /var/www/html/ on RedHat/CentOS)
+2) copy config.php.example into config.php and to fit your needs;
 
-2) copy config.php.example into config.php and edit this file (config.php)
-   to fit your needs
+3) Make sure the application has read and write permission in ./cache;
 
-3) Open the website of Nagmap Reborn installation
-   (e.g. open Firefox - point to YOURIP/nagmapReborn)
+4) Open the website of Nagmap Reborn installation (e.g. open Firefox - point to YOUR_IP/nagmapReborn);
 
 ## Dependencies
-The only dependencies of NagMap Reborn are **PHP extensions/modules**, make sure they are installed:
+The only dependencies of Nagmap Reborn are **PHP extensions/modules**, make sure they are installed:
 
 * json.
 * mbstring.
@@ -61,11 +56,12 @@ The following is the minimum supported version relationship:
 | Opera | 55 |
 | Internet Explorer | Does not support |
 
-_* You can see the full list [here](http://kangax.github.io/compat-table/es6/)._
+_* You can see the full list [here](https://kangax.github.io/compat-table/es6/)._
 
 For compatibility with legacy browsers, use an earlier version [(1.6.4)](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) of the project.
 
 ## Support
 
-joao_carlos.r@hotmail.com - Please do not hesitate to send an email!
-I will eventualy respond to everyone!
+If you experience any problems deploying Nagmap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
+
+You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of Nagmap Reborn.

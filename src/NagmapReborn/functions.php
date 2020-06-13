@@ -1,12 +1,10 @@
 <?php
-function filter_raw_data($raw_data, $filesName)
+function filterRawData($raw_data, $filesName)
 {
-    include('config.php');
-    include("langs/$nagMapR_Lang.php");
-
     $i = 0;
     $fileNum = 0;
     $lineNum = 1;
+    $in_definition = 0;
     foreach ($raw_data as $file) {
         foreach ($file as $line) {
             //remove blank spaces
@@ -19,12 +17,10 @@ function filter_raw_data($raw_data, $filesName)
                 //replace many spaces with just one (or replace tab with one space)
                 $line = preg_replace('/\s+/', ' ', $line);
                 $line = preg_replace('/\t+/', ' ', $line);
-                if (
-                    (preg_match("/define host{/", $line)) or (preg_match("/define host {/", $line)) or (preg_match("/define hostextinfo {/", $line)) or (preg_match("/define hostextinfo{/", $line)) or (preg_match("/define hostgroup {/", $line)) or (preg_match("/define hostgroup{/", $line))
-                ) {
+                if ((preg_match("/define host{/", $line)) or (preg_match("/define host {/", $line)) or (preg_match("/define hostextinfo {/", $line)) or (preg_match("/define hostextinfo{/", $line)) or (preg_match("/define hostgroup {/", $line)) or (preg_match("/define hostgroup{/", $line))) {
                     //starting a new host definition
                     if (isset($in_definition) && $in_definition) {
-                        die($in_definition_error);
+                        return L::in_definition_error;
                     }
                     $in_definition = 1;
                     $i++;
@@ -50,22 +46,16 @@ function filter_raw_data($raw_data, $filesName)
     return ($data);
 }
 
-function safe_name($in)
+function safeName($in)
 {
     $out = trim($in);
     $out = preg_replace('#[^a-z0-9A-Z]#', '_', $out);
     return $out;
 }
 
-function nagMapR_status()
+function ngrebornStatus()
 {
-    include('config.php');
-    include("langs/$nagMapR_Lang.php");
-
-    if (!file_exists($nagios_status_dat_file)) {
-        die("</script>$nagios_status_dat_file $file_not_find_error");
-    }
-    $fp = fopen($nagios_status_dat_file, "r");
+    $fp = fopen(config('general.status_file'), "r");
     $type = "";
     $data = array();
     while (!feof($fp)) {
@@ -107,9 +97,9 @@ function nagMapR_status()
 
                 $serviceBackup[$host] = ($value);   //Used if it is not included in the filters.
 
-                if ($nagMapR_FilterService != '') {
+                if (config('ngreborn.filter_service') != '') {
 
-                    $servicesFilter = explode(';', $nagMapR_FilterService);
+                    $servicesFilter = explode(';', config('ngreborn.filter_service'));
 
                     foreach ($servicesFilter as $serviceFilter) {
                         if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false) {
@@ -125,7 +115,7 @@ function nagMapR_status()
                 $data[$host]['hostStatus_CS'] = ($value);
             }
 
-            if ($nagMapR_ChangesBarMode == 2 || $nagMapR_ChangesBarMode == 3) {
+            if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
 
                 if (($option == "last_time_up") && ($type == "hoststatus")) {
                     $dataTime[$host]['time_LTU'] = $value;
@@ -157,7 +147,7 @@ function nagMapR_status()
 
     unset($serviceBackup);
 
-    if ($nagMapR_ChangesBarMode == 2 || $nagMapR_ChangesBarMode == 3) {
+    if (('ngreborn.changes_bar_mode') == 2 || ('ngreborn.changes_bar_mode') == 3) {
         foreach ($data as $key => $value) {
             if ($data[$key]['status'] == 3)
                 $data[$key]['time'] = $dataTime[$key]['time_LTU'];
@@ -171,16 +161,9 @@ function nagMapR_status()
 
 // This is a function listing all files with Nagios configuration files into an array
 // It reads nagios config file and parses out all directions for configuration directories or files
-function get_config_files()
+function getConfigFiles()
 {
-    include('config.php');
-    include("langs/$nagMapR_Lang.php");
-
-    if (!file_exists($nagios_cfg_file)) {
-        die("<h1>Nagmap Reborn " . file_get_contents('VERSION') . "</h1><hr>$nagios_cfg_file $file_not_find_error");
-    }
-
-    $cfg_raw = file($nagios_cfg_file);
+    $cfg_raw = file(config('general.cfg_file'));
 
     foreach ($cfg_raw as $line) {
         $line = trim($line);
@@ -192,7 +175,7 @@ function get_config_files()
         } elseif (preg_match("/^cfg_dir/i", $line)) {
             $dir = explode('=', $line, 2);
             $dir[1] = trim($dir[1]);
-            read_recursive_dir($files, $dir[1]);
+            readRecursiveDir($files, $dir[1]);
         }
     }
     $file_list = array_unique($files);
@@ -200,32 +183,14 @@ function get_config_files()
 }
 
 //Function to read recursively a config directory which contains symlinks
-function read_recursive_dir(&$files, $dir)
+function readRecursiveDir(&$files, $dir)
 {
     $dir_recursive = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
     foreach ($dir_recursive as $file => $object) {
         if (preg_match("/.cfg$/i", $file)) {
             $files[] = $file;
         } elseif (is_link($file) || (is_dir($file) && !preg_match("/\.$/i", $file))) {
-            read_recursive_dir($files, $file);
-        }
-    }
-}
-
-function require_auth()
-{
-    include('config.php');
-    if ($nagMapR_useAuth == 1) {
-        include("langs/$nagMapR_Lang.php");
-        header('Cache-Control: no-cache, must-revalidate, max-age=0');
-        $is_not_authenticated = (empty($_SERVER['PHP_AUTH_USER']) ||
-            empty($_SERVER['PHP_AUTH_PW']) ||
-            $_SERVER['PHP_AUTH_USER'] != $nagMapR_User ||
-            $_SERVER['PHP_AUTH_PW']   != $nagMapR_UserKey);
-        if ($is_not_authenticated) {
-            header('HTTP/1.1 401 Authorization Required');
-            header('WWW-Authenticate: Basic realm="Access denied"');
-            die("<h1>Nagmap Reborn " . file_get_contents('VERSION') . "</h1><hr><strong>ERROR 401:</strong> " . $authFail);
+            readRecursiveDir($files, $file);
         }
     }
 }

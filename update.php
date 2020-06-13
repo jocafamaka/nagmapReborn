@@ -1,64 +1,42 @@
 <?php
 //error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-$key = $_POST['key'];
-$lastFile = $_POST['lastFile'];
-
-include_once('config.php');
-include_once("langs/$nagMapR_Lang.php");
-
-function randomId($length = 10) {
-	return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+if (!defined('NGR_DOCUMENT_ROOT')) {
+	define('NGR_DOCUMENT_ROOT', dirname(__FILE__) == '/' ? '' : dirname(__FILE__));
 }
 
-function writeCacheFile($hStatus, $fileCache = "", $flNamePart = ""){
+include_once(NGR_DOCUMENT_ROOT . '/src/NagmapReborn/ConfigLoader.php');
+include_once(NGR_DOCUMENT_ROOT . '/src/NagmapReborn/Helper.php');
 
-	foreach($hStatus as $key => $value){
-		$currentStatus[$key]['status'] = $value['status'];
-	}
+require_once(NGR_DOCUMENT_ROOT . "/src/NagmapReborn/i18n.class.php");
+$i18n = new i18n(NGR_DOCUMENT_ROOT . "/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
+$i18n->init();
 
-	if(empty($fileCache)){
-		$flName = randomId() . '-' . time();
-		$fileCache = @fopen('cache/.ht'.$flName.'.json', 'w+');
-	}
-	else{
-		$flName =  $flNamePart . '-' . time();
-	}
+requiredAuth(config('security.use_auth'), config('security.user'), config('security.user_pass'), L::class);
 
-	$write = @fwrite($fileCache, json_encode($currentStatus));
+$key = @$_POST['key'];
+$currentHosts = @$_POST['hosts'];
 
-	if(!($fileCache && $write)){
-
-		if($fileCache)
-			@fclose($fileCache);
-
-		return false;
-	}
-
-	@fclose($fileCache);
-
-	return $flName;
+function safeName($in)
+{
+	$out = trim($in);
+	$out = preg_replace('#[^a-z0-9A-Z]#', '_', $out);
+	return $out;
 }
 
-if($key == $nagMapR_key){
+if ($key == config('security.key')) {
 
-	header('Content-Type: application/json');
-
-	if (!file_exists($nagios_status_dat_file)) {
-		die("$nagios_status_dat_file $file_not_find_error");
-	}
-
-	$fp = @fopen($nagios_status_dat_file,"r");
+	$fp = @fopen(config('general.status_file'), "r");
 	$type = "";
-	$data = Array();
+	$data = array();
 	while (!feof($fp)) {
 		$line = trim(fgets($fp));
-        //ignore all commented lines - hop to the next itteration
-		if (empty($line) OR preg_match("/^;/", $line) OR preg_match("/^#/", $line)) {
+		//ignore all commented lines - hop to the next itteration
+		if (empty($line) or preg_match("/^;/", $line) or preg_match("/^#/", $line)) {
 			continue;
 		}
-            //if end of definition, skip to next itteration
-		if (preg_match("/}/",$line)) {
+		//if end of definition, skip to next itteration
+		if (preg_match("/}/", $line)) {
 			$type = "0";
 			unset($host);
 			unset($service);
@@ -70,35 +48,36 @@ if($key == $nagMapR_key){
 		if (preg_match("/^servicestatus {/", $line)) {
 			$type = "servicestatus";
 		};
-		if(!preg_match("/}/",$line) && ($type == "hoststatus" | $type == "servicestatus")) {
+		if (!preg_match("/}/", $line) && ($type == "hoststatus" | $type == "servicestatus")) {
 			$line = trim($line);
 			$pieces = explode("=", $line, 2);
-            //do not bother with invalid data
-			if (count($pieces)<2) { continue; };
+			//do not bother with invalid data
+			if (count($pieces) < 2) {
+				continue;
+			};
 			$option = trim($pieces[0]);
 			$value = trim($pieces[1]);
 			if (($option == "host_name")) {
-				$host = $value;
+				$host = safeName($value);
 			}
 			if (($option == "service_description")) {
 				$service = $value;
 			}
 
 			if (($option == "current_state") && ($type == "servicestatus")) {
-                //Used if it is not included in the filters.
+				//Used if it is not included in the filters.
 				$serviceBackup[$host] = ($value);
 
-				if($nagMapR_FilterService != ''){
+				if (config('ngreborn.filter_service') != '') {
 
-					$servicesFilter = explode(';', $nagMapR_FilterService);
+					$servicesFilter = explode(';', config('ngreborn.filter_service'));
 
 					foreach ($servicesFilter as $serviceFilter) {
-						if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false){
+						if (strpos(strtoupper($service), strtoupper($serviceFilter)) !== false) {
 							$data[$host]['servStatus_CS'] = ($value);
 						}
 					}
-				}
-				else{
+				} else {
 					$data[$host]['servStatus_CS'] = ($value);
 				}
 			}
@@ -107,42 +86,40 @@ if($key == $nagMapR_key){
 				$data[$host]['hostStatus_CS'] = ($value);
 			}
 
-			if($nagMapR_ChangesBarMode == 2 || $nagMapR_ChangesBarMode == 3) {
+			if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
 
 				if (($option == "last_time_up") && ($type == "hoststatus")) {
 
-					if($value > 0){
+					if ($value > 0) {
 						$pastTime = time() - $value;
 						$hours = floor($pastTime / 3600);
 						$minutes = intval(($pastTime / 60) % 60);
-					}
-					else{
+					} else {
 						$hours = 0;
 						$minutes = 0;
 					}
 
-					if($hours == 0)
-						$data[$host]['time_LTU'] = ( $minutes. " min");
-					else{
-						$data[$host]['time_LTU'] = ( $hours. " h ". $and ." " .$minutes. " min");
+					if ($hours == 0)
+						$data[$host]['time_LTU'] = ($minutes . " min");
+					else {
+						$data[$host]['time_LTU'] = ($hours . " h " . L::and . " " . $minutes . " min");
 					}
 				}
 				if (($option == "last_state_change") && ($type == "servicestatus")) {
 
-					if($value > 0){
+					if ($value > 0) {
 						$pastTime = time() - $value;
 						$hours = floor($pastTime / 3600);
 						$minutes = intval(($pastTime / 60) % 60);
-					}
-					else{
+					} else {
 						$hours = 0;
 						$minutes = 0;
 					}
 
-					if($hours == 0)
-						$data[$host]['time_LSC'] = ( $minutes. " min");
-					else{
-						$data[$host]['time_LSC'] = ( $hours. " h ". $and ." " .$minutes. " min");
+					if ($hours == 0)
+						$data[$host]['time_LSC'] = ($minutes . " min");
+					else {
+						$data[$host]['time_LSC'] = ($hours . " h " . L::and . " " . $minutes . " min");
 					}
 				}
 			}
@@ -150,102 +127,57 @@ if($key == $nagMapR_key){
 	}
 
 	foreach ($data as $key => $value) {
-		if( !isset($data[$key]['servStatus_CS']) ){
+		if (!isset($data[$key]['servStatus_CS'])) {
 			$data[$key]['servStatus_CS'] = $serviceBackup[$key];
 		}
 
 		if (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 0)) {
 			$hStatus[$key]['status'] = 0;
-
 		} elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 1)) {
 			$hStatus[$key]['status'] = 1;
-
 		} elseif (($data[$key]['hostStatus_CS'] == 0) && ($data[$key]['servStatus_CS'] == 2)) {
 			$hStatus[$key]['status'] = 2;
-
-		} elseif ($data[$key]['hostStatus_CS'] == 1)  {
+		} elseif ($data[$key]['hostStatus_CS'] == 1) {
 			$hStatus[$key]['status'] = 3;
-		}
-		else{
+		} else {
 			$hStatus[$key]['status'] = 4;
 		}
 	}
 
 	unset($serviceBackup);
 
-	foreach ($hStatus as $key => $value) {
-		if($hStatus[$key]['status'] == 3)
-			$hStatus[$key]['time'] = $data[$key]['time_LTU'];
-		else
-			$hStatus[$key]['time'] = $data[$key]['time_LSC'];
-	}
+	if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3) {
 
-
-	if(!empty($lastFile)){
-
-		$response['leak'] = false;
-
-		$fileInCache = @fopen('cache/.ht'.$lastFile.'.json', 'r+');
-
-		$read = @fread($fileInCache, 10000);
-
-		@fseek($fileInCache, 0);
-
-		if($fileInCache && $read){
-
-			$oldHostsStatus = json_decode($read, true);
-
-      		//print_r($oldHostsStatus);
-
-			foreach($oldHostsStatus as $key => $oldStatus){
-				/* echo ($key . ' st: '. $oldStatus['status'] . ' | (' . $hStatus[$key] . ') st: ' . $hStatus[$key]['status']); */
-				try{
-					if($oldStatus['status'] != $hStatus[$key]['status']){
-						$updateHosts[$key]['status'] = $hStatus[$key]['status'];
-						$updateHosts[$key]['time'] = $hStatus[$key]['time'];
-					}
-				}
-				catch(Exception $e){
-					$response['leak'] = true;
-				}
-			}
-
-			if(isset($updateHosts))
-				$response['hosts'] = $updateHosts;
+		foreach ($hStatus as $key => $value) {
+			if ($hStatus[$key]['status'] == 3)
+				$hStatus[$key]['time'] = $data[$key]['time_LTU'];
 			else
-				$response['hosts'] = "{}";
-
-			$nameParts = explode("-", $lastFile);
-
-			if(! ($flNewName = writeCacheFile($hStatus, $fileInCache, $nameParts[0])))
-				$flNewName = "";
-
-			if(! rename('cache/.ht'.$lastFile.'.json', 'cache/.ht'.$flNewName.'.json'))
-				$flNewName = "";
-
-			$response['lastFile'] = $flNewName;
+				$hStatus[$key]['time'] = $data[$key]['time_LSC'];
 		}
-		else{
-			if($fileInCache)
-				@fclose($fileInCache);
-
-			$response['hosts'] = $hStatus;
-
-			if(! ($flName = writeCacheFile($hStatus)))
-				$flName = "";
-
-			$response['lastFile'] = $flName;
-		}
-
-	}
-	else{
-		$response['hosts'] = $hStatus;
-
-		if(! ($flName = writeCacheFile($hStatus)))
-			$flName = "";
-
-		$response['lastFile'] = $flName;
 	}
 
-	echo json_encode($response);
+	$currentHosts = json_decode($currentHosts, true);
+
+	$updateHosts = [];
+	$response['missing'] = false;
+
+	foreach ($currentHosts as $key => $hostName) {
+		try {
+			if (array_key_exists($hostName[0], $hStatus)) {
+				$updateHosts[$hostName[0]]['status'] = $hStatus[$hostName[0]]['status'];
+				if (config('ngreborn.changes_bar_mode') == 2 || config('ngreborn.changes_bar_mode') == 3)
+					$updateHosts[$hostName[0]]['time'] = $hStatus[$hostName[0]]['time'];
+			} else {
+				$response['missing'] = true;
+			}
+		} catch (Exception $e) {
+			$response['missing'] = true;
+		}
+	}
+
+	$response['hosts'] = $updateHosts;
+
+	return jsonResponse($response);
+} else {
+	return jsonResponse(['error' => L::accessDenied], 422);
 }

@@ -1,18 +1,8 @@
 <?php
 include_once("functions.php");
 
-include_once('config.php');
-
-include_once("langs/$nagMapR_Lang.php");
-
-//Auth Request
-require_auth();
-
-// pre-define variables so the E_NOTICES do not show in webserver logs
-$javascript = "";
-
 // Get list of all Nagios configuration files into an array
-$files = get_config_files();
+$files = getConfigFiles();
 
 // Read content of all Nagios configuration files into one huge array
 foreach ($files as $file) {
@@ -20,12 +10,17 @@ foreach ($files as $file) {
 		$raw_data[$file] = file($file);
 }
 
-$data = filter_raw_data($raw_data, $files);
+$data = filterRawData($raw_data, $files);
+
+if (!is_array($data)) {
+	$fails[] = $data;
+	return false;
+}
 
 // hosts definition - we are only interested in hostname, parents and notes with position information
 foreach ($data as $host) {
 	if (((!empty($host["host_name"])) && (!preg_match("/^\\!/", $host['host_name'])))) {
-		$hostname = safe_name($host["host_name"]);
+		$hostname = safeName($host["host_name"]);
 		$hosts[$hostname]['host_name'] = $hostname;
 		$hosts[$hostname]['nagios_host_name'] = $host["host_name"];
 		$hosts[$hostname]['alias'] = $host["alias"];
@@ -36,7 +31,7 @@ foreach ($data as $host) {
 			if ($option == "parents") {
 				$parents = explode(',', $value);
 				foreach ($parents as $parent) {
-					$parent = safe_name($parent);
+					$parent = safeName($parent);
 					$hosts[$hostname]['parents'][] = $parent;
 				}
 				continue;
@@ -72,21 +67,22 @@ foreach ($data as $host) {
 }
 unset($data);
 
-if ($nagMapR_FilterHostgroup) {
+if (config('ngreborn.filter_hostgroup')) {
 	foreach ($hosts as $host) {
-		if (!in_array($nagMapR_FilterHostgroup, $hosts[$host["host_name"]]['hostgroups'])) {
+		if (!in_array(config('ngreborn.filter_hostgroup'), $hosts[$host["host_name"]]['hostgroups'])) {
 			unset($hosts[$host["host_name"]]);
 		}
 	}
 }
 
 // get host statuses
-$s = nagMapR_status();
+$s = ngrebornStatus();
 
 // remove hosts we are not able to render and combine those we are able to render with their statuses
 foreach ($hosts as $h) {
 	if ((isset($h["latlng"])) and (isset($h["host_name"])) and (isset($s[$h["nagios_host_name"]]['status']))) {
-		$data[$h["host_name"]] = $h;
-		$data[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
+		$final_hosts[$h["host_name"]] = $h;
+		$final_hosts[$h["host_name"]]['status'] = $s[$h["nagios_host_name"]]['status'];
 	}
 }
+unset($hosts);

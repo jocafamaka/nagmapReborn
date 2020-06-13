@@ -2,11 +2,11 @@
   "name": "Nagmap Reborn",
   "short_name": "NgReborn",
   "description": "User-friendly interface for monitoring system.",
-  "lang": "en-EN",
+  "lang": "en-US",
   "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#00afa9",
-  "start_url": "/",
+  "start_url": "/nagmapReborn",
   "display": "standalone",
   "icons": [
     {
