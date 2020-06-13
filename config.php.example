@@ -102,7 +102,7 @@ return [
         // 1 = YES.
         'lines' => 1,
 
-        // Time in seconds, to update the hosts status, minimum 5. (use only numbers)
+        // Time in seconds, to update the hosts status, minimum 10. (use only numbers)
         'time_update' => 10,
 
         // Automatic errors reporting?
