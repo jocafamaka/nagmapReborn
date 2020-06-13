@@ -111,7 +111,7 @@ if (!is_int(config('ngreborn.reporting')) || (config('ngreborn.reporting') < 0) 
 if (!is_string(config('security.key')))
     $fails[] = L::config_error("security.key", config('security.key'));
 
-if ((!is_int(config('security.use_auth')) ||config('security.use_auth') < 0) || (config('security.use_auth') > 1)) {
+if ((!is_int(config('security.use_auth')) || config('security.use_auth') < 0) || (config('security.use_auth') > 1)) {
     $fails[] = L::config_error("security.use_auth", config('security.use_auth'));
 } else {
     if (config('security.use_auth') == 1) {
@@ -167,7 +167,7 @@ return jsonResponse([
     "defaultAuth" => checkDefaultAuth(config('security.use_auth'), config('security.user'), config('security.user_pass')),
     "reporting" => config('ngreborn.reporting'),
     "domain" => config('ngreborn.domain'),
-    "initialHosts" => $final_hosts,
+    "initialHosts" => (isset($final_hosts) ? $final_hosts : []),
     "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/langs/" . config('ngreborn.language') . ".json"))
 ]);
 
