@@ -1,23 +1,22 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W61SUW3)
-# Nagmap Reborn Introduction
-Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko) which according to his own description is an "... super-simple application to integrate Nagios or Icinga with Google maps. The integration aims to visualize current status of network devices on aerial photography images..."
+# Nagmap Reborn Project
+Nagmap Reborn provides a user-friendly interface for monitoring servers and services, through geographic visualization on the map.
 
-## ATTENTION
-Note that his version still **in development** and therefore **unfinished**, it may contain **several bugs**, must be used for testing only!
+That way you can easily and visually identify the status of what you monitor, in addition to summarized information about each one, in addition to bringing some specific features of Nagmap Reborn;
 
-For use in production the [stable version](https://github.com/jocafamaka/nagmapReborn/releases/tag/v1.6.4) must be adopted.
+<small>Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko).</small>
 
 ## v2.0.0
-This version has as objective to bring update of the used technologies, as well as a redesing of the current structure of the project, allowing a better performance and maintenance.
+This version brings significant logical changes, being a break-point in the API compatibility between v1.x.x and v2.x.x;
 
-Main changes:
-* Use Object Orientation on the front end.
-* Use of JS6 (ECMAScript 2015) features.
-  * Incompatible with old browsers.
-* Exclusive use of Open Street Map.
-  * Due to the disuse of Google Maps.
-* Complete redesing of the host status update system.
-  * Providing good performance even in large installations.
+With these changes it was possible to achieve the following objectives:
+
+* Use of modern technologies;
+* Separation of front-end and back-end;
+* Maintenance facilitation;
+* Better performance and scalability (Handles large installations well);
+
+<small>See how to migrate from version 1.6.x to v2.x.x [here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x).</small>
 
 ## Live preview (Coming soon)
 <p align="center"> 
@@ -25,6 +24,15 @@ Main changes:
     <img src="https://i.imgur.com/4igZSkB.gif">
   </kbd>
 </p>
+
+## Contribution
+
+Contribution are always **welcome and recommended**! Here is how:
+
+1. Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/))
+1. Clone to your machine
+1. Make your changes
+1. Create a pull request
 
 ## Terms of use (Leaflet / OpenStreetMap)
 * By using this API Implementation, your are agreeing to be bound by Leaflet and OpenStreetMap Terms of Use.
