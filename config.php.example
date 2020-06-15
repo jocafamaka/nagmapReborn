@@ -33,7 +33,7 @@ return [
     ],
     'ngreborn' => [
         // Sets the translation file name.
-        // See the folder "langs" for available translations.
+        // See the folder "resources/langs" for available translations.
         // You can create your own translation by copying and renaming one of the files and making the
         // necessary changes.
         'language' => "en-US",

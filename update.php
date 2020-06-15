@@ -7,7 +7,7 @@ include_once(NGR_DOCUMENT_ROOT . '/src/NagmapReborn/ConfigLoader.php');
 include_once(NGR_DOCUMENT_ROOT . '/src/NagmapReborn/Helper.php');
 
 require_once(NGR_DOCUMENT_ROOT . "/src/NagmapReborn/i18n.class.php");
-$i18n = new i18n(NGR_DOCUMENT_ROOT . "/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
+$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
 $i18n->init();
 
 requiredAuth(config('security.use_auth'), config('security.user'), config('security.user_pass'), L::class);

@@ -13,7 +13,7 @@ if (!file_exists("config.php")) {
 }
 
 // Check if the translation file informed exist.
-if (!file_exists(NGR_DOCUMENT_ROOT . "/langs/" . config('ngreborn.language') . ".json")) {
+if (!file_exists(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json")) {
     include_once('config.php');
     if (isset($nagios_cfg_file))
         return jsonResponse(['error' => ["It looks like you just updated Nagmap Reborn, <b><a href='https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x' target='_blank'>see here</a></b> the changes that are necessary for version migration."]], 400);
@@ -23,7 +23,7 @@ if (!file_exists(NGR_DOCUMENT_ROOT . "/langs/" . config('ngreborn.language') . "
 
 // Load language
 require_once(NGR_DOCUMENT_ROOT . "/src/NagmapReborn/i18n.class.php");
-$i18n = new i18n(NGR_DOCUMENT_ROOT . "/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
+$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
 $i18n->init();
 
 $fails = [];
@@ -167,5 +167,5 @@ return jsonResponse([
     "reporting" => config('ngreborn.reporting'),
     "domain" => config('ngreborn.domain'),
     "initialHosts" => (isset($final_hosts) ? $final_hosts : []),
-    "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/langs/" . config('ngreborn.language') . ".json"))
+    "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/" . config('ngreborn.language') . ".json"))
 ]);

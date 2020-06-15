@@ -114,9 +114,9 @@ include_once('src/NagmapReborn/ConfigLoader.php');
 
     <script src="resources/js/axios.min.js?v=<?php echo config('ngreborn.version') ?>"></script>
 
-    <script src="resources/classes/Utils.js?v=<?php echo config('ngreborn.version') ?>"></script>
-    <script src="resources/classes/Host.js?v=<?php echo config('ngreborn.version') ?>"></script>
-    <script src="resources/classes/NagmapReborn.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/classes/Utils.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/classes/Host.js?v=<?php echo config('ngreborn.version') ?>"></script>
+    <script src="resources/js/classes/NagmapReborn.js?v=<?php echo config('ngreborn.version') ?>"></script>
     <script src="resources/js/app.js?v=<?php echo config('ngreborn.version') ?>"></script>
 </body>
 
