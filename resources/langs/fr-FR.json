@@ -102,7 +102,7 @@
     "too_long": "Cela prend trop de temps, veuillez rafraîchir la page!",
     "too_long_details": "Cette erreur se produit lorsque l'initialisation prend plus de 50 secondes pour se terminer, dans cette situation, il est recommandé d'activer le débogage pour obtenir le rapport étape par étape complet du démarrage.",
     "as_filter": "Utiliser comme filtre",
-    "not_released": "Cette version n'est pas encore sortie et est toujours <strong>en développement</strong> et donc <strong>inachevée</strong>, elle peut contenir <strong>plusieurs bugs</strong>. <br> <br> Must être utilisé uniquement pour les tests!<br><br>Pour une utilisation en production, la <strong>version stable</strong> doit être adoptée.",
+    "not_released": "Il s'agit d'une version rc (release candidate), elle possède déjà toutes les fonctionnalités de la version finale, mais elle peut contenir des bugs mineurs.<br><br>Son utilisation est recommandée uniquement pour les tests et les premiers utilisateurs.<br><br>Pour une utilisation en production, la <strong>version stable</strong> doit être adoptée.",
     "last_stable": "Obtenez la dernière version stable.",
     "details": "Détails",
     "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> ce navigateur n'est pas compatible avec NagmapReborn, veuillez mettre à jour votre navigateur ou utiliser un plus moderne!",
