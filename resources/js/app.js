@@ -15,7 +15,7 @@ _u = function consoleDebug(msg, ok = true) {
     }
 }
 
-axios.get("InitialConfig.php")
+axios.get("initializer.php")
     .then(function (response) {
         window.config = response.data;
         i18nConfig = {
