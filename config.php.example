@@ -114,6 +114,10 @@ return [
         // Security key to protect data from external requests (use only letters and numbers)
         'key' => "tmRlL3QYisEuYITLaacJfsfGAYa3AAVMH9LizQzpHoishwMors1IUhA26drTOP112CL7oi2CbNGMFlmCArpR01CyJ1Sn0onH",
 
+        // Allow settings to be overwritten via url parameters 
+        // (Useful for use on more than one monitor with different information)
+        'allow_overwrite' => 0,
+
         // Request authentication when accessing the page?
         // 0 = NO.
         // 1 = YES (Strongly recommended).

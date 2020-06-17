@@ -15,7 +15,7 @@ _u = function consoleDebug(msg, ok = true) {
     }
 }
 
-axios.get("initializer.php")
+axios.get(`initializer.php?${Utils.getFullQueryString()}`)
     .then(function (response) {
         window.config = response.data;
         i18nConfig = {
