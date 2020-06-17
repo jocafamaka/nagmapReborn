@@ -89,4 +89,9 @@ class Utils {
         });
     }
 
+    static getFullQueryString() {
+        var p = window.location.href.split("?");
+        return p[1] || '';
+    }
+
 }

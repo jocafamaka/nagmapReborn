@@ -428,7 +428,7 @@ class NagmapReborn {
         params.append('key', config.secKey);
         params.append('hosts', JSON.stringify(hosts));
 
-        axios.post("update.php", params)
+        axios.post(`update.php?${Utils.getFullQueryString()}`, params)
             .then((response) => {
                 if (response.data.missing == true) {
                     config.realTime = false;
