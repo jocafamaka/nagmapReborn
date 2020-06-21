@@ -106,5 +106,7 @@
     "last_stable": "Obtenez la dernière version stable.",
     "details": "Détails",
     "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> ce navigateur n'est pas compatible avec NagmapReborn, veuillez mettre à jour votre navigateur ou utiliser un plus moderne!",
-    "ngr_init_error": "Impossible d'initialiser la classe!"
+    "ngr_init_error": "Impossible d'initialiser la classe!",
+    "load_icons_error": "Impossible de charger les styles d'icônes, veuillez vous assurer que resources/icons/icons.json existe et est un json valide.",
+    "load_icon_style_error": "Impossible de trouver le style ({{t}}), une solution de repli sera utilisée."
 }

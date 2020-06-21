@@ -19,7 +19,7 @@ if (!defined("CONFIG_LOAD")) {
             'ngreborn.priorities.critical',
             'ngreborn.priorities.down',
             'ngreborn.play_sound',
-            'ngreborn.icon_style',
+            'ngreborn.default_icon_style',
             'ngreborn.lines'
         ];
 

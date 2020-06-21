@@ -91,11 +91,14 @@ return [
         // 1 = YES.
         'play_sound' => 1,
 
-        // Choose the style of the icons.
-        // 0 = Original icon.
-        // 1 = No edges with shadow.
-        // 2 = With edges without shadow.
-        'icon_style' => 1,
+        // Defines if icons will be animated when the host status is updated.
+        // 0 = NO.
+        // 1 = YES.
+        'update_animation' => 1,
+
+        // The style name to be used in the icons
+        // Pre-existing options: marker_retro, marker_shadow, marker_border, wifi_border_dark, wifi_border_light, router_border_dark, router_border_light
+        'default_icon_style' => "marker_shadow",
 
         // Show lines between hosts and their parents.
         // 0 = NO.

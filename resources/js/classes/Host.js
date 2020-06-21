@@ -10,7 +10,7 @@ class Host {
 		this.alias = data.alias;
 		this.latlng = new L.latLng((data.latlng).split(","));
 		this.currentStatus = data.status;
-		this.mark = this.createMark(data, icons, oms);
+		this.marker = this.createMarker(data, icons, oms);
 		this.parents = data.parents;
 		this.lines = [];
 	}
@@ -20,7 +20,7 @@ class Host {
 	 * Responsible for creating the host marker and infoWindow. 
      * @return Marker mark
      */
-	createMark(data, icons, oms) {
+	createMarker(data, icons, oms) {
 
 		let icon = icons.grey;
 		let zIndex = (config.priorities.unknown * 1000);
@@ -84,20 +84,20 @@ class Host {
      */
 	updateStatus(icon, time, zIndex, color) {
 
-		this.mark.setIcon(icon);
-		this.mark.setZIndexOffset(zIndex * 1000);
+		this.marker.setIcon(icon);
+		this.marker.setZIndexOffset(zIndex * 1000);
 
-		if (typeof this.mark._omsData != 'undefined')
-			this.mark._omsData.usualZindex = zIndex * 1000;
+		if (typeof this.marker._omsData != 'undefined')
+			this.marker._omsData.usualZindex = zIndex * 1000;
 
 		this.lines.forEach(line => {
 			line.setStyle({ color: color });
 		});
 
-		if (this.mark.isBouncing())
-			this.mark.stopBouncing();
+		if (this.marker.isBouncing())
+			this.marker.stopBouncing();
 		else
-			this.mark.bounce(time);
+			this.marker.bounce(time);
 	}
 
 	/**

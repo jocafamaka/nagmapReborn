@@ -1,0 +1,168 @@
+{
+    "names": {},
+    "hostgroups": {},
+
+    "styles": {
+        "marker_retro": {
+            "grey": {
+                "iconUrl": "retro/Grey.png",
+                "iconSize": [29, 43]
+            },
+            "green": {
+                "iconUrl": "retro/Green.png",
+                "iconSize": [29, 43]
+            },
+            "yellow": {
+                "iconUrl": "retro/Yellow.png",
+                "iconSize": [29, 43]
+            },
+            "orange": {
+                "iconUrl": "retro/Orange.png",
+                "iconSize": [29, 43]
+            },
+            "red": {
+                "iconUrl": "retro/Red.png",
+                "iconSize": [29, 43]
+            }
+        },
+
+        "marker_shadow": {
+            "grey": {
+                "iconUrl": "shadow/Grey.png",
+                "iconSize": [29, 43]
+            },
+            "green": {
+                "iconUrl": "shadow/Green.png",
+                "iconSize": [29, 43]
+            },
+            "yellow": {
+                "iconUrl": "shadow/Yellow.png",
+                "iconSize": [29, 43]
+            },
+            "orange": {
+                "iconUrl": "shadow/Orange.png",
+                "iconSize": [29, 43]
+            },
+            "red": {
+                "iconUrl": "shadow/Red.png",
+                "iconSize": [29, 43]
+            }
+        },
+
+        "marker_border": {
+            "grey": {
+                "iconUrl": "border/Grey.png",
+                "iconSize": [29, 43]
+            },
+            "green": {
+                "iconUrl": "border/Green.png",
+                "iconSize": [29, 43]
+            },
+            "yellow": {
+                "iconUrl": "border/Yellow.png",
+                "iconSize": [29, 43]
+            },
+            "orange": {
+                "iconUrl": "border/Orange.png",
+                "iconSize": [29, 43]
+            },
+            "red": {
+                "iconUrl": "border/Red.png",
+                "iconSize": [29, 43]
+            }
+        },
+        
+        "wifi_border_dark": {
+            "grey": {
+                "iconUrl": "wifi/Grey_dark.png",
+                "iconSize": [40, 32]
+            },
+            "green": {
+                "iconUrl": "wifi/Green_dark.png",
+                "iconSize": [40, 32]
+            },
+            "yellow": {
+                "iconUrl": "wifi/Yellow_dark.png",
+                "iconSize": [40, 32]
+            },
+            "orange": {
+                "iconUrl": "wifi/Orange_dark.png",
+                "iconSize": [40, 32]
+            },
+            "red": {
+                "iconUrl": "wifi/Red_dark.png",
+                "iconSize": [40, 32]
+            }
+        },
+
+        "wifi_border_light": {
+            "grey": {
+                "iconUrl": "wifi/Grey_light.png",
+                "iconSize": [40, 32]
+            },
+            "green": {
+                "iconUrl": "wifi/Green_light.png",
+                "iconSize": [40, 32]
+            },
+            "yellow": {
+                "iconUrl": "wifi/Yellow_light.png",
+                "iconSize": [40, 32]
+            },
+            "orange": {
+                "iconUrl": "wifi/Orange_light.png",
+                "iconSize": [40, 32]
+            },
+            "red": {
+                "iconUrl": "wifi/Red_light.png",
+                "iconSize": [40, 32]
+            }
+        },
+
+        "router_border_dark": {
+            "grey": {
+                "iconUrl": "router/Grey_dark.png",
+                "iconSize": [46, 29]
+            },
+            "green": {
+                "iconUrl": "router/Green_dark.png",
+                "iconSize": [46, 29]
+            },
+            "yellow": {
+                "iconUrl": "router/Yellow_dark.png",
+                "iconSize": [46, 29]
+            },
+            "orange": {
+                "iconUrl": "router/Orange_dark.png",
+                "iconSize": [46, 29]
+            },
+            "red": {
+                "iconUrl": "router/Red_dark.png",
+                "iconSize": [46, 29]
+            }
+        },
+
+        "router_border_light": {
+            "grey": {
+                "iconUrl": "router/Grey_light.png",
+                "iconSize": [46, 29]
+            },
+            "green": {
+                "iconUrl": "router/Green_light.png",
+                "iconSize": [46, 29]
+            },
+            "yellow": {
+                "iconUrl": "router/Yellow_light.png",
+                "iconSize": [46, 29]
+            },
+            "orange": {
+                "iconUrl": "router/Orange_light.png",
+                "iconSize": [46, 29]
+            },
+            "red": {
+                "iconUrl": "router/Red_light.png",
+                "iconSize": [46, 29]
+            }
+        }
+
+    }
+}

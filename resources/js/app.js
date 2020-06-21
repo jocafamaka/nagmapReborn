@@ -8,8 +8,9 @@ window.generalStatus = STATUS.GENERAL.initial;
 
 _u = function consoleDebug(msg, ok = true) {
     if (config.debug) {
+        ok ? console.log(msg) : console.warn(msg);
         $("#console_text").prepend($('<p>', {
-            html: new Date().toLocaleString(config.locale) + ' - ' + msg.replace(/{/g, '<b>').replace(/}/g, '</b>'),
+            html: new Date().toLocaleString(config.locale) + ' - ' + String(msg).replace(/{/g, '<b>').replace(/}/g, '</b>'),
             class: (ok) ? 'debugText ok' : 'debugText error'
         }));
     }
@@ -160,7 +161,7 @@ function init() {
 
         // Open hosts infoWindow
         openPopup = function (marker) {
-            var marker = (typeof marker == 'string') ? nagmapReborn.hosts[marker].mark : marker;
+            var marker = (typeof marker == 'string') ? nagmapReborn.hosts[marker].marker : marker;
             marker.bindPopup(marker.options.popupContent);
             marker.openPopup();
 

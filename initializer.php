@@ -94,8 +94,11 @@ if (!is_int(config('ngreborn.priorities.down')))
 if (!is_int(config('ngreborn.play_sound')) || (config('ngreborn.play_sound') < 0) || (config('ngreborn.play_sound') > 1))
     $fails[] = L::config_error("ngreborn.play_sound", config('ngreborn.play_sound'));
 
-if (!is_int(config('ngreborn.icon_style')) || config('ngreborn.icon_style') > 2 || config('ngreborn.icon_style') < 0)
-    $fails[] = L::config_error("ngreborn.icon_style", config('ngreborn.icon_style'));
+if (!is_int(config('ngreborn.update_animation')) || (config('ngreborn.update_animation') < 0) || (config('ngreborn.update_animation') > 1))
+    $fails[] = L::config_error("ngreborn.update_animation", config('ngreborn.update_animation'));
+
+if ((!is_string(config('ngreborn.default_icon_style'))) || empty(config('ngreborn.default_icon_style')))
+    $fails[] = L::config_error("ngreborn.default_icon_style", config('ngreborn.default_icon_style'));
 
 if (!is_int(config('ngreborn.lines')) || (config('ngreborn.lines') < 0) || (config('ngreborn.lines') > 1))
     $fails[] = L::config_error("ngreborn.lines", config('ngreborn.lines'));
@@ -159,7 +162,9 @@ return jsonResponse([
         'down' => config('ngreborn.priorities.down')
     ],
     "soundAlert" => config('ngreborn.play_sound'),
-    "iconStyle" => config('ngreborn.icon_style'),
+    "updateAnimation" => config('ngreborn.update_animation'),
+    "defaultIconStyle" => config('ngreborn.default_icon_style'),
+    "icons" => json_decode(@file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/icons/icons.json")),
     "showLines" => config('ngreborn.lines'),
     "updateTime" => config('ngreborn.time_update'),
     "secKey" => config('security.key'),

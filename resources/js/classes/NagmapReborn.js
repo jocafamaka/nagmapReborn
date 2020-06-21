@@ -155,41 +155,51 @@ class NagmapReborn {
      */
     getIcons() {
 
+        if (config.icons == null) {
+            // this._u("Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.", false);
+            throw i18next.t("load_icons_error") || "Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.";
+        }
+
+        if (!config.icons.styles.hasOwnProperty(config.defaultIconStyle)) {
+            this._u(i18next.t("load_icon_style_error", { t: config.defaultIconStyle }), false);
+            config.defaultIconStyle = "marker_shadow";
+        }
+
         let icons = {};
 
         icons.red = L.icon({
-            iconUrl: `resources/img/icons/MarkerRedSt-${config.iconStyle}.png`,
-            iconSize: [29, 43],
-            iconAnchor: [14, 42],
-            popupAnchor: [0, -42]
+            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].red.iconUrl,
+            iconSize: config.icons.styles[config.defaultIconStyle].red.iconSize,
+            iconAnchor: (config.icons.styles[config.defaultIconStyle].red.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[1]) - 1]),
+            popupAnchor: (config.icons.styles[config.defaultIconStyle].red.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[1]) - 1)])
         });
 
         icons.green = L.icon({
-            iconUrl: `resources/img/icons/MarkerGreenSt-${config.iconStyle}.png`,
-            iconSize: [29, 43],
-            iconAnchor: [14, 42],
-            popupAnchor: [0, -42]
+            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].green.iconUrl,
+            iconSize: config.icons.styles[config.defaultIconStyle].green.iconSize,
+            iconAnchor: (config.icons.styles[config.defaultIconStyle].green.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[1]) - 1]),
+            popupAnchor: (config.icons.styles[config.defaultIconStyle].green.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[1]) - 1)])
         });
 
         icons.orange = L.icon({
-            iconUrl: `resources/img/icons/MarkerOrangeSt-${config.iconStyle}.png`,
-            iconSize: [29, 43],
-            iconAnchor: [14, 42],
-            popupAnchor: [0, -42]
+            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].orange.iconUrl,
+            iconSize: config.icons.styles[config.defaultIconStyle].orange.iconSize,
+            iconAnchor: (config.icons.styles[config.defaultIconStyle].orange.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[1]) - 1]),
+            popupAnchor: (config.icons.styles[config.defaultIconStyle].orange.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[1]) - 1)])
         });
 
         icons.yellow = L.icon({
-            iconUrl: `resources/img/icons/MarkerYellowSt-${config.iconStyle}.png`,
-            iconSize: [29, 43],
-            iconAnchor: [14, 42],
-            popupAnchor: [0, -42]
+            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].yellow.iconUrl,
+            iconSize: config.icons.styles[config.defaultIconStyle].yellow.iconSize,
+            iconAnchor: (config.icons.styles[config.defaultIconStyle].yellow.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[1]) - 1]),
+            popupAnchor: (config.icons.styles[config.defaultIconStyle].yellow.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[1]) - 1)])
         });
 
         icons.grey = L.icon({
-            iconUrl: `resources/img/icons/MarkerGreySt-${config.iconStyle}.png`,
-            iconSize: [29, 43],
-            iconAnchor: [14, 42],
-            popupAnchor: [0, -42]
+            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].grey.iconUrl,
+            iconSize: config.icons.styles[config.defaultIconStyle].grey.iconSize,
+            iconAnchor: (config.icons.styles[config.defaultIconStyle].grey.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[1]) - 1]),
+            popupAnchor: (config.icons.styles[config.defaultIconStyle].grey.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[1]) - 1)])
         });
 
         return icons;
