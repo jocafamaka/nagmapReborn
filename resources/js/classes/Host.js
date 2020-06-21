@@ -94,10 +94,12 @@ class Host {
 			line.setStyle({ color: color });
 		});
 
-		if (this.marker.isBouncing())
-			this.marker.stopBouncing();
-		else
-			this.marker.bounce(time);
+		if (config.updateAnimation) {
+			if (this.marker.isBouncing())
+				this.marker.stopBouncing();
+			else
+				this.marker.bounce(time);
+		}
 	}
 
 	/**

@@ -20,6 +20,7 @@ if (!defined("CONFIG_LOAD")) {
             'ngreborn.priorities.down',
             'ngreborn.play_sound',
             'ngreborn.default_icon_style',
+            'ngreborn.update_animation',
             'ngreborn.lines'
         ];
 
