@@ -15,8 +15,10 @@ With these changes it was possible to achieve the following objectives:
 * Separation of front-end and back-end;
 * Maintenance facilitation;
 * Better performance and scalability (Handles large installations well);
+* A bunch of new cool features;
 
-<sub>See how to migrate from version 1.6.x to v2.x.x [here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x).</sub>
+### Migrating from v1.6.x to 2.0.0
+[See here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x) a detailed guide of all the changes made and what actions are necessary for version migration!
 
 ## Compatibility
 Currently Nagmap Reborn can easily integrate directly with:
