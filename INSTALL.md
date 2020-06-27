@@ -1,5 +1,8 @@
 # Installation
 
+## Updating from v1.6.x to v2.0.0?
+[See here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x) a detailed guide of all the changes made and what actions are necessary for version migration!
+
 ## Configuration
 
 The 'notes' field for host definition needs to match the following example:
