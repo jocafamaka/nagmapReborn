@@ -73,7 +73,7 @@ Undecided about which API to use? Here are some differences between them:
 
 From 03/2019 the project will go into hiatus to add features.
 
-This decision was taken so that all attention is focused on the development of the [v2.0.0](https://github.com/jocafamaka/nagmapReborn/tree/v2.0.0), which will bring many benefits.
+This decision was taken so that all attention is focused on the development of the [v2.0.0](https://github.com/jocafamaka/nagmapReborn/tree/developing), which will bring many benefits.
 
 ### Important Notes:
 * This version will continue to receive support.
