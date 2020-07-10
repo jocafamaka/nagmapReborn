@@ -25,6 +25,11 @@ function safeName($in)
 if ($key == config('security.key')) {
 
 	$fp = @fopen(config('general.status_file'), "r");
+
+	if ($fp == false) {
+		return jsonResponse(['error' => L::config_error('general.status_file', config('general.status_file'))], 404);
+	}
+
 	$type = "";
 	$data = array();
 	while (!feof($fp)) {

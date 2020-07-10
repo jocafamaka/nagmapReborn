@@ -465,7 +465,7 @@ class NagmapReborn {
             .catch((error) => {
                 config.realTime = false;
 
-                if (error.response.status == 401) {
+                if (typeof error.response !== 'undefined' && error.response.status == 401) {
                     Utils.showToastr("error", i18next.t("updateErrorDenied"));
                     console.warn(`${i18next.t("updateErrorDenied")} (${error})`);
                     this._u(`${i18next.t("updateErrorDenied")} (${error})`, false);
