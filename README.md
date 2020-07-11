@@ -17,6 +17,12 @@ With these changes it was possible to achieve the following objectives:
 * Better performance and scalability (Handles large installations well);
 * A bunch of new cool features;
 
+## Installation
+
+Download the latest version from the [release page](https://github.com/jocafamaka/nagmapReborn/releases).
+
+In the file [INSTALL.md](https://github.com/jocafamaka/nagmapReborn/blob/master/INSTALL.md) you will find complete instructions for installing and configuring the project.
+
 ### Migrating from v1.6.x to 2.0.0
 [See here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x) a detailed guide of all the changes made and what actions are necessary for version migration!
 
@@ -44,6 +50,10 @@ Contribution are always **welcome and recommended**! Here is how:
 1. Clone to your machine
 1. Make your changes
 1. Create a pull request
+
+## Support
+
+You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of Nagmap Reborn. You'll find tutorials and answers to common questions!
 
 ## Terms of use (Leaflet / OpenStreetMap)
 * By using this API Implementation, your are agreeing to be bound by Leaflet and OpenStreetMap Terms of Use.

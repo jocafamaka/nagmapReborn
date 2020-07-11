@@ -1,9 +1,22 @@
 # Installation
 
-## Updating from v1.6.x to v2.0.0?
+### Updating from v1.6.x to v2.0.0?
 [See here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x) a detailed guide of all the changes made and what actions are necessary for version migration!
 
 ## Configuration
+
+The first step in using the Nagmap Reborn is to configure the Latitude and Longitude of the hosts, which will be used to represent them on the map.
+
+This information needs to be placed in a specific field, the 'notes' field/line, depending on the monitoring system you are using, which can be via the interface or directly editing the configuration files.
+
+This definition must be made through the tag:
+```
+<latlng></latlng>
+```
+Which must contain the latitude and longitude separated by commas (,):
+```
+<latlng>LATITUDE,LONGITUDE</latlng>
+```
 
 The 'notes' field for host definition needs to match the following example:
 ```
@@ -65,6 +78,4 @@ For compatibility with legacy browsers, use an previous version [(1.6.4)](https:
 
 ## Support
 
-If you experience any problems deploying Nagmap Reborn please [see here](https://github.com/jocafamaka/nagmapReborn/wiki/How-to-request-support%3F) how to request suport.
-
-You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of Nagmap Reborn.
+You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / FAQ of Nagmap Reborn. You'll find tutorials and answers to common questions!
