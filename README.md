@@ -18,7 +18,6 @@ With these changes it was possible to achieve the following objectives:
 * A bunch of new cool features;
 
 ## Installation
-
 Download the latest version from the [release page](https://github.com/jocafamaka/nagmapReborn/releases).
 
 In the file [INSTALL.md](https://github.com/jocafamaka/nagmapReborn/blob/master/INSTALL.md) you will find complete instructions for installing and configuring the project.
