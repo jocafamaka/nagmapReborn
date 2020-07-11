@@ -115,8 +115,9 @@ return [
         // 1 = YES.
         'update_animation' => 1,
 
-        // The style name to be used in the icons
+        // The default icon style to be used when there is no specific definition;
         // Pre-existing options: marker_retro, marker_shadow, marker_border, wifi_border_dark, wifi_border_light, router_border_dark, router_border_light
+        // This option can be overridden by the definitions contained in resources/icons/icons.json
         'default_icon_style' => "marker_shadow",
 
         // Show lines between hosts and their parents.

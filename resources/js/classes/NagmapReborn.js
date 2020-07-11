@@ -484,7 +484,7 @@ class NagmapReborn {
      */
     checkNgRebornUpdate() {
         this._u("Checking for updates.");
-        axios.get("https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION")
+        axios.get("https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION")
             .then(response => {
                 if (config.ngRebornVersion != null && (config.ngRebornVersion != response.data)) {
                     Swal.fire({
