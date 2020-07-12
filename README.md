@@ -7,7 +7,7 @@ Making it possible to easily and visually identify the status of what is monitor
 <sub>Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko).</sub>
 
 ## v2.0.0
-This version brings significant logical changes, being a break-point in the API compatibility between v1.x.x and v2.x.x;
+This version brings significant logical changes, being a break-point in the API compatibility between v1.x.x and v2.x.x.
 
 With these changes it was possible to achieve the following objectives:
 
@@ -20,9 +20,9 @@ With these changes it was possible to achieve the following objectives:
 ## Installation
 Download the latest version from the [release page](https://github.com/jocafamaka/nagmapReborn/releases).
 
-In the file [INSTALL.md](https://github.com/jocafamaka/nagmapReborn/blob/master/INSTALL.md) you will find complete instructions for installing and configuring the project.
+Follow the instructions contained in the [INSTALL.md](https://github.com/jocafamaka/nagmapReborn/blob/master/INSTALL.md) file, there you will find find complete instructions for installing and configuring the project.
 
-### Migrating from v1.6.x to 2.0.0
+### Migrating from v1.6.x to v2.0.0
 [See here](https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x) a detailed guide of all the changes made and what actions are necessary for version migration!
 
 ## Compatibility
