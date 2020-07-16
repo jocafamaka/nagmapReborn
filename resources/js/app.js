@@ -85,6 +85,15 @@ function coverHanlder() {
                 $("#cover").remove()
             }, 500);
 
+            Swal.fire({	
+                heightAuto: false,	
+                icon: "warning",	
+                title: 'Nagmap Reborn v' + config.ngRebornVersion,	
+                html: i18next.t('not_released'),	
+                footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,	
+                confirmButtonText: 'OK'	
+            });
+
             window.nagmapReborn.checkNgRebornUpdate();
 
             _u("Showing map");
@@ -135,6 +144,15 @@ function coverHanlder() {
         }
 
         _u("Showing error cover");
+
+        Swal.fire({	
+            heightAuto: false,	
+            icon: "warning",	
+            title: 'Nagmap Reborn v' + config.ngRebornVersion || "2.0.1-alpha",	
+            html: i18next.t('not_released'),	
+            footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable') || 'Get the last stable version'}</a>`,	
+            confirmButtonText: 'OK'	
+        });
     }
 }
 

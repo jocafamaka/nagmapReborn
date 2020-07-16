@@ -412,15 +412,17 @@ class NagmapReborn {
      * @return undefined
      */
     search() {
-        let query = $('#filter_str').val().toLowerCase();
-        let selector = (config.cbMode == 1 ? '#filterPrepend .changesBarLine' : '#changesbar .changesBarLine');
-        $(selector).each((i, el) => {
-            if ($(el).text().toLowerCase().indexOf(query) === -1) {
-                $(el).closest(selector).hide();
-            } else {
-                $(el).closest(selector).show();
-            }
-        });
+        if (config.cbFilter) {
+            let query = $('#filter_str').val().toLowerCase();
+            let selector = (config.cbMode == 1 ? '#filterPrepend .changesBarLine' : '#changesbar .changesBarLine');
+            $(selector).each((i, el) => {
+                if ($(el).text().toLowerCase().indexOf(query) === -1) {
+                    $(el).closest(selector).hide();
+                } else {
+                    $(el).closest(selector).show();
+                }
+            });
+        }
     };
 
     /**
@@ -484,7 +486,7 @@ class NagmapReborn {
      */
     checkNgRebornUpdate() {
         this._u("Checking for updates.");
-        axios.get("https://raw.githubusercontent.com/jocafamaka/nagmapReborn/master/VERSION")
+        axios.get("https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION")
             .then(response => {
                 if (config.ngRebornVersion != null && (config.ngRebornVersion != response.data)) {
                     Swal.fire({
