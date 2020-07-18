@@ -55,8 +55,8 @@ if (!defined("CONFIG_LOAD")) {
         }
     }
 
-    putenv("ngr_ngreborn.version=" . @file_get_contents(NGR_DOCUMENT_ROOT . "/VERSION"));
-    putenv("ngr_ngreborn.domain=" . @file_get_contents(NGR_DOCUMENT_ROOT . "/resources/reporter/DOMAIN"));
+    putenv("NGR_ngreborn.version=" . @file_get_contents(NGR_DOCUMENT_ROOT . "/VERSION"));
+    putenv("NGR_ngreborn.domain=" . @file_get_contents(NGR_DOCUMENT_ROOT . "/resources/reporter/DOMAIN"));
 
     define("CONFIG_LOAD", true);
 }
