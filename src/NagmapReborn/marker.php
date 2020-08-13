@@ -69,7 +69,7 @@ unset($data);
 
 if (config('ngreborn.filter_hostgroup')) {
 	foreach ($hosts as $host) {
-		if (!in_array(config('ngreborn.filter_hostgroup'), $hosts[$host["host_name"]]['hostgroups'])) {
+		if (isset($hosts[$host["host_name"]]['hostgroups']) && !in_array(config('ngreborn.filter_hostgroup'), $hosts[$host["host_name"]]['hostgroups'])) {
 			unset($hosts[$host["host_name"]]);
 		}
 	}
