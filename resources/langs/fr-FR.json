@@ -12,6 +12,7 @@
     "updateErrorChanges": "Ce type d'erreur est généralement lié au problème suivant: Des modifications de l'hôte, l'ajout, la suppression ou la modification de noms ont eu lieu. Dans ce cas, mettez à jour la page.",
     "updateErrorSolved": "Problème résolu, les statuts affichés le sont en temps réel.",
     "accessDenied": "Accès refusé, nom d'utilisateur et / ou mot de passe incorrect! Rechargez la page et réessayez.",
+    "accessDeniedShort": "Accès refusé!",
     "alias": "Alias",
     "hostG": "Groupes d'hôtes",
     "newVersion": "Mise à jour disponible",

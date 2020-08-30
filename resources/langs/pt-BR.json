@@ -12,6 +12,7 @@
     "updateErrorChanges": "Esse tipo de erro está normalmente relacionado ao seguinte problema: Aconteceu modificações nos hosts, adição, remoção ou edição de nomes, nesses caso atualize a página.",
     "updateErrorSolved": "Problema resolvido, os status exibidos estão em tempo real.",
     "accessDenied": "Acesso negado, usuário e/ou senha incorretos! Recarregue a página e tente novamente.",
+    "accessDeniedShort": "Acesso negado!",
     "alias": "Aliás",
     "hostG": "Grupo de hosts",
     "newVersion": "Atualização disponível",

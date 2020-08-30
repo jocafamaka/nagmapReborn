@@ -12,6 +12,7 @@
     "updateErrorChanges": "This type of error is usually related to the following problem: Host modifications, addition, removal or editing of names have occurred, in this case update the page.",
     "updateErrorSolved": "Issue solved, the statuses displayed are in real time.",
     "accessDenied": "Access denied, incorrect username and/or password! Reload the page and try again.",
+    "accessDeniedShort": "Access denied!",
     "alias": "Alias",
     "hostG": "Hostgroups",
     "newVersion": "Update available",

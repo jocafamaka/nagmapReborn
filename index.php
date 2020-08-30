@@ -64,7 +64,6 @@ include_once('src/NagmapReborn/ConfigLoader.php');
         // Setting initial parameters.
         var config = {},
             _paq = [],
-            i18nConfig = {},
             tp = null,
             tooLong = null,
             alertAudio = null,
@@ -89,6 +88,22 @@ include_once('src/NagmapReborn/ConfigLoader.php');
                     warning: 1,
                     critical: 2,
                     down: 3
+                }
+            },
+            i18nConfig = {
+                lng: "<?php echo config('ngreborn.language', 'en-US') ?>",
+                fallbackLng: 'en-US',
+                debug: <?php echo config('general.debug', 0) ?>,
+                resources: {
+                    "en-US": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/en-US.json") ?>
+                    },
+                    "pt-BR": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/pt-BR.json") ?>
+                    },
+                    "fr-FR": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/fr-FR.json") ?>
+                    },
                 }
             };
     </script>

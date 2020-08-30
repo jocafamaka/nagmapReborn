@@ -16,27 +16,57 @@ _u = function consoleDebug(msg, ok = true) {
     }
 }
 
-axios.get(`initializer.php?${Utils.getFullQueryString()}`)
-    .then(function (response) {
-        window.config = response.data;
-        i18nConfig = {
-            lng: config.locale,
-            debug: config.debug,
-            resources: {
-                [`${config.locale}`]: {
-                    translation: config.translation
-                }
-            }
-        };
+_u("Starting translation library.");
 
-        init();
-    })
-    .catch(function (error) {
-        Utils.initErrorHandler(error.response.data.error || error);
-        if (error.response.status == 401)
-            window.generalStatus = STATUS.GENERAL.accessDenied;
-        coverHanlder();
+i18next.init(i18nConfig).then(function (t) {
+    _u("Displaying loading message.");
+
+    jqueryI18next.init(i18next, $, {
+        tName: 't',
+        i18nName: 'i18n',
+        handleName: 'localize',
+        selectorAttr: 'data-i18n',
+        targetAttr: 'i18n-target',
+        optionsAttr: 'i18n-options',
+        useOptionsAttr: false,
+        parseDefaultValueFromContent: true
     });
+
+    $(document).localize();
+
+    tp = new Typed("#cover_msg", {
+        strings: [i18next.t('wait', {
+            t: `${i18next.t('load')}...`
+        }), i18next.t('wait', {
+            t: `${i18next.t('cr_map')}...`
+        }), i18next.t('wait', {
+            t: `${i18next.t('cr_hosts')}...`
+        }), i18next.t('wait', {
+            t: `${i18next.t('cr_markers')}...`
+        }), i18next.t('wait', {
+            t: `${i18next.t('cr_lines')}...`
+        })],
+        typeSpeed: 35,
+        startDelay: 1800,
+        backSpeed: 40,
+        backDelay: 2000,
+        loop: true,
+        showCursor: true,
+        cursorChar: " ",
+    });
+
+    axios.get(`initializer.php?${Utils.getFullQueryString()}`)
+        .then(function (response) {
+            window.config = response.data;
+            init();
+        })
+        .catch(function (error) {
+            Utils.initErrorHandler(error.response.data.error || error);
+            if (error.response.status == 401)
+                window.generalStatus = STATUS.GENERAL.accessDenied;
+            coverHanlder();
+        });
+});
 
 // Check compatibility with ES6
 try {
@@ -85,13 +115,13 @@ function coverHanlder() {
                 $("#cover").remove()
             }, 500);
 
-            Swal.fire({	
-                heightAuto: false,	
-                icon: "warning",	
-                title: 'Nagmap Reborn v' + config.ngr_version,	
-                html: i18next.t('not_released'),	
-                footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,	
-                confirmButtonText: 'OK'	
+            Swal.fire({
+                heightAuto: false,
+                icon: "warning",
+                title: 'Nagmap Reborn v' + config.ngr_version,
+                html: i18next.t('not_released'),
+                footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,
+                confirmButtonText: 'OK'
             });
 
             window.nagmapReborn.checkNgRebornUpdate();
@@ -128,7 +158,7 @@ function coverHanlder() {
 
         // coverMsgUp('cover_error', true);
         if (window.generalStatus === STATUS.GENERAL.accessDenied)
-            $("#cover_msg_error").html("Access denied!");
+            $("#cover_msg_error").html(i18next.t('accessDeniedShort') || "Access denied!");
 
         if (window.generalStatus === STATUS.GENERAL.generealError)
             $("#cover_msg_error").html(i18next.t('cover_error') || 'An error has occurred!');
@@ -145,13 +175,13 @@ function coverHanlder() {
 
         _u("Showing error cover");
 
-        Swal.fire({	
-            heightAuto: false,	
-            icon: "warning",	
-            title: 'Nagmap Reborn v' + config.ngr_version || "2.0.1-alpha",	
-            html: i18next.t('not_released'),	
-            footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable') || 'Get the last stable version'}</a>`,	
-            confirmButtonText: 'OK'	
+        Swal.fire({
+            heightAuto: false,
+            icon: "warning",
+            title: 'Nagmap Reborn v' + config.ngr_version || "2.0.1-alpha",
+            html: i18next.t('not_released'),
+            footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable') || 'Get the last stable version'}</a>`,
+            confirmButtonText: 'OK'
         });
     }
 }
@@ -179,55 +209,16 @@ function init() {
             marker.unbindPopup();
         }
 
-        _u("Starting translation library.");
+        setTimeout(function () {
+            coverHanlder();
+            tooLong = setTimeout(function () {
+                window.generalStatus = STATUS.GENERAL.tooLong
+            }, 50000);
+        }, 1950);
 
-        i18next.init(i18nConfig).then(function (t) {
-            _u("Displaying loading message.");
+        _u("Initializing Nagmap Reborn class.");
 
-            jqueryI18next.init(i18next, $, {
-                tName: 't',
-                i18nName: 'i18n',
-                handleName: 'localize',
-                selectorAttr: 'data-i18n',
-                targetAttr: 'i18n-target',
-                optionsAttr: 'i18n-options',
-                useOptionsAttr: false,
-                parseDefaultValueFromContent: true
-            });
-
-            $(document).localize();
-
-            tp = new Typed("#cover_msg", {
-                strings: [i18next.t('wait', {
-                    t: `${i18next.t('load')}...`
-                }), i18next.t('wait', {
-                    t: `${i18next.t('cr_map')}...`
-                }), i18next.t('wait', {
-                    t: `${i18next.t('cr_hosts')}...`
-                }), i18next.t('wait', {
-                    t: `${i18next.t('cr_markers')}...`
-                }), i18next.t('wait', {
-                    t: `${i18next.t('cr_lines')}...`
-                })],
-                typeSpeed: 35,
-                startDelay: 1800,
-                backSpeed: 40,
-                backDelay: 2000,
-                loop: true,
-                showCursor: true,
-                cursorChar: " ",
-            });
-            setTimeout(function () {
-                coverHanlder();
-                tooLong = setTimeout(function () {
-                    window.generalStatus = STATUS.GENERAL.tooLong
-                }, 50000);
-            }, 1950);
-
-            _u("Initializing Nagmap Reborn class.");
-
-            window.nagmapReborn = new NagmapReborn();
-        });
+        window.nagmapReborn = new NagmapReborn();
 
     } catch (e) {
         Utils.initErrorHandler(e);
