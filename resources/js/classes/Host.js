@@ -62,7 +62,7 @@ class Host {
 				<div class="bubble">
 					<h5><strong>${data.nagios_host_name}</strong></h5>
 					<table>
-						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}" onclick="$('#filter_str').val($(this).children().next().next().text());M.updateTextFields();nagmapReborn.search();"` : ""}><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
+						<tr ${(config.changes_bar.filter && config.changes_bar.mode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}" onclick="$('#filter_str').val($(this).children().next().next().text());M.updateTextFields();nagmapReborn.search();"` : ""}><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
 						<tr><td><strong>${i18next.t('hostG')}</strong></td><td>:</td><td>${hostgroups}</td></tr>
 						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http <img src='${base64White}' alt='Link' ></a> | <a class='address-link' target='_blank' href='https://${data.address}'>https <img src='${base64White}' alt='Link' /></a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src='${base64Black}' alt='Link' /></td></tr>
 						<tr><td><strong>${i18next.t('parent')}</strong></td><td>:</td><td>${parents}</td></tr>
@@ -93,7 +93,7 @@ class Host {
 			line.setStyle({ color: color });
 		});
 
-		if (config.updateAnimation) {
+		if (config.update_animation) {
 			if (this.marker.isBouncing())
 				this.marker.stopBouncing();
 			else

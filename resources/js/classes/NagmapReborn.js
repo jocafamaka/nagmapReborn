@@ -52,7 +52,7 @@ class NagmapReborn {
                 nagmapReborn.search();
             });
 
-            if (config.soundAlert)
+            if (config.sound_alert)
                 config.alertSound = new Audio('resources/alert.mp3');
 
             window.generalStatus = STATUS.GENERAL.finished;
@@ -61,7 +61,7 @@ class NagmapReborn {
 
             setInterval(() => {
                 nagmapReborn.updateStatus();
-            }, config.updateTime * 1000);
+            }, config.update_time * 1000);
 
             this._u('Nagmap Reborn was successfully initialized.');
 
@@ -76,26 +76,25 @@ class NagmapReborn {
      */
     insertMap() {
 
-        if (config.cbMode) {
-            if (!config.cbSize || config.cbSize > 50 || config.cbSize < 25) {
-                config.cbSize = (config.cbSize > 50) ? 50 : 25;
+        if (config.changes_bar.mode) {
+            if (!config.changes_bar.size || config.changes_bar.size > 50 || config.changes_bar.size < 25) {
+                config.changes_bar.size = (config.changes_bar.size > 50) ? 50 : 25;
             }
-            if (config.cbMode !== 3) {
-                $("#map").css("height", `${100 - config.cbSize}%`, "important");
+            if (config.changes_bar.mode !== 3) {
+                $("#map").css("height", `${100 - config.changes_bar.size}%`, "important");
             } else {
-                $("#map").addClass("mapdb3").css("width", `${100 - config.cbSize}%`, "important").css("float", "left", "important");
+                $("#map").addClass("mapdb3").css("width", `${100 - config.changes_bar.size}%`, "important").css("float", "left", "important");
             }
         }
 
         window.map = L.map('map', {
             zoomControl: false
-        }).setView(config.mapCenter, config.mapDefaultZoom);
+        }).setView(config.map.center, config.map.default_zoom);
 
-        if (config.mapTiles) {
-            L.tileLayer(config.mapTiles, {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors.'
-            }).addTo(window.map);
-        }
+        L.tileLayer((config.map.tiles || "//{s}.tile.osm.org/{z}/{x}/{y}.png"), {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors.'
+        }).addTo(window.map);
+
     }
 
     /**
@@ -103,22 +102,22 @@ class NagmapReborn {
      * @return undefined
      */
     createExtras() {
-        if (config.cbMode) {
+        if (config.changes_bar.mode) {
             this._u('Creating and loading ChangesBar.');
-            $("#changesbar").css("font-size", `${config.cbFontSize}px`, "important");
+            $("#changesbar").css("font-size", `${config.changes_bar.font_size}px`, "important");
 
-            if (config.cbMode !== 3) {
-                $("#changesbar").css("height", `${config.cbSize}%`, "important").css("display", "block", "important");
+            if (config.changes_bar.mode !== 3) {
+                $("#changesbar").css("height", `${config.changes_bar.size}%`, "important").css("display", "block", "important");
             } else {
                 $("#changesbar").addClass("db3").css("height", "100%", "important").css("display", "block", "important");
             }
 
-            if (config.cbFilter) {
+            if (config.changes_bar.filter) {
                 $("#filter").html(`
                 <div class="row" style="width:100%;">
                     <div class="row">
                         <div class="input-field col s10" style="margin-bottom: 0px !important;">
-                        <input id="filter_str" type="text" class="validate" style="font-size:${config.cbFontSize}px;">
+                        <input id="filter_str" type="text" class="validate" style="font-size:${config.changes_bar.font_size}px;">
                         <label for="filter_str">${i18next.t('filter')}</label>
                         </div>
                         <div class="input-field col s2">
@@ -212,8 +211,8 @@ class NagmapReborn {
     getHosts() {
         let tempHosts = [];
 
-        for (let h in config.initialHosts)
-            tempHosts[h] = new Host(h, config.initialHosts[h], this.icons, this.oms);
+        for (let h in config.initial_hosts)
+            tempHosts[h] = new Host(h, config.initial_hosts[h], this.icons, this.oms);
 
         return tempHosts;
     }
@@ -223,7 +222,7 @@ class NagmapReborn {
      * @return undefined
      */
     createLines() {
-        if (config.showLines) {
+        if (config.show_lines) {
             for (let h in this.hosts) {
 
                 let lineColor = "#A9ABAE";
@@ -260,7 +259,7 @@ class NagmapReborn {
      * @return undefined
      */
     initChangesBar() {
-        if (config.cbMode && config.cbMode != 1) {
+        if (config.changes_bar.mode && config.changes_bar.mode != 1) {
             for (let h in this.hosts) {
                 let status;
                 if (this.hosts[h].currentStatus == STATUS.HOSTS.warning) {
@@ -306,7 +305,7 @@ class NagmapReborn {
             zIndex = config.priorities.down;
             time = 20;
             color = "#c92a2a";
-            if (config.soundAlert)
+            if (config.sound_alert)
                 config.alertSound.play();
         }
 
@@ -321,8 +320,8 @@ class NagmapReborn {
      * @return undefined
      */
     updateChangesBar(host, hostName, newData) {
-        if (config.cbMode) {
-            if (config.cbMode == 1) {
+        if (config.changes_bar.mode) {
+            if (config.changes_bar.mode == 1) {
 
                 if (newData.status != host.currentStatus) {
                     let status = "unknown",
@@ -354,7 +353,7 @@ class NagmapReborn {
                         oldStatus = "down";
                     }
 
-                    $((config.cbFilter ? '#filterPrepend' : '#changesbar')).prepend(`<div onclick="openPopup('${hostName}');" class="changesBarLine ${className} news" id="${hostName}-${timestamp}" style="opacity:0; max-height: 0px;">${Utils.now()} - ${host.alias}: ${i18next.t(oldStatus)} → ${i18next.t(status)}</div>`);
+                    $((config.changes_bar.filter ? '#filterPrepend' : '#changesbar')).prepend(`<div onclick="openPopup('${hostName}');" class="changesBarLine ${className} news" id="${hostName}-${timestamp}" style="opacity:0; max-height: 0px;">${Utils.now()} - ${host.alias}: ${i18next.t(oldStatus)} → ${i18next.t(status)}</div>`);
 
                     setTimeout((el) => {
                         el.css('max-height', "100px");
@@ -412,9 +411,9 @@ class NagmapReborn {
      * @return undefined
      */
     search() {
-        if (config.cbFilter) {
+        if (config.changes_bar.filter) {
             let query = $('#filter_str').val().toLowerCase();
-            let selector = (config.cbMode == 1 ? '#filterPrepend .changesBarLine' : '#changesbar .changesBarLine');
+            let selector = (config.changes_bar.mode == 1 ? '#filterPrepend .changesBarLine' : '#changesbar .changesBarLine');
             $(selector).each((i, el) => {
                 if ($(el).text().toLowerCase().indexOf(query) === -1) {
                     $(el).closest(selector).hide();
@@ -437,7 +436,7 @@ class NagmapReborn {
         }
 
         let params = new URLSearchParams();
-        params.append('key', config.secKey);
+        params.append('key', config.secret_key);
         params.append('hosts', JSON.stringify(hosts));
 
         axios.post(`update.php?${Utils.getFullQueryString()}`, params)
@@ -488,7 +487,7 @@ class NagmapReborn {
         this._u("Checking for updates.");
         axios.get("https://raw.githubusercontent.com/jocafamaka/nagmapReborn/developing/VERSION")
             .then(response => {
-                if (config.ngRebornVersion != null && (config.ngRebornVersion != response.data)) {
+                if (config.ngr_version != null && (config.ngr_version != response.data)) {
                     Swal.fire({
                         heightAuto: false,
                         icon: 'info',
@@ -517,7 +516,7 @@ class NagmapReborn {
      * @return undefined
      */
     checkDefaultAuth() {
-        if (config.defaultAuth) {
+        if (config.default_auth) {
             Swal.fire({
                 heightAuto: false,
                 icon: 'warning',
@@ -538,7 +537,7 @@ class NagmapReborn {
                     // 
                 }).then(() => {
                     var _paq = window._paq || [];
-                    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]); _paq.push(["setCustomVariable", 1, "versao", config.ngRebornVersion, "visit"]); _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]); (function () { var u = `https://${config.domain}/analytics/`; _paq.push(["setTrackerUrl", u + "piwik.php"]); _paq.push(["setSiteId", "2"]); var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0]; g.type = "text/javascript"; g.async = true; g.defer = true; g.src = u + "piwik.js"; s.parentNode.insertBefore(g, s); })();
+                    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]); _paq.push(["setCustomVariable", 1, "versao", config.ngr_version, "visit"]); _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]); (function () { var u = `https://${config.domain}/analytics/`; _paq.push(["setTrackerUrl", u + "piwik.php"]); _paq.push(["setSiteId", "2"]); var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0]; g.type = "text/javascript"; g.async = true; g.defer = true; g.src = u + "piwik.js"; s.parentNode.insertBefore(g, s); })();
                 });
         }
     }

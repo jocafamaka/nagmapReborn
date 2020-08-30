@@ -75,9 +75,9 @@ class Utils {
             icon: type,
             title: msg,
             toast: true,
-            position: (config.cbMode == 3) ? 'top-start' : 'top-end',
+            position: (config.changes_bar.mode == 3) ? 'top-start' : 'top-end',
             showConfirmButton: false,
-            timer: (config.updateTime * 1000),
+            timer: (config.update_time * 1000),
             timerProgressBar: true,
             customClass: {
                 popup: 'sw2Custom'

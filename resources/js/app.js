@@ -88,7 +88,7 @@ function coverHanlder() {
             Swal.fire({	
                 heightAuto: false,	
                 icon: "warning",	
-                title: 'Nagmap Reborn v' + config.ngRebornVersion,	
+                title: 'Nagmap Reborn v' + config.ngr_version,	
                 html: i18next.t('not_released'),	
                 footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable')}</a>`,	
                 confirmButtonText: 'OK'	
@@ -148,7 +148,7 @@ function coverHanlder() {
         Swal.fire({	
             heightAuto: false,	
             icon: "warning",	
-            title: 'Nagmap Reborn v' + config.ngRebornVersion || "2.0.1-alpha",	
+            title: 'Nagmap Reborn v' + config.ngr_version || "2.0.1-alpha",	
             html: i18next.t('not_released'),	
             footer: `<a href="https://github.com/jocafamaka/nagmapReborn/releases">${i18next.t('last_stable') || 'Get the last stable version'}</a>`,	
             confirmButtonText: 'OK'	
