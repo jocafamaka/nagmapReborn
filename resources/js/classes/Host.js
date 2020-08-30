@@ -42,9 +42,8 @@ class Host {
 		let hostgroups = "";
 		let parents = "";
 
-		data.hostgroups.forEach(e => {
-			hostgroups += `${e}<br>`;
-		});
+		if (data.hostgroups)
+			data.hostgroups.forEach(e => { hostgroups += `${e}<br>`; });
 
 		if (data.parents) {
 			data.parents.forEach(e => {
