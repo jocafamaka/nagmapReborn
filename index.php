@@ -31,6 +31,10 @@ include_once('src/NagmapReborn/ConfigLoader.php');
 
     <div id="modal_error" class="modal modal-fixed-footer"></div>
 
+    <div id="modal_overwrite" class="modal bottom-sheet">
+        
+    </div>
+
     <div class="debug_console" id="debug_console">
         <div>
             <a onclick="$('#debug_console').toggleClass('open')" class="waves-effect waves-light red btn" style="width:100%" data-i18n="close"></a>
@@ -88,6 +92,13 @@ include_once('src/NagmapReborn/ConfigLoader.php');
                     warning: 1,
                     critical: 2,
                     down: 3
+                },
+                COLORS: {
+                    up: "#007F00",
+                    warning: "#FFFF00",
+                    critical: "#D25700",
+                    down: "#C92A2A",
+                    unknown: "#A9ABAE"
                 }
             },
             i18nConfig = {

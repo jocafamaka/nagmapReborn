@@ -5,37 +5,39 @@
  ******************************************************************************************/
 
 class Host {
-	constructor(h, data, icons, oms) {
+	constructor(h, data, oms) {
 		this._u(`Creating host {${h}} at {${data.latlng}}.`);
 		this.alias = data.alias;
+		this.hostName = data.host_name;
 		this.latlng = new L.latLng((data.latlng).split(","));
 		this.currentStatus = data.status;
-		this.marker = this.createMarker(data, icons, oms);
 		this.parents = data.parents;
+		this.hostgroups = data.hostgroups;
+		this.iconStyle = this.getIconStyle();
+		this.marker = this.createMarker(data, oms);
 		this.lines = [];
 	}
 
 
 	/**
 	 * Responsible for creating the host marker and infoWindow. 
-     * @return Marker mark
-     */
-	createMarker(data, icons, oms) {
-
-		let icon = icons.grey;
+	 * @return Marker mark
+	 */
+	createMarker(data, oms) {
+		let icon = config.icons.styles[this.iconStyle].grey;
 		let zIndex = (config.priorities.unknown * 1000);
 
 		if (this.currentStatus === STATUS.HOSTS.up) {
-			icon = icons.green;
+			icon = config.icons.styles[this.iconStyle].green;
 			zIndex = (config.priorities.up * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.warning) {
-			icon = icons.yellow;
+			icon = config.icons.styles[this.iconStyle].yellow;
 			zIndex = (config.priorities.warning * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.critical) {
-			icon = icons.orange;
+			icon = config.icons.styles[this.iconStyle].orange;
 			zIndex = (config.priorities.critical * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.down) {
-			icon = icons.red;
+			icon = config.icons.styles[this.iconStyle].red;
 			zIndex = (config.priorities.down * 1000);
 		}
 
@@ -78,33 +80,96 @@ class Host {
 	}
 
 	/**
-     * Responsible for update a host icon and lines. 
-     * @return undefined
-     */
-	updateStatus(icon, time, zIndex, color) {
+	 * Responsible for update a host icon and lines. 
+	 * @return undefined
+	 */
+	updateStatus(newStatus) {
+		if (this.currentStatus != newStatus) {
+			_u(`Update {${this.alias}} to status {${newStatus}}`);
 
-		this.marker.setIcon(icon);
-		this.marker.setZIndexOffset(zIndex * 1000);
+			let time = 1;
+			let color = STATUS.COLORS.unknown;
+			let zIndex = config.priorities.unknown;
+			let icon = config.icons.styles[this.iconStyle].grey;
 
-		if (typeof this.marker._omsData != 'undefined')
-			this.marker._omsData.usualZindex = zIndex * 1000;
+			if (newStatus === STATUS.HOSTS.up) {
+				icon = config.icons.styles[this.iconStyle].green;
+				zIndex = config.priorities.up;
+				color = STATUS.COLORS.up;
+			} else if (newStatus === STATUS.HOSTS.warning) {
+				icon = config.icons.styles[this.iconStyle].yellow;
+				zIndex = config.priorities.warning;
+				color = STATUS.COLORS.warning;
+			} else if (newStatus === STATUS.HOSTS.critical) {
+				icon = config.icons.styles[this.iconStyle].orange;
+				zIndex = config.priorities.critical;
+				color = STATUS.COLORS.critical;
+			} else if (newStatus === STATUS.HOSTS.down) {
+				icon = config.icons.styles[this.iconStyle].red;
+				zIndex = config.priorities.down;
+				color = STATUS.COLORS.down;
+				time = 20;
+				if (config.sound_alert)
+					config.alertSound.play();
+			}
 
-		this.lines.forEach(line => {
-			line.setStyle({ color: color });
-		});
+			this.currentStatus = newStatus;
+			this.marker.setIcon(icon);
+			this.marker.setZIndexOffset(zIndex * 1000);
 
-		if (config.update_animation) {
-			if (this.marker.isBouncing())
-				this.marker.stopBouncing();
-			else
-				this.marker.bounce(time);
+			if (typeof this.marker._omsData != 'undefined')
+				this.marker._omsData.usualZindex = zIndex * 1000;
+
+			this.lines.forEach(line => {
+				line.setStyle({ color: color });
+			});
+
+			if (config.update_animation) {
+				if (this.marker.isBouncing())
+					this.marker.stopBouncing();
+				else
+					this.marker.bounce(time);
+			}
 		}
 	}
 
 	/**
-     * Decorator to debug console. 
-     * @return undefined
-     */
+	 * Define the host icon style
+	 * @returns string
+	 */
+	getIconStyle() {
+		let iconStyle = config.defaultIconStyle;
+
+		if (this.hostgroups) {
+			for (let i = 0; i < this.hostgroups.length; ++i) {
+				if (this.hostgroups[i] in config.icons.hostgroups) {
+					iconStyle = config.icons.hostgroups[this.hostgroups[i]];
+					break;
+				}
+			}
+		}
+
+		if (this.hostName in config.icons.names) {
+			iconStyle = config.icons.names[this.hostName];
+		}
+
+		if (!(iconStyle in config.icons.styles)) {
+			_u(i18next.t("load_icon_style_error", { t: iconStyle }), false);
+
+			if (!config.icons.styles.hasOwnProperty(config.defaultIconStyle)) {
+				_u(i18next.t("load_icon_style_error", { t: config.defaultIconStyle }), false);
+				config.defaultIconStyle = "marker_shadow";
+			} else
+				iconStyle = config.defaultIconStyle;
+		}
+
+		return iconStyle;
+	}
+
+	/**
+	 * Decorator to debug console. 
+	 * @return undefined
+	 */
 	_u(msg) {
 		_u(`(${this.constructor.name}): ${msg}`);
 	}

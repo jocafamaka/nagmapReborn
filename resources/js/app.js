@@ -138,8 +138,7 @@ function coverHanlder() {
     // In case of error it displays the error page
     else {
         // Stop the typed
-        if (tp)
-            tp.stop();
+        if (tp) tp.stop();
 
         // Stop the marker animation
         $("#marker_circle").css("animation-iteration-count", 0).css("fill", "#663333");

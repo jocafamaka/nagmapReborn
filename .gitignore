@@ -9,3 +9,5 @@ features/
 storage/
 *.old
 cache/*.php
+.vs/
+custom_icons.json

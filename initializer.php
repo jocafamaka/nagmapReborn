@@ -111,6 +111,9 @@ if (!is_int(config('ngreborn.reporting')) || (config('ngreborn.reporting') < 0) 
 
 
 // SECURITY
+if (!is_int(config('security.allow_overwrite')) || (config('security.allow_overwrite') < 0) || (config('security.allow_overwrite') > 1))
+    $fails[] = L::config_error("security.allow_overwrite", config('security.allow_overwrite'));
+
 if (!is_string(config('security.key')))
     $fails[] = L::config_error("security.key", config('security.key'));
 
@@ -169,12 +172,15 @@ return jsonResponse([
     "update_animation" => config('ngreborn.update_animation'),
     "defaultIconStyle" => config('ngreborn.default_icon_style'),
     "icons" => json_decode(@file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/icons/icons.json")),
+    "custom_icons" => json_decode(@file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/icons/custom_icons.json")),
     "show_lines" => config('ngreborn.lines'),
     "update_time" => config('ngreborn.time_update'),
     "secret_key" => config('security.key'),
+    "allow_overwrite" => config('security.allow_overwrite'),
     "default_auth" => checkDefaultAuth(config('security.use_auth'), config('security.user'), config('security.user_pass')),
     "reporting" => config('ngreborn.reporting'),
     "domain" => config('ngreborn.domain'),
     "initial_hosts" => (isset($final_hosts) ? $final_hosts : []),
+    "hostgroups" => (isset($hostgroups_list) ? $hostgroups_list : []),
     "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/" . config('ngreborn.language') . ".json"))
 ]);

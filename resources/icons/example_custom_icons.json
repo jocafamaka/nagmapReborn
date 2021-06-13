@@ -1,0 +1,37 @@
+{
+    "// READ": "For this to work make the necessary changes, rename this file to custom_icons.json and then you can delete this lines",
+    "// DOCS": "https://github.com/jocafamaka/nagmapReborn/wiki/About-icons-styles",
+
+    "names": {
+        "THE EXACT NAME OF A HOST": "Name of a style where. You can use one of the pre-existing styles too, see in icons.json"
+    },
+    
+    "hostgroups": {
+        "THE EXACT NAME OF A HOSTGROUP": "Name of a other style where"
+    },
+
+    "styles": {
+        "some_custom_style": {
+            "grey": {
+                "iconUrl": "some_custom_style/Grey.png",
+                "iconSize": [29, 43]
+            },
+            "green": {
+                "iconUrl": "some_custom_style/Green.png",
+                "iconSize": [29, 43]
+            },
+            "yellow": {
+                "iconUrl": "some_custom_style/Yellow.png",
+                "iconSize": [29, 43]
+            },
+            "orange": {
+                "iconUrl": "some_custom_style/Orange.png",
+                "iconSize": [29, 43]
+            },
+            "red": {
+                "iconUrl": "some_custom_style/Red.png",
+                "iconSize": [29, 43]
+            }
+        }
+    }
+}

@@ -111,13 +111,15 @@ return [
         'play_sound' => 1,
 
         // Defines if icons will be animated when the host status is updated.
+        // Disable for best performance when there are many hosts (500+)
         // 0 = NO.
         // 1 = YES.
         'update_animation' => 1,
 
         // The default icon style to be used when there is no specific definition;
         // Pre-existing options: marker_retro, marker_shadow, marker_border, wifi_border_dark, wifi_border_light, router_border_dark, router_border_light
-        // This option can be overridden by the definitions contained in resources/icons/icons.json
+        // This option can be overridden by the definitions contained in resources/icons/custom_icons.json
+        // Read more: https://github.com/jocafamaka/nagmapReborn/wiki/About-icons-styles
         'default_icon_style' => "marker_shadow",
 
         // Show lines between hosts and their parents.

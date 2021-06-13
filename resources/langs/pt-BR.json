@@ -103,11 +103,13 @@
     "too_long": "Isto está demorando demais, por favor recarregue a página!",
     "too_long_details": "Este erro ocorre quando a inicialização demora de mais de 50 segundos para ser concluída, nessa situação é recomendável habilitar o debug para obter o relatório completo passo-a-passo da inicialização.",
     "as_filter": "Usar como filtro",
-    "not_released": "Essa é uma versão rc (release candidate), ela já possiu todas fucionalidades da versão final, porém pode conter bugs leves.<br><br>Seu uso é recomendado somente para teste.<br><br>Para uso em produção deve ser adotada a <strong>versão estável</strong>.",
+    "not_released": "Essa é uma versão alpha, ou seja uma versão com funcionalidades em um estágio inicial de desenvolvimento, podendo conter erros graves de execução!<br><br>Seu uso é recomendado somente para teste.<br><br>Para uso em produção deve ser adotada a <strong>versão estável</strong>.",
     "last_stable": "Obtenha a última versão estável.",
     "details": "Detalhes",
     "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> Esse navegador não é compátivel com Nagmap Reborn, por favor atualize seu navegador ou utilize um mais moderno!",
     "ngr_init_error": "Falha ao inicializar a classe!",
     "load_icons_error": "Não foi possível carregar os estilos dos ícones, verifique se o resources/icons/icons.json existe e é um json válido.",
-    "load_icon_style_error": "Não foi possível encontrar o estilo ({{t}}), um fallback será usado."
+    "load_icon_style_error": "Não foi possível encontrar o estilo ({{t}}), um fallback será usado.",
+    "load_custom_icons": "Carregando definições personalizadas de icones do arquivo custom_icons.json",
+    "overwrite_pnl": "Sobrescrever"
 }

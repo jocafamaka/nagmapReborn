@@ -17,8 +17,8 @@ class NagmapReborn {
             this.createExtras();
             this._u('Extras finished.');
 
-            this._u('Creating and loading all icons');
-            this.icons = this.getIcons();
+            this._u('Creating and loading all icons styles');
+            this.loadIcons();
             this._u('Icons finished.');
 
             this._u('Creating and loading OMS instance');
@@ -44,12 +44,12 @@ class NagmapReborn {
             this._u("Final touches.");
             this.initChangesBar();
             let cred = $("div.leaflet-control-attribution.leaflet-control").first();
-            cred.html("<a href='https://github.com/jocafamaka/nagmapReborn' target='_blank' title='Nagmap Reborn'>Nagmap Reborn</a> Server monitoring | " + cred.html());
+            cred.html("<a href='https://github.com/jocafamaka/nagmapReborn' target='_blank' title='Nagmap Reborn'>Nagmap Reborn</a> - Server monitoring | " + cred.html());
 
             this.initReporting();
 
             $('#filter_str').keyup(() => {
-                nagmapReborn.search();
+                this.search();
             });
 
             if (config.sound_alert)
@@ -60,7 +60,7 @@ class NagmapReborn {
             // justAnErro();
 
             setInterval(() => {
-                nagmapReborn.updateStatus();
+                this.updateStatus();
             }, config.update_time * 1000);
 
             this._u('Nagmap Reborn was successfully initialized.');
@@ -121,7 +121,7 @@ class NagmapReborn {
                         <label for="filter_str">${i18next.t('filter')}</label>
                         </div>
                         <div class="input-field col s2">
-                        <button style="width:100%" class="btn waves-effect waves-light red lighten-1" title="${i18next.t('clear')}" onclick="e=>{e.preventDefault();};$('#filter_str').val('');M.updateTextFields();nagmapReborn.search();"><i class="material-icons">delete</i></button>
+                        <button style="width:100%" class="btn waves-effect waves-light red lighten-1" title="${i18next.t('clear')}" onclick="e=>{e.preventDefault();};$('#filter_str').val('');M.updateTextFields();this.search();"><i class="material-icons">delete</i></button>
                         </div>
                     </div>
                     <div id="filterPrepend">
@@ -146,62 +146,75 @@ class NagmapReborn {
                 cursorborder: "0px",
             });
         }
+
+        if (config.allow_overwrite) {
+            this._u('Creating and loading overwrite panel.');
+            $("#debug").append(`
+            <a onclick="$('#modal_overwrite').modal().modal('open');" class="waves-effect waves-light btn btn-large blue darken-3 button" href="javascript:;"><i class="material-icons left">subtitles</i>${i18next.t('overwrite_pnl')}</a>
+            `);
+        }
     }
 
     /**
      * Responsible for load all defined icons. 
      * @return Object icons
      */
-    getIcons() {
+    loadIcons() {
 
         if (config.icons == null) {
             // this._u("Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.", false);
             throw i18next.t("load_icons_error") || "Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.";
         }
 
-        if (!config.icons.styles.hasOwnProperty(config.defaultIconStyle)) {
-            this._u(i18next.t("load_icon_style_error", { t: config.defaultIconStyle }), false);
-            config.defaultIconStyle = "marker_shadow";
+        if (config.custom_icons != null) {
+            this._u(i18next.t("load_custom_icons") || "Loading custom icon definitions from custom_icons.json file.Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.");
+            Object.assign(config.icons, config.custom_icons);
         }
 
         let icons = {};
 
-        icons.red = L.icon({
-            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].red.iconUrl,
-            iconSize: config.icons.styles[config.defaultIconStyle].red.iconSize,
-            iconAnchor: (config.icons.styles[config.defaultIconStyle].red.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[1]) - 1]),
-            popupAnchor: (config.icons.styles[config.defaultIconStyle].red.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].red.iconSize[1]) - 1)])
-        });
+        for (let style_name in config.icons.styles) {
+            this._u("Style: " + style_name);
 
-        icons.green = L.icon({
-            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].green.iconUrl,
-            iconSize: config.icons.styles[config.defaultIconStyle].green.iconSize,
-            iconAnchor: (config.icons.styles[config.defaultIconStyle].green.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[1]) - 1]),
-            popupAnchor: (config.icons.styles[config.defaultIconStyle].green.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].green.iconSize[1]) - 1)])
-        });
+            icons[style_name] = {
+                "red": L.icon({
+                    iconUrl: "resources/icons/styles/" + config.icons.styles[style_name].red.iconUrl,
+                    iconSize: config.icons.styles[style_name].red.iconSize,
+                    iconAnchor: (config.icons.styles[style_name].red.iconAnchor || [Math.floor((parseInt(config.icons.styles[style_name].red.iconSize[0]) / 2)), parseInt(config.icons.styles[style_name].red.iconSize[1]) - 1]),
+                    popupAnchor: (config.icons.styles[style_name].red.popupAnchor || [0, -(parseInt(config.icons.styles[style_name].red.iconSize[1]) - 1)])
+                }),
 
-        icons.orange = L.icon({
-            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].orange.iconUrl,
-            iconSize: config.icons.styles[config.defaultIconStyle].orange.iconSize,
-            iconAnchor: (config.icons.styles[config.defaultIconStyle].orange.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[1]) - 1]),
-            popupAnchor: (config.icons.styles[config.defaultIconStyle].orange.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].orange.iconSize[1]) - 1)])
-        });
+                "green": L.icon({
+                    iconUrl: "resources/icons/styles/" + config.icons.styles[style_name].green.iconUrl,
+                    iconSize: config.icons.styles[style_name].green.iconSize,
+                    iconAnchor: (config.icons.styles[style_name].green.iconAnchor || [Math.floor((parseInt(config.icons.styles[style_name].green.iconSize[0]) / 2)), parseInt(config.icons.styles[style_name].green.iconSize[1]) - 1]),
+                    popupAnchor: (config.icons.styles[style_name].green.popupAnchor || [0, -(parseInt(config.icons.styles[style_name].green.iconSize[1]) - 1)])
+                }),
 
-        icons.yellow = L.icon({
-            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].yellow.iconUrl,
-            iconSize: config.icons.styles[config.defaultIconStyle].yellow.iconSize,
-            iconAnchor: (config.icons.styles[config.defaultIconStyle].yellow.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[1]) - 1]),
-            popupAnchor: (config.icons.styles[config.defaultIconStyle].yellow.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].yellow.iconSize[1]) - 1)])
-        });
+                "orange": L.icon({
+                    iconUrl: "resources/icons/styles/" + config.icons.styles[style_name].orange.iconUrl,
+                    iconSize: config.icons.styles[style_name].orange.iconSize,
+                    iconAnchor: (config.icons.styles[style_name].orange.iconAnchor || [Math.floor((parseInt(config.icons.styles[style_name].orange.iconSize[0]) / 2)), parseInt(config.icons.styles[style_name].orange.iconSize[1]) - 1]),
+                    popupAnchor: (config.icons.styles[style_name].orange.popupAnchor || [0, -(parseInt(config.icons.styles[style_name].orange.iconSize[1]) - 1)])
+                }),
 
-        icons.grey = L.icon({
-            iconUrl: "resources/icons/styles/" + config.icons.styles[config.defaultIconStyle].grey.iconUrl,
-            iconSize: config.icons.styles[config.defaultIconStyle].grey.iconSize,
-            iconAnchor: (config.icons.styles[config.defaultIconStyle].grey.iconAnchor || [Math.floor((parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[0]) / 2)), parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[1]) - 1]),
-            popupAnchor: (config.icons.styles[config.defaultIconStyle].grey.popupAnchor || [0, -(parseInt(config.icons.styles[config.defaultIconStyle].grey.iconSize[1]) - 1)])
-        });
+                "yellow": L.icon({
+                    iconUrl: "resources/icons/styles/" + config.icons.styles[style_name].yellow.iconUrl,
+                    iconSize: config.icons.styles[style_name].yellow.iconSize,
+                    iconAnchor: (config.icons.styles[style_name].yellow.iconAnchor || [Math.floor((parseInt(config.icons.styles[style_name].yellow.iconSize[0]) / 2)), parseInt(config.icons.styles[style_name].yellow.iconSize[1]) - 1]),
+                    popupAnchor: (config.icons.styles[style_name].yellow.popupAnchor || [0, -(parseInt(config.icons.styles[style_name].yellow.iconSize[1]) - 1)])
+                }),
 
-        return icons;
+                "grey": L.icon({
+                    iconUrl: "resources/icons/styles/" + config.icons.styles[style_name].grey.iconUrl,
+                    iconSize: config.icons.styles[style_name].grey.iconSize,
+                    iconAnchor: (config.icons.styles[style_name].grey.iconAnchor || [Math.floor((parseInt(config.icons.styles[style_name].grey.iconSize[0]) / 2)), parseInt(config.icons.styles[style_name].grey.iconSize[1]) - 1]),
+                    popupAnchor: (config.icons.styles[style_name].grey.popupAnchor || [0, -(parseInt(config.icons.styles[style_name].grey.iconSize[1]) - 1)])
+                })
+            }
+        }
+
+        config.icons.styles = icons;
     }
 
     /**
@@ -212,7 +225,7 @@ class NagmapReborn {
         let tempHosts = [];
 
         for (let h in config.initial_hosts)
-            tempHosts[h] = new Host(h, config.initial_hosts[h], this.icons, this.oms);
+            tempHosts[h] = new Host(h, config.initial_hosts[h], this.oms);
 
         return tempHosts;
     }
@@ -225,16 +238,16 @@ class NagmapReborn {
         if (config.show_lines) {
             for (let h in this.hosts) {
 
-                let lineColor = "#A9ABAE";
+                let lineColor = STATUS.COLORS.unknown;
 
                 if (this.hosts[h].currentStatus === STATUS.HOSTS.up) {
-                    lineColor = "#007f00";
+                    lineColor = STATUS.COLORS.up;
                 } else if (this.hosts[h].currentStatus === STATUS.HOSTS.warning) {
-                    lineColor = "#ffff00";
+                    lineColor = STATUS.COLORS.warning;
                 } else if (this.hosts[h].currentStatus === STATUS.HOSTS.critical) {
-                    lineColor = "#d25700";
+                    lineColor = STATUS.COLORS.critical;
                 } else if (this.hosts[h].currentStatus === STATUS.HOSTS.down) {
-                    lineColor = "#c92a2a";
+                    lineColor = STATUS.COLORS.down;
                 }
 
                 if (this.hosts[h].parents) {
@@ -274,44 +287,6 @@ class NagmapReborn {
                 if (status)
                     $(`#${status.toLowerCase()}Hosts`).prepend(`<div onclick="openPopup('${h}');" class="changesBarLine ${status} news" id="${h}-${status}" style="opacity:1; max-height: 80px;">${this.hosts[h].alias} - (${i18next.t('waiting')})</div>`);
             }
-        }
-    }
-
-    /**
-     * Responsible for update a host status, icon and lines. 
-     * @return undefined
-     */
-    updateHost(host, newStatus) {
-        _u(`(Host): Update {${host}} to status {${newStatus}}`);
-        let icon = this.icons.grey;
-        let time = 1;
-        let color = "#A9ABAE";
-        let zIndex = config.priorities.unknown;
-
-        if (newStatus === STATUS.HOSTS.up) {
-            icon = this.icons.green;
-            zIndex = config.priorities.up;
-            color = "#007f00";
-        } else if (newStatus === STATUS.HOSTS.warning) {
-            icon = this.icons.yellow;
-            zIndex = config.priorities.warning;
-            color = "#ffff00";
-        } else if (newStatus === STATUS.HOSTS.critical) {
-            icon = this.icons.orange;
-            zIndex = config.priorities.critical;
-            color = "#d25700";
-        } else if (newStatus === STATUS.HOSTS.down) {
-            icon = this.icons.red;
-            zIndex = config.priorities.down;
-            time = 20;
-            color = "#c92a2a";
-            if (config.sound_alert)
-                config.alertSound.play();
-        }
-
-        if (host in nagmapReborn.hosts) {
-            nagmapReborn.hosts[host].updateStatus(icon, time, zIndex, color);
-            nagmapReborn.hosts[host].currentStatus = newStatus;
         }
     }
 
@@ -402,7 +377,7 @@ class NagmapReborn {
                     $(`#${hostName}-${status}`).html(`${host.alias} - ${i18next.t('timePrefix')} ${newData.time} ${i18next.t('timeSuffix')}`);
                 }
             }
-            nagmapReborn.search();
+            this.search();
         }
     }
 
@@ -431,8 +406,8 @@ class NagmapReborn {
     updateStatus() {
         this._u("Update status called.");
         let hosts = [];
-        for (let h in nagmapReborn.hosts) {
-            hosts.push([h, nagmapReborn.hosts[h].currentStatus])
+        for (let h in this.hosts) {
+            hosts.push([h, this.hosts[h].currentStatus])
         }
 
         let params = new URLSearchParams();
@@ -454,12 +429,9 @@ class NagmapReborn {
                 }
                 let hosts = response.data.hosts;
                 for (let [hostName, data] of Object.entries(hosts)) {
-                    if (hostName in nagmapReborn.hosts) {
-                        nagmapReborn.updateChangesBar(nagmapReborn.hosts[hostName], hostName, data);
-
-                        if (nagmapReborn.hosts[hostName].currentStatus != data.status) {
-                            nagmapReborn.updateHost(hostName, data.status);
-                        }
+                    if (hostName in this.hosts) {
+                        this.updateChangesBar(this.hosts[hostName], hostName, data);
+                        this.hosts[hostName].updateStatus(data.status);
                     }
                 }
             })
