@@ -23,7 +23,7 @@ if (!file_exists(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.lang
 
 // Load language
 require_once(NGR_DOCUMENT_ROOT . "/src/NagmapReborn/i18n.class.php");
-$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
+$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache");
 $i18n->init();
 
 $fails = [];

@@ -13,23 +13,23 @@
     "styles": {
         "some_custom_style": {
             "grey": {
-                "iconUrl": "some_custom_style/Grey.png",
+                "iconUrl": "custom_style_folder/Grey.png",
                 "iconSize": [29, 43]
             },
             "green": {
-                "iconUrl": "some_custom_style/Green.png",
+                "iconUrl": "custom_style_folder/Green.png",
                 "iconSize": [29, 43]
             },
             "yellow": {
-                "iconUrl": "some_custom_style/Yellow.png",
+                "iconUrl": "custom_style_folder/Yellow.png",
                 "iconSize": [29, 43]
             },
             "orange": {
-                "iconUrl": "some_custom_style/Orange.png",
+                "iconUrl": "custom_style_folder/Orange.png",
                 "iconSize": [29, 43]
             },
             "red": {
-                "iconUrl": "some_custom_style/Red.png",
+                "iconUrl": "custom_style_folder/Red.png",
                 "iconSize": [29, 43]
             }
         }

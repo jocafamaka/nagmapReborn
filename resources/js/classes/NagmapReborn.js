@@ -168,7 +168,15 @@ class NagmapReborn {
 
         if (config.custom_icons != null) {
             this._u(i18next.t("load_custom_icons") || "Loading custom icon definitions from custom_icons.json file.Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.");
-            Object.assign(config.icons, config.custom_icons);
+            ["names", "hostgroups", "styles"].forEach(node => {
+                // console.log("NODE: ", node); //#DEBUG#
+                if (config.custom_icons.hasOwnProperty(node)) {
+                    for (let subnode in config.custom_icons[node]) {
+                        // console.log("SUBNODE: ", subnode); //#DEBUG#
+                        config.icons[node][subnode] = config.custom_icons[node][subnode];
+                    }
+                }
+            });
         }
 
         let icons = {};

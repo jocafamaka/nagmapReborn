@@ -55,7 +55,7 @@ i18next.init(i18nConfig).then(function (t) {
         cursorChar: " ",
     });
 
-    axios.get(`initializer.php?${Utils.getFullQueryString()}`)
+    axios.get(`initializer.php?_=${(+new Date)}&${Utils.getFullQueryString()}`)
         .then(function (response) {
             window.config = response.data;
             init();

@@ -162,6 +162,80 @@
                 "iconUrl": "router/Red_light.png",
                 "iconSize": [46, 29]
             }
+        },
+
+        "server": {
+            "grey": {
+                "iconUrl": "server/Grey.png",
+                "iconSize": [32, 46],
+                "iconAnchor": [16, 43.7]
+            },
+            "green": {
+                "iconUrl": "server/Green.png",
+                "iconSize": [32, 46],
+                "iconAnchor": [16, 43.7]
+            },
+            "yellow": {
+                "iconUrl": "server/Yellow.png",
+                "iconSize": [32, 46],
+                "iconAnchor": [16, 43.7]
+            },
+            "orange": {
+                "iconUrl": "server/Orange.png",
+                "iconSize": [32, 46],
+                "iconAnchor": [16, 43.7]
+            },
+            "red": {
+                "iconUrl": "server/Red.png",
+                "iconSize": [32, 46],
+                "iconAnchor": [16, 43.7]
+            }
+        },
+
+        "server_border_light": {
+            "grey": {
+                "iconUrl": "server/Grey_light.png",
+                "iconSize": [33, 46]
+            },
+            "green": {
+                "iconUrl": "server/Green_light.png",
+                "iconSize": [33, 46]
+            },
+            "yellow": {
+                "iconUrl": "server/Yellow_light.png",
+                "iconSize": [33, 46]
+            },
+            "orange": {
+                "iconUrl": "server/Orange_light.png",
+                "iconSize": [33, 46]
+            },
+            "red": {
+                "iconUrl": "server/Red_light.png",
+                "iconSize": [33, 46]
+            }
+        },
+
+        "server_border_dark": {
+            "grey": {
+                "iconUrl": "server/Grey_dark.png",
+                "iconSize": [33, 46]
+            },
+            "green": {
+                "iconUrl": "server/Green_dark.png",
+                "iconSize": [33, 46]
+            },
+            "yellow": {
+                "iconUrl": "server/Yellow_dark.png",
+                "iconSize": [33, 46]
+            },
+            "orange": {
+                "iconUrl": "server/Orange_dark.png",
+                "iconSize": [33, 46]
+            },
+            "red": {
+                "iconUrl": "server/Red_dark.png",
+                "iconSize": [33, 46]
+            }
         }
 
     },
