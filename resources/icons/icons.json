@@ -5,73 +5,96 @@
     "styles": {
         "marker_retro": {
             "grey": {
-                "iconUrl": "retro/Grey.png",
+                "iconUrl": "marker/Grey_retro.png",
                 "iconSize": [29, 43]
             },
             "green": {
-                "iconUrl": "retro/Green.png",
+                "iconUrl": "marker/Green_retro.png",
                 "iconSize": [29, 43]
             },
             "yellow": {
-                "iconUrl": "retro/Yellow.png",
+                "iconUrl": "marker/Yellow_retro.png",
                 "iconSize": [29, 43]
             },
             "orange": {
-                "iconUrl": "retro/Orange.png",
+                "iconUrl": "marker/Orange_retro.png",
                 "iconSize": [29, 43]
             },
             "red": {
-                "iconUrl": "retro/Red.png",
+                "iconUrl": "marker/Red_retro.png",
                 "iconSize": [29, 43]
             }
         },
 
         "marker_shadow": {
             "grey": {
-                "iconUrl": "shadow/Grey.png",
+                "iconUrl": "marker/Grey_shadow.png",
                 "iconSize": [29, 43]
             },
             "green": {
-                "iconUrl": "shadow/Green.png",
+                "iconUrl": "marker/Green_shadow.png",
                 "iconSize": [29, 43]
             },
             "yellow": {
-                "iconUrl": "shadow/Yellow.png",
+                "iconUrl": "marker/Yellow_shadow.png",
                 "iconSize": [29, 43]
             },
             "orange": {
-                "iconUrl": "shadow/Orange.png",
+                "iconUrl": "marker/Orange_shadow.png",
                 "iconSize": [29, 43]
             },
             "red": {
-                "iconUrl": "shadow/Red.png",
+                "iconUrl": "marker/Red_shadow.png",
                 "iconSize": [29, 43]
             }
         },
 
         "marker_border": {
             "grey": {
-                "iconUrl": "border/Grey.png",
+                "iconUrl": "marker/Grey_border.png",
                 "iconSize": [29, 43]
             },
             "green": {
-                "iconUrl": "border/Green.png",
+                "iconUrl": "marker/Green_border.png",
                 "iconSize": [29, 43]
             },
             "yellow": {
-                "iconUrl": "border/Yellow.png",
+                "iconUrl": "marker/Yellow_border.png",
                 "iconSize": [29, 43]
             },
             "orange": {
-                "iconUrl": "border/Orange.png",
+                "iconUrl": "marker/Orange_border.png",
                 "iconSize": [29, 43]
             },
             "red": {
-                "iconUrl": "border/Red.png",
+                "iconUrl": "marker/Red_border.png",
                 "iconSize": [29, 43]
             }
         },
         
+        "wifi": {
+            "grey": {
+                "iconUrl": "wifi/Grey.png",
+                "iconSize": [40, 32]
+            },
+            "green": {
+                "iconUrl": "wifi/Green.png",
+                "iconSize": [40, 32]
+            },
+            "yellow": {
+                "iconUrl": "wifi/Yellow.png",
+                "iconSize": [40, 32]
+            },
+            "orange": {
+                "iconUrl": "wifi/Orange.png",
+                "iconSize": [40, 32]
+            },
+            "red": {
+                "iconUrl": "wifi/Red.png",
+                "iconSize": [40, 32]
+            }
+        },
+
         "wifi_border_dark": {
             "grey": {
                 "iconUrl": "wifi/Grey_dark.png",
@@ -118,123 +141,141 @@
             }
         },
 
+        "router": {
+            "grey": {
+                "iconUrl": "router/Grey.png",
+                "iconSize": [40, 27]
+            },
+            "green": {
+                "iconUrl": "router/Green.png",
+                "iconSize": [40, 27]
+            },
+            "yellow": {
+                "iconUrl": "router/Yellow.png",
+                "iconSize": [40, 27]
+            },
+            "orange": {
+                "iconUrl": "router/Orange.png",
+                "iconSize": [40, 27]
+            },
+            "red": {
+                "iconUrl": "router/Red.png",
+                "iconSize": [40, 27]
+            }
+        },
+
         "router_border_dark": {
             "grey": {
                 "iconUrl": "router/Grey_dark.png",
-                "iconSize": [46, 29]
+                "iconSize": [42, 29]
             },
             "green": {
                 "iconUrl": "router/Green_dark.png",
-                "iconSize": [46, 29]
+                "iconSize": [42, 29]
             },
             "yellow": {
                 "iconUrl": "router/Yellow_dark.png",
-                "iconSize": [46, 29]
+                "iconSize": [42, 29]
             },
             "orange": {
                 "iconUrl": "router/Orange_dark.png",
-                "iconSize": [46, 29]
+                "iconSize": [42, 29]
             },
             "red": {
                 "iconUrl": "router/Red_dark.png",
-                "iconSize": [46, 29]
+                "iconSize": [42, 29]
             }
         },
 
         "router_border_light": {
             "grey": {
                 "iconUrl": "router/Grey_light.png",
-                "iconSize": [46, 29]
+                "iconSize": [44, 31]
             },
             "green": {
                 "iconUrl": "router/Green_light.png",
-                "iconSize": [46, 29]
+                "iconSize": [44, 31]
             },
             "yellow": {
                 "iconUrl": "router/Yellow_light.png",
-                "iconSize": [46, 29]
+                "iconSize": [44, 31]
             },
             "orange": {
                 "iconUrl": "router/Orange_light.png",
-                "iconSize": [46, 29]
+                "iconSize": [44, 31]
             },
             "red": {
                 "iconUrl": "router/Red_light.png",
-                "iconSize": [46, 29]
+                "iconSize": [44, 31]
             }
         },
 
         "server": {
             "grey": {
                 "iconUrl": "server/Grey.png",
-                "iconSize": [32, 46],
-                "iconAnchor": [16, 43.7]
+                "iconSize": [31, 44]
             },
             "green": {
                 "iconUrl": "server/Green.png",
-                "iconSize": [32, 46],
-                "iconAnchor": [16, 43.7]
+                "iconSize": [32, 44]
             },
             "yellow": {
                 "iconUrl": "server/Yellow.png",
-                "iconSize": [32, 46],
-                "iconAnchor": [16, 43.7]
+                "iconSize": [32, 44]
             },
             "orange": {
                 "iconUrl": "server/Orange.png",
-                "iconSize": [32, 46],
-                "iconAnchor": [16, 43.7]
+                "iconSize": [32, 44]
             },
             "red": {
                 "iconUrl": "server/Red.png",
-                "iconSize": [32, 46],
-                "iconAnchor": [16, 43.7]
+                "iconSize": [32, 44]
             }
         },
 
         "server_border_light": {
             "grey": {
                 "iconUrl": "server/Grey_light.png",
-                "iconSize": [33, 46]
+                "iconSize": [35, 49]
             },
             "green": {
                 "iconUrl": "server/Green_light.png",
-                "iconSize": [33, 46]
+                "iconSize": [35, 49]
             },
             "yellow": {
                 "iconUrl": "server/Yellow_light.png",
-                "iconSize": [33, 46]
+                "iconSize": [35, 49]
             },
             "orange": {
                 "iconUrl": "server/Orange_light.png",
-                "iconSize": [33, 46]
+                "iconSize": [35, 49]
             },
             "red": {
                 "iconUrl": "server/Red_light.png",
-                "iconSize": [33, 46]
+                "iconSize": [35, 49]
             }
         },
 
         "server_border_dark": {
             "grey": {
                 "iconUrl": "server/Grey_dark.png",
-                "iconSize": [33, 46]
+                "iconSize": [33, 47]
             },
             "green": {
                 "iconUrl": "server/Green_dark.png",
-                "iconSize": [33, 46]
+                "iconSize": [33, 47]
             },
             "yellow": {
                 "iconUrl": "server/Yellow_dark.png",
-                "iconSize": [33, 46]
+                "iconSize": [33, 47]
             },
             "orange": {
                 "iconUrl": "server/Orange_dark.png",
-                "iconSize": [33, 46]
+                "iconSize": [33, 47]
             },
             "red": {
                 "iconUrl": "server/Red_dark.png",
-                "iconSize": [33, 46]
+                "iconSize": [33, 47]
             }
         }
 

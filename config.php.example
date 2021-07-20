@@ -33,21 +33,21 @@ return [
         'user_pass' => "ngradmin",
     ],
     'map' => [
-        // Set to the centre of your map (lat,long)
+        // Set the centre of your map (lat,long)
         'centre' => "-6.469293, -50.913464",
 
         // Default zoom level of the map
         'zoom' => 6.2,
 
         // Leaflet styles/tiles.
-        // Use a provider of images / vectors other than OpenStreetMap.
+        // Use a provider of images/vectors other than OpenStreetMap.
         // You can see several for free here:
         // (http://leaflet-extras.github.io/leaflet-providers/preview/)
         // Some of these need a token to access. Put the full link.
+        // For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
         // How to use the Mapbox styles:
         // https://github.com/jocafamaka/nagmapReborn/wiki/How-to-use-the-Mapbox-styles%3F
         // Leave blank to use the default.
-        // For example: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}{r}.png
         'style' => "",
     ],
     'ngreborn' => [
@@ -85,7 +85,7 @@ return [
             // Font size in pixels used in ChangesBar. (use only numbers)
             'font_size' => 20,
 
-            // Includes a field at the top of ChanesBar to filter the information displayed regardless of usage mode.
+            // Includes a field at the top of ChangesBar to filter the information displayed regardless of usage mode.
             // Useful when there are a lot of hosts.
             // 0 = NO.
             // 1 = YES.
@@ -102,7 +102,7 @@ return [
             'down' => 5
         ],
 
-        // Play alert when a server"s status changes to down?
+        // Play alert when a host's status changes to down?
         // To change the alert sound, simply replace the file "alert.mp3" in the resources folder
         // In some browsers it is necessary for user to interact with the page before it emits a sound, 
         // so an initial interaction is required for the alert to be played.
@@ -117,7 +117,10 @@ return [
         'update_animation' => 1,
 
         // The default icon style to be used when there is no specific definition;
-        // Pre-existing options: marker_retro, marker_shadow, marker_border, wifi_border_dark, wifi_border_light, router_border_dark, router_border_light
+        // Pre-existing options: marker_retro, marker_shadow, marker_border,
+        // wifi, wifi_border_dark, wifi_border_light, 
+        // router, router_border_dark, router_border_light
+        // server, server_border_dark, server_border_light
         // This option can be overridden by the definitions contained in resources/icons/custom_icons.json
         // Read more: https://github.com/jocafamaka/nagmapReborn/wiki/About-icons-styles
         'default_icon_style' => "marker_shadow",
