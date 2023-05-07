@@ -138,20 +138,12 @@ class NagmapReborn {
             $("#debug").html(`
             <a onclick="$('#debug_console').toggleClass('open');setTimeout(() => {$('#console_text').getNiceScroll().resize();}, 1006);" class="waves-effect waves-light btn btn-large cyan darken-3 button"><i class="material-icons left">featured_play_list</i>${i18next.t('debug_csl')}</a>
             `);
-            /* <a onclick="location.href='debugInfo/index.php'" class="waves-effect waves-light btn btn-large green darken-3 button"><i class="material-icons left">assignment</i>${i18next.t('debug_pg')}</a> */
             $("#console_text").niceScroll({
                 background: "rgba(0,0,0,0)",
                 cursorcolor: "rgba(9, 255, 0,0.75)",
                 cursorwidth: "4px",
                 cursorborder: "0px",
             });
-        }
-
-        if (config.allow_overwrite) {
-            this._u('Creating and loading overwrite panel.');
-            $("#debug").append(`
-            <a onclick="$('#modal_overwrite').modal().modal('open');" class="waves-effect waves-light btn btn-large blue darken-3 button" href="javascript:;"><i class="material-icons left">subtitles</i>${i18next.t('overwrite_pnl')}</a>
-            `);
         }
     }
 
@@ -162,17 +154,14 @@ class NagmapReborn {
     loadIcons() {
 
         if (config.icons == null) {
-            // this._u("Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.", false);
             throw i18next.t("load_icons_error") || "Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.";
         }
 
         if (config.custom_icons != null) {
             this._u(i18next.t("load_custom_icons") || "Loading custom icon definitions from custom_icons.json file.Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.");
             ["names", "hostgroups", "styles"].forEach(node => {
-                // console.log("NODE: ", node); //#DEBUG#
                 if (config.custom_icons.hasOwnProperty(node)) {
                     for (let subnode in config.custom_icons[node]) {
-                        // console.log("SUBNODE: ", subnode); //#DEBUG#
                         config.icons[node][subnode] = config.custom_icons[node][subnode];
                     }
                 }

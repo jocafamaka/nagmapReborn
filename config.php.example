@@ -117,8 +117,9 @@ return [
         'update_animation' => 1,
 
         // The default icon style to be used when there is no specific definition;
-        // Pre-existing options: marker_retro, marker_shadow, marker_border,
-        // wifi, wifi_border_dark, wifi_border_light, 
+        // Pre-existing options: 
+        // marker_retro, marker_shadow, marker_border
+        // wifi, wifi_border_dark, wifi_border_light 
         // router, router_border_dark, router_border_light
         // server, server_border_dark, server_border_light
         // This option can be overridden by the definitions contained in resources/icons/custom_icons.json

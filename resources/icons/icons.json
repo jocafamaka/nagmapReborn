@@ -1,6 +1,6 @@
 {
     "// WARNING !" : "Do not set customization on this file as it is overwritten with every update!",
-    "// WARNING !!" : "Define the customizations in the custom_icons.json file",
+    "// WARNING !!" : "See the example_custom_icons.json file",
 
     "styles": {
         "marker_retro": {
