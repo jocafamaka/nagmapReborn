@@ -4,6 +4,9 @@ include_once("functions.php");
 // Get list of all Nagios configuration files into an array
 $files = getConfigFiles();
 
+// List of hostgroups
+$hostgroups_list = [];
+
 // Read content of all Nagios configuration files into one huge array
 foreach ($files as $file) {
 	if (file_exists($file))
@@ -55,6 +58,10 @@ foreach ($data as $host) {
 				$hostgroups = explode(',', $value);
 				foreach ($hostgroups as $hostgroup) {
 					$hosts[$hostname]['hostgroups'][] = $hostgroup;
+
+					if (!in_array($hostgroup, $hostgroups_list)) {
+						$hostgroups_list[] = $hostgroup;
+					}
 				}
 			};
 			// another few information we are interested in - this is a user-defined nagios variable
@@ -69,7 +76,7 @@ unset($data);
 
 if (config('ngreborn.filter_hostgroup')) {
 	foreach ($hosts as $host) {
-		if (!in_array(config('ngreborn.filter_hostgroup'), $hosts[$host["host_name"]]['hostgroups'])) {
+		if (isset($hosts[$host["host_name"]]['hostgroups']) && !in_array(config('ngreborn.filter_hostgroup'), $hosts[$host["host_name"]]['hostgroups'])) {
 			unset($hosts[$host["host_name"]]);
 		}
 	}

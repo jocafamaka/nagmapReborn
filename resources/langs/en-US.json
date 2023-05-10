@@ -12,6 +12,7 @@
     "updateErrorChanges": "This type of error is usually related to the following problem: Host modifications, addition, removal or editing of names have occurred, in this case update the page.",
     "updateErrorSolved": "Issue solved, the statuses displayed are in real time.",
     "accessDenied": "Access denied, incorrect username and/or password! Reload the page and try again.",
+    "accessDeniedShort": "Access denied!",
     "alias": "Alias",
     "hostG": "Hostgroups",
     "newVersion": "Update available",
@@ -102,11 +103,13 @@
     "too_long": "This is taking too long, please refresh the page!",
     "too_long_details": "This error occurs when the initialization takes more than 50 seconds to complete, in this situation it is recommended to enable the debug to obtain the complete step-by-step report of the startup.",
     "as_filter": "Use as filter",
-    "not_released": "This is a rc (release candidate) version, it already has all the functionality of the final version, but it may contain minor bugs.<br><br>Its use is recommended only for testing and early users.<br><br>For use in production the <strong>stable version</strong> should be adopted.",
+    "not_released": "This is an alpha version, ie a version with features at an early stage of development and may contain serious runtime errors!<br><br>Its use is recommended for testing only.<br><br>For production use adopt the stable version.",
     "last_stable": "Get the latest stable version.",
     "details": "Details",
     "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> this browser is not compatible with NagmapReborn, please upgrade your browser or use a more modern one!",
     "ngr_init_error": "Failed to initialize class!",
     "load_icons_error": "Unable to load icon styles, please make sure that resources/icons/icons.json exists and is a valid json.",
-    "load_icon_style_error": "Could not find the ({{t}}) style, a fallback will be used."
+    "load_icon_style_error": "Could not find the ({{t}}) style, a fallback will be used.",
+    "load_custom_icons": "Loading custom icon definitions from custom_icons.json file.",
+    "overwrite_pnl": "Overwrite"
 }

@@ -64,17 +64,16 @@ include_once('src/NagmapReborn/ConfigLoader.php');
         // Setting initial parameters.
         var config = {},
             _paq = [],
-            i18nConfig = {},
-            generalStatus = 0,
             tp = null,
             tooLong = null,
             alertAudio = null,
-            waitConfigInterval,
-            _u,
+            realTime = true,
             firstRadial = 1,
+            generalStatus = 0,
             secondRadial = 44,
             direction = "up",
-            realTime = true,
+            waitConfigInterval,
+            _u,
             STATUS = {
                 GENERAL: {
                     accessDenied: -4,
@@ -89,6 +88,29 @@ include_once('src/NagmapReborn/ConfigLoader.php');
                     warning: 1,
                     critical: 2,
                     down: 3
+                },
+                COLORS: {
+                    up: "#007F00",
+                    warning: "#FFFF00",
+                    critical: "#D25700",
+                    down: "#C92A2A",
+                    unknown: "#A9ABAE"
+                }
+            },
+            i18nConfig = {
+                lng: "<?php echo config('ngreborn.language', 'en-US') ?>",
+                fallbackLng: 'en-US',
+                debug: <?php echo config('general.debug', 0) ?>,
+                resources: {
+                    "en-US": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/en-US.json") ?>
+                    },
+                    "pt-BR": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/pt-BR.json") ?>
+                    },
+                    "fr-FR": {
+                        translation: <?php echo file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/fr-FR.json") ?>
+                    },
                 }
             };
     </script>

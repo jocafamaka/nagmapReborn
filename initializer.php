@@ -18,12 +18,12 @@ if (!file_exists(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.lang
     if (isset($nagios_cfg_file))
         return jsonResponse(['error' => ["It looks like you just updated Nagmap Reborn, <b><a href='https://github.com/jocafamaka/nagmapReborn/wiki/Migrating-from-v1.6.x-to-v2.x.x' target='_blank'>see here</a></b> the changes that are necessary for version migration."]], 400);
     else
-        return jsonResponse(['error' => [sprintf("%s.json does not exist in the languages folder! Please set the proper LANG option in Nagmap Reborn config file!", config('ngreborn.language'))]], 400);
+        return jsonResponse(['error' => [sprintf("%s.json does not exist in the languages folder! Please set the proper ngreborn.language option in Nagmap Reborn config file!", config('ngreborn.language'))]], 400);
 }
 
 // Load language
 require_once(NGR_DOCUMENT_ROOT . "/src/NagmapReborn/i18n.class.php");
-$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache/");
+$i18n = new i18n(NGR_DOCUMENT_ROOT . "/resources/langs/" . config('ngreborn.language') . ".json", NGR_DOCUMENT_ROOT . "/cache");
 $i18n->init();
 
 $fails = [];
@@ -111,6 +111,9 @@ if (!is_int(config('ngreborn.reporting')) || (config('ngreborn.reporting') < 0) 
 
 
 // SECURITY
+if (!is_int(config('security.allow_overwrite')) || (config('security.allow_overwrite') < 0) || (config('security.allow_overwrite') > 1))
+    $fails[] = L::config_error("security.allow_overwrite", config('security.allow_overwrite'));
+
 if (!is_string(config('security.key')))
     $fails[] = L::config_error("security.key", config('security.key'));
 
@@ -144,16 +147,20 @@ if (!empty($fails)) {
 requiredAuth(config('security.use_auth'), config('security.user'), config('security.user_pass'), L::class);
 
 return jsonResponse([
-    "ngRebornVersion" => config('ngreborn.version'),
+    "ngr_version" => config('ngreborn.version'),
     "debug" => config('general.debug'),
-    "mapCenter" => [$centre[0], $centre[1]],
-    "mapDefaultZoom" => config('map.zoom'),
-    "mapTiles" => (config('map.style') == "" ? "//{s}.tile.osm.org/{z}/{x}/{y}.png" : config('map.style')),
     "locale" => config('ngreborn.language'),
-    "cbMode" => config('ngreborn.changes_bar.mode'),
-    "cbSize" => config('ngreborn.changes_bar.size'),
-    "cbFilter" => config('ngreborn.changes_bar.filter'),
-    "cbFontSize" => config('ngreborn.changes_bar.font_size'),
+    "map" => [
+        "center" => [$centre[0], $centre[1]],
+        "default_zoom" => config('map.zoom'),
+        "tiles" => config('map.style')
+    ],
+    "changes_bar" => [
+        "mode" => config('ngreborn.changes_bar.mode'),
+        "size" => config('ngreborn.changes_bar.size'),
+        "filter" => config('ngreborn.changes_bar.filter'),
+        "fonte_size" => config('ngreborn.changes_bar.font_size')
+    ],
     "priorities" => [
         'unknown' => config('ngreborn.priorities.unknown'),
         'up' => config('ngreborn.priorities.up'),
@@ -161,16 +168,19 @@ return jsonResponse([
         'critical' => config('ngreborn.priorities.critical'),
         'down' => config('ngreborn.priorities.down')
     ],
-    "soundAlert" => config('ngreborn.play_sound'),
-    "updateAnimation" => config('ngreborn.update_animation'),
+    "sound_alert" => config('ngreborn.play_sound'),
+    "update_animation" => config('ngreborn.update_animation'),
     "defaultIconStyle" => config('ngreborn.default_icon_style'),
     "icons" => json_decode(@file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/icons/icons.json")),
-    "showLines" => config('ngreborn.lines'),
-    "updateTime" => config('ngreborn.time_update'),
-    "secKey" => config('security.key'),
-    "defaultAuth" => checkDefaultAuth(config('security.use_auth'), config('security.user'), config('security.user_pass')),
+    "custom_icons" => json_decode(@file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/icons/custom_icons.json")),
+    "show_lines" => config('ngreborn.lines'),
+    "update_time" => config('ngreborn.time_update'),
+    "secret_key" => config('security.key'),
+    "allow_overwrite" => config('security.allow_overwrite'),
+    "default_auth" => checkDefaultAuth(config('security.use_auth'), config('security.user'), config('security.user_pass')),
     "reporting" => config('ngreborn.reporting'),
     "domain" => config('ngreborn.domain'),
-    "initialHosts" => (isset($final_hosts) ? $final_hosts : []),
+    "initial_hosts" => (isset($final_hosts) ? $final_hosts : []),
+    "hostgroups" => (isset($hostgroups_list) ? $hostgroups_list : []),
     "translation" => json_decode(file_get_contents(NGR_DOCUMENT_ROOT .  "/resources/langs/" . config('ngreborn.language') . ".json"))
 ]);

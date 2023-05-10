@@ -6,7 +6,7 @@ Making it possible to easily and visually identify the status of what is monitor
 
 <sub>Nagmap Reborn is based on Nagmap project developed by [Marcel Hecko](https://github.com/hecko).</sub>
 
-## v2.0.0
+## v2.x.x
 This version brings significant logical changes, being a break-point in the API compatibility between v1.x.x and v2.x.x.
 
 With these changes it was possible to achieve the following objectives:
@@ -34,13 +34,6 @@ Currently Nagmap Reborn can easily integrate directly with:
 
 <sub>It is possible to integrate with other systems that have the structure similar to these, if it worked with some other server monitoring system please let me know!</sub>
 
-## Live preview (Coming soon)
-<p align="center"> 
-  <kbd>
-    <img src="https://i.imgur.com/4igZSkB.gif">
-  </kbd>
-</p>
-
 ## Contribution
 
 Contribution are always **welcome and recommended**! Here is how:
@@ -57,14 +50,3 @@ You can [see here](https://github.com/jocafamaka/nagmapReborn/wiki/) the Wiki / 
 ## Terms of use (Leaflet / OpenStreetMap)
 * By using this API Implementation, your are agreeing to be bound by Leaflet and OpenStreetMap Terms of Use.
 * This app uses the OpenStreetMap's tiles. [See here](https://wiki.osmfoundation.org/wiki/Privacy_Policy) the privacy policy.
-
-## Donation
-As an Information Systems student about to graduate me, I use my free time to bring updates and improvements to the project, without any financial purpose.
-
-So if you like this project, help me to continue development and free support, buy me a coffee:
-
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G6E995UWUM2J6&item_name=Buy+me+a+coffee&currency_code=BRL&source=url)
-
-<p align="center"> 
-    <img src="https://media.giphy.com/media/UqTEN18TcQniWLWQBM/giphy.gif">
-</p>

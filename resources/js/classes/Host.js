@@ -5,46 +5,47 @@
  ******************************************************************************************/
 
 class Host {
-	constructor(h, data, icons, oms) {
+	constructor(h, data, oms) {
 		this._u(`Creating host {${h}} at {${data.latlng}}.`);
 		this.alias = data.alias;
+		this.hostName = data.host_name;
 		this.latlng = new L.latLng((data.latlng).split(","));
 		this.currentStatus = data.status;
-		this.marker = this.createMarker(data, icons, oms);
 		this.parents = data.parents;
+		this.hostgroups = data.hostgroups;
+		this.iconStyle = this.getIconStyle();
+		this.marker = this.createMarker(data, oms);
 		this.lines = [];
 	}
 
 
 	/**
 	 * Responsible for creating the host marker and infoWindow. 
-     * @return Marker mark
-     */
-	createMarker(data, icons, oms) {
-
-		let icon = icons.grey;
+	 * @return Marker mark
+	 */
+	createMarker(data, oms) {
+		let icon = config.icons.styles[this.iconStyle].grey;
 		let zIndex = (config.priorities.unknown * 1000);
 
 		if (this.currentStatus === STATUS.HOSTS.up) {
-			icon = icons.green;
+			icon = config.icons.styles[this.iconStyle].green;
 			zIndex = (config.priorities.up * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.warning) {
-			icon = icons.yellow;
+			icon = config.icons.styles[this.iconStyle].yellow;
 			zIndex = (config.priorities.warning * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.critical) {
-			icon = icons.orange;
+			icon = config.icons.styles[this.iconStyle].orange;
 			zIndex = (config.priorities.critical * 1000);
 		} else if (this.currentStatus === STATUS.HOSTS.down) {
-			icon = icons.red;
+			icon = config.icons.styles[this.iconStyle].red;
 			zIndex = (config.priorities.down * 1000);
 		}
 
 		let hostgroups = "";
 		let parents = "";
 
-		data.hostgroups.forEach(e => {
-			hostgroups += `${e}<br>`;
-		});
+		if (data.hostgroups)
+			data.hostgroups.forEach(e => { hostgroups += `${e}<br>`; });
 
 		if (data.parents) {
 			data.parents.forEach(e => {
@@ -63,7 +64,7 @@ class Host {
 				<div class="bubble">
 					<h5><strong>${data.nagios_host_name}</strong></h5>
 					<table>
-						<tr ${(config.cbFilter && config.cbMode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}" onclick="$('#filter_str').val($(this).children().next().next().text());M.updateTextFields();nagmapReborn.search();"` : ""}><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
+						<tr ${(config.changes_bar.filter && config.changes_bar.mode) ? `class="filter" data-tippy-content="${i18next.t('as_filter')}" onclick="$('#filter_str').val($(this).children().next().next().text());M.updateTextFields();nagmapReborn.search();"` : ""}><td><strong>${i18next.t('alias')}</strong></td><td>:</td><td>${data.alias}</td></tr>
 						<tr><td><strong>${i18next.t('hostG')}</strong></td><td>:</td><td>${hostgroups}</td></tr>
 						<tr class="address" data-tippy-content="<a class='address-link' target='_blank' href='http://${data.address}'>http <img src='${base64White}' alt='Link' ></a> | <a class='address-link' target='_blank' href='https://${data.address}'>https <img src='${base64White}' alt='Link' /></a></strong>"><td><strong>${i18next.t('address')}</strong></td><td>:</td><td><i>${data.address}</i> <img src='${base64Black}' alt='Link' /></td></tr>
 						<tr><td><strong>${i18next.t('parent')}</strong></td><td>:</td><td>${parents}</td></tr>
@@ -79,33 +80,100 @@ class Host {
 	}
 
 	/**
-     * Responsible for update a host icon and lines. 
-     * @return undefined
-     */
-	updateStatus(icon, time, zIndex, color) {
+	 * Responsible for update a host icon and lines. 
+	 * @return undefined
+	 */
+	updateStatus(newStatus) {
+		if (this.currentStatus != newStatus) {
+			_u(`Update {${this.alias}} to status {${newStatus}}`);
 
-		this.marker.setIcon(icon);
-		this.marker.setZIndexOffset(zIndex * 1000);
+			let time = 1;
+			let color = STATUS.COLORS.unknown;
+			let zIndex = config.priorities.unknown;
+			let icon = config.icons.styles[this.iconStyle].grey;
 
-		if (typeof this.marker._omsData != 'undefined')
-			this.marker._omsData.usualZindex = zIndex * 1000;
+			if (newStatus === STATUS.HOSTS.up) {
+				icon = config.icons.styles[this.iconStyle].green;
+				zIndex = config.priorities.up;
+				color = STATUS.COLORS.up;
+			} else if (newStatus === STATUS.HOSTS.warning) {
+				icon = config.icons.styles[this.iconStyle].yellow;
+				zIndex = config.priorities.warning;
+				color = STATUS.COLORS.warning;
+			} else if (newStatus === STATUS.HOSTS.critical) {
+				icon = config.icons.styles[this.iconStyle].orange;
+				zIndex = config.priorities.critical;
+				color = STATUS.COLORS.critical;
+			} else if (newStatus === STATUS.HOSTS.down) {
+				icon = config.icons.styles[this.iconStyle].red;
+				zIndex = config.priorities.down;
+				color = STATUS.COLORS.down;
+				time = 20;
+				if (config.sound_alert)
+					config.alertSound.play();
+			}
 
-		this.lines.forEach(line => {
-			line.setStyle({ color: color });
-		});
+			this.currentStatus = newStatus;
+			this.marker.setIcon(icon);
+			this.marker.setZIndexOffset(zIndex * 1000);
 
-		if (config.updateAnimation) {
-			if (this.marker.isBouncing())
-				this.marker.stopBouncing();
-			else
-				this.marker.bounce(time);
+			if (typeof this.marker._omsData != 'undefined')
+				this.marker._omsData.usualZindex = zIndex * 1000;
+
+			this.lines.forEach(line => {
+				line.setStyle({ color: color });
+			});
+
+			if (config.update_animation) {
+				if (this.marker.isBouncing())
+					this.marker.stopBouncing();
+				else
+					this.marker.bounce(time);
+			}
 		}
 	}
 
 	/**
-     * Decorator to debug console. 
-     * @return undefined
-     */
+	 * Define the host icon style
+	 * @returns string
+	 */
+	getIconStyle() {
+		let iconStyle = null;
+
+		if (this.hostName in config.icons.names) {
+			iconStyle = config.icons.names[this.hostName];
+		}
+
+		if (iconStyle == null && this.hostgroups) {
+			for (let i = 0; i < this.hostgroups.length; ++i) {
+				if (this.hostgroups[i] in config.icons.hostgroups) {
+					iconStyle = config.icons.hostgroups[this.hostgroups[i]];
+					break;
+				}
+			}
+		}
+
+		if (iconStyle == null) {
+			iconStyle = config.defaultIconStyle;
+		}
+
+		if (!(iconStyle in config.icons.styles)) {
+			_u(i18next.t("load_icon_style_error", { t: iconStyle }), false);
+
+			if (!config.icons.styles.hasOwnProperty(config.defaultIconStyle)) {
+				_u(i18next.t("load_icon_style_error", { t: config.defaultIconStyle }), false);
+				config.defaultIconStyle = "marker_shadow";
+			} else
+				iconStyle = config.defaultIconStyle;
+		}
+
+		return iconStyle;
+	}
+
+	/**
+	 * Decorator to debug console. 
+	 * @return undefined
+	 */
 	_u(msg) {
 		_u(`(${this.constructor.name}): ${msg}`);
 	}

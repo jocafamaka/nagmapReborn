@@ -12,6 +12,7 @@
     "updateErrorChanges": "Ce type d'erreur est généralement lié au problème suivant: Des modifications de l'hôte, l'ajout, la suppression ou la modification de noms ont eu lieu. Dans ce cas, mettez à jour la page.",
     "updateErrorSolved": "Problème résolu, les statuts affichés le sont en temps réel.",
     "accessDenied": "Accès refusé, nom d'utilisateur et / ou mot de passe incorrect! Rechargez la page et réessayez.",
+    "accessDeniedShort": "Accès refusé!",
     "alias": "Alias",
     "hostG": "Groupes d'hôtes",
     "newVersion": "Mise à jour disponible",
@@ -102,11 +103,13 @@
     "too_long": "Cela prend trop de temps, veuillez rafraîchir la page!",
     "too_long_details": "Cette erreur se produit lorsque l'initialisation prend plus de 50 secondes pour se terminer, dans cette situation, il est recommandé d'activer le débogage pour obtenir le rapport étape par étape complet du démarrage.",
     "as_filter": "Utiliser comme filtre",
-    "not_released": "Il s'agit d'une version rc (release candidate), elle possède déjà toutes les fonctionnalités de la version finale, mais elle peut contenir des bugs mineurs.<br><br>Son utilisation est recommandée uniquement pour les tests et les premiers utilisateurs.<br><br>Pour une utilisation en production, la <strong>version stable</strong> doit être adoptée.",
+    "not_released": "Il s'agit d'une version alpha, c'est-à-dire une version avec des fonctionnalités à un stade précoce de développement et pouvant contenir de graves erreurs d'exécution !<br><br> Son utilisation est recommandée uniquement pour les tests.<br><br> Pour une utilisation en production, adoptez la version stable version.",
     "last_stable": "Obtenez la dernière version stable.",
     "details": "Détails",
     "unsupported_browser": "<i class='material-icons' style='font-size: 5vh;'>warning</i> ce navigateur n'est pas compatible avec NagmapReborn, veuillez mettre à jour votre navigateur ou utiliser un plus moderne!",
     "ngr_init_error": "Impossible d'initialiser la classe!",
     "load_icons_error": "Impossible de charger les styles d'icônes, veuillez vous assurer que resources/icons/icons.json existe et est un json valide.",
-    "load_icon_style_error": "Impossible de trouver le style ({{t}}), une solution de repli sera utilisée."
+    "load_icon_style_error": "Impossible de trouver le style ({{t}}), une solution de repli sera utilisée.",
+    "load_custom_icons": "Chargement des définitions d'icônes personnalisées à partir du fichier custom_icons.json",
+    "overwrite_pnl": "Écraser"
 }
