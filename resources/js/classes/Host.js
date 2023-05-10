@@ -138,9 +138,13 @@ class Host {
 	 * @returns string
 	 */
 	getIconStyle() {
-		let iconStyle = config.defaultIconStyle;
+		let iconStyle = null;
 
-		if (this.hostgroups) {
+		if (this.hostName in config.icons.names) {
+			iconStyle = config.icons.names[this.hostName];
+		}
+
+		if (iconStyle == null && this.hostgroups) {
 			for (let i = 0; i < this.hostgroups.length; ++i) {
 				if (this.hostgroups[i] in config.icons.hostgroups) {
 					iconStyle = config.icons.hostgroups[this.hostgroups[i]];
@@ -149,8 +153,8 @@ class Host {
 			}
 		}
 
-		if (this.hostName in config.icons.names) {
-			iconStyle = config.icons.names[this.hostName];
+		if (iconStyle == null) {
+			iconStyle = config.defaultIconStyle;
 		}
 
 		if (!(iconStyle in config.icons.styles)) {

@@ -1,15 +1,18 @@
 {
-    "// READ": "For this to work make the necessary changes, rename this file to custom_icons.json and then you can delete this lines",
-    "// DOCS": "https://github.com/jocafamaka/nagmapReborn/wiki/About-icons-styles",
-
+    "// READ": "For this to work make the necessary changes, rename this file to custom_icons.json and then you can delete all the lines starting with '//' and examples",
+    
+    "// DOCS: Dynamic icons": "https://github.com/jocafamaka/nagmapReborn/wiki/About-icon-styles#dynamic-icons",
     "names": {
-        "THE EXACT NAME OF A HOST": "Name of a style where. You can use one of the pre-existing styles too, see in icons.json"
+        "Exact name of a style here (pre-existing or custom)": "THE EXACT NAME OF A HOST",
+        "Exact name of other style here (pre-existing or custom)": ["THE EXACT NAME OF A HOST 1", "THE EXACT NAME OF A HOST 2"]
     },
     
     "hostgroups": {
-        "THE EXACT NAME OF A HOSTGROUP": "Name of a other style where"
+        "Exact name of a style here (pre-existing or custom)": "THE EXACT NAME OF A HOSTGROUP",
+        "Exact name of other style here (pre-existing or custom)": ["THE EXACT NAME OF A HOSTGROUP 1", "THE EXACT NAME OF A HOSTGROUP 2"]
     },
-
+    
+    "// DOCS: Custom styles": "https://github.com/jocafamaka/nagmapReborn/wiki/About-icon-styles",
     "styles": {
         "some_custom_style": {
             "grey": {
@@ -30,6 +33,28 @@
             },
             "red": {
                 "iconUrl": "custom_style_folder/Red.png",
+                "iconSize": [29, 43]
+            }
+        },
+        "another_custom_style": {
+            "grey": {
+                "iconUrl": "another_custom_style_folder/Grey.png",
+                "iconSize": [29, 43]
+            },
+            "green": {
+                "iconUrl": "another_custom_style_folder/Green.png",
+                "iconSize": [29, 43]
+            },
+            "yellow": {
+                "iconUrl": "another_custom_style_folder/Yellow.png",
+                "iconSize": [29, 43]
+            },
+            "orange": {
+                "iconUrl": "another_custom_style_folder/Orange.png",
+                "iconSize": [29, 43]
+            },
+            "red": {
+                "iconUrl": "another_custom_style_folder/Red.png",
                 "iconSize": [29, 43]
             }
         }

@@ -162,7 +162,14 @@ class NagmapReborn {
             ["names", "hostgroups", "styles"].forEach(node => {
                 if (config.custom_icons.hasOwnProperty(node)) {
                     for (let subnode in config.custom_icons[node]) {
-                        config.icons[node][subnode] = config.custom_icons[node][subnode];
+                        if (Array.isArray(config.custom_icons[node][subnode])) {
+                            config.custom_icons[node][subnode].forEach(subsubnode => {
+                                config.icons[node][subsubnode] = subnode;
+                            })
+                        }
+                        else {
+                            config.icons[node][config.custom_icons[node][subnode]] = subnode;
+                        }
                     }
                 }
             });

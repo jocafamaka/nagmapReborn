@@ -123,7 +123,7 @@ return [
         // router, router_border_dark, router_border_light
         // server, server_border_dark, server_border_light
         // This option can be overridden by the definitions contained in resources/icons/custom_icons.json
-        // Read more: https://github.com/jocafamaka/nagmapReborn/wiki/About-icons-styles
+        // Read more: https://github.com/jocafamaka/nagmapReborn/wiki/About-icon-styles
         'default_icon_style' => "marker_shadow",
 
         // Show lines between hosts and their parents.
