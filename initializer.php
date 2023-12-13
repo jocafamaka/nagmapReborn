@@ -64,6 +64,15 @@ if (!is_string(config('ngreborn.filter_hostgroup')))
 if (!is_string(config('ngreborn.filter_service')))
     $fails[] = L::config_error("ngreborn.filter_service", config('ngreborn.filter_service'));
 
+if (!(is_float(config('ngreborn.info_popup.width')) || is_int(config('ngreborn.info_popup.width'))))
+    $fails[] = L::config_error("ngreborn.info_popup.width", config('ngreborn.info_popup.width'));
+
+if (!is_string(config('ngreborn.info_popup.extra_fields.text')))
+    $fails[] = L::config_error("ngreborn.info_popup.extra_fields.text", config('ngreborn.info_popup.extra_fields.text'));
+
+if (!is_string(config('ngreborn.info_popup.extra_fields.link')))
+    $fails[] = L::config_error("ngreborn.info_popup.extra_fields.link", config('ngreborn.info_popup.extra_fields.link'));
+
 if ((!is_int(config('ngreborn.changes_bar.mode'))) || (config('ngreborn.changes_bar.mode') < 0) || (config('ngreborn.changes_bar.mode') > 3))
     $fails[] = L::config_error("ngreborn.changes_bar.mode", config('ngreborn.changes_bar.mode'));
 
@@ -154,6 +163,9 @@ return jsonResponse([
         "center" => [$centre[0], $centre[1]],
         "default_zoom" => config('map.zoom'),
         "tiles" => config('map.style')
+    ],
+    "info_popup" => [
+        "width" => config('ngreborn.info_popup.width'),
     ],
     "changes_bar" => [
         "mode" => config('ngreborn.changes_bar.mode'),

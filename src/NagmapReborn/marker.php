@@ -28,6 +28,44 @@ foreach ($data as $host) {
 		$hosts[$hostname]['nagios_host_name'] = $host["host_name"];
 		$hosts[$hostname]['alias'] = $host["alias"];
 
+		if (!empty(config('ngreborn.info_popup.extra_fields.text'))) {
+			$extra_text_fields = explode("||", config('ngreborn.info_popup.extra_fields.text'));
+
+			foreach ($extra_text_fields as $extra_text_field) {
+
+				$parts_extra_text_field = explode(";;", $extra_text_field);
+
+				if (array_key_exists($parts_extra_text_field[0], $host)) {
+					$hosts[$hostname]['extra_fields'][] = [
+						"name" => count($parts_extra_text_field) == 2 ? $parts_extra_text_field[1] : $parts_extra_text_field[0],
+						"value" => $host[$parts_extra_text_field[0]],
+						"type" => "text"
+					];
+				}
+			}
+		}
+
+		if (!empty(config('ngreborn.info_popup.extra_fields.link'))) {
+			$extra_link_fields = explode("||", config('ngreborn.info_popup.extra_fields.link'));
+
+			foreach ($extra_link_fields as $extra_link_field) {
+
+				$parts_extra_link_field = explode(";;", $extra_link_field);
+
+				if (array_key_exists($parts_extra_link_field[0], $host)) {
+					$hosts[$hostname]['extra_fields'][] = [
+						"name" => count($parts_extra_link_field) == 2 ? $parts_extra_link_field[1] : $parts_extra_link_field[0],
+						"value" => $host[$parts_extra_link_field[0]],
+						"type" => "link"
+					];
+				}
+			}
+		}
+
+
+		if (!empty(config('ngreborn.info_popup.extra_fields.text'))) {
+		}
+
 		// iterate for every option for the host
 		foreach ($host as $option => $value) {
 			// get parents information

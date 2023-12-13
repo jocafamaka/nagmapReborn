@@ -174,7 +174,7 @@ function init() {
         // Open hosts infoWindow
         openPopup = function (marker) {
             var marker = (typeof marker == 'string') ? nagmapReborn.hosts[marker].marker : marker;
-            marker.bindPopup(marker.options.popupContent);
+            marker.bindPopup(L.popup({ maxWidth: window.config.info_popup.width, minWidth: window.config.info_popup.width }).setContent(marker.options.popupContent));
             marker.openPopup();
 
             tippy('.filter', {
@@ -182,7 +182,7 @@ function init() {
                 interactive: true
             });
 
-            tippy('.address', {
+            tippy('.link-field', {
                 arrow: true,
                 placement: 'bottom',
                 interactive: true
@@ -201,6 +201,7 @@ function init() {
         _u("Initializing Nagmap Reborn class.");
 
         window.nagmapReborn = new NagmapReborn();
+        window.config.info_popup.width = ((window.config.info_popup.width > 1000) || (window.config.info_popup.width < 190)) ? 190 : window.config.info_popup.width;
 
     } catch (e) {
         Utils.initErrorHandler(e);

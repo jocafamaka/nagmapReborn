@@ -71,6 +71,31 @@ return [
         // Leave empty for not filtering
         'filter_service' => "",
 
+        'info_popup' => [
+
+            // Pop-up info width in pixels (use only numbers, min: 190 max: 1000)
+            'width' => 190,
+
+            // Choose which extra cfg field you would like to display in the host bubble
+            'extra_fields' =>   [
+
+                // Expected format: field_name;;Display Name
+                // field_name: Name of the field inside the .cfg file
+                // Display Name: Name that should be displayed in the interface (optional)
+
+                // You can set mutiple fields separated by double pipe: ||
+                // Example: 'field_name;;Display Name 1||field_name_2;;Display Name 2||field_name_3'
+
+                // Extra text fields
+                // Displayed as plain text
+                'text' => '',
+
+                // Extra link fields
+                // Displayed as a link element (open in another tab)
+                'link' => '',
+            ],
+        ],
+
         'changes_bar' => [
             // Select ChangesBar mode
             // 0 = Off.
